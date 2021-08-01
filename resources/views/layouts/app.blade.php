@@ -11,46 +11,22 @@
     <title>{{ config('app.name', 'Ellatech') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <!-- <script src="{{ asset('js/app.js') }}" defer></script> -->
 
  <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <style>
-            html, body {
-               
-                background-image: url("images/pattern.png");
-            }
+ <!-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> -->
 
-          .card-body {
-    -webkit-box-flex: 1;
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto;
-    min-height: 1px;
-    padding: 1.25rem;
-    
-     background-color: #e76224;
-    
+ 
 
-}
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet" />
 
-.card-header {
-  padding: 0.75rem 1.25rem;
-  margin-bottom: 0;
-  background-color: rgba(0, 0, 0, 0.03);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-  /* background-color: #e76224; */
-  background-color: #2b2d72;
-}
-.justify-content-center {
-    -webkit-box-pack: center !important;
-    align-content: center;
-    margin-top: 259px;
-    -ms-flex-pack: center !important;
-    justify-content: center !important;
-}
+<link href="css/bootstrap-theme.css" rel="stylesheet" />
 
-      
-        </style>
+
+    <!-- Custom styles -->
+    <link href="css/login.css" rel="stylesheet" />
+  
 </head>
 <body>
     <div id="app">

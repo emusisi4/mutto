@@ -930,17 +930,17 @@
                       <th>BRANCH</th>
                      
                       <th>OPENNING</th>
-                      <th v-if=" soccergameproduct > 0  ">S-SALES</th>
-                      <th v-if=" soccergameproduct > 0  "> S-PAYOUT</th>
-                      <th v-if=" virtualgameproduct > 0  ">V-SALES</th>
-                      <th v-if=" virtualgameproduct > 0  ">V- CANCELLED</th>
-                      <th v-if=" virtualgameproduct > 0  ">V-REDEEMED</th>
-                      <th v-if=" virtualgameproduct > 0  ">V-PROFIT</th>
-                      <th v-if=" fishgameproduct > 0  ">FISH SALES</th>
-                      <th v-if=" fishgameproduct > 0  ">FISH PAYOUT</th>
-                      <th v-if=" fishgameproduct > 0  ">FISH INCOME</th>
-                      <th>CASH-IN</th>
-                      <th>CASH-OUT</th>
+                      <th v-if=" soccergameproduct > 0  ">S-SALES  ({{currencydetails }})</th>
+                      <th v-if=" soccergameproduct > 0  "> S-PAYOUT  ({{currencydetails }})</th>
+                      <th v-if=" virtualgameproduct > 0  ">V-SALES  ({{currencydetails }})</th>
+                      <th v-if=" virtualgameproduct > 0  ">V- CANCELLED  ({{currencydetails }})</th>
+                      <th v-if=" virtualgameproduct > 0  ">V-REDEEMED ({{currencydetails }})</th>
+                      <th v-if=" virtualgameproduct > 0  ">V-PROFIT ({{currencydetails }})</th>
+                      <th v-if=" fishgameproduct > 0  ">FISH SALES ({{currencydetails }})</th>
+                      <th v-if=" fishgameproduct > 0  ">FISH PAYOUT ({{currencydetails }})</th>
+                      <th v-if=" fishgameproduct > 0  ">FISH INCOME ({{currencydetails }})</th>
+                      <th>CASH-IN ({{currencydetails }})</th>
+                      <th>CASH-OUT ({{currencydetails }})</th>
                       
                       
                       <th>AMOUNT TO COLLECT ({{currencydetails}})</th>
@@ -959,23 +959,23 @@
                     
                        <td>    <template v-if="shobalrecs.branchin_balance">	{{shobalrecs.branchin_balance.branchname}}</template></td>
                          
-                               <td>{{currencydetails }} {{formatPrice(shobalrecs.opbalance)}}</td>
-                               <td v-if=" soccergameproduct > 0  ">{{currencydetails }}  {{formatPrice(shobalrecs.scsales)}}</td>
-                       <td v-if=" soccergameproduct > 0  ">{{currencydetails }} {{formatPrice(shobalrecs.scpayout)}}</td>
-                       <td v-if=" virtualgameproduct > 0  ">{{currencydetails }} {{formatPrice(shobalrecs.vsales)}}</td>
-                       <td v-if=" virtualgameproduct > 0  ">{{currencydetails }} {{formatPrice(shobalrecs.vcan)}}</td>
-                       <td v-if=" virtualgameproduct > 0  ">{{currencydetails }} {{formatPrice(shobalrecs.vpay)}}</td>
+                               <td>{{formatPrice(shobalrecs.opbalance)}}</td>
+                               <td v-if=" soccergameproduct > 0  "> {{formatPrice(shobalrecs.scsales)}}</td>
+                       <td v-if=" soccergameproduct > 0  ">{{formatPrice(shobalrecs.scpayout)}}</td>
+                       <td v-if=" virtualgameproduct > 0  ">{{formatPrice(shobalrecs.vsales)}}</td>
+                       <td v-if=" virtualgameproduct > 0  ">{{formatPrice(shobalrecs.vcan)}}</td>
+                       <td v-if=" virtualgameproduct > 0  ">{{formatPrice(shobalrecs.vpay)}}</td>
                        
-                    <td v-if=" virtualgameproduct > 0  ">{{currencydetails }} {{formatPrice((shobalrecs.vprof))}}</td>
+                    <td v-if=" virtualgameproduct > 0  ">{{formatPrice((shobalrecs.vprof))}}</td>
 
-                    <td v-if=" fishgameproduct > 0  ">{{currencydetails }} {{formatPrice((shobalrecs.fishsales)*500)}}</td>
-                    <td v-if=" fishgameproduct > 0  ">{{currencydetails }} {{formatPrice((shobalrecs.fishpayout)*500)}}</td>
-                    <td v-if=" fishgameproduct > 0  ">{{currencydetails }} {{formatPrice((shobalrecs.fishincome))}}  </td>
+                    <td v-if=" fishgameproduct > 0  ">{{formatPrice((shobalrecs.fishsales)*500)}}</td>
+                    <td v-if=" fishgameproduct > 0  ">{{formatPrice((shobalrecs.fishpayout)*500)}}</td>
+                    <td v-if=" fishgameproduct > 0  ">{{formatPrice((shobalrecs.fishincome))}}  </td>
 
 <!-- ({{ ((( ((shobalrecs.fishpayout*500) /(shobalrecs.fishsales*500) | round))))*100}}%) -->
 
-                     <td >{{currencydetails }} {{formatPrice((shobalrecs.cashin))}}</td>
-                     <td >{{currencydetails }} {{formatPrice((shobalrecs.cashout))}}</td>
+                     <td >{{formatPrice((shobalrecs.cashin))}}</td>
+                     <td >{{formatPrice((shobalrecs.cashout))}}</td>
                    <td>{{formatPrice((shobalrecs.collection))}}  </td>
           
                           
@@ -1046,21 +1046,21 @@
                       <th>BRANCH</th>
                      
                       <th>OPENNING</th>
-                      <th v-if=" soccergameproduct > 0  ">S-SALES</th>
-                      <th v-if=" soccergameproduct > 0  "> S-PAYOUT</th>
-                      <th v-if=" virtualgameproduct > 0  ">V-SALES</th>
-                      <th v-if=" virtualgameproduct > 0  ">V- CANCELLED</th>
-                      <th v-if=" virtualgameproduct > 0  ">V-REDEEMED</th>
-                      <th v-if=" virtualgameproduct > 0  ">V-PROFIT</th>
-                      <th v-if=" fishgameproduct > 0  ">FISH SALES</th>
-                      <th v-if=" fishgameproduct > 0  ">FISH PAYOUT</th>
-                      <th v-if=" fishgameproduct > 0  ">FISH INCOME</th>
-                      <th>CASH-IN</th>
-                      <th>CASH-OUT</th>
-                      <th>EXPENSES</th>
+                      <th v-if=" soccergameproduct > 0  ">S-SALES ({{currencydetails }})</th>
+                      <th v-if=" soccergameproduct > 0  "> S-PAYOUT ({{currencydetails }})</th>
+                      <th v-if=" virtualgameproduct > 0  ">V-SALES ({{currencydetails }})</th>
+                      <th v-if=" virtualgameproduct > 0  ">V- CANCELLED ({{currencydetails }})</th>
+                      <th v-if=" virtualgameproduct > 0  ">V-REDEEMED ({{currencydetails }})</th>
+                      <th v-if=" virtualgameproduct > 0  ">V-PROFIT ({{currencydetails }})</th>
+                      <th v-if=" fishgameproduct > 0  ">FISH SALES ({{currencydetails }})</th>
+                      <th v-if=" fishgameproduct > 0  ">FISH PAYOUT ({{currencydetails }})</th>
+                      <th v-if=" fishgameproduct > 0  ">FISH INCOME ({{currencydetails }})</th>
+                      <th>CASH-IN ({{currencydetails }})</th>
+                      <th>CASH-OUT ({{currencydetails }})</th>
+                      <th>EXPENSES  ({{currencydetails }})</th>
                       
-                      <th>CLOSING</th>
-                       <th>SHORTAGE</th>
+                      <th>CLOSING  ({{currencydetails }})</th>
+                       <th>SHORTAGE ({{currencydetails }}) </th>
                      <th >  </th>
                     </tr>
                   </thead>
@@ -1075,37 +1075,37 @@
                     
                        <td>    <template v-if="shobalrecs.branchin_balance">	{{shobalrecs.branchin_balance.branchname}}</template></td>
                          
-                               <td>{{currencydetails }} {{formatPrice(shobalrecs.opbalance)}}</td>
-                               <td v-if=" soccergameproduct > 0  ">{{currencydetails }}  {{formatPrice(shobalrecs.scsales)}}</td>
-                       <td v-if=" soccergameproduct > 0  ">{{currencydetails }} {{formatPrice(shobalrecs.scpayout)}}</td>
-                       <td v-if=" virtualgameproduct > 0  ">{{currencydetails }} {{formatPrice(shobalrecs.vsales)}}</td>
-                       <td v-if=" virtualgameproduct > 0  ">{{currencydetails }} {{formatPrice(shobalrecs.vcan)}}</td>
-                       <td v-if=" virtualgameproduct > 0  ">{{currencydetails }} {{formatPrice(shobalrecs.vpay)}}</td>
+                               <td>{{formatPrice(shobalrecs.opbalance)}}</td>
+                               <td v-if=" soccergameproduct > 0  "> {{formatPrice(shobalrecs.scsales)}}</td>
+                       <td v-if=" soccergameproduct > 0  ">{{formatPrice(shobalrecs.scpayout)}}</td>
+                       <td v-if=" virtualgameproduct > 0  ">{{formatPrice(shobalrecs.vsales)}}</td>
+                       <td v-if=" virtualgameproduct > 0  ">{{formatPrice(shobalrecs.vcan)}}</td>
+                       <td v-if=" virtualgameproduct > 0  ">{{formatPrice(shobalrecs.vpay)}}</td>
                        
-                    <td v-if=" virtualgameproduct > 0  ">{{currencydetails }} {{formatPrice((shobalrecs.vprof))}}</td>
+                    <td v-if=" virtualgameproduct > 0  ">{{formatPrice((shobalrecs.vprof))}}</td>
 
-                    <td v-if=" fishgameproduct > 0  ">{{currencydetails }} {{formatPrice((shobalrecs.fishsales)*500)}}</td>
-                    <td v-if=" fishgameproduct > 0  ">{{currencydetails }} {{formatPrice((shobalrecs.fishpayout)*500)}}</td>
-                    <td v-if=" fishgameproduct > 0  ">{{currencydetails }} {{formatPrice((shobalrecs.fishincome))}}  </td>
+                    <td v-if=" fishgameproduct > 0  ">{{formatPrice((shobalrecs.fishsales)*500)}}</td>
+                    <td v-if=" fishgameproduct > 0  ">{{formatPrice((shobalrecs.fishpayout)*500)}}</td>
+                    <td v-if=" fishgameproduct > 0  ">{{formatPrice((shobalrecs.fishincome))}}  </td>
 
 <!-- ({{ ((( ((shobalrecs.fishpayout*500) /(shobalrecs.fishsales*500) | round))))*100}}%) -->
 
-                     <td >{{currencydetails }} {{formatPrice((shobalrecs.cashin))}}</td>
-                     <td >{{currencydetails }} {{formatPrice((shobalrecs.cashout))}}</td>
-                     <td >{{currencydetails }} {{((shobalrecs.expenses))}}</td>
-                     <td >{{currencydetails }} {{formatPrice((shobalrecs.clcash))}}</td>
+                     <td >{{formatPrice((shobalrecs.cashin))}}</td>
+                     <td >{{formatPrice((shobalrecs.cashout))}}</td>
+                     <td >{{((shobalrecs.expenses))}}</td>
+                     <td >{{formatPrice((shobalrecs.clcash))}}</td>
                           
 
                             <td>
                               <div v-if="((shobalrecs.clcash)-(shobalrecs.reportedcash)) > 0">
                                 <span class="cell" style="color:maroon ;">  
    
-                    <span style="font-size:1.0em;" center >  {{currencydetails }} {{formatPrice((shobalrecs.clcash)-(shobalrecs.reportedcash))}} </span></span>
+                    <span style="font-size:1.0em;" center >  {{formatPrice((shobalrecs.clcash)-(shobalrecs.reportedcash))}} </span></span>
                               </div>
                                <div v-if="((shobalrecs.clcash)-(shobalrecs.reportedcash)) < 1">
                                 <span class="cell" style="color:green ;">  
    
-                    <span style="font-size:1.0em;" center >  {{currencydetails }} {{formatPrice((shobalrecs.clcash)-(shobalrecs.reportedcash))}} </span></span>
+                    <span style="font-size:1.0em;" center >  {{formatPrice((shobalrecs.clcash)-(shobalrecs.reportedcash))}} </span></span>
                               </div>
                              </td>
                          
@@ -2040,7 +2040,7 @@
                      
                       <th>FROM </th>
                       
-                      <th>AMOUNT</th>
+                      <th>AMOUNT  ({{currencydetails }})</th>
                       <th>USER INITIATED</th>
                         <th>APPROVED</th>
                          <th>USER - APPROVED</th>
@@ -2062,7 +2062,7 @@
                        <td>{{(alladmincashcollection.transferdate)}}</td>
                        <td>   <template v-if="alladmincashcollection.branch_name">	{{alladmincashcollection.branch_name.branchname}}</template></td>
                        <td> <template v-if="alladmincashcollection.branch_namefrom">	{{alladmincashcollection.branch_namefrom.branchname}}</template></td>
-                       <td>{{currencydetails}} {{formatPrice(alladmincashcollection.amount)}}</td>
+                       <td> {{formatPrice(alladmincashcollection.amount)}}</td>
                        <td> <template v-if="alladmincashcollection.cerated_userdetails">	{{alladmincashcollection.cerated_userdetails.name}}</template></td>
                        <td>{{(alladmincashcollection.comptime)}}</td>
                        <td> <template v-if="alladmincashcollection.approved_userdetails">	{{alladmincashcollection.approved_userdetails.name}}</template></td>
@@ -2273,7 +2273,7 @@
                      
                       <th>DESTINATION </th>
                       
-                      <th>AMOUNT</th>
+                      <th>AMOUNT  ({{currencydetails }})</th>
                       <th>ASKED BY</th>
                         <th>APPROVED</th>
                          <th>USER - APPROVED</th>
@@ -2295,7 +2295,7 @@
                        <td>{{(alladmincashouts.transferdate)}}</td>
                        <td>   <template v-if="alladmincashouts.branch_name">	{{alladmincashouts.branch_name.branchname}}</template></td>
                        <td> <template v-if="alladmincashouts.branch_namefrom">	{{alladmincashouts.branch_namefrom.branchname}}</template></td>
-                       <td>{{currencydetails}} {{formatPrice(alladmincashouts.amount)}}</td>
+                       <td> {{formatPrice(alladmincashouts.amount)}}</td>
                        <td> <template v-if="alladmincashouts.cerated_userdetails">	{{alladmincashouts.cerated_userdetails.name}}</template></td>
                        <td>{{(alladmincashouts.comptime)}}</td>
                        <td> <template v-if="alladmincashouts.approved_userdetails">	{{alladmincashouts.approved_userdetails.name}}</template></td>
@@ -2526,7 +2526,7 @@
                      
                       <th>FROM </th>
                       
-                      <th>AMOUNT</th>
+                      <th>AMOUNT  ({{currencydetails }})</th>
                       <th>USER INITIATED</th>
                         <th>APPROVED</th>
                          <th>USER - APPROVED</th>
@@ -2542,7 +2542,7 @@
                        <td>{{(fishcoll.transferdate)}}</td>
                        <td>   <template v-if="fishcoll.branch_name">	{{fishcoll.branch_name.branchname}}</template></td>
                        <td> <template v-if="fishcoll.branch_namefrom">	{{fishcoll.branch_namefrom.branchname}}</template></td>
-                       <td>{{ (currencydetails) }}  {{formatPrice(fishcoll.amount)}}</td>
+                       <td> {{formatPrice(fishcoll.amount)}}</td>
                        <td> <template v-if="fishcoll.cerated_userdetails">	{{fishcoll.cerated_userdetails.name}}</template></td>
                        <td>{{(fishcoll.comptime)}}</td>
                        <td> <template v-if="fishcoll.approved_userdetails">	{{fishcoll.approved_userdetails.name}}</template></td>
@@ -2749,7 +2749,7 @@
                      
                       <th>FROM </th>
                       
-                      <th>AMOUNT</th>
+                      <th>AMOUNT  ({{currencydetails }})</th>
                       <th>USER INITIATED</th>
                         <th>APPROVED</th>
                          <th>USER - APPROVED</th>
@@ -2765,7 +2765,7 @@
                        <td>{{(cinshopt.transferdate)}}</td>
                        <td>   <template v-if="cinshopt.branch_name">	{{cinshopt.branch_name.branchname}}</template></td>
                        <td> <template v-if="cinshopt.branch_namefrom">	{{cinshopt.branch_namefrom.branchname}}</template></td>
-                       <td>{{ (currencydetails) }}  {{formatPrice(cinshopt.amount)}}</td>
+                       <td> {{formatPrice(cinshopt.amount)}}</td>
                        <td> <template v-if="cinshopt.cerated_userdetails">	{{cinshopt.cerated_userdetails.name}}</template></td>
                        <td>{{(cinshopt.comptime)}}</td>
                        <td> <template v-if="cinshopt.approved_userdetails">	{{cinshopt.approved_userdetails.name}}</template></td>
