@@ -758,6 +758,7 @@
                         <th>BRANCH</th>
                         <th>TOTAL SALES ( {{currencydetails}} )</th>
                         <th>TOTAL PAYOUT ( {{currencydetails}} )</th>
+                          <th>PAYOUT %ge </th>
                         <th>GGR ( {{currencydetails}} )</th>
                           <th>GGR % )</th>
                         <th> COLLECTIONS ( {{currencydetails}} )</th>
@@ -778,6 +779,7 @@
                      <td>   <template v-if="mrhdghh.branchname_dailycodes">	{{mrhdghh.branchname_dailycodes.branchname}}</template></td>  
                      <td>{{formatPrice(mrhdghh.sales)}}</td>
                      <td>{{formatPrice(mrhdghh.payout)}}</td>
+                      <td>{{parseFloat(((mrhdghh.payout) /(mrhdghh.sales))*100).toFixed(0)}}% </td>
                       <td>{{formatPrice(mrhdghh.profit)}}</td>
                        <td>{{parseFloat(((mrhdghh.profit) /(mrhdghh.sales))*100).toFixed(0)}}% </td>
                       <td>{{formatPrice(mrhdghh.collections)}}</td>
