@@ -115,7 +115,7 @@
                 <div class="loader" v-if="loading">
        
     </div>
-               
+                   <!-- <table class="table table-head-fixed"  > -->
                 <table class="table"  >
                   <thead>
                     <tr>
@@ -126,9 +126,9 @@
                      
                       <th >SALES ({{currencydetails}} )</th>
                       <th > PAYOUT ({{currencydetails}} )</th>
-                 
+                      <th > PAYOUT %ge</th>
                       <th > GROSS PROFIT ({{currencydetails}} ) </th>
-                        
+                         <th > GROSS PROFIT %ge </th>
                       
                      
                     
@@ -153,7 +153,7 @@
                                   
                                     <td> {{formatPrice((mydataObjectinfo.salesamount))}} </td>
                                     <td> {{formatPrice((mydataObjectinfo.payoutamount))}} </td>
-                                  
+                                        <td>{{parseFloat(((mydataObjectinfo.payoutamount) /(mydataObjectinfo.salesamount))*100).toFixed(0)}}% </td>
                                     
                          
 
@@ -161,7 +161,7 @@
                                     <td> {{formatPrice((mydataObjectinfo.salesamount - mydataObjectinfo.payoutamount))}} </td>
                                    
                                      
-                                  
+                                       <td>{{parseFloat(((mydataObjectinfo.salesamount - mydataObjectinfo.payoutamount) /(mydataObjectinfo.salesamount))*100).toFixed(0)}}% </td>
                                     
                                     
                                 
@@ -380,6 +380,7 @@
                         <th>Sales ({{currencydetails}} )</th>
 
                          <th>Payout ({{currencydetails}} )</th>
+                                    <th>Payout %ge</th>
                            <th>Profit ({{currencydetails}} )</th>
                             <th>Profit % </th>
                               <th>Collections ({{currencydetails}} )</th>
@@ -398,6 +399,7 @@
                      <td>   <template v-if="submenuinfo.branchname_dailycodes">	{{submenuinfo.branchname_dailycodes.branchname}}</template></td>  
                      <td>{{formatPrice(submenuinfo.daysalesamount)}}</td>
                         <td>{{formatPrice(submenuinfo.daypayoutamount)}}</td>
+                           <td>{{parseFloat(((submenuinfo.daypayoutamount) /(submenuinfo.daysalesamount))*100).toFixed(0)}}% </td>
                         <!-- parseFloat(((dailytotalsales- dailytotalpayout)/dailytotalsales).toFixed(3) -->
                          <td>{{formatPrice(submenuinfo.daysalesamount - submenuinfo.daypayoutamount)}}  </td>
                             <td>{{parseFloat(((submenuinfo.daysalesamount - submenuinfo.daypayoutamount) /(submenuinfo.daysalesamount))*100).toFixed(0)}}% </td>
