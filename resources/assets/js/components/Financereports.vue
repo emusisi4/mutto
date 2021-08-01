@@ -306,7 +306,7 @@
                 <h3>GROSS PROFIT  </h3>
 
          
-           <h5>   <b>{{currencydetails}}   {{formatPrice(dailytotalsales- dailytotalpayout ) }} </b> </h5>
+           <h5>   <b>{{currencydetails}}   {{formatPrice(dailytotalsales- dailytotalpayout ) }}  ({{parseFloat(((dailytotalsales- dailytotalpayout)/dailytotalsales).toFixed(3))*100}}%) </b> </h5>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
@@ -381,6 +381,7 @@
 
                          <th>Payout ({{currencydetails}} )</th>
                            <th>Profit ({{currencydetails}} )</th>
+                            <th>Profit % </th>
                               <th>Collections ({{currencydetails}} )</th>
                                  <th>Credits ({{currencydetails}} )</th>
                                     <th>Net Collections ({{currencydetails}} )</th>
@@ -397,7 +398,9 @@
                      <td>   <template v-if="submenuinfo.branchname_dailycodes">	{{submenuinfo.branchname_dailycodes.branchname}}</template></td>  
                      <td>{{formatPrice(submenuinfo.daysalesamount)}}</td>
                         <td>{{formatPrice(submenuinfo.daypayoutamount)}}</td>
-                         <td>{{formatPrice(submenuinfo.daysalesamount - submenuinfo.daypayoutamount)}}</td>
+                        <!-- parseFloat(((dailytotalsales- dailytotalpayout)/dailytotalsales).toFixed(3) -->
+                         <td>{{formatPrice(submenuinfo.daysalesamount - submenuinfo.daypayoutamount)}}  </td>
+                            <td>{{parseFloat(((submenuinfo.daysalesamount - submenuinfo.daypayoutamount) /(submenuinfo.daysalesamount))*100).toFixed(0)}}% </td>
                          <td>{{formatPrice(submenuinfo.totalcollection)}}</td>
                          <td>{{formatPrice(submenuinfo.totalcredits)}}</td>
                          <td>{{formatPrice(submenuinfo.totalcollection - submenuinfo.totalcredits)}}</td>
@@ -756,6 +759,7 @@
                         <th>TOTAL SALES ( {{currencydetails}} )</th>
                         <th>TOTAL PAYOUT ( {{currencydetails}} )</th>
                         <th>GGR ( {{currencydetails}} )</th>
+                          <th>GGR % )</th>
                         <th> COLLECTIONS ( {{currencydetails}} )</th>
                         <th> CREDITS ( {{currencydetails}} )</th>
                      
@@ -775,6 +779,7 @@
                      <td>{{formatPrice(mrhdghh.sales)}}</td>
                      <td>{{formatPrice(mrhdghh.payout)}}</td>
                       <td>{{formatPrice(mrhdghh.profit)}}</td>
+                       <td>{{parseFloat(((mrhdghh.profit) /(mrhdghh.sales))*100).toFixed(0)}}% </td>
                       <td>{{formatPrice(mrhdghh.collections)}}</td>
                       <td>{{formatPrice(mrhdghh.credits)}}</td>
                       <td>{{formatPrice(mrhdghh.expenses)}}</td>
@@ -1200,7 +1205,7 @@ paginationResultscomponentfeatures(page = 1) {
                       },
 
 paginationResultsSubmenus(page = 1) {
-                        axios.get('api/submenus?page=' + page)
+                        axios.get('api/salesrecs?page=' + page)
                           .then(response => {
                             this.salesdetailsrecords = response.data;
                           });
