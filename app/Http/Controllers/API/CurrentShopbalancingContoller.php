@@ -164,7 +164,8 @@ if($doesthebranchhavefish > 0 && $doesthebranchhavesoccer < 1 && $doesthebranchh
 
     $machineoneopenningcode = \DB::table('currentmachinecodes')->where('branch', $inpbranch)->where('machineno', '101')->orderBy('id', 'Desc')->limit(1)->value('machinecode');
       
-
+///// Getting the machine multiplier
+$multiplier = \DB::table('branchesandmachines')->where('branchname', $inpbranch)->where('machinename', '101')->orderBy('id', 'Desc')->limit(1)->value('machinmultiplier');
 
 
 
@@ -178,7 +179,7 @@ if($doesthebranchhavefish > 0 && $doesthebranchhavesoccer < 1 && $doesthebranchh
     
     
      $machineoneclosingcode = $machineonecurrentcode;
-     $fishincome = ($machineoneclosingcode - $machineoneopenningcode)*500;
+     $fishincome = ($machineoneclosingcode - $machineoneopenningcode)*$multiplier;
      $closingbalance = $openningbalance + $fishincome + $totalcashin - $totalcashout -$totalexpense -$totalpayout;
 
      /// working on todays saes and payout 
@@ -208,7 +209,7 @@ if($doesthebranchhavefish > 0 && $doesthebranchhavesoccer < 1 && $doesthebranchh
            'clcash'    => $closingbalance,
            'reportedcash'    => $request['reportedcash'],
            'comment'    => $request['bio'],
-         
+           'multiplier' => $multiplier,
            'ucret' => $userid,
          
        ]);
@@ -317,9 +318,10 @@ DB::table('dailyreportcodes')->where('branch', $bxn)->where('datedone', $datedon
       'ucret'   => $userid,
       'totalcollection' => $totalcashout,
       'totalcredits'=> $totalcashin,
-      'daysalesamount' => $todayssaes*500,
-      'daypayoutamount' => $todayspayout*500,
+      'daysalesamount' => $todayssaes*$multiplier,
+      'daypayoutamount' => $todayspayout*$multiplier,
       'monthmade'    => $monthmade,
+      'multiplier' => $multiplier,
       'yearmade'     => $yearmade,
     
     ]);
@@ -477,13 +479,13 @@ Daysummarry::Create([
       'currentsalesfigure'   =>    $machineonesales,
       'currentpayoutfigure'   =>   $machineonepayout,
     
-      'salesamount'    =>    ($machineonesales - $machineonepayout)*500,
+      'salesamount'    =>    ($machineonesales - $machineonepayout)*$multiplier,
       'salesfigure'    =>    $machineonesales - $machineonepayout,
       //'payoutamount'    =>    ($machineonepayout - $machineonepayout)*500,
       'monthmade'    => $monthmade,
       'yearmade'    => $yearmade,
-      'daysalesamount' => $todayssaes*500,
-      'daypayoutamount' => $todayspayout*500,
+      'daysalesamount' => $todayssaes*$multiplier,
+      'daypayoutamount' => $todayspayout*$multiplier,
       
       
       'ucret' => $userid,

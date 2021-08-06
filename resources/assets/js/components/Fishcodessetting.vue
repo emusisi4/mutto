@@ -1701,7 +1701,62 @@
 
                         </div>
                       
-               
+               <!-- gggggggggggggggggggggggggggggg -->
+                <div class="form-group row">
+
+                            <label class="col-sm-2 col-form-label">Openning Code </label>
+                              <div class="col-sm-6">
+                           <input v-model="form.openningcode" type="text" name="openningcode"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('openningcode') }">
+                   
+
+                                <has-error :form="form" field="openningcode"></has-error>
+
+                              </div>
+
+                        </div>
+
+                         <div class="form-group row">
+
+                            <label class="col-sm-2 col-form-label">Closing code </label>
+                              <div class="col-sm-6">
+                           <input v-model="form.closingcode" type="text" name="closingcode"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('closingcode') }">
+                   
+
+                                <has-error :form="form" field="closingcode"></has-error>
+
+                              </div>
+
+                        </div>
+
+
+                   <div class="form-group row">
+
+                            <label class="col-sm-2 col-form-label">Prev. Sales </label>
+                              <div class="col-sm-6">
+                           <input v-model="form.previoussalescode" type="text" name="previoussalescode"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('previoussalescode') }">
+                   
+
+                                <has-error :form="form" field="previoussalescode"></has-error>
+
+                              </div>
+
+                        </div>
+     <div class="form-group row">
+
+                            <label class="col-sm-2 col-form-label">Prev. Payout </label>
+                              <div class="col-sm-6">
+                           <input v-model="form.previouspayoutcode" type="text" name="previouspayoutcode"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('previouspayoutcode') }">
+                   
+
+                                <has-error :form="form" field="previouspayoutcode"></has-error>
+
+                              </div>
+
+                        </div>
   
                       
                       

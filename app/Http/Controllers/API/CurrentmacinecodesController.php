@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use App\Codereset;
 use App\Currentmachinecode;
+use App\Dailyreportcode;
 class CurrentmacinecodesController extends Controller
 {
     public function __construct()
@@ -56,6 +57,37 @@ class CurrentmacinecodesController extends Controller
             'machineno'   => $request['machinename'],
             'branch'   => $request['branch'],
             'datedone'   => $request['branch'],
+            'ucret' => $userid,
+         
+  
+                
+        ]);
+//id, datedone, branch, machineno, openningcode, closingcode, salescode, payoutcode, profitcode, floatcode, previoussalesfigure, previouspayoutfigure, 
+//currentpayoutfigure, currentsalesfigure, totalcredits, totalcollection, resetstatus, ucret, created_at, updated_at, dorder, daysalesamount, daypayoutamount, monthmade, yearmade
+
+        Dailyreportcode::Create([
+            'branch'   => $request['branch'],
+
+            'machineno'   => $request['machinename'],
+            'openningcode'   => $request['openningcode'],
+           
+            'closingcode'   => $request['closingcode'],
+            'previoussalesfigure'   => $request['previoussalescode'],
+            'previouspayoutfigure'   => $request['previouspayoutcode'],
+
+
+
+            // 'previoussalesfigure'   => $request['previoussalescode'],
+            // 'previouspayoutfigure'   => $request['previouspayoutcode'],
+
+            // 'previoussalesfigure'   => $request['previoussalescode'],
+            // 'previouspayoutfigure'   => $request['previouspayoutcode'],
+
+
+
+
+
+
             'ucret' => $userid,
          
   
