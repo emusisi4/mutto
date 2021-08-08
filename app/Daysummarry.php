@@ -13,7 +13,11 @@ class Daysummarry extends Authenticatable
     // id, datedone, branch, machineno, openningcode, closingcode, salescode, payoutcode, profitcode, floatcode, totalcredits, totalcollection, created_at, updated_at, previoussalesfigure, previouspayoutfigure, resetstatus, currentpayoutfigure, , ucret
    
     protected $fillable = [
-        'datedone','salesamount','payoutamount','yeardone','monthdone', 'ucret','expenses'
+        'datedone','salesamount','payoutamount','yeardone','monthdone', 'ucret','expenses',
+        'virtualsales',
+        'virtualcancelled',
+        'virtualpayout',
+        'virtualprofit',
     ];
     public function branchnameDailycodes(){
         // creating a relationship between the students model 

@@ -54,8 +54,8 @@
         width: 170px;
         top: -75px;
         border-radius: 50%;
-        /* background: #2b2d72; */
-        background: #3f2f29;
+       
+        background: #a7a153;
         padding: 10px;
         text-align: center;
     }
@@ -65,9 +65,7 @@
         border-radius: 50%;
         border: 2px solid white;
     }
-    .form_container {
-        
-    }
+  
     .login_btn {
         width: 100%;
         background: #3f2f29 !important;
@@ -113,6 +111,7 @@
     .card-front{
         backface-visibility: hidden;
         background: #2b521c;
+        border-radius: 69px;
     }
 
 

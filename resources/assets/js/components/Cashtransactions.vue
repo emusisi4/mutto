@@ -1280,9 +1280,23 @@
                               </div>
                  
                         </div>
+
+ <div class="form-group row">
+
+                            <label class="col-sm-2 col-form-label">PAYOUT </label>
+                              <div class="col-sm-6">
+                              <input v-model="form.vpay" type="text" name="vpay"
+        class="form-control" :class="{ 'is-invalid': form.errors.has('vpay') }">
+      <has-error :form="form" field="vpay"></has-error>
+                              </div>
+                 
+                        </div>
+
+
+
                          <div class="form-group row">
 
-                            <label class="col-sm-2 col-form-label">Cancelled </label>
+                            <label class="col-sm-2 col-form-label">CANCELLED </label>
                               <div class="col-sm-6">
                           <input v-model="form.vcan" type="text" name="vcan"
         class="form-control" :class="{ 'is-invalid': form.errors.has('vcan') }">
@@ -1292,17 +1306,7 @@
                         </div>
 
 
-   <div class="form-group row">
-
-                            <label class="col-sm-2 col-form-label">Redeemed / Payout </label>
-                              <div class="col-sm-6">
-                              <input v-model="form.vpay" type="text" name="vpay"
-        class="form-control" :class="{ 'is-invalid': form.errors.has('vpay') }">
-      <has-error :form="form" field="vpay"></has-error>
-                              </div>
-                 
-                        </div>
-
+  
 
                           <div class="form-group row">
 
@@ -1543,7 +1547,7 @@
         <div class="modal-dialog modal-dialog-top modal-xl">
         <div  class="modal-content">
             <div  class="modal-header">
-                <h4  v-show="!editmode"    class="modal-title">Shop Balancing</h4> 
+                     <h4  v-show="!editmode"    class="modal-title"><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">SHOP BALANCING</h4> 
                 <h4  v-show="editmode" class="modal-title" >UPDATE RECORD</h4> 
                 <button  type="button" data-dismiss="modal" aria-label="Close" class="close"><span  aria-hidden="true">×</span></button></div> 
    <form class="form-horizontal" @submit.prevent="editmode ? updatebranchpayout():createBalancingrecord()"> 
@@ -1681,9 +1685,22 @@
                               </div>
                  
                         </div>
+
+ <div class="form-group row">
+
+                            <label class="col-sm-2 col-form-label">REDEEMED / PAYOUT </label>
+                              <div class="col-sm-6">
+                              <input v-model="form.vpay" type="text" name="vpay"
+        class="form-control" :class="{ 'is-invalid': form.errors.has('vpay') }">
+      <has-error :form="form" field="vpay"></has-error>
+                              </div>
+                 
+                        </div>
+
+
                          <div class="form-group row">
 
-                            <label class="col-sm-2 col-form-label">Cancelled </label>
+                            <label class="col-sm-2 col-form-label">CANCELLED </label>
                               <div class="col-sm-6">
                           <input v-model="form.vcan" type="text" name="vcan"
         class="form-control" :class="{ 'is-invalid': form.errors.has('vcan') }">
@@ -1693,16 +1710,7 @@
                         </div>
 
 
-   <div class="form-group row">
-
-                            <label class="col-sm-2 col-form-label">Redeemed / Payout </label>
-                              <div class="col-sm-6">
-                              <input v-model="form.vpay" type="text" name="vpay"
-        class="form-control" :class="{ 'is-invalid': form.errors.has('vpay') }">
-      <has-error :form="form" field="vpay"></has-error>
-                              </div>
-                 
-                        </div>
+  
 
 
                           <div class="form-group row">

@@ -17,7 +17,11 @@ class Mlyrpt extends Authenticatable
    
     'payout','collections',
     'credits','profit',
-    'expenses','dorder','monthdone','yeardone','ntrevenue'
+    'expenses','dorder','monthdone','yeardone','ntrevenue',
+  'virtualsales',
+  'virtualcancelled',
+  'virtualpayout',
+  'virtualprofit',
     ];
     //public function maincomponentSubmenus(){
         // creating a relationship between the students model 

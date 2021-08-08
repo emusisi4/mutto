@@ -16,7 +16,11 @@ class Dailyreportcode extends Authenticatable
         'datedone','branch','openningcode','closingcode','salescode', 
         'payoutcode', 'profitcode','ucret','yearmade','monthmade',
         'floatcode','totalcredits','totalcollection','machineno','previoussalesfigure',
-        'previouspayoutfigure','resetstatus','currentpayoutfigure','currentsalesfigure','dorder','daysalesamount','daypayoutamount'
+        'previouspayoutfigure','resetstatus','currentpayoutfigure','currentsalesfigure','dorder','daysalesamount','daypayoutamount',
+        'virtualsales',
+        'virtualcancelled',
+        'virtualpayout',
+        'virtualprofit',
     ];
     public function branchnameDailycodes(){
         // creating a relationship between the students model 
