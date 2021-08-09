@@ -1,4 +1,21 @@
+<style>
+.kik{
 
+
+padding: .25rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid #10111345;
+    background-color: #41fae024;
+    }
+    .table thead tr {
+    vertical-align: bottom;
+    border-bottom: 5px solid #0f053a;
+    background-color: #ea5b319e;
+    font-size: 18px;}
+</style>
 
 <template>
 
@@ -116,34 +133,51 @@
        
     </div>
                    <!-- <table class="table table-head-fixed"  > -->
-                <table class="table"  >
-                  <thead>
-                    <tr>
-                    <th> # </th>
-                      <th > Date </th>
-                     
-                    
-                     
-                      <th >SALES ({{currencydetails}} )</th>
-                      <th > PAYOUT ({{currencydetails}} )</th>
-                      <th > PAYOUT %ge</th>
-                      <th > GROSS PROFIT ({{currencydetails}} ) </th>
-                         <th > GROSS PROFIT %ge </th>
-                      
-                     
-                    
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                       <tr v-for="mydataObjectinfo in dailycodesreportdata.data" :key="mydataObjectinfo.id">
-                 
-                  
-                
-                      
-                         
-                     
-                            <td>  {{((mydataObjectinfo.id))}}</td>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th rowspan="1" style="font-size: 30px; background-color: white; "></th>
+              <th rowspan="1" style="font-size: 30px; background-color: white; "></th>
+            <th colspan="5" style="font-size: 30px; background-color: orange; color:white; ">FISH DETAILS</th>
+            <th colspan="6"  style="font-size: 30px; background-color: maroon; color:white; ">VIRTUAL DETAILS</th>
+              <th colspan="6"  style="font-size: 30px; background-color: green; color:white; ">TOTAL SUMMARIES</th>
+          
+        </tr>
+        <tr>
+          
+           <th>#</th>
+             <th>DATE</th>
+            <th>Sales ({{currencydetails}} )</th>
+            <th>Payout ({{currencydetails}} )</th>
+            <th>Payout %ge</th>
+            <th>GGR ({{currencydetails}} )</th>
+            <th>GGR %ge</th>
+
+
+           <th>Sales ({{currencydetails}} )</th>
+            <th>Cancelled ({{currencydetails}} )</th>
+            <th>Payout ({{currencydetails}} )</th>
+            <th>Payout %ge</th>
+            <th>GGR</th>
+            <th>Profit %ge</th>
+
+             <th>Total Sales ({{currencydetails}} )</th>
+            <th>Total Cancelled ({{currencydetails}} )</th>
+            <th>Total Payout ({{currencydetails}} )</th>
+            <th>Payout %ge</th>
+            <th>GGR</th>
+            <th>Profit %ge</th>
+        </tr>
+    </thead>
+ 
+  
+    <tbody>
+        <tr>
+              <tr v-for="mydataObjectinfo in dailycodesreportdata.data" :key="mydataObjectinfo.id">
+            <td>  {{((mydataObjectinfo.id))}}</td>
                             <td>  {{((mydataObjectinfo.datedone))}}</td>
                           
                             
@@ -151,37 +185,85 @@
                                  
                                  
                                   
-                                    <td> {{formatPrice((mydataObjectinfo.salesamount))}} </td>
-                                    <td> {{formatPrice((mydataObjectinfo.payoutamount))}} </td>
-                                        <td>{{parseFloat(((mydataObjectinfo.payoutamount) /(mydataObjectinfo.salesamount))*100).toFixed(0)}}% </td>
+                                    <td style="background-color: rgb(250 166 48 / 22%); "> {{formatPrice((mydataObjectinfo.salesamount))}} </td>
+                                    <td style="background-color: rgb(250 166 48 / 22%); " > {{formatPrice((mydataObjectinfo.payoutamount))}} </td>
                                     
-                         
-
-
-                                    <td> {{formatPrice((mydataObjectinfo.salesamount - mydataObjectinfo.payoutamount))}} </td>
+                                        <td style="background-color: rgb(250 166 48 / 22%); ">{{parseFloat(((mydataObjectinfo.payoutamount) /(mydataObjectinfo.salesamount))*100).toFixed(0)}}% </td>
+                                     <td style="background-color: rgb(250 166 48 / 22%); "> {{formatPrice((mydataObjectinfo.salesamount - mydataObjectinfo.payoutamount))}} </td>
                                    
                                      
-                                       <td>{{parseFloat(((mydataObjectinfo.salesamount - mydataObjectinfo.payoutamount) /(mydataObjectinfo.salesamount))*100).toFixed(0)}}% </td>
-                                    
+                                       <td style="background-color: rgb(250 166 48 / 22%); " >{{parseFloat(((mydataObjectinfo.salesamount - mydataObjectinfo.payoutamount) /(mydataObjectinfo.salesamount))*100).toFixed(0)}}% </td>
+
+
+
+                         <!-- ssssssssssssssssssssssssssssssssssssssssss  -->
+     <td style="background-color: #80000069; "> {{formatPrice((mydataObjectinfo.virtualsales))}} </td>
+      <td style="background-color: #80000069; ">  {{formatPrice((mydataObjectinfo.virtualcancelled))}} </td>
+      <td style="background-color: #80000069; "> {{formatPrice((mydataObjectinfo.virtualpayout))}} </td>
+           <!-- <td>{{parseFloat(((mydataObjectinfo.virtualpayout) /((mydataObjectinfo.virtualsales - mydataObjectinfo.virtualcancelled)))*100).toFixed(0)}}% </td>
+
+ -->
+
+
+ <td style="background-color: #80000069; " v-if="mydataObjectinfo.virtualpayout > 0 ">{{parseFloat(((mydataObjectinfo.virtualprofit) / ((mydataObjectinfo.virtualsales - mydataObjectinfo.virtualcancelled)) )*100).toFixed(0)}}% </td>
+ <td style="background-color: #80000069; " v-if="mydataObjectinfo.virtualpayout < 1 "> - </td>   
+
+
+
+
+
+
+      <td style="background-color: #80000069; "> {{formatPrice((mydataObjectinfo.virtualsales - mydataObjectinfo.virtualcancelled - mydataObjectinfo.virtualpayout))}} </td>
+      <td style="background-color: #80000069; " v-if="mydataObjectinfo.virtualprofit > 0 ">{{parseFloat(((mydataObjectinfo.virtualprofit) / (mydataObjectinfo.virtualsales-mydataObjectinfo.virtualcancelled) )*100).toFixed(0)}}% </td>
+      <td style="background-color: #80000069; " v-if="mydataObjectinfo.virtualprofit < 1 "> - </td>                            
+
+                                   
+                                    <!-- hhhhhhhhhhhhhhhhhhhhhhhhhh -->
+
+         <td  style="background-color: #32773280; "> {{formatPrice(( (mydataObjectinfo.virtualsales )+(mydataObjectinfo.virtualsales)   ))}} </td>
+      <td style="background-color: #32773280; "> {{formatPrice((mydataObjectinfo.virtualcancelled))}} </td>
+      <td style="background-color: #32773280; "> {{formatPrice((mydataObjectinfo.virtualpayout))}} </td>
+           <!-- <td>{{parseFloat(((mydataObjectinfo.virtualpayout) /((mydataObjectinfo.virtualsales - mydataObjectinfo.virtualcancelled)))*100).toFixed(0)}}% </td>
+
+ -->
+
+
+ <td v-if="mydataObjectinfo.virtualpayout > 0 " style="background-color: #32773280; ">{{parseFloat(((mydataObjectinfo.virtualprofit) / ((mydataObjectinfo.virtualsales - mydataObjectinfo.virtualcancelled)) )*100).toFixed(0)}}% </td>
+ <td v-if="mydataObjectinfo.virtualpayout < 1 " style="background-color: #32773280; "> - </td>   
+
+
+
+
+
+
+      <td style="background-color: #32773280; "> {{formatPrice((mydataObjectinfo.virtualsales - mydataObjectinfo.virtualcancelled - mydataObjectinfo.virtualpayout))}} </td>
+      <td style="background-color: #32773280; " v-if="mydataObjectinfo.virtualprofit > 0 " >{{parseFloat(((mydataObjectinfo.virtualprofit) / (mydataObjectinfo.virtualsales-mydataObjectinfo.virtualcancelled) )*100).toFixed(0)}}% </td>
+      <td style="background-color: #32773280; " v-if="mydataObjectinfo.virtualprofit < 1 "> - </td>                            
+                            
                                     
                                 
-               
-                              
-                               
-                    </tr>
-              
-                    
-                  </tbody>
-               
-                                   </table>
+        </tr>
+      
+    </tbody>
+</table>
+
+
+  
+
+
+
+
+
+
+
+
 
     <div class="card-footer">
                 <ul class="pagination pagination-sm m-0 float-right">
                    <pagination :data="mainmenurecords" @pagination-change-page="paginationResultmainmemurecords"></pagination>
                 </ul>
               </div>
-                     
-                 
+                   
                     </div>
                   </div>
                   <!-- closure of loading image -->

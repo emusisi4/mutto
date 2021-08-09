@@ -90,6 +90,11 @@
                   </li>
 
                   
+  <li class="nav-item">
+                    <a class="nav-link" id="custom-tabs-two-nine-tab"  @click="loadBranchfloatcodes()"
+                    data-toggle="pill" href="#custom-tabs-two-nine" role="tab" 
+                    aria-controls="custom-tabs-two-nine" aria-selected="false">Branches && Float Codes</a>
+                  </li>
 
                  
 
@@ -1356,6 +1361,126 @@
                   </div>
 
 
+
+  <div class="tab-pane fade" id="custom-tabs-two-nine" role="tabpanel" aria-labelledby="custom-tabs-two-nine-tab">
+                       
+                   <form @submit.prevent="Savebranchfloatcode()">
+                  
+                  
+                    <div class="form-group">
+                  <label>Branch</label>
+                    <select name ="mycpmponentto" v-model="form.mycpmponentto" id ="mycpmponentto" v-on:change="myClickEventroletoaddcomponent"  :class="{'is-invalid': form.errors.has('mycpmponentto')}">
+                    <option value=" ">  </option>
+                    <option v-for='data in brancheslist' v-bind:value='data.id'>{{ data.id }} - {{ data.branchname }}</option>
+
+                    </select>
+                       <input type="text" name="inone" value="roletoaddcomponent" hidden
+                    class="form-control">
+
+                                <has-error :form="form" field="mycpmponentto"></has-error>
+
+                             
+                             
+
+                                
+                                </div>
+                                  <button type="submit" id="submit" hidden="hidden" name= "submit" ref="myBtnroledd" class="btn btn-primary btn-sm">Saveit</button>
+                                </form>
+
+              <div class="bethapa-table-header">
+                   
+       
+                      BRANCH and Float Codes  <button type="button" class="add-newm" @click="newfloatcode" >Add New </button>
+                     </div>
+<!--  v-if="allowedtogivecomponentaccess > 0" -->
+
+              <table class="table table-striped">
+                  <thead>
+                    <tr>
+                   
+                      <th > # </th>
+                    
+                       <th > BRANCH </th>
+                      <th > FLOAT CODE </th>
+                     <th > DATE RECIEVED </th>
+                     <th >  </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+
+                                       <tr v-for="fvdds in brachfloatcoderecords.data" :key="fvdds.id">
+                      
+                 
+                  
+                
+                      
+                         
+                                <td>{{fvdds.id}}</td>
+                                
+ 
+                             
+                                  <td> <template v-if="fvdds.branch_namebettingproducts">	{{fvdds.branch_namebettingproducts.branchname}}</template></td>
+  <td>{{fvdds.floatcode }}</td>  
+                                  <!-- <td> <template v-if="allcomponentsdata.branch_productname">	{{fvdds.branch_productname.productname}}</template></td> -->
+
+                               
+                                 <td>{{fvdds.created_at | myDate }}</td>  
+                                 <td> 
+                                  
+                           <!-- v-if="allowedtorevokecomponentaccess > 0" -->
+
+                            <button type="button"  class="btn  bg-gradient-danger btn-xs fas fa-trash-alt" @click="revokebranchproduct(allcomponentsdata.id)"> Revoke </button>
+
+
+
+
+                             
+                              </td>
+
+
+               
+                              
+                               
+                    </tr>
+              
+                     
+                  </tbody>
+              
+ 
+                                   </table>
+   
+   
+                      <div class="card-footer">
+                <ul class="pagination pagination-sm m-0 float-right">
+                   <pagination :data="allowedrolecomponentsObject" @pagination-change-page="paginationroleAuthorisedcomponents"></pagination>
+                </ul>
+              </div>
+                     
+                 
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     <div class="tab-pane fade" id="custom-tabs-two-seven" role="tabpanel" aria-labelledby="custom-tabs-two-seven-tab">
                        
                    <form @submit.prevent="Savebranchtoproduct()">
@@ -1458,7 +1583,85 @@
  
  <!-- tab one end -->
 
+<div class="modal fade" id="addnewfloatcodebranch">
+        <div class="modal-dialog modal-dialog-top modal-lg">
+        <div  class="modal-content">
+            <div  class="modal-header">
+              <h4  v-show="!editmode"    class="modal-title"><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">NEW MACHINE FLOAT CODE</h4> 
+ 
+                <h4  v-show="editmode" class="modal-title" >UPDATE RECORD</h4> 
+                <button  type="button" data-dismiss="modal" aria-label="Close" class="close"><span  aria-hidden="true">×</span></button></div> 
+                 <form class="form-horizontal" @submit.prevent="editmode ? updateUser():createnewBranchfloatcode()"> 
 
+                    <div  class="modal-body">
+              
+              
+                 
+                   <div class="form-group row">
+
+                            <label class="col-sm-2 col-form-label">Branch </label>
+                              <div class="col-sm-6">
+                            <select name ="branch" class='form-control'  v-model="form.branch"  :class="{ 'is-invalid': form.errors.has('branch') }">
+
+                              <option value="">  </option>
+
+                              <option v-for='data in brancheslist' :value='data.id'>{{ data.branchname }}</option>
+
+                            </select>
+                            
+                               <has-error :form="form" field="branch"></has-error>
+                              </div>
+                 
+                        </div>
+
+                    
+          
+
+                           <div class="form-group row">
+
+                            <label class="col-sm-2 col-form-label">Float Code </label>
+                              <div class="col-sm-6">
+                           <input v-model="form.floatcode" type="text" name="floatcode"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('floatcode') }">
+                   
+
+                                <has-error :form="form" field="floatcode"></has-error>
+
+                              </div>
+
+                        </div>
+                
+                      
+               
+  <div class="form-group row">
+
+                            <label class="col-sm-2 col-form-label">Date Recieved </label>
+                              <div class="col-sm-6">
+                           <input v-model="form.daterecieved" type="date" name="daterecieved"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('daterecieved') }">
+                   
+
+                                <has-error :form="form" field="daterecieved"></has-error>
+
+                              </div>
+
+                        </div>
+                      
+                      
+                
+                 
+                 </div>
+                 
+                  <div  class="modal-footer">
+                    <button  v-show="!editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
+                      <button v-show="editmode" type="submit" class="btn btn-success btn-sm" >Update</button>
+                        <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Close</button >
+                        </div>
+                 </form>
+                       </div>
+                          </div>
+                
+                  </div>
 <!-- Modal add menu -->
 <div class="modal fade" id="addnewbranchproductmodal">
         <div class="modal-dialog modal-dialog-top modal-lg">
@@ -1868,6 +2071,7 @@
           companyproductsdatarecords:{},
           allowedrolecomponentsObject :{},
           allowedbranchproductsdatarecords:{},
+          brachfloatcoderecords:{},
           branchmachinecodesdatarecords:{},
           datarecordsMainmenuauthorised:{},
           allowedrolecomponentfeaturesObject : {},
@@ -1948,6 +2152,11 @@ Savebranchtoproduct (){
             },
 
 
+Savebranchfloatcode (){ 
+    this.form.post('api/branchtoworkon');
+   axios.get("api/newbranchfloatcodes").then(({ data }) => (this.brachfloatcoderecords = data));
+      
+            },
 
 
 
@@ -2015,6 +2224,12 @@ paginationroleAuthorisedcomponentsfeature(page = 1) {
      axios.get('/api/bettingproducts').then(function (response) { this.bettingproductslist = response.data;}.bind(this));
    
        
+
+  },
+
+   loadBranchfloatcodes(){
+     axios.get("api/newbranchfloatcodes").then(({ data }) => (this.brachfloatcoderecords = data));
+         
 
   },
   
@@ -2165,6 +2380,16 @@ newsubmenuaccess(){
      
      $('#addnewbranchmachine').modal('show');
             },
+
+            
+            newfloatcode(){
+        this.editmode = false;
+        this.form.clear();
+        this.form.reset();
+     
+     $('#addnewfloatcodebranch').modal('show');
+            },
+
 
  newbranchproduct(){
         this.editmode = false;
@@ -2498,6 +2723,26 @@ axios.get("api/authorisedcomponents").then(({ data }) => (this.allowedrolecompon
 
 
 
+  createnewBranchfloatcode(){
+      this.$Progress.start();
+        this.form.post('api/newbranchfloatcodes')
+        .then(()=>{
+
+         
+    $('#addnewfloatcodebranch').modal('show');
+    // Fire.$emit('AfterAction');
+  Toast.fire({
+  icon: 'success',
+  title: 'Record Successfully Added'
+});
+        this.$Progress.finish();
+axios.get("api/newbranchfloatcodes").then(({ data }) => (this.brachfloatcoderecords = data));
+        })
+        .catch(()=>{
+          
+        })
+         
+    },   
 
 
   createnewBranchproduc(){

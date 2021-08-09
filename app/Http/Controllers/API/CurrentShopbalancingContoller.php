@@ -12,6 +12,7 @@ use App\Branch;
 use App\Dailyreportcode;
 use App\Shopbalancingrecord;
 use App\Salesdetail;
+use App\Branchandcode;
 use App\Currentmachinecode;
 use App\Mlyrpt;
 
@@ -83,6 +84,17 @@ class CurrentShopbalancingContoller extends Controller
       $userrole =  auth('api')->user()->type;
       $branchforaction = $request['branchnametobalance'];
 
+
+      /// checking if the branch has a machine code set for it
+      $doesthebranchhaveacdelock = \DB::table('branchandcodes')->where('branch', $branchforaction )->count();
+if($doesthebranchhaveacdelock > 0)
+     {
+$machinefloatcodelastloaded  = Branchandcode::where('branch', $branchforaction)->orderBy('id', 'Desc')->limit(1)->value('floatcode');
+} 
+if($doesthebranchhaveacdelock < 1) 
+{
+  $machinefloatcodelastloaded = '-';
+}    //     
     ////////////////////////////////////////////////////////
 
 
@@ -322,6 +334,7 @@ DB::table('dailyreportcodes')->where('branch', $bxn)->where('datedone', $datedon
       'daypayoutamount' => $todayspayout*$multiplier,
       'monthmade'    => $monthmade,
       'multiplier' => $multiplier,
+      'machineunlockcode' => $machinefloatcodelastloaded,
       'yearmade'     => $yearmade,
     
     ]);

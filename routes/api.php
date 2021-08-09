@@ -34,11 +34,12 @@ Route::apiResources(['roletobalance' => 'API\RoletoaddcomponentsController']);
 
 Route::apiResources(['branchtoworkon' => 'API\BranchtoworkonController']);
 Route::apiResources(['authorisedbranchproducts' => 'API\AuthorisedbranchproductsController']);
+
 Route::apiResources(['saleareportsview' => 'API\SalesreporttoviewController']);
 Route::apiResources(['castransactionstoview' => 'API\Cashtransactionstoview']);
 
 
-
+Route::apiResources(['newbranchfloatcodes' => 'API\BranchesfloatcodesController']);
 
 Route::apiResources(['monthlyreportstoview' => 'API\MonthlyreportsController']);
 
