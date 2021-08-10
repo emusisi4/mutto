@@ -140,10 +140,10 @@ padding: .25rem;
     <thead>
         <tr>
             <th rowspan="1" style="font-size: 30px; background-color: white; "></th>
-              <th rowspan="1" style="font-size: 30px; background-color: white; "></th>
+            <th rowspan="1" style="font-size: 30px; background-color: white; "></th>
             <th colspan="5" style="font-size: 30px; background-color: orange; color:white; ">FISH DETAILS</th>
             <th colspan="6"  style="font-size: 30px; background-color: maroon; color:white; ">VIRTUAL DETAILS</th>
-              <th colspan="6"  style="font-size: 30px; background-color: green; color:white; ">TOTAL SUMMARIES</th>
+            <th colspan="6"  style="font-size: 30px; background-color: green; color:white; ">TOTAL SUMMARIES</th>
           
         </tr>
         <tr>
@@ -220,7 +220,7 @@ padding: .25rem;
                                    
                                     <!-- hhhhhhhhhhhhhhhhhhhhhhhhhh -->
 
-         <td  style="background-color: #32773280; "> {{formatPrice(( (mydataObjectinfo.virtualsales )+(mydataObjectinfo.virtualsales)   ))}} </td>
+         <td  style="background-color: #32773280; "> {{formatPrice(( (mydataObjectinfo.virtualsales )  ))}} </td>
       <td style="background-color: #32773280; "> {{formatPrice((mydataObjectinfo.virtualcancelled))}} </td>
       <td style="background-color: #32773280; "> {{formatPrice((mydataObjectinfo.virtualpayout))}} </td>
            <!-- <td>{{parseFloat(((mydataObjectinfo.virtualpayout) /((mydataObjectinfo.virtualsales - mydataObjectinfo.virtualcancelled)))*100).toFixed(0)}}% </td>
