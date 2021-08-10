@@ -185,7 +185,7 @@ padding: .25rem;
                                  
                                  
     
-      <td style="background-color: rgb(250 166 48 / 22%); "> {{formatPrice((mydataObjectinfo.salesamount))}} </td>
+      <td style="background-color: rgb(250 166 48 / 22%); "> {{formatPrice((mydataObjectinfo.virtualsales))}} </td>
       <td style="background-color: rgb(250 166 48 / 22%); " > {{formatPrice((mydataObjectinfo.payoutamount))}} </td>
       <td style="background-color: rgb(250 166 48 / 22%); ">{{parseFloat(((mydataObjectinfo.payoutamount) /(mydataObjectinfo.salesamount))*100).toFixed(0)}}% </td>
       <td style="background-color: rgb(250 166 48 / 22%); "> {{formatPrice((mydataObjectinfo.salesamount - mydataObjectinfo.payoutamount))}} </td>
@@ -194,9 +194,9 @@ padding: .25rem;
 
 
                          <!-- ssssssssssssssssssssssssssssssssssssssssss  -->
-     <td style="background-color: #80000069; "> {{((mydataObjectinfo.virtualsales))}} </td>
-     <td style="background-color: #80000069; ">  {{((mydataObjectinfo.virtualcancelled))}} </td>
-     <td style="background-color: #80000069; "> {{((mydataObjectinfo.virtualpayout))}} </td>
+     <td style="background-color: #80000069; "> {{formatPrice((mydataObjectinfo.virtualsales))}} </td>
+     <td style="background-color: #80000069; ">  {{formatPrice((mydataObjectinfo.virtualcancelled))}} </td>
+     <td style="background-color: #80000069; "> {{formatPrice((mydataObjectinfo.virtualpayout))}} </td>
            <!-- <td>{{parseFloat(((mydataObjectinfo.virtualpayout) /((mydataObjectinfo.virtualsales - mydataObjectinfo.virtualcancelled)))*100).toFixed(0)}}% </td>
 
  -->
