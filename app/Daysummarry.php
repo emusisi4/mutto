@@ -18,6 +18,11 @@ class Daysummarry extends Authenticatable
         'virtualcancelled',
         'virtualpayout',
         'virtualprofit',
+        'totalsales',
+        'totalpayout',
+        'totalcancelled',
+        'totalprofit',
+
     ];
     public function branchnameDailycodes(){
         // creating a relationship between the students model 

@@ -22,6 +22,10 @@ class Mlyrpt extends Authenticatable
   'virtualcancelled',
   'virtualpayout',
   'virtualprofit',
+  'totalsales',
+  'totalpayout',
+  'totalcancelled',
+  'totalprofit',
     ];
     //public function maincomponentSubmenus(){
         // creating a relationship between the students model 

@@ -22,6 +22,10 @@ class Dailyreportcode extends Authenticatable
         'virtualpayout',
         'virtualprofit',
         'machineunlockcode',
+        'totalsales',
+        'totalpayout',
+        'totalcancelled',
+        'totalprofit',
     ];
     public function branchnameDailycodes(){
         // creating a relationship between the students model 

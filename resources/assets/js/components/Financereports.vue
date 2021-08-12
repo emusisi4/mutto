@@ -223,22 +223,15 @@ padding: .25rem;
          <td  style="background-color: #32773280; "> {{formatPrice(( (mydataObjectinfo.virtualsales )  ))}} </td>
       <td style="background-color: #32773280; "> {{formatPrice((mydataObjectinfo.virtualcancelled))}} </td>
       <td style="background-color: #32773280; "> {{formatPrice((mydataObjectinfo.virtualpayout))}} </td>
-           <!-- <td>{{parseFloat(((mydataObjectinfo.virtualpayout) /((mydataObjectinfo.virtualsales - mydataObjectinfo.virtualcancelled)))*100).toFixed(0)}}% </td>
-
- -->
-
-
- <td v-if="mydataObjectinfo.virtualpayout > 0 " style="background-color: #32773280; ">{{parseFloat(((mydataObjectinfo.virtualprofit) / ((mydataObjectinfo.virtualsales - mydataObjectinfo.virtualcancelled)) )*100).toFixed(0)}}% </td>
- <td v-if="mydataObjectinfo.virtualpayout < 1 " style="background-color: #32773280; "> - </td>   
+         
+         
 
 
-
-
-
-
-      <td style="background-color: #32773280; "> {{formatPrice((mydataObjectinfo.virtualsales - mydataObjectinfo.virtualcancelled - mydataObjectinfo.virtualpayout))}} </td>
-      <td style="background-color: #32773280; " v-if="mydataObjectinfo.virtualprofit > 0 " >{{parseFloat(((mydataObjectinfo.virtualprofit) / (mydataObjectinfo.virtualsales-mydataObjectinfo.virtualcancelled) )*100).toFixed(0)}}% </td>
-      <td style="background-color: #32773280; " v-if="mydataObjectinfo.virtualprofit < 1 "> - </td>                            
+ <td style="background-color: #32773280; " v-if="mydataObjectinfo.virtualpayout > 0 " >{{parseFloat(((mydataObjectinfo.virtualprofit) / ((mydataObjectinfo.virtualsales - mydataObjectinfo.virtualcancelled)) )*100).toFixed(0)}}% </td>
+ <td style="background-color: #32773280; " v-if="mydataObjectinfo.virtualpayout < 1 " > - </td>   
+<td style="background-color: #32773280; "> {{formatPrice((mydataObjectinfo.virtualsales - mydataObjectinfo.virtualcancelled - mydataObjectinfo.virtualpayout))}} </td>
+<td style="background-color: #32773280; " v-if="mydataObjectinfo.virtualprofit > 0 " >{{parseFloat(((mydataObjectinfo.virtualprofit) / (mydataObjectinfo.virtualsales-mydataObjectinfo.virtualcancelled) )*100).toFixed(0)}}% </td>
+<td style="background-color: #32773280; " v-if="mydataObjectinfo.virtualprofit < 1 "> - </td>                            
                             
                                     
                                 

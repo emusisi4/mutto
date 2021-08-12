@@ -932,6 +932,10 @@ $netvirtualprofit = $virtualsales - $virtualcancelled - $virtualpayout;
            'reportedcash'    => $request['reportedcash'],
            'comment'    => $request['bio'],
            'multiplier' => $multiplier,
+           'totalsales' => $virtualsales-$virtualcancelled+$todayssales,
+          'totalpayout' => $virtualpayout+$todayspayout,
+          'totalcancelled' => $virtualcancelled,
+          'totalprofit' => $fishincome+$netvirtualprofit,
            'ucret' => $userid,
          
        ]);
@@ -1050,6 +1054,12 @@ DB::table('dailyreportcodes')->where('branch', $bxn)->where('datedone', $datedon
       'virtualcancelled' => $virtualcancelled,
       'virtualpayout'     => $virtualpayout,
       'virtualprofit'     => $netvirtualprofit,
+
+      
+      'totalsales' => $virtualsales-$virtualcancelled+($todayssaes*$multiplier),
+          'totalpayout' => $virtualpayout+$todayspayout,
+          'totalcancelled' => $virtualcancelled,
+          'totalprofit' => $fishincome+$netvirtualprofit,
     
     ]);
 
@@ -1186,6 +1196,12 @@ $newvirtualprofit = \DB::table('dailyreportcodes')
     'virtualpayout' => $newvirtualpayout,
     'virtualprofit' => $newvirtualprofit,
   
+
+
+    'totalsales' => $newvirtualsalesfigure+$newsalesfigure-$newvirtualcancelled,
+    'totalpayout' => $newspayoutfigure+$newvirtualpayout,
+    'totalcancelled' => $newvirtualcancelled,
+    'totalprofit' => ($newsalesfigure-$newspayoutfigure)+($newvirtualprofit),
   ]);
 
 
@@ -1200,6 +1216,21 @@ $newsalesasummaryfortheday = \DB::table('dailyreportcodes')
 $newpayoutsummaryfortheday = \DB::table('dailyreportcodes')
 ->where('datedone', '=', $datedonessd)
 ->sum('daypayoutamount');
+///////////////
+$newvirtualsalesdaily = \DB::table('dailyreportcodes')
+->where('datedone', '=', $datedonessd)
+->sum('virtualsales');
+
+$newvirtualcancelleddaily = \DB::table('dailyreportcodes')
+->where('datedone', '=', $datedonessd)
+->sum('virtualcancelled');
+
+$newvirtualpayoutdaily = \DB::table('dailyreportcodes')
+->where('datedone', '=', $datedonessd)
+->sum('virtualpayout');
+$newvirtualprofitdaily = \DB::table('dailyreportcodes')
+->where('datedone', '=', $datedonessd)
+->sum('virtualprofit');
 //////////////////////////////////////////////////////////////////////////////
 DB::table('daysummarries')->where('datedone', $datedonessd)->delete();
     
@@ -1210,12 +1241,17 @@ Daysummarry::Create([
   'yeardone'         => $monthmade,
   'monthdone'         => $yearmade,
     
-  'virtualsales' => $newvirtualsalesfigure,
-  'virtualcancelled'=> $newvirtualcancelled,
-  'virtualpayout' => $newvirtualpayout,
-  'virtualprofit' => $newvirtualprofit,
+  'virtualsales' => $newvirtualsalesdaily,
+  'virtualcancelled'=> $newvirtualcancelleddaily,
+  'virtualpayout' => $newvirtualpayoutdaily,
+  'virtualprofit' => $newvirtualprofitdaily,
 
-  
+  'totalsales' => $newsalesasummaryfortheday+$newvirtualsalesdaily-$newvirtualcancelleddaily,
+  'totalpayout' => $newvirtualpayoutdaily+$newpayoutsummaryfortheday,
+  'totalcancelled' => $newvirtualcancelleddaily,
+  'totalprofit' => ($newsalesasummaryfortheday-$newpayoutsummaryfortheday)+($newvirtualprofitdaily),
+
+
   'ucret' => $userid,
 
 ]);
