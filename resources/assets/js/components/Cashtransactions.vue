@@ -1057,9 +1057,9 @@
   <th colspan="6"  style="font-size: 30px;  color:white; ">VIRTUAL ({{currencydetails}})</th>
                    
 
-                      <th>CASH-IN ({{currencydetails }})</th>
-                      <th>CASH-OUT ({{currencydetails }})</th>
-                      <th>EXPENSES  ({{currencydetails }})</th>
+                      <th>Cashin ({{currencydetails }})</th>
+                      <th>Cashout ({{currencydetails }})</th>
+                     
                       
                       <th>CLOSING  ({{currencydetails }})</th>
                        <th>SHORTAGE ({{currencydetails }}) </th>
@@ -1110,13 +1110,13 @@
             <!-- virtual -->
            <th>Sales </th>
             <th>Cancelled </th>
-            <th>Payout </th>
-            <th>Payout %ge</th>
+            <th>Pay </th>
+            <th>Payour %</th>
             <th>GGR</th>
-            <th>Profit %ge</th>
+            <th>GGR %</th>
 <!-- totals -->
             <th></th>
-                       <th></th>
+                       
                         <th></th>
                       <th></th>
                      <th></th>
@@ -1216,8 +1216,14 @@
                    
                     <td >{{formatPrice((shobalrecs.fishincome))}}  </td>
 <!-- v-if="(shobalrecs.fishincome*shobalrecs.multiplier) > 0 -->
-                      <td>{{parseFloat(((shobalrecs.fishincome) /(shobalrecs.fishsales*shobalrecs.multiplier))*100).toFixed(0)}}%</td>
-                    <td  v-if="shobalrecs.fishsales*shobalrecs.multiplier  < 1 "> - </td> 
+                      <td>
+                         <div v-if="shobalrecs.fishsales*shobalrecs.multiplier  != 0 ">  
+                         
+                         {{parseFloat(((shobalrecs.fishincome) /(shobalrecs.fishsales*shobalrecs.multiplier))*100).toFixed(0)}}%
+                               </div>
+                         <div v-if="shobalrecs.fishsales*shobalrecs.multiplier  == 0 ">   - </div>
+                      </td>
+                    
                    
 
 
@@ -1226,15 +1232,31 @@
                         <td >{{formatPrice(shobalrecs.vsales)}}</td>
                        <td >{{formatPrice(shobalrecs.vcan)}}</td>
                        <td>{{formatPrice(shobalrecs.vpay)}}</td>
-         <td>{{parseFloat(((shobalrecs.vpay) /(shobalrecs.vsales-shobalrecs.vcan))*100).toFixed(0)}}%</td>              
-                    <td >{{formatPrice((shobalrecs.vprof))}}</td>
-  <td>{{parseFloat(((shobalrecs.vprof) /(shobalrecs.vsales-shobalrecs.vcan))*100).toFixed(0)}}%</td>  
+         <td>
+           <div v-if="(shobalrecs.vsales-shobalrecs.vcan) != 0">
+           {{parseFloat(((shobalrecs.vpay) /(shobalrecs.vsales-shobalrecs.vcan))*100).toFixed(0)}}%
+           </div>
+           <div v-if="(shobalrecs.vsales-shobalrecs.vcan) == 0">- </div>
+           </td> 
+         
+
+
+
+
+
+
+
+
+  <td >{{formatPrice((shobalrecs.vprof))}}</td>
+
+<td v-if="(shobalrecs.vsales-shobalrecs.vcan) != 0">{{parseFloat(((shobalrecs.vprof) /(shobalrecs.vsales-shobalrecs.vcan))*100).toFixed(0)}}%</td> 
+         <td v-if="(shobalrecs.vsales-shobalrecs.vcan) == 0">  - </td>
 
 <!-- ({{ ((( ((shobalrecs.fishpayout*500) /(shobalrecs.fishsales*500) | round))))*100}}%) -->
 
                      <td >{{formatPrice((shobalrecs.cashin))}}</td>
                      <td >{{formatPrice((shobalrecs.cashout))}}</td>
-                     <td >{{((shobalrecs.expenses))}}</td>
+                   
                      <td >{{formatPrice((shobalrecs.clcash))}}</td>
                           
 
