@@ -1115,12 +1115,12 @@
             <th>GGR</th>
             <th>Profit %ge</th>
 <!-- totals -->
-             <th>Total Sales ({{currencydetails}})</th>
-            <th>Total Cancelled ({{currencydetails}})</th>
-            <th>Total Payout </th>
-            <th>Payout %ge</th>
-            <th>GGR</th>
-            <th>Profit %ge</th>
+            <th></th>
+                       <th></th>
+                        <th></th>
+                      <th></th>
+                     <th></th>
+                      <th></th>
         </tr>
 
 
