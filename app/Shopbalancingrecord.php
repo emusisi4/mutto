@@ -26,6 +26,10 @@ class Shopbalancingrecord extends Authenticatable
         'virtualcancelled',
         'virtualpayout',
         'virtualprofit',
+        'totalsales',
+        'totalpayout',
+        'totalcancelled',
+        'totalprofit',
     ];
     
 

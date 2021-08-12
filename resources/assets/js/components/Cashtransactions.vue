@@ -1039,24 +1039,23 @@
              <table class="table table-bordered table-striped">
                   <thead>
                     <tr>
-                   
-                    <th>#</th>
+                     <th>#</th>
                        <th>DATE</th>
                         <th>USER</th>
                       <th>BRANCH</th>
                      
                       <th>OPENNING</th>
-                      <th v-if=" soccergameproduct > 0  ">S-SALES ({{currencydetails }})</th>
-                      <th v-if=" soccergameproduct > 0  "> S-PAYOUT ({{currencydetails }})</th>
-                     
-                      <th v-if=" fishgameproduct > 0  ">FISH SALES ({{currencydetails }})</th>
-                      <th v-if=" fishgameproduct > 0  ">FISH PAYOUT ({{currencydetails }})</th>
-                      <th v-if=" fishgameproduct > 0  ">FISH INCOME ({{currencydetails }})</th>
+                  
 
-                      <th v-if=" virtualgameproduct > 0  ">V-SALES ({{currencydetails }})</th>
-                      <th v-if=" virtualgameproduct > 0  ">V- CANCELLED ({{currencydetails }})</th>
-                      <th v-if=" virtualgameproduct > 0  ">V-REDEEMED ({{currencydetails }})</th>
-                      <th v-if=" virtualgameproduct > 0  ">V-PROFIT ({{currencydetails }})</th>
+<!-- v-if=" soccergameproduct > 0  " -->
+<th colspan="6"  style="font-size: 30px;  color:white; ">SUMMARY OF PRODUCTS ({{currencydetails}})</th>
+                       <th  colspan="5" style="font-size: 30px;  color:white; ">SOCCER ({{currencydetails}})</th>
+                     <!-- v-if=" fishgameproduct > 0  " -->
+                   <th colspan="5" style="font-size: 30px;  color:white; ">FISH ({{currencydetails}})</th>
+                   
+                    <!-- v-if=" virtualgameproduct > 0  " -->
+  <th colspan="6"  style="font-size: 30px;  color:white; ">VIRTUAL ({{currencydetails}})</th>
+                   
 
                       <th>CASH-IN ({{currencydetails }})</th>
                       <th>CASH-OUT ({{currencydetails }})</th>
@@ -1066,6 +1065,70 @@
                        <th>SHORTAGE ({{currencydetails }}) </th>
                      <th >  </th>
                     </tr>
+
+
+
+  <tr>
+          
+                    <th></th>
+                       <th></th>
+                        <th></th>
+                      <th></th>
+                     
+                      <th></th>
+                         <!-- summary -->
+           <th>Sales </th>
+            <th>Cancelled </th>
+            <th>Payout </th>
+            <th>Payout %ge</th>
+            <th>GGR</th>
+            <th>Profit %ge</th>
+<!-- soccer -->
+
+            <th>Sales </th>
+            <th>Payout </th>
+            <th>Payout %ge</th>
+            <th>GGR </th>
+            <th>GGR %ge</th>
+
+
+
+<!-- fish -->
+
+
+
+
+
+ <th>Sales </th>
+            <th>Payout </th>
+            <th>Payout %ge</th>
+            <th>Income </th>
+            <th>GGR %ge</th>
+
+
+
+            <!-- virtual -->
+           <th>Sales </th>
+            <th>Cancelled </th>
+            <th>Payout </th>
+            <th>Payout %ge</th>
+            <th>GGR</th>
+            <th>Profit %ge</th>
+<!-- totals -->
+             <th>Total Sales ({{currencydetails}})</th>
+            <th>Total Cancelled ({{currencydetails}})</th>
+            <th>Total Payout </th>
+            <th>Payout %ge</th>
+            <th>GGR</th>
+            <th>Profit %ge</th>
+        </tr>
+
+
+
+
+
+
+
                   </thead>
                   <tbody>
                     <tr>
@@ -1078,21 +1141,94 @@
                     
                        <td>    <template v-if="shobalrecs.branchin_balance">	{{shobalrecs.branchin_balance.branchname}}</template></td>
                          
-                               <td>{{formatPrice(shobalrecs.opbalance)}}</td>
-                               <td v-if=" soccergameproduct > 0  "> {{formatPrice(shobalrecs.scsales)}}</td>
-                       <td v-if=" soccergameproduct > 0  ">{{formatPrice(shobalrecs.scpayout)}}</td>
+                  <td>{{formatPrice(shobalrecs.opbalance)}}</td>
+
+
+<!-- 
+   virtualcancelled, virtualpayout, virtualprofit, totalsales, totalpayout, totalcancelled, totalprofit -->
+<!-- v-if=" summary > 0  " -->
+                        <td >{{formatPrice(shobalrecs.totalsales)}}</td>
+                       <td >{{formatPrice(shobalrecs.totalcancelled)}}</td>
+                       <td>{{formatPrice(shobalrecs.totalpayout)}}</td>
+
+<td  v-if="shobalrecs.totalsales  < 1 "> - </td> 
+         <td v-if="shobalrecs.totalsales  > 0 ">{{parseFloat(((shobalrecs.totalpayout) /(shobalrecs.totalsales-shobalrecs.totalcancelled))*100).toFixed(0)}}%</td>              
+                   
+                   
+                   
+                    <td >{{formatPrice((shobalrecs.totalprofit))}}</td>
+
+
+
+<td  v-if="shobalrecs.totalsales  < 1 "> - </td> 
+  <td v-if="shobalrecs.totalsales  > 0 "> {{parseFloat(((shobalrecs.totalprofit) /(shobalrecs.totalsales-shobalrecs.totalcancelled))*100).toFixed(0)}}%</td>  
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <!-- v-if=" soccergameproduct > 0  " -->
+                   <td > {{formatPrice(shobalrecs.scsales)}}</td>
+                   <td>{{formatPrice(shobalrecs.scpayout)}}</td>
+                   <td  v-if="shobalrecs.scsales > 0 ">{{parseFloat(((shobalrecs.scpayout) /(shobalrecs.scsales))*100).toFixed(0)}}%</td>
+                   <td  v-if="shobalrecs.scsales < 1 "> - </td> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   <td>{{formatPrice(shobalrecs.scsales-shobalrecs.scpayout)}}</td>
+                   <td  v-if="shobalrecs.scsales > 0 ">{{parseFloat(((shobalrecs.scsales-shobalrecs.scpayout) /(shobalrecs.scsales))*100).toFixed(0)}}%</td>
+                      <!-- style="background-color: #80000069; " -->
+                      <td  v-if="shobalrecs.scsales < 1 "> - </td>   
+
+<!--  v-if=" fishgameproduct > 0  " -->
+                    <td>{{formatPrice((shobalrecs.fishsales)*shobalrecs.multiplier)}}</td>
+                    <td >{{formatPrice((shobalrecs.fishpayout)*shobalrecs.multiplier)}}</td>
+                     <td  v-if="shobalrecs.fishpayout*shobalrecs.multiplier > 0 ">{{parseFloat(((shobalrecs.fishpayout*shobalrecs.multiplier) /(shobalrecs.fishsales*shobalrecs.multiplier))*100).toFixed(0)}}%</td>
+                    <td  v-if="shobalrecs.fishpayout*shobalrecs.multiplier  < 1 "> - </td> 
+                   
+                    <td >{{formatPrice((shobalrecs.fishincome))}}  </td>
+<!-- v-if="(shobalrecs.fishincome*shobalrecs.multiplier) > 0 -->
+                      <td>{{parseFloat(((shobalrecs.fishincome) /(shobalrecs.fishsales*shobalrecs.multiplier))*100).toFixed(0)}}%</td>
+                    <td  v-if="shobalrecs.fishsales*shobalrecs.multiplier  < 1 "> - </td> 
                    
 
-                    <td v-if=" fishgameproduct > 0  ">{{formatPrice((shobalrecs.fishsales)*shobalrecs.multiplier)}}</td>
-                    <td v-if=" fishgameproduct > 0  ">{{formatPrice((shobalrecs.fishpayout)*shobalrecs.multiplier)}}</td>
-                    <td v-if=" fishgameproduct > 0  ">{{formatPrice((shobalrecs.fishincome))}}  </td>
-                    
-                        <td v-if=" virtualgameproduct > 0  ">{{formatPrice(shobalrecs.vsales)}}</td>
-                       <td v-if=" virtualgameproduct > 0  ">{{formatPrice(shobalrecs.vcan)}}</td>
-                       <td v-if=" virtualgameproduct > 0  ">{{formatPrice(shobalrecs.vpay)}}</td>
-                       
-                    <td v-if=" virtualgameproduct > 0  ">{{formatPrice((shobalrecs.vprof))}}</td>
 
+<!-- Virtual -->
+<!-- v-if=" virtualgameproduct > 0  " -->
+                        <td >{{formatPrice(shobalrecs.vsales)}}</td>
+                       <td >{{formatPrice(shobalrecs.vcan)}}</td>
+                       <td>{{formatPrice(shobalrecs.vpay)}}</td>
+         <td>{{parseFloat(((shobalrecs.vpay) /(shobalrecs.vsales-shobalrecs.vcan))*100).toFixed(0)}}%</td>              
+                    <td >{{formatPrice((shobalrecs.vprof))}}</td>
+  <td>{{parseFloat(((shobalrecs.vprof) /(shobalrecs.vsales-shobalrecs.vcan))*100).toFixed(0)}}%</td>  
 
 <!-- ({{ ((( ((shobalrecs.fishpayout*500) /(shobalrecs.fishsales*500) | round))))*100}}%) -->
 
