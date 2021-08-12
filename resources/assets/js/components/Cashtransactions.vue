@@ -1048,7 +1048,7 @@
                   
 
 <!-- v-if=" soccergameproduct > 0  " -->
-<th colspan="6"  style="font-size: 30px;  color:white; ">SUMMARY OF PRODUCTS ({{currencydetails}})</th>
+<th colspan="6"  style="font-size: 30px;  color:white; ">SUMMARY ({{currencydetails}})</th>
                        <th  colspan="5" style="font-size: 30px;  color:white; ">SOCCER ({{currencydetails}})</th>
                      <!-- v-if=" fishgameproduct > 0  " -->
                    <th colspan="5" style="font-size: 30px;  color:white; ">FISH ({{currencydetails}})</th>
