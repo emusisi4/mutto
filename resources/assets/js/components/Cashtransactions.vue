@@ -1048,13 +1048,16 @@
                       <th>OPENNING</th>
                       <th v-if=" soccergameproduct > 0  ">S-SALES ({{currencydetails }})</th>
                       <th v-if=" soccergameproduct > 0  "> S-PAYOUT ({{currencydetails }})</th>
+                     
+                      <th v-if=" fishgameproduct > 0  ">FISH SALES ({{currencydetails }})</th>
+                      <th v-if=" fishgameproduct > 0  ">FISH PAYOUT ({{currencydetails }})</th>
+                      <th v-if=" fishgameproduct > 0  ">FISH INCOME ({{currencydetails }})</th>
+
                       <th v-if=" virtualgameproduct > 0  ">V-SALES ({{currencydetails }})</th>
                       <th v-if=" virtualgameproduct > 0  ">V- CANCELLED ({{currencydetails }})</th>
                       <th v-if=" virtualgameproduct > 0  ">V-REDEEMED ({{currencydetails }})</th>
                       <th v-if=" virtualgameproduct > 0  ">V-PROFIT ({{currencydetails }})</th>
-                      <th v-if=" fishgameproduct > 0  ">FISH SALES ({{currencydetails }})</th>
-                      <th v-if=" fishgameproduct > 0  ">FISH PAYOUT ({{currencydetails }})</th>
-                      <th v-if=" fishgameproduct > 0  ">FISH INCOME ({{currencydetails }})</th>
+
                       <th>CASH-IN ({{currencydetails }})</th>
                       <th>CASH-OUT ({{currencydetails }})</th>
                       <th>EXPENSES  ({{currencydetails }})</th>
@@ -1078,15 +1081,18 @@
                                <td>{{formatPrice(shobalrecs.opbalance)}}</td>
                                <td v-if=" soccergameproduct > 0  "> {{formatPrice(shobalrecs.scsales)}}</td>
                        <td v-if=" soccergameproduct > 0  ">{{formatPrice(shobalrecs.scpayout)}}</td>
-                       <td v-if=" virtualgameproduct > 0  ">{{formatPrice(shobalrecs.vsales)}}</td>
+                   
+
+                    <td v-if=" fishgameproduct > 0  ">{{formatPrice((shobalrecs.fishsales)*shobalrecs.multiplier)}}</td>
+                    <td v-if=" fishgameproduct > 0  ">{{formatPrice((shobalrecs.fishpayout)*shobalrecs.multiplier)}}</td>
+                    <td v-if=" fishgameproduct > 0  ">{{formatPrice((shobalrecs.fishincome))}}  </td>
+                    
+                        <td v-if=" virtualgameproduct > 0  ">{{formatPrice(shobalrecs.vsales)}}</td>
                        <td v-if=" virtualgameproduct > 0  ">{{formatPrice(shobalrecs.vcan)}}</td>
                        <td v-if=" virtualgameproduct > 0  ">{{formatPrice(shobalrecs.vpay)}}</td>
                        
                     <td v-if=" virtualgameproduct > 0  ">{{formatPrice((shobalrecs.vprof))}}</td>
 
-                    <td v-if=" fishgameproduct > 0  ">{{formatPrice((shobalrecs.fishsales)*shobalrecs.multiplier)}}</td>
-                    <td v-if=" fishgameproduct > 0  ">{{formatPrice((shobalrecs.fishpayout)*shobalrecs.multiplier)}}</td>
-                    <td v-if=" fishgameproduct > 0  ">{{formatPrice((shobalrecs.fishincome))}}  </td>
 
 <!-- ({{ ((( ((shobalrecs.fishpayout*500) /(shobalrecs.fishsales*500) | round))))*100}}%) -->
 
