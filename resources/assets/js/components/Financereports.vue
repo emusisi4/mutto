@@ -185,14 +185,12 @@ padding: .25rem;
                                  
                                  
                                   
-                                    <td style="background-color: rgb(250 166 48 / 22%); "> {{formatPrice((mydataObjectinfo.salesamount))}} </td>
-                                    <td style="background-color: rgb(250 166 48 / 22%); " > {{formatPrice((mydataObjectinfo.payoutamount))}} </td>
-                                    
-                                        <td style="background-color: rgb(250 166 48 / 22%); ">{{parseFloat(((mydataObjectinfo.payoutamount) /(mydataObjectinfo.salesamount))*100).toFixed(0)}}% </td>
-                                     <td style="background-color: rgb(250 166 48 / 22%); "> {{formatPrice((mydataObjectinfo.salesamount - mydataObjectinfo.payoutamount))}} </td>
-                                   
-                                     
-                                       <td style="background-color: rgb(250 166 48 / 22%); " >{{parseFloat(((mydataObjectinfo.salesamount - mydataObjectinfo.payoutamount) /(mydataObjectinfo.salesamount))*100).toFixed(0)}}% </td>
+  <td style="background-color: rgb(250 166 48 / 22%); "> {{formatPrice((mydataObjectinfo.salesamount))}} </td>
+  <td style="background-color: rgb(250 166 48 / 22%); " > {{formatPrice((mydataObjectinfo.payoutamount))}} </td>
+  
+  <td style="background-color: rgb(250 166 48 / 22%); ">{{parseFloat(((mydataObjectinfo.payoutamount) /(mydataObjectinfo.salesamount))*100).toFixed(0)}}% </td>
+  <td style="background-color: rgb(250 166 48 / 22%); "> {{formatPrice((mydataObjectinfo.salesamount - mydataObjectinfo.payoutamount))}} </td>
+  <td style="background-color: rgb(250 166 48 / 22%); " >{{parseFloat(((mydataObjectinfo.salesamount - mydataObjectinfo.payoutamount) /(mydataObjectinfo.salesamount))*100).toFixed(0)}}% </td>
 
 
 
@@ -205,33 +203,53 @@ padding: .25rem;
  -->
 
 
- <td style="background-color: #80000069; " v-if="mydataObjectinfo.virtualpayout > 0 ">{{parseFloat(((mydataObjectinfo.virtualprofit) / ((mydataObjectinfo.virtualsales - mydataObjectinfo.virtualcancelled)) )*100).toFixed(0)}}% </td>
- <td style="background-color: #80000069; " v-if="mydataObjectinfo.virtualpayout < 1 "> - </td>   
-
-
-
-
-
-
-      <td style="background-color: #80000069; "> {{formatPrice((mydataObjectinfo.virtualsales - mydataObjectinfo.virtualcancelled - mydataObjectinfo.virtualpayout))}} </td>
-      <td style="background-color: #80000069; " v-if="mydataObjectinfo.virtualprofit > 0 ">{{parseFloat(((mydataObjectinfo.virtualprofit) / (mydataObjectinfo.virtualsales-mydataObjectinfo.virtualcancelled) )*100).toFixed(0)}}% </td>
-      <td style="background-color: #80000069; " v-if="mydataObjectinfo.virtualprofit < 1 "> - </td>                            
+ <td style="background-color: #80000069; ">
+   <div v-if="mydataObjectinfo.virtualpayout != 0 ">
+     {{parseFloat(((mydataObjectinfo.virtualprofit) / ((mydataObjectinfo.virtualsales - mydataObjectinfo.virtualcancelled)) )*100).toFixed(0)}}% 
+   </div>
+   <div v-if="mydataObjectinfo.virtualpayout == 0 ">   - </div>
+     </td>
+ <td style="background-color: #80000069; " >
+   <div v-if="mydataObjectinfo.virtualpayout == 0 "> - </div>
+      <div v-if="mydataObjectinfo.virtualpayout != 0 ">  {{formatPrice((mydataObjectinfo.virtualsales - mydataObjectinfo.virtualcancelled - mydataObjectinfo.virtualpayout))}}
+        
+      </div>
+    </td>   
+ 
+ <td style="background-color: #80000069; " >
+   <div v-if="mydataObjectinfo.virtualprofit != 0 ">
+   {{parseFloat(((mydataObjectinfo.virtualprofit) / (mydataObjectinfo.virtualsales-mydataObjectinfo.virtualcancelled) )*100).toFixed(0)}}%
+   </div>
+    <div v-if="mydataObjectinfo.virtualprofit == 0 "> -  </div>
+    </td>
+                           
 
                                    
-                                    <!-- hhhhhhhhhhhhhhhhhhhhhhhhhh -->
+                                    <!-- totals -->
 
-         <td  style="background-color: #32773280; "> {{formatPrice(( (mydataObjectinfo.virtualsales )  ))}} </td>
-      <td style="background-color: #32773280; "> {{formatPrice((mydataObjectinfo.virtualcancelled))}} </td>
-      <td style="background-color: #32773280; "> {{formatPrice((mydataObjectinfo.virtualpayout))}} </td>
+         <td  style="background-color: #32773280; ">  {{formatPrice(( (mydataObjectinfo.totalsales )  ))}} </td>
+      <td style="background-color: #32773280; "> {{formatPrice((mydataObjectinfo.totalcancelled))}} </td>
+      <td style="background-color: #32773280; "> {{formatPrice((mydataObjectinfo.totalpayout))}} </td>
          
          
 
 
- <td style="background-color: #32773280; " v-if="mydataObjectinfo.virtualpayout > 0 " >{{parseFloat(((mydataObjectinfo.virtualprofit) / ((mydataObjectinfo.virtualsales - mydataObjectinfo.virtualcancelled)) )*100).toFixed(0)}}% </td>
- <td style="background-color: #32773280; " v-if="mydataObjectinfo.virtualpayout < 1 " > - </td>   
-<td style="background-color: #32773280; "> {{formatPrice((mydataObjectinfo.virtualsales - mydataObjectinfo.virtualcancelled - mydataObjectinfo.virtualpayout))}} </td>
-<td style="background-color: #32773280; " v-if="mydataObjectinfo.virtualprofit > 0 " >{{parseFloat(((mydataObjectinfo.virtualprofit) / (mydataObjectinfo.virtualsales-mydataObjectinfo.virtualcancelled) )*100).toFixed(0)}}% </td>
-<td style="background-color: #32773280; " v-if="mydataObjectinfo.virtualprofit < 1 "> - </td>                            
+ <td style="background-color: #32773280; " >
+   <div  v-if="(mydataObjectinfo.totalsales) != 0 ">
+   {{parseFloat(((mydataObjectinfo.totalpayout) / ((mydataObjectinfo.totalsales)) )*100).toFixed(0)}}% 
+   </div>
+  <div  v-if="(mydataObjectinfo.totalsales) == 0 "> - </div>
+  </td>
+
+<td style="background-color: #32773280; "> {{formatPrice(mydataObjectinfo.totalprofit)}} </td>    
+<td style="background-color: #32773280; ">
+  <div v-if="(mydataObjectinfo.totalsales) == 0 " > -  </div>
+  <div v-if="(mydataObjectinfo.totalsales) != 0 " >
+   
+    {{parseFloat(((mydataObjectinfo.totalprofit) / (mydataObjectinfo.totalsales) )*100).toFixed(0)}}%
+  </div>
+     </td>   
+                    
                             
                                     
                                 
