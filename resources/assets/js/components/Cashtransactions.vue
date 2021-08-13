@@ -1048,13 +1048,13 @@
                   
 
 <!-- v-if=" soccergameproduct > 0  " -->
-<th colspan="6"  style="font-size: 30px;  color:white; ">SUMMARY ({{currencydetails}})</th>
-                       <th  colspan="5" style="font-size: 30px;  color:white; ">SOCCER ({{currencydetails}})</th>
+<th colspan="6"  style="font-size: 30px;  color:#2b2d72; ">SUMMARY ({{currencydetails}})</th>
+                       <th v-if=" soccergameproduct > 0  " colspan="5" style="font-size: 30px;  color:#2b2d72; ">SOCCER ({{currencydetails}})</th>
                      <!-- v-if=" fishgameproduct > 0  " -->
-                   <th colspan="5" style="font-size: 30px;  color:white; ">FISH ({{currencydetails}})</th>
+                   <th colspan="5" style="font-size: 30px;  color:#2b2d72; ">FISH ({{currencydetails}})</th>
                    
                     <!-- v-if=" virtualgameproduct > 0  " -->
-  <th colspan="6"  style="font-size: 30px;  color:white; ">VIRTUAL ({{currencydetails}})</th>
+  <th colspan="6"  style="font-size: 30px;  color:#2b2d72; ">VIRTUAL ({{currencydetails}})</th>
                    
 
                       <th>Cashin ({{currencydetails }})</th>
@@ -1071,11 +1071,11 @@
   <tr>
           
                     <th></th>
-                       <th></th>
-                        <th></th>
-                      <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                      
-                      <th></th>
+                    <th></th>
                          <!-- summary -->
            <th>Sales </th>
             <th>Cancelled </th>
@@ -1085,11 +1085,11 @@
             <th>Profit %ge</th>
 <!-- soccer -->
 
-            <th>Sales </th>
-            <th>Payout </th>
-            <th>Payout %ge</th>
-            <th>GGR </th>
-            <th>GGR %ge</th>
+            <th v-if=" soccergameproduct > 0  ">Sales </th>
+            <th v-if=" soccergameproduct > 0  ">Payout </th>
+            <th v-if=" soccergameproduct > 0  "> Payout %ge</th>
+            <th v-if=" soccergameproduct > 0  ">GGR </th>
+            <th v-if=" soccergameproduct > 0  ">GGR %ge</th>
 
 
 
@@ -1152,7 +1152,7 @@
                        <td>{{formatPrice(shobalrecs.totalpayout)}}</td>
 
 <td  v-if="shobalrecs.totalsales  < 1 "> - </td> 
-         <td v-if="shobalrecs.totalsales  > 0 ">{{parseFloat(((shobalrecs.totalpayout) /(shobalrecs.totalsales-shobalrecs.totalcancelled))*100).toFixed(0)}}%</td>              
+<td v-if="shobalrecs.totalsales  > 0 ">{{parseFloat(((shobalrecs.totalpayout) /(shobalrecs.totalsales-shobalrecs.totalcancelled))*100).toFixed(0)}}%</td>              
                    
                    
                    
@@ -1176,37 +1176,30 @@
 
 
                     <!-- v-if=" soccergameproduct > 0  " -->
-                   <td > {{formatPrice(shobalrecs.scsales)}}</td>
-                   <td>{{formatPrice(shobalrecs.scpayout)}}</td>
-                   <td  v-if="shobalrecs.scsales > 0 ">{{parseFloat(((shobalrecs.scpayout) /(shobalrecs.scsales))*100).toFixed(0)}}%</td>
-                   <td  v-if="shobalrecs.scsales < 1 "> - </td> 
+                   <td v-if=" soccergameproduct > 0  " > {{formatPrice(shobalrecs.scsales)}}</td>
+                   <td v-if=" soccergameproduct > 0  ">{{formatPrice(shobalrecs.scpayout)}}</td>
+                   <td v-if=" soccergameproduct > 0  ">
+                     <div v-if="shobalrecs.scsales != 0 ">
+                       {{parseFloat(((shobalrecs.scpayout) /(shobalrecs.scsales))*100).toFixed(0)}}%
+                       
+                     </div>
+                        <div v-if="shobalrecs.scsales == 0 ">
+                          -
+                        </div>
+                       </td>
+               
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                   <td>{{formatPrice(shobalrecs.scsales-shobalrecs.scpayout)}}</td>
-                   <td  v-if="shobalrecs.scsales > 0 ">{{parseFloat(((shobalrecs.scsales-shobalrecs.scpayout) /(shobalrecs.scsales))*100).toFixed(0)}}%</td>
+                  <td v-if=" soccergameproduct > 0  ">{{formatPrice(shobalrecs.scsales-shobalrecs.scpayout)}}</td>
+                   <td v-if=" soccergameproduct > 0  ">
+                     <div  v-if="shobalrecs.scsales !=  0 " >
+                     {{parseFloat(((shobalrecs.scsales-shobalrecs.scpayout) /(shobalrecs.scsales))*100).toFixed(0)}}%
+                     
+                     </div>
+                      <div  v-if="shobalrecs.scsales ==  0 " > - </div>
+                     
+                     </td>
                       <!-- style="background-color: #80000069; " -->
-                      <td  v-if="shobalrecs.scsales < 1 "> - </td>   
+                  
 
 <!--  v-if=" fishgameproduct > 0  " -->
                     <td>{{formatPrice((shobalrecs.fishsales)*shobalrecs.multiplier)}}</td>
