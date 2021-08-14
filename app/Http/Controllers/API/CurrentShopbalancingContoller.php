@@ -222,10 +222,7 @@ $multiplier = \DB::table('branchesandmachines')->where('branchname', $inpbranch)
            'reportedcash'    => $request['reportedcash'],
            'comment'    => $request['bio'],
            'multiplier' => $multiplier,
-           'totalsales' => ($todayssales*$multiplier),
-           'totalpayout' => ($todayspayout*$multiplier),
-           //'totalcancelled' => $virtualcancelled,
-           'totalprofit' => $fishincome,
+           
            'ucret' => $userid,
          
        ]);
