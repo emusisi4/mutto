@@ -351,7 +351,9 @@ padding: .25rem;
                 </div>
                  
            
-       <div class="bethapa-reportheader-header" >GENERAL SALES  REPORT : <i> From {{ generalreportselectedstartdate|myDate2 }} To : {{ generalreportselectedenddate|myDate2 }}</i></div> 
+       <div class="bethapa-reportheader-header" >GENERAL SALES  REPORT : <i> From {{ generalreportselectedstartdate|myDate2 }} To : {{ generalreportselectedenddate|myDate2 }}</i>
+          <button type="button" v-if="allowedtoaddmainmenu > 0" class="add-newm" @click="newcorrectbalancingrecord" >Correct the Balancing Record </button>
+       </div> 
  <div class="row">
 
 
@@ -512,7 +514,9 @@ padding: .25rem;
             <th>GGR</th>
             <th>%ge GGR</th>
 
-            
+                  <th> COLLECTIONS </th>
+                 <th> CREDITS </th>
+                              <th> NET COLLECTION </th>
         </tr>
     </thead>
  
@@ -526,7 +530,7 @@ padding: .25rem;
                   
                 <!-- totals -->
 
-         <td  style="background-color: #32773280; ">  {{formatPrice(( (submenuinfo.totalsales )  ))}} </td>
+      <td  style="background-color: #32773280; ">  {{formatPrice(( (submenuinfo.totalsales )  ))}} </td>
       <td style="background-color: #32773280; "> {{formatPrice((submenuinfo.totalcancelled))}} </td>
       <td style="background-color: #32773280; "> {{formatPrice((submenuinfo.totalpayout))}} </td>
          
@@ -535,7 +539,7 @@ padding: .25rem;
 
  <td style="background-color: #32773280; " >
    <div  v-if="(submenuinfo.totalsales) != 0 ">
- ii  {{parseFloat(((submenuinfo.totalpayout) / ((submenuinfo.totalsales)) )*100).toFixed(0)}}% 
+   {{parseFloat(((submenuinfo.totalpayout) / ((submenuinfo.totalsales)) )*100).toFixed(0)}}% 
    </div>
   <div  v-if="(submenuinfo.totalsales) == 0 "> - </div>
   </td>
@@ -576,8 +580,8 @@ padding: .25rem;
 
                          <!-- ssssssssssssssssssssssssssssssssssssssssss  -->
      <td style="background-color: #80000069; "> {{formatPrice((submenuinfo.virtualsales))}} </td>
-      <td style="background-color: #80000069; ">  {{formatPrice((submenuinfo.virtualcancelled))}} </td>
-      <td style="background-color: #80000069; "> {{formatPrice((submenuinfo.virtualpayout))}} </td>
+     <td style="background-color: #80000069; ">  {{formatPrice((submenuinfo.virtualcancelled))}} </td>
+     <td style="background-color: #80000069; "> {{formatPrice((submenuinfo.virtualpayout))}} </td>
            <!-- <td>{{parseFloat(((submenuinfo.virtualpayout) /((submenuinfo.virtualsales - submenuinfo.virtualcancelled)))*100).toFixed(0)}}% </td>
 
  -->
@@ -605,7 +609,9 @@ padding: .25rem;
                            
 
                                    
-                                    
+        <td>{{formatPrice(submenuinfo.totalcollection)}}</td>
+        <td>{{formatPrice(submenuinfo.totalcredits)}}</td>
+        <td>{{formatPrice(submenuinfo.totalcollection - submenuinfo.totalcredits)}}</td>                             
                     
                             
                                     
@@ -650,7 +656,7 @@ padding: .25rem;
 
 
 
-
+<!-- 
               <table class="table"  >
                   <thead>
                     <tr> 
@@ -682,7 +688,7 @@ padding: .25rem;
                      <td>{{formatPrice(submenuinfo.daysalesamount)}}</td>
                         <td>{{formatPrice(submenuinfo.daypayoutamount)}}</td>
                            <td>{{parseFloat(((submenuinfo.daypayoutamount) /(submenuinfo.daysalesamount))*100).toFixed(0)}}% </td>
-                        <!-- parseFloat(((dailytotalsales- dailytotalpayout)/dailytotalsales).toFixed(3) -->
+                      
                          <td>{{formatPrice(submenuinfo.daysalesamount - submenuinfo.daypayoutamount)}}  </td>
                             <td>{{parseFloat(((submenuinfo.daysalesamount - submenuinfo.daypayoutamount) /(submenuinfo.daysalesamount))*100).toFixed(0)}}% </td>
                          <td>{{formatPrice(submenuinfo.totalcollection)}}</td>
@@ -705,7 +711,7 @@ padding: .25rem;
  </div>
 
 
-<!-- {{formatPrice(submenuinfo.currentsalesfigure *500)}} -->
+
 
 
 
@@ -724,7 +730,7 @@ padding: .25rem;
                       
                     </tr>
                   </tfoot>
-                </table>
+                </table> -->
                   </div>
                   <!-- close of No records -->
 
@@ -1148,6 +1154,101 @@ padding: .25rem;
 
 
 <!-- Modal add menu -->
+
+
+
+
+
+<div class="modal fade" id="addnewcomponentfeaturemodalhh9899">
+        <div class="modal-dialog modal-dialog-top modal-lg">
+        <div  class="modal-content">
+            <div  class="modal-header">
+                <h4  v-show="!editmode"    class="modal-title">Correct Report By Branch</h4> 
+                <h4  v-show="editmode" class="modal-title" >UPDATE RECORD</h4> 
+                <button  type="button" data-dismiss="modal" aria-label="Close" class="close"><span  aria-hidden="true">×</span></button></div> 
+                 <form class="form-horizontal" @submit.prevent="editmode ? updatecomponentfeature():Createrecordupdatebal()"> 
+
+                    <div  class="modal-body">
+              
+                   
+                
+                  <div class="form-group  row">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">DATE</label>
+                    <div class="col-sm-6">
+                 <input v-model="form.datedone" type="date" name="datedone"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('datedone') }">
+                    <has-error :form="form" field="datedone"></has-error>
+                                  </div>
+                   
+      
+                  </div>
+              
+                   
+                   <div class="form-group  row">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Branch</label>
+                    <div class="col-sm-6">
+                 <select name ="branchtoupdate" v-model="form.branchtoupdate" id ="branchtoupdate"   class="form-control"  :class="{'is-invalid': form.errors.has('branchtoupdate')}">
+                 
+                    <option v-for='data in brancheslist' v-bind:value='data.branchno'>{{ data.branchname }}</option>
+
+                    </select>
+                    <has-error :form="form" field="branchtoupdate"></has-error>
+                                  </div>
+                   
+      
+                  </div>
+              
+
+                          
+                 </div>
+                 
+                  <div  class="modal-footer">
+                    <button  v-show="!editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
+                      <button v-show="editmode" type="submit" class="btn btn-success btn-sm" >Update</button>
+                        <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Close</button >
+                        </div>
+                 </form>
+                       </div>
+                          </div>
+              
+       
+                    
+                    
+                    
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="modal fade" id="addnewcomponentfeaturemodal">
         <div class="modal-dialog modal-dialog-top modal-lg">
         <div  class="modal-content">
@@ -1546,10 +1647,31 @@ $('#addnewcomponentfeaturemodal').modal('show');
             },
            
 
+ Createrecordupdatebal(){
+      this.$Progress.start();
+      this.form.post('api/correctshobalancingrecord')
+      .then(()=>{
+
+         
+    $('#addnewcomponentfeaturemodalhh9899').modal('show');
+ axios.get("api/salesdetailsrecords").then(({ data }) => (this.salesdetailsrecords = data));
+  Toast.fire({
+  icon: 'success',
+  title: 'Date Corrected successfully'
+});
+        this.$Progress.finish();
+         axios.get("api/salesdetailsrecords").then(({ data }) => (this.salesdetailsrecords = data));
+
+        })
+        .catch(()=>{
+          
+        })
+         
+    }, 
     createcomponentfeature(){
       this.$Progress.start();
       this.form.post('api/correctmydaterecords')
-      .namethen(()=>{
+      .then(()=>{
 
          
     $('#addnewcomponentfeaturemodal').modal('show');
@@ -1659,6 +1781,13 @@ axios.get("api/branchandmonthreport").then(({ data }) => (this.branchandmonthrep
       
        },
 
+ newcorrectbalancingrecord(){
+        this.editmode = false;
+        this.form.clear();
+        this.form.reset();
+     
+     $('#addnewcomponentfeaturemodalhh9899').modal('show');
+            },
      newautocorrect(){
         this.editmode = false;
         this.form.clear();
@@ -1949,7 +2078,7 @@ if (result.isConfirmed) {
        axios.get("api/getallowedtomanageadate").then(({ data }) => (this.allowedtoaddmainmenu = data));
             
            
-   // axios.get('/api/branchDetails').then(function (response) { this.brancheslist = response.data;}.bind(this));
+    axios.get('/api/branchDetails').then(function (response) { this.brancheslist = response.data;}.bind(this));
      axios.get("api/genrealfishreportsAccess").then(({ data }) => (this.genrealfishreportsAccess = data));
      axios.get("api/dailyfishreportAccessComponent").then(({ data }) => (this.dailyfishreportAccessComponent = data));
 axios.get("api/getcurrencydetails").then(({ data }) => (this.currencydetails = data));
@@ -2226,7 +2355,7 @@ if (result.isConfirmed) {
             Fire.$on('AfterAction', () =>{
 this.loadDailyrecordreport();
       });
-  setInterval(() =>this.loadDailyrecordreport(),3000);
+ // setInterval(() =>this.loadDailyrecordreport(),3000);
         }
     }
 </script>

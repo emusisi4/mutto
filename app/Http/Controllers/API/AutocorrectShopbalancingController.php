@@ -9,7 +9,8 @@ use App\Branchandproduct;
 use App\Daysummarry;
 use App\Branchesandmachine;
 use App\Branchinaction;
-class AutocorrectdatedetailsController extends Controller
+
+class AutocorrectShopbalancingController extends Controller
 {
   
     public function __construct()
@@ -48,21 +49,55 @@ class AutocorrectdatedetailsController extends Controller
 
        $this->validate($request,[
        'datedone'   => 'required',
-     //  'product'   => 'required'
+       'branchtoupdate'   => 'required',
        // 'dorder'   => 'sometimes |min:0'
      ]);
      $userid =  auth('api')->user()->id;
 
   $datepaid = date('Y-m-d');
+
+
+
+  $dateinuse = $request['datedone'];
+  $branchinuse = $request['branchtoupdate'];
+
+
+  $dateinact = $request['datedone'];
+  $yearmade = date('Y', strtotime($dateinact));
+  $monthmade = date('m', strtotime($dateinact));
+  $datedonessd = $request['datedone'];
+
+
+
+
+
+/// getting the totals from shop balancing
+$fishincome = \DB::table('shopbalancingrecords')->where('datedone', '=', $dateinuse)->where('branch', '=', $branchinuse)->sum('fishincome');
+$fishpayoutcode = \DB::table('shopbalancingrecords')->where('datedone', '=', $dateinuse)->where('branch', '=', $branchinuse)->sum('fishpayout');
+$fishsalescode = \DB::table('shopbalancingrecords')->where('datedone', '=', $dateinuse)->where('branch', '=', $branchinuse)->sum('fishsales');
+$machinemultiplier= \DB::table('shopbalancingrecords')->where('datedone', '=', $dateinuse)->where('branch', '=', $branchinuse)->sum('multiplier');
+$fishprofitcode = \DB::table('shopbalancingrecords')->where('datedone', '=', $dateinuse)->where('branch', '=', $branchinuse)->sum('fishsales');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ///// working the dailysummary
-$dateinact = $request['datedone'];
-$yearmade = date('Y', strtotime($dateinact));
-$monthmade = date('m', strtotime($dateinact));
-$datedonessd = $request['datedone'];
+
 // sales summary
-$newsalesasummaryfortheday = \DB::table('dailyreportcodes')
-->where('datedone', '=', $datedonessd)
-->sum('daysalesamount');
+
 $newpayoutsummaryfortheday = \DB::table('dailyreportcodes')
 ->where('datedone', '=', $datedonessd)
 ->sum('daypayoutamount');

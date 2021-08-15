@@ -56,7 +56,7 @@ Route::apiResources(['dailyexpensesrecordsexpwallet' => 'API\Expensesreporttovie
 
 
 
-
+Route::apiResources(['correctshobalancingrecord' => 'API\AutocorrectShopbalancingController']);
 
 
 
