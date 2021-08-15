@@ -222,10 +222,14 @@ $multiplier = \DB::table('branchesandmachines')->where('branchname', $inpbranch)
            'reportedcash'    => $request['reportedcash'],
            'comment'    => $request['bio'],
            'multiplier' => $multiplier,
-           'totalsales' => ($todayssales*$multiplier),
-           'totalpayout' => ($todayspayout*$multiplier),
-           //'totalcancelled' => $virtualcancelled,
-           'totalprofit' => $fishincome,
+
+
+           'totalsales' => $todayssales*$multiplier,
+           'totalpayout' => $todayspayout*$multiplier,
+           'totalcancelled' => 0,
+           'totalprofit' => ($todayssales*$multiplier)-($todayspayout*$multiplier),
+
+
            'ucret' => $userid,
          
        ]);
@@ -340,55 +344,14 @@ DB::table('dailyreportcodes')->where('branch', $bxn)->where('datedone', $datedon
       'multiplier' => $multiplier,
       'machineunlockcode' => $machinefloatcodelastloaded,
       'yearmade'     => $yearmade,
+
+      'totalsales' => $todayssaes*$multiplier,
+      'totalpayout' => $todayspayout*$multiplier,
+      'totalcancelled' => 0,
+      'totalprofit' => ($todayssaes*$multiplier)-($todayspayout*$multiplier),
     
     ]);
 
-//// checking if the branch exists in the monthlyreport view
-// //$branchinmonthlyreport = \DB::table('mlyrpts')->where('branch', $branchforaction)->where('yeardone', $yearmade)->where('monthdone', $monthmade)->count();
-// //if($branchinmonthlyreport > 0)
-// {
-// /// update query
-// $brancchssjh = $request['branchnametobalance'];
-
-// // extracting the new sales figure for the  month
-// $newsalesfigure = \DB::table('dailyreportcodes')
-// ->where('monthmade', '=', $monthmade)
-// ->where('yearmade', '=', $yearmade)
-// ->where('branch', '=', $brancchssjh)
-// ->sum('daysalesamount');
-// /// new payout figure
-// $newspayoutfigure = \DB::table('dailyreportcodes')
-// ->where('monthmade', '=', $monthmade)
-// ->where('yearmade', '=', $yearmade)
-// ->where('branch', '=', $brancchssjh)
-// ->sum('daypayoutamount');
-
-// /// new collections figure
-// $newcollectionsfigure = \DB::table('cintransfers')
-// ->where('monthmade', '=', $monthmade)
-// ->where('yearmade', '=', $yearmade)
-// ->where('branchto', '=', $brancchssjh)
-// ->where('status', '=', 1)
-// ->sum('amount');
-// /// new credits figure
-// $newcreditsfigure = \DB::table('couttransfers')
-// ->where('monthmade', '=', $monthmade)
-// ->where('yearmade', '=', $yearmade)
-// ->where('branchto', '=', $brancchssjh)
-// ->where('status', '=', 1)
-// ->sum('amount');
-// /// new expenses figure
-// $newexpensesfigure = \DB::table('madeexpenses')
-// ->where('monthmade', '=', $monthmade)
-// ->where('yearmade', '=', $yearmade)
-// ->where('branchto', '=', $brancchssjh)
-// ->where('status', '=', 1)
-// ->sum('amount');
-// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// }
-
-//if($branchinmonthlyreport < 1)
 {
   // //$branchinmonthlyreport = \DB::table('mlyrpts')->where('branch', $branchforaction)->where('yeardone', $yearmade)->where('monthdone', $monthmade)->count();
 
@@ -429,6 +392,28 @@ $newexpensesfigure = \DB::table('madeexpenses')
 ->where('approvalstate', '=', 1)
 ->sum('amount');
 
+$newtotalsales = \DB::table('dailyreportcodes')
+->where('monthmade', '=', $monthmade)
+->where('yearmade', '=', $yearmade)
+->where('branch', '=', $brancchssjh)
+->sum('totalsales');
+$newtotalpayout = \DB::table('dailyreportcodes')
+->where('monthmade', '=', $monthmade)
+->where('yearmade', '=', $yearmade)
+->where('branch', '=', $brancchssjh)
+->sum('totalpayout');
+$newtotalcancelled = \DB::table('dailyreportcodes')
+->where('monthmade', '=', $monthmade)
+->where('yearmade', '=', $yearmade)
+->where('branch', '=', $brancchssjh)
+->sum('totalcancelled');
+
+$newtotalprofit = \DB::table('dailyreportcodes')
+->where('monthmade', '=', $monthmade)
+->where('yearmade', '=', $yearmade)
+->where('branch', '=', $brancchssjh)
+->sum('totalprofit');
+
 
   // insertion query
   Mlyrpt::Create([
@@ -446,6 +431,11 @@ $newexpensesfigure = \DB::table('madeexpenses')
     'ntrevenue'  => $newsalesfigure-$newspayoutfigure-$newexpensesfigure,
     'monthdone'    => $monthmade,
     'yeardone'     => $yearmade,
+
+    'totalsales' => $newtotalsales,
+    'totalpayout' => $newtotalpayout,
+    'totalcancelled' => $newtotalcancelled,
+    'totalprofit' =>$newtotalprofit,
   
   ]);
 
@@ -461,6 +451,21 @@ $newsalesasummaryfortheday = \DB::table('dailyreportcodes')
 $newpayoutsummaryfortheday = \DB::table('dailyreportcodes')
 ->where('datedone', '=', $datedonessd)
 ->sum('daypayoutamount');
+
+$newvirtualsalessummaryfortheday = \DB::table('dailyreportcodes')
+->where('datedone', '=', $datedonessd)
+->sum('virtualsales');
+$newvirtualpayoutsummaryfortheday = \DB::table('dailyreportcodes')
+->where('datedone', '=', $datedonessd)
+->sum('virtualpayout');
+$newvirtualcancelledsummaryfortheday = \DB::table('dailyreportcodes')
+->where('datedone', '=', $datedonessd)
+->sum('virtualcancelled');
+$newvirtualprofitummaryfortheday = \DB::table('dailyreportcodes')
+->where('datedone', '=', $datedonessd)
+->sum('virtualprofit');
+
+
 //////////////////////////////////////////////////////////////////////////////
 DB::table('daysummarries')->where('datedone', $datedonessd)->delete();
     
@@ -471,6 +476,10 @@ Daysummarry::Create([
   'yeardone'         => $monthmade,
   'monthdone'         => $yearmade,
     
+  'totalsales' => $newvirtualsalessummaryfortheday+$newsalesasummaryfortheday-$newvirtualcancelledsummaryfortheday,
+    'totalpayout' => $newpayoutsummaryfortheday+$newvirtualpayoutsummaryfortheday,
+    'totalcancelled' => $newvirtualcancelledsummaryfortheday,
+    'totalprofit' =>$newvirtualprofitummaryfortheday+$newsalesasummaryfortheday-$newpayoutsummaryfortheday,
   'ucret' => $userid,
 
 ]);
@@ -1061,7 +1070,7 @@ DB::table('dailyreportcodes')->where('branch', $bxn)->where('datedone', $datedon
 
       
       'totalsales' => $virtualsales-$virtualcancelled+($todayssaes*$multiplier),
-          'totalpayout' => $virtualpayout+$todayspayout,
+          'totalpayout' => $virtualpayout+($todayspayout*$multiplier),
           'totalcancelled' => $virtualcancelled,
           'totalprofit' => $fishincome+$netvirtualprofit,
     

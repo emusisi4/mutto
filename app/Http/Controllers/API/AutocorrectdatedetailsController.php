@@ -66,16 +66,48 @@ $newsalesasummaryfortheday = \DB::table('dailyreportcodes')
 $newpayoutsummaryfortheday = \DB::table('dailyreportcodes')
 ->where('datedone', '=', $datedonessd)
 ->sum('daypayoutamount');
+
+///////// working on the virtual sales 
+$newvirtualsalessummaryfortheday = \DB::table('dailyreportcodes')
+->where('datedone', '=', $datedonessd)
+->sum('virtualsales'); 
+$newvirtualcancelledsummaryfortheday = \DB::table('dailyreportcodes')
+->where('datedone', '=', $datedonessd)
+->sum('virtualcancelled'); 
+
+$newvirtualpayoutsummaryfortheday = \DB::table('dailyreportcodes')
+->where('datedone', '=', $datedonessd)
+->sum('virtualpayout'); 
+$newvirtualprofitsummaryfortheday = \DB::table('dailyreportcodes')
+->where('datedone', '=', $datedonessd)
+->sum('virtualprofit'); 
+///
+$totalsales = $newvirtualsalessummaryfortheday+$newsalesasummaryfortheday-$newvirtualcancelledsummaryfortheday;
+$totalpayout = $newvirtualpayoutsummaryfortheday+$newpayoutsummaryfortheday;
+$totalcancelled = $newvirtualcancelledsummaryfortheday;
+$totalprofit = $totalsales-$totalpayout;
+$virtualcancelled = $newvirtualcancelledsummaryfortheday;
+// virtualsales, virtualcancelled, virtualpayout, virtualprofit, totalsales, totalcancelled, totalpayout, totalprofit
 //////////////////////////////////////////////////////////////////////////////
 DB::table('daysummarries')->where('datedone', $datedonessd)->delete();
-    
+//id, datedone, salesamount, payoutamount, ucret, created_at, updated_at, yeardone, monthdone,
+// virtualsales, virtualprofit, virtualcancelled, virtualpayout, totalcancelled, totalsales, totalpayout, totalprofit
 Daysummarry::Create([
   'salesamount'    => $newsalesasummaryfortheday,
   'datedone'       => $datedonessd,
   'payoutamount'   => $newpayoutsummaryfortheday,
   'yeardone'       => $monthmade,
   'monthdone'      => $yearmade,
-    
+  'virtualsales'   => $newvirtualsalessummaryfortheday-$newvirtualcancelledsummaryfortheday,
+  'virtualprofit'       => $newvirtualsalessummaryfortheday-$newvirtualcancelledsummaryfortheday -$newvirtualpayoutsummaryfortheday ,
+  'virtualcancelled'      => $newvirtualcancelledsummaryfortheday,
+
+  'virtualpayout'   => $newvirtualpayoutsummaryfortheday,
+  'totalcancelled'       => $virtualcancelled,
+  'totalsales'      => $totalsales,
+  'totalpayout'   => $totalpayout,
+  'totalprofit'       => $totalprofit,
+  
   'ucret' => $userid,
 
 ]);

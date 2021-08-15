@@ -26,6 +26,7 @@ class Dailyreportcode extends Authenticatable
         'totalpayout',
         'totalcancelled',
         'totalprofit',
+       
     ];
     public function branchnameDailycodes(){
         // creating a relationship between the students model 

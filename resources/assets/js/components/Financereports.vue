@@ -122,11 +122,11 @@ padding: .25rem;
                 </form>
 
                      </div>
-                      <div class="bethapa-reportheader-header" >DAILY SALES  REPORT : <i> From : {{ seleceteddatefordailyreport|myDate2 }} To : {{ seleceteddatefordailyreportenddate|myDate2 }}</i></div> 
+                      <div class="bethapa-reportheader-header" >DAILY SALES  REPORT : <i> From : {{ seleceteddatefordailyreport|myDate2 }} To : {{ seleceteddatefordailyreportenddate|myDate2 }}</i>
          <button type="button" v-if="allowedtoaddmainmenu > 0" class="add-newm" @click="newautocorrect" >Auto Correct the Details </button>
-           
+                
 
-       
+       </div> 
        <!-- v-if="allowedtoaddmainmenu > 0" -->
  <div id="axiosForm"> 
                 <div class="loader" v-if="loading">
@@ -141,35 +141,40 @@ padding: .25rem;
         <tr>
             <th rowspan="1" style="font-size: 30px; background-color: white; "></th>
             <th rowspan="1" style="font-size: 30px; background-color: white; "></th>
-            <th colspan="5" style="font-size: 30px; background-color: orange; color:white; ">FISH DETAILS</th>
-            <th colspan="6"  style="font-size: 30px; background-color: maroon; color:white; ">VIRTUAL DETAILS</th>
-            <th colspan="6"  style="font-size: 30px; background-color: green; color:white; ">TOTAL SUMMARIES</th>
+              <th colspan="6"  style="font-size: 30px; background-color: green; color:white; "> TOTALS ({{currencydetails}} )</th>
+            <th colspan="5" style="font-size: 30px; background-color: orange; color:white; ">FISH HUNTING ({{currencydetails}} ) </th>
+            <th colspan="6"  style="font-size: 30px; background-color: maroon; color:white; ">VIRTUAL ({{currencydetails}} )</th>
+          
           
         </tr>
         <tr>
           
            <th>#</th>
              <th>DATE</th>
-            <th>Sales ({{currencydetails}} )</th>
-            <th>Payout ({{currencydetails}} )</th>
-            <th>Payout %ge</th>
-            <th>GGR ({{currencydetails}} )</th>
-            <th>GGR %ge</th>
 
-
-           <th>Sales ({{currencydetails}} )</th>
-            <th>Cancelled ({{currencydetails}} )</th>
-            <th>Payout ({{currencydetails}} )</th>
-            <th>Payout %ge</th>
+             <!-- summary  -->
+              <th> Sales </th>
+            <th> Cancelled</th>
+            <th> Payout </th>
+            <th> %ge Payout </th>
             <th>GGR</th>
-            <th>Profit %ge</th>
+            <th>%ge GGR </th>
+             <!--  -->
+            <th>Sales </th>
+            <th>Payout </th>
+            <th>%ge Payout </th>
+            <th>GGR </th>
+            <th>%ge GGR </th>
 
-             <th>Total Sales ({{currencydetails}} )</th>
-            <th>Total Cancelled ({{currencydetails}} )</th>
-            <th>Total Payout ({{currencydetails}} )</th>
-            <th>Payout %ge</th>
+
+           <th>Sales </th>
+            <th>Cancelled </th>
+            <th>Payout</th>
+            <th>%ge Payout </th>
             <th>GGR</th>
-            <th>Profit %ge</th>
+            <th>%ge GGR</th>
+
+            
         </tr>
     </thead>
  
@@ -181,7 +186,31 @@ padding: .25rem;
                             <td>  {{((mydataObjectinfo.datedone))}}</td>
                           
                             
-                            
+                <!-- totals -->
+
+         <td  style="background-color: #32773280; ">  {{formatPrice(( (mydataObjectinfo.totalsales )  ))}} </td>
+      <td style="background-color: #32773280; "> {{formatPrice((mydataObjectinfo.totalcancelled))}} </td>
+      <td style="background-color: #32773280; "> {{formatPrice((mydataObjectinfo.totalpayout))}} </td>
+         
+         
+
+
+ <td style="background-color: #32773280; " >
+   <div  v-if="(mydataObjectinfo.totalsales) != 0 ">
+   {{parseFloat(((mydataObjectinfo.totalpayout) / ((mydataObjectinfo.totalsales)) )*100).toFixed(0)}}% 
+   </div>
+  <div  v-if="(mydataObjectinfo.totalsales) == 0 "> - </div>
+  </td>
+
+<td style="background-color: #32773280; "> {{formatPrice(mydataObjectinfo.totalprofit)}} </td>    
+<td style="background-color: #32773280; ">
+  <div v-if="(mydataObjectinfo.totalsales) == 0 " > -  </div>
+  <div v-if="(mydataObjectinfo.totalsales) != 0 " >
+   
+    {{parseFloat(((mydataObjectinfo.totalprofit) / (mydataObjectinfo.totalsales) )*100).toFixed(0)}}%
+  </div>
+     </td>  
+                  <!--d summaryenf -->
                                  
                                  
                                   
@@ -225,30 +254,7 @@ padding: .25rem;
                            
 
                                    
-                                    <!-- totals -->
-
-         <td  style="background-color: #32773280; ">  {{formatPrice(( (mydataObjectinfo.totalsales )  ))}} </td>
-      <td style="background-color: #32773280; "> {{formatPrice((mydataObjectinfo.totalcancelled))}} </td>
-      <td style="background-color: #32773280; "> {{formatPrice((mydataObjectinfo.totalpayout))}} </td>
-         
-         
-
-
- <td style="background-color: #32773280; " >
-   <div  v-if="(mydataObjectinfo.totalsales) != 0 ">
-   {{parseFloat(((mydataObjectinfo.totalpayout) / ((mydataObjectinfo.totalsales)) )*100).toFixed(0)}}% 
-   </div>
-  <div  v-if="(mydataObjectinfo.totalsales) == 0 "> - </div>
-  </td>
-
-<td style="background-color: #32773280; "> {{formatPrice(mydataObjectinfo.totalprofit)}} </td>    
-<td style="background-color: #32773280; ">
-  <div v-if="(mydataObjectinfo.totalsales) == 0 " > -  </div>
-  <div v-if="(mydataObjectinfo.totalsales) != 0 " >
-   
-    {{parseFloat(((mydataObjectinfo.totalprofit) / (mydataObjectinfo.totalsales) )*100).toFixed(0)}}%
-  </div>
-     </td>   
+                                    
                     
                             
                                     
@@ -271,7 +277,7 @@ padding: .25rem;
 
     <div class="card-footer">
                 <ul class="pagination pagination-sm m-0 float-right">
-                   <pagination :data="mainmenurecords" @pagination-change-page="paginationResultmainmemurecords"></pagination>
+                   <pagination :data="dailycodesreportdata" @pagination-change-page="paginationResultdailyreport"></pagination>
                 </ul>
               </div>
                    
@@ -464,12 +470,195 @@ padding: .25rem;
        
     </div>
             
+
+
+<table class="table">
+    <thead>
+        <tr>
+          <th rowspan="1" style="font-size: 30px; background-color: white; "></th>
+            <th rowspan="1" style="font-size: 30px; background-color: white; "></th>
+            <th rowspan="1" style="font-size: 30px; background-color: white; "></th>
+              <th colspan="6"  style="font-size: 30px; background-color: green; color:white; "> TOTALS ({{currencydetails}} )</th>
+            <th colspan="5" style="font-size: 30px; background-color: orange; color:white; ">FISH HUNTING ({{currencydetails}} ) </th>
+            <th colspan="6"  style="font-size: 30px; background-color: maroon; color:white; ">VIRTUAL ({{currencydetails}} )</th>
+          
+          
+        </tr>
+        <tr>
+          
+           <th>#</th>
+             <th>DATE</th>
+             <th> BRANCH </th>
+
+             <!-- summary  -->
+              <th> Sales </th>
+            <th> Cancelled</th>
+            <th> Payout </th>
+            <th> %ge Payout </th>
+            <th>GGR</th>
+            <th>%ge GGR </th>
+             <!--  -->
+            <th>Sales </th>
+            <th>Payout </th>
+            <th>%ge Payout </th>
+            <th>GGR </th>
+            <th>%ge GGR </th>
+
+
+           <th>Sales </th>
+            <th>Cancelled </th>
+            <th>Payout</th>
+            <th>%ge Payout </th>
+            <th>GGR</th>
+            <th>%ge GGR</th>
+
+            
+        </tr>
+    </thead>
+ 
+  
+    <tbody>
+        <tr>
+             <tr v-for="submenuinfo in salesdetailsrecords.data" :key="submenuinfo.id">
+            <td>  {{((submenuinfo.id))}}</td>
+            <td>{{submenuinfo.datedone}}</td>
+            <td>   <template v-if="submenuinfo.branchname_dailycodes">	{{submenuinfo.branchname_dailycodes.branchname}}</template></td>  
+                  
+                <!-- totals -->
+
+         <td  style="background-color: #32773280; ">  {{formatPrice(( (submenuinfo.totalsales )  ))}} </td>
+      <td style="background-color: #32773280; "> {{formatPrice((submenuinfo.totalcancelled))}} </td>
+      <td style="background-color: #32773280; "> {{formatPrice((submenuinfo.totalpayout))}} </td>
+         
+         
+
+
+ <td style="background-color: #32773280; " >
+   <div  v-if="(submenuinfo.totalsales) != 0 ">
+ ii  {{parseFloat(((submenuinfo.totalpayout) / ((submenuinfo.totalsales)) )*100).toFixed(0)}}% 
+   </div>
+  <div  v-if="(submenuinfo.totalsales) == 0 "> - </div>
+  </td>
+
+<td style="background-color: #32773280; "> {{formatPrice(submenuinfo.totalprofit)}} </td>    
+<td style="background-color: #32773280; ">
+  <div v-if="(submenuinfo.totalsales) == 0 " > -  </div>
+  <div v-if="(submenuinfo.totalsales) != 0 " >
+   
+    {{parseFloat(((submenuinfo.totalprofit) / (submenuinfo.totalsales) )*100).toFixed(0)}}%
+  </div>
+     </td>  
+                  <!--d summaryenf -->
+                                 
+                                 
+                                  
+  <td style="background-color: rgb(250 166 48 / 22%); "> {{formatPrice((submenuinfo.daysalesamount))}} </td>
+  <td style="background-color: rgb(250 166 48 / 22%); " > {{formatPrice((submenuinfo.daypayoutamount))}} </td>
+  
+  <td style="background-color: rgb(250 166 48 / 22%); ">
+  <div  v-if="submenuinfo.daysalesamount != 0 ">
+  {{parseFloat(((submenuinfo.daypayoutamount) /(submenuinfo.daysalesamount))*100).toFixed(0)}}%
+  </div>
+   <div  v-if="submenuinfo.daysalesamount == 0 "> -  </div>
+  
+   </td>
+  <td style="background-color: rgb(250 166 48 / 22%); "> {{formatPrice((submenuinfo.daysalesamount - submenuinfo.daypayoutamount))}} </td>
+
+  <td style="background-color: rgb(250 166 48 / 22%); " >
+  <div  v-if="submenuinfo.daysalesamount != 0 ">
+ {{parseFloat(((submenuinfo.daysalesamount - submenuinfo.daypayoutamount) /(submenuinfo.daysalesamount))*100).toFixed(0)}}%
+  </div>
+   <div  v-if="submenuinfo.daysalesamount == 0 "> -  </div>
+  
+   </td>
+
+
+
+                         <!-- ssssssssssssssssssssssssssssssssssssssssss  -->
+     <td style="background-color: #80000069; "> {{formatPrice((submenuinfo.virtualsales))}} </td>
+      <td style="background-color: #80000069; ">  {{formatPrice((submenuinfo.virtualcancelled))}} </td>
+      <td style="background-color: #80000069; "> {{formatPrice((submenuinfo.virtualpayout))}} </td>
+           <!-- <td>{{parseFloat(((submenuinfo.virtualpayout) /((submenuinfo.virtualsales - submenuinfo.virtualcancelled)))*100).toFixed(0)}}% </td>
+
+ -->
+
+
+ <td style="background-color: #80000069; ">
+   <div v-if="(submenuinfo.virtualsales - submenuinfo.virtualcancelled) != 0 ">
+     {{parseFloat(((submenuinfo.virtualprofit) / ((submenuinfo.virtualsales - submenuinfo.virtualcancelled)) )*100).toFixed(0)}}% 
+   </div>
+   <div v-if="(submenuinfo.virtualsales - submenuinfo.virtualcancelled) == 0 ">   - </div>
+     </td>
+ <td style="background-color: #80000069; " >
+   <div v-if="submenuinfo.virtualpayout == 0 "> - </div>
+      <div v-if="submenuinfo.virtualpayout != 0 ">  {{formatPrice((submenuinfo.virtualsales - submenuinfo.virtualcancelled - submenuinfo.virtualpayout))}}
+        
+      </div>
+    </td>   
+ 
+ <td style="background-color: #80000069; " >
+   <div v-if="submenuinfo.virtualprofit != 0 ">
+   {{parseFloat(((submenuinfo.virtualprofit) / (submenuinfo.virtualsales-submenuinfo.virtualcancelled) )*100).toFixed(0)}}%
+   </div>
+    <div v-if="submenuinfo.virtualprofit == 0 "> -  </div>
+    </td>
+                           
+
+                                   
+                                    
+                    
+                            
+                                    
+                                
+        </tr>
+      
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
               <table class="table"  >
                   <thead>
                     <tr> 
                      <th>#</th>
                       <th>Date</th>
                         <th>Branch</th>
+
+                        
                         <th>Sales ({{currencydetails}} )</th>
 
                          <th>Payout ({{currencydetails}} )</th>
@@ -1200,10 +1389,10 @@ actionaidsalesreportbydate : 'salesreportbydate',
 
 methods:{
 
-  paginationResultmainmemurecords(page = 1) {
-                        axios.get('api/mainmenucomponents?page=' + page)
+  paginationResultdailyreport(page = 1) {
+                        axios.get('api/dailycodesreportdata?page=' + page)
                           .then(response => {
-                            this.mainmenurecords = response.data;
+                            this.dailycodesreportdata = response.data;
                           });
                       },
 
@@ -1359,17 +1548,18 @@ $('#addnewcomponentfeaturemodal').modal('show');
 
     createcomponentfeature(){
       this.$Progress.start();
-        this.form.post('api/correctmydaterecords')
-        .then(()=>{
+      this.form.post('api/correctmydaterecords')
+      .namethen(()=>{
 
          
     $('#addnewcomponentfeaturemodal').modal('show');
-   // axios.get("api/componentfeatures").then(({ data }) => (this.componentfeaturesrecords = data));
+ axios.get("api/dailycodesreportdata").then(({ data }) => (this.dailycodesreportdata = data));
   Toast.fire({
   icon: 'success',
   title: 'Date Corrected successfully'
 });
         this.$Progress.finish();
+         axios.get("api/dailycodesreportdata").then(({ data }) => (this.dailycodesreportdata = data));
 
         })
         .catch(()=>{
@@ -1759,7 +1949,7 @@ if (result.isConfirmed) {
        axios.get("api/getallowedtomanageadate").then(({ data }) => (this.allowedtoaddmainmenu = data));
             
            
-    axios.get('/api/branchDetails').then(function (response) { this.brancheslist = response.data;}.bind(this));
+   // axios.get('/api/branchDetails').then(function (response) { this.brancheslist = response.data;}.bind(this));
      axios.get("api/genrealfishreportsAccess").then(({ data }) => (this.genrealfishreportsAccess = data));
      axios.get("api/dailyfishreportAccessComponent").then(({ data }) => (this.dailyfishreportAccessComponent = data));
 axios.get("api/getcurrencydetails").then(({ data }) => (this.currencydetails = data));
@@ -2031,11 +2221,12 @@ if (result.isConfirmed) {
 
      axios.get("api/genrealfishreportsAccess").then(({ data }) => (this.genrealfishreportsAccess = data));
      axios.get("api/dailyfishreportAccessComponent").then(({ data }) => (this.dailyfishreportAccessComponent = data));
+       axios.get("api/dailycodesreportdata").then(({ data }) => (this.dailycodesreportdata = data));
    
             Fire.$on('AfterAction', () =>{
 this.loadDailyrecordreport();
       });
-  //setInterval(() =>this.loadManinmens(),3000);
+  setInterval(() =>this.loadDailyrecordreport(),3000);
         }
     }
 </script>

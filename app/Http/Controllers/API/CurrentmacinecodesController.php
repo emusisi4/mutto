@@ -74,6 +74,10 @@ class CurrentmacinecodesController extends Controller
             'closingcode'   => $request['closingcode'],
             'previoussalesfigure'   => $request['previoussalescode'],
             'previouspayoutfigure'   => $request['previouspayoutcode'],
+            'currentsalesfigure'   => $request['previoussalescode'],
+            'currentpayoutfigure'   => $request['previouspayoutcode'],
+            'salescode'   => $request['previoussalescode'],
+            'payoutcode'   => $request['previouspayoutcode'],
 
 
 
