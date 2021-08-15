@@ -72,11 +72,12 @@ class AutocorrectShopbalancingController extends Controller
 
 
 /// getting the totals from shop balancing
-$fishincome = \DB::table('shopbalancingrecords')->where('datedone', '=', $dateinuse)->where('branch', '=', $branchinuse)->sum('fishincome');
-$fishpayoutcode = \DB::table('shopbalancingrecords')->where('datedone', '=', $dateinuse)->where('branch', '=', $branchinuse)->sum('fishpayout');
-$fishsalescode = \DB::table('shopbalancingrecords')->where('datedone', '=', $dateinuse)->where('branch', '=', $branchinuse)->sum('fishsales');
-$machinemultiplier= \DB::table('shopbalancingrecords')->where('datedone', '=', $dateinuse)->where('branch', '=', $branchinuse)->sum('multiplier');
-$fishprofitcode = \DB::table('shopbalancingrecords')->where('datedone', '=', $dateinuse)->where('branch', '=', $branchinuse)->sum('fishsales');
+$fishsales = \DB::table('dailyreportcodes')->where('datedone', '=', $dateinuse)->where('branch', '=', $branchinuse)->value('daysalesamount');
+$fishpayout = \DB::table('dailyreportcodes')->where('datedone', '=', $dateinuse)->where('branch', '=', $branchinuse)->value('daypayoutamount');
+$virtualsales = \DB::table('dailyreportcodes')->where('datedone', '=', $dateinuse)->where('branch', '=', $branchinuse)->value('virtualsales');
+$virtualpayout = \DB::table('dailyreportcodes')->where('datedone', '=', $dateinuse)->where('branch', '=', $branchinuse)->value('virtualpayout');
+$virtualprofit = \DB::table('dailyreportcodes')->where('datedone', '=', $dateinuse)->where('branch', '=', $branchinuse)->value('virtualprofit');
+$virtualcancelled = \DB::table('dailyreportcodes')->where('datedone', '=', $dateinuse)->where('branch', '=', $branchinuse)->value('virtualcancelled');
 
 
 
@@ -94,58 +95,57 @@ $fishprofitcode = \DB::table('shopbalancingrecords')->where('datedone', '=', $da
 
 
 
-///// working the dailysummary
 
-// sales summary
+// ///// working the dailysummary
 
-$newpayoutsummaryfortheday = \DB::table('dailyreportcodes')
-->where('datedone', '=', $datedonessd)
-->sum('daypayoutamount');
+// // sales summary
 
-///////// working on the virtual sales 
-$newvirtualsalessummaryfortheday = \DB::table('dailyreportcodes')
-->where('datedone', '=', $datedonessd)
-->sum('virtualsales'); 
-$newvirtualcancelledsummaryfortheday = \DB::table('dailyreportcodes')
-->where('datedone', '=', $datedonessd)
-->sum('virtualcancelled'); 
+// $newpayoutsummaryfortheday = \DB::table('dailyreportcodes')
+// ->where('datedone', '=', $datedonessd)
+// ->sum('daypayoutamount');
 
-$newvirtualpayoutsummaryfortheday = \DB::table('dailyreportcodes')
-->where('datedone', '=', $datedonessd)
-->sum('virtualpayout'); 
-$newvirtualprofitsummaryfortheday = \DB::table('dailyreportcodes')
-->where('datedone', '=', $datedonessd)
-->sum('virtualprofit'); 
-///
-$totalsales = $newvirtualsalessummaryfortheday+$newsalesasummaryfortheday-$newvirtualcancelledsummaryfortheday;
-$totalpayout = $newvirtualpayoutsummaryfortheday+$newpayoutsummaryfortheday;
-$totalcancelled = $newvirtualcancelledsummaryfortheday;
+// ///////// working on the virtual sales 
+// $newvirtualsalessummaryfortheday = \DB::table('dailyreportcodes')
+// ->where('datedone', '=', $datedonessd)
+// ->sum('virtualsales'); 
+// $newvirtualcancelledsummaryfortheday = \DB::table('dailyreportcodes')
+// ->where('datedone', '=', $datedonessd)
+// ->sum('virtualcancelled'); 
+
+// $newvirtualpayoutsummaryfortheday = \DB::table('dailyreportcodes')
+// ->where('datedone', '=', $datedonessd)
+// ->sum('virtualpayout'); 
+// $newvirtualprofitsummaryfortheday = \DB::table('dailyreportcodes')
+// ->where('datedone', '=', $datedonessd)
+// ->sum('virtualprofit'); 
+// ///
+$totalsales = $fishsales+$virtualsales-$virtualcancelled;
+$totalpayout = $virtualpayout+$fishpayout;
+$totalcancelled = $virtualcancelled;
 $totalprofit = $totalsales-$totalpayout;
-$virtualcancelled = $newvirtualcancelledsummaryfortheday;
-// virtualsales, virtualcancelled, virtualpayout, virtualprofit, totalsales, totalcancelled, totalpayout, totalprofit
-//////////////////////////////////////////////////////////////////////////////
-DB::table('daysummarries')->where('datedone', $datedonessd)->delete();
-//id, datedone, salesamount, payoutamount, ucret, created_at, updated_at, yeardone, monthdone,
-// virtualsales, virtualprofit, virtualcancelled, virtualpayout, totalcancelled, totalsales, totalpayout, totalprofit
-Daysummarry::Create([
-  'salesamount'    => $newsalesasummaryfortheday,
-  'datedone'       => $datedonessd,
-  'payoutamount'   => $newpayoutsummaryfortheday,
-  'yeardone'       => $monthmade,
-  'monthdone'      => $yearmade,
-  'virtualsales'   => $newvirtualsalessummaryfortheday-$newvirtualcancelledsummaryfortheday,
-  'virtualprofit'       => $newvirtualsalessummaryfortheday-$newvirtualcancelledsummaryfortheday -$newvirtualpayoutsummaryfortheday ,
-  'virtualcancelled'      => $newvirtualcancelledsummaryfortheday,
 
-  'virtualpayout'   => $newvirtualpayoutsummaryfortheday,
-  'totalcancelled'       => $virtualcancelled,
-  'totalsales'      => $totalsales,
-  'totalpayout'   => $totalpayout,
-  'totalprofit'       => $totalprofit,
-  
-  'ucret' => $userid,
 
-]);
+
+
+
+
+$update = \DB::table('dailyreportcodes') 
+->where('datedone', $dateinuse) 
+->where('branch', $branchinuse) 
+->update( [ 'totalsales' => $totalsales,
+            'totalpayout' => $totalpayout,
+            'totalcancelled' => $totalcancelled,
+            'totalprofit' => $totalprofit,
+            'virtualprofit' => ($virtualsales-$virtualcancelled)-($virtualpayout)
+             ]); 
+
+
+
+
+
+
+
+
 
 
     }

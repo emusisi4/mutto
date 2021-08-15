@@ -601,10 +601,10 @@ padding: .25rem;
     </td>   
  
  <td style="background-color: #80000069; " >
-   <div v-if="submenuinfo.virtualprofit != 0 ">
+   <div v-if="(submenuinfo.virtualsales-submenuinfo.virtualcancelled) != 0 ">
    {{parseFloat(((submenuinfo.virtualprofit) / (submenuinfo.virtualsales-submenuinfo.virtualcancelled) )*100).toFixed(0)}}%
    </div>
-    <div v-if="submenuinfo.virtualprofit == 0 "> -  </div>
+    <div v-if="(submenuinfo.virtualsales-submenuinfo.virtualcancelled) == 0 "> -  </div>
     </td>
                            
 
