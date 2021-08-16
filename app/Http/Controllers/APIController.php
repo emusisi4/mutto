@@ -516,7 +516,7 @@ public function mybranch()
         /// $roleto  = Bran::latest('id')->where('ucret', $userid)->orderBy('id', 'Desc')->limit(1)->value('rolename');  
        
         $data = Branch::latest('id')
-        //->where('sysname', '!=', $component)
+        ->where('del', '=', 0)
         ->get();
                 return response()->json($data);
    }
