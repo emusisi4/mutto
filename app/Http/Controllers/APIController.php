@@ -370,7 +370,7 @@ public function mybranch()
         if($userrole != '101')
         {
         $data = Branch::latest('id')
-       // ->where('id', '=', $userbranch)
+        ->where('del', '=', 0)
         ->get();
                 return response()->json($data);
         }
