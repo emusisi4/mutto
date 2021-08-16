@@ -26,6 +26,7 @@ class Dailyreportcode extends Authenticatable
         'totalpayout',
         'totalcancelled',
         'totalprofit',
+        'branchcomment',
        
     ];
     public function branchnameDailycodes(){

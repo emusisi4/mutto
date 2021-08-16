@@ -1062,7 +1062,9 @@
                      
                       
                       <th>CLOSING  ({{currencydetails }})</th>
-                       <th>SHORTAGE ({{currencydetails }}) </th>
+                      <th>RPT CASH  ({{currencydetails }})</th>
+                       <th>SHORT ({{currencydetails }}) </th>
+                        <th>COMMENT ({{currencydetails }}) </th>
                      <th >  </th>
                     </tr>
 
@@ -1120,6 +1122,8 @@
                         <th></th>
                       <th></th>
                      <th></th>
+                      <th></th>
+                       <th></th>
                       <th></th>
         </tr>
 
@@ -1274,7 +1278,7 @@
                      <td >{{formatPrice((shobalrecs.cashout))}}</td>
                    
                      <td >{{formatPrice((shobalrecs.clcash))}}</td>
-                          
+                         <td >{{formatPrice((shobalrecs.reportedcash))}}</td>    
 
                             <td>
                               <div v-if="((shobalrecs.clcash)-(shobalrecs.reportedcash)) > 0">
@@ -1289,7 +1293,7 @@
                               </div>
                              </td>
                          
-                         
+                             <td >{{((shobalrecs.comment))}}</td>   
                     
                        <td>
                              

@@ -516,7 +516,8 @@ padding: .25rem;
 
                   <th> COLLECTIONS </th>
                  <th> CREDITS </th>
-                              <th> NET COLLECTION </th>
+                 <th> NET COLLECTION </th>
+                  <th> COMMENT </th>
         </tr>
     </thead>
  
@@ -612,7 +613,7 @@ padding: .25rem;
         <td>{{formatPrice(submenuinfo.totalcollection)}}</td>
         <td>{{formatPrice(submenuinfo.totalcredits)}}</td>
         <td>{{formatPrice(submenuinfo.totalcollection - submenuinfo.totalcredits)}}</td>                             
-                    
+           <td>{{(submenuinfo.branchcomment)}}</td>          
                             
                                     
                                 
