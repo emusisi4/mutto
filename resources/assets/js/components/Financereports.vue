@@ -1654,7 +1654,7 @@ $('#addnewcomponentfeaturemodal').modal('show');
 
          
     $('#addnewcomponentfeaturemodalhh9899').modal('show');
- axios.get("api/salesdetailsrecords").then(({ data }) => (this.salesdetailsrecords = data));
+ 
   Toast.fire({
   icon: 'success',
   title: 'Date Corrected successfully'

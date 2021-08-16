@@ -1147,21 +1147,27 @@
 <!-- 
    virtualcancelled, virtualpayout, virtualprofit, totalsales, totalpayout, totalcancelled, totalprofit -->
 <!-- v-if=" summary > 0  " -->
-                        <td >{{formatPrice(shobalrecs.totalsales)}}</td>
-                       <td >{{formatPrice(shobalrecs.totalcancelled)}}</td>
-                       <td>{{formatPrice(shobalrecs.totalpayout)}}</td>
+                        <td style="background-color: #32773280;">{{formatPrice(shobalrecs.totalsales)}}</td>
+                       <td style="background-color: #32773280;">{{formatPrice(shobalrecs.totalcancelled)}}</td>
+                       <td style="background-color: #32773280;">{{formatPrice(shobalrecs.totalpayout)}}</td>
 
-<td  v-if="shobalrecs.totalsales  < 1 "> - </td> 
-<td v-if="shobalrecs.totalsales  > 0 ">{{parseFloat(((shobalrecs.totalpayout) /(shobalrecs.totalsales-shobalrecs.totalcancelled))*100).toFixed(0)}}%</td>              
+<td style="background-color: #32773280;">
+<div v-if="(shobalrecs.totalsales-shobalrecs.totalcancelled)  == 0 "> - </div> 
+<div v-if="(shobalrecs.totalsales-shobalrecs.totalcancelled)  != 0 ">
+  {{parseFloat(((shobalrecs.totalpayout) /(shobalrecs.totalsales-shobalrecs.totalcancelled))*100).toFixed(0)}}%
+</div>
+  </td>              
                    
                    
-                   
-                    <td >{{formatPrice((shobalrecs.totalprofit))}}</td>
+  <td style="background-color: #32773280;">{{formatPrice((shobalrecs.totalprofit))}}</td>
 
 
 
-<td  v-if="shobalrecs.totalsales  < 1 "> - </td> 
-  <td v-if="shobalrecs.totalsales  > 0 "> {{parseFloat(((shobalrecs.totalprofit) /(shobalrecs.totalsales-shobalrecs.totalcancelled))*100).toFixed(0)}}%</td>  
+<td style="background-color: #32773280;"> 
+  <div  v-if="(shobalrecs.totalsales-shobalrecs.totalcancelled) == 0" >- </div> 
+  <div  v-if="(shobalrecs.totalsales-shobalrecs.totalcancelled) !=0 ">
+     {{parseFloat(((shobalrecs.totalprofit) /(shobalrecs.totalsales-shobalrecs.totalcancelled))*100).toFixed(0)}}% </div>
+     </td>  
 
 
 
@@ -1202,14 +1208,23 @@
                   
 
 <!--  v-if=" fishgameproduct > 0  " -->
-                    <td>{{formatPrice((shobalrecs.fishsales)*shobalrecs.multiplier)}}</td>
-                    <td >{{formatPrice((shobalrecs.fishpayout)*shobalrecs.multiplier)}}</td>
-                     <td  v-if="shobalrecs.fishpayout*shobalrecs.multiplier > 0 ">{{parseFloat(((shobalrecs.fishpayout*shobalrecs.multiplier) /(shobalrecs.fishsales*shobalrecs.multiplier))*100).toFixed(0)}}%</td>
-                    <td  v-if="shobalrecs.fishpayout*shobalrecs.multiplier  < 1 "> - </td> 
+                    <td style="background-color: rgb(250 166 48 / 22%); ">{{formatPrice((shobalrecs.fishsales)*shobalrecs.multiplier)}}</td>
+                    <td style="background-color: rgb(250 166 48 / 22%); ">{{formatPrice((shobalrecs.fishpayout)*shobalrecs.multiplier)}}</td>
+                     <td style="background-color: rgb(250 166 48 / 22%); " >
+                     
+                     <div v-if="(shobalrecs.fishsales*shobalrecs.multiplier) != 0 ">
+                     
+                     
+                     {{parseFloat(((shobalrecs.fishpayout*shobalrecs.multiplier) /(shobalrecs.fishsales*shobalrecs.multiplier))*100).toFixed(0)}}%</div>
+                     
+                       <div v-if="(shobalrecs.fishsales*shobalrecs.multiplier) == 0 "> - </div>
+                     
+                     </td>
+                  
                    
-                    <td >{{formatPrice((shobalrecs.fishincome))}}  </td>
+                    <td style="background-color: rgb(250 166 48 / 22%); " >{{formatPrice((shobalrecs.fishincome))}}  </td>
 <!-- v-if="(shobalrecs.fishincome*shobalrecs.multiplier) > 0 -->
-                      <td>
+                      <td style="background-color: rgb(250 166 48 / 22%); "> 
                          <div v-if="shobalrecs.fishsales*shobalrecs.multiplier  != 0 ">  
                          
                          {{parseFloat(((shobalrecs.fishincome) /(shobalrecs.fishsales*shobalrecs.multiplier))*100).toFixed(0)}}%
@@ -1222,10 +1237,10 @@
 
 <!-- Virtual -->
 <!-- v-if=" virtualgameproduct > 0  " -->
-                        <td >{{formatPrice(shobalrecs.vsales)}}</td>
-                       <td >{{formatPrice(shobalrecs.vcan)}}</td>
-                       <td>{{formatPrice(shobalrecs.vpay)}}</td>
-         <td>
+                        <td style="background-color: #80000069; " >{{formatPrice(shobalrecs.vsales)}}</td>
+                       <td style="background-color: #80000069; " >{{formatPrice(shobalrecs.vcan)}}</td>
+                       <td style="background-color: #80000069; ">{{formatPrice(shobalrecs.vpay)}}</td>
+         <td style="background-color: #80000069; ">
            <div v-if="(shobalrecs.vsales-shobalrecs.vcan) != 0">
            {{parseFloat(((shobalrecs.vpay) /(shobalrecs.vsales-shobalrecs.vcan))*100).toFixed(0)}}%
            </div>
@@ -1240,14 +1255,22 @@
 
 
 
-  <td >{{formatPrice((shobalrecs.vprof))}}</td>
+  <td style="background-color: #80000069; " >{{formatPrice((shobalrecs.vprof))}}</td>
 
-<td v-if="(shobalrecs.vsales-shobalrecs.vcan) != 0">{{parseFloat(((shobalrecs.vprof) /(shobalrecs.vsales-shobalrecs.vcan))*100).toFixed(0)}}%</td> 
-         <td v-if="(shobalrecs.vsales-shobalrecs.vcan) == 0">  - </td>
+<td style="background-color: #80000069; " >
+  <div v-if="(shobalrecs.vsales-shobalrecs.vcan) != 0"> 
+    {{parseFloat(((shobalrecs.vprof) /(shobalrecs.vsales-shobalrecs.vcan))*100).toFixed(0)}}%
+  </div>
+  
+  <div v-if="(shobalrecs.vsales-shobalrecs.vcan) == 0"> - </div>
+  
+  
+  </td> 
+       
 
 <!-- ({{ ((( ((shobalrecs.fishpayout*500) /(shobalrecs.fishsales*500) | round))))*100}}%) -->
 
-                     <td >{{formatPrice((shobalrecs.cashin))}}</td>
+                     <td  >{{formatPrice((shobalrecs.cashin))}}</td>
                      <td >{{formatPrice((shobalrecs.cashout))}}</td>
                    
                      <td >{{formatPrice((shobalrecs.clcash))}}</td>
@@ -1269,7 +1292,7 @@
                          
                     
                        <td>
-                             <button type="button"   class="btn  bg-gradient-info btn-xs fas fa-eye" @focus="checkAccess()"  @click="editModal(shobalrecs)"> View </button>
+                             
                             <button type="button" v-if="allowedtodeleteshopBalancingRecord > 0" class="btn  bg-gradient-danger btn-xs fas fa-trash-alt"  @click="deleteShopbalancingrecord(shobalrecs.id)"> Delete </button>
                  
                       </td>
