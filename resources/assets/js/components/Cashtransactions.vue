@@ -1027,15 +1027,53 @@
                                   <button type="submit" id="submit" hidden="hidden" name= "submit" ref="myBtnroledd" class="btn btn-primary btn-sm">Saveit</button>
                                 </form> -->
 
-              <div class="bethapa-table-header">
+              
+  <div class="bethapa-table-header">
+   <form @submit.prevent="savethemonthlyreportforallbranches()">
+                 
+                      <div class="form-group">
+              
+
+       <input v-model="form.actionaidsalesreportbydate" type="hidden" readonly="" name="actionaidsalesreportbydate">
+    
+
+
+
+
+  <label for="exampleInputEmail1">Select the Branch :</label>
+                 
+                 
+
+         <select name ="branchname" v-model="form.branchname" id ="branchname" v-on:change="myClickEventtosavemonthlyreportallbranches" :class="{'is-invalid': form.errors.has('sortby')}">
+<option value="900"> All </option>
+<option v-for='data in brancheslist' v-bind:value='data.branchno'> {{ data.branchname }}</option>
+
+</select>
+            <has-error :form="form" field="branchname"></has-error>
+
+
+                              
+             <button type="submit" id="submit" hidden="hidden" name= "submit" ref="theButtontotosalesreportmonthly" class="btn btn-primary btn-sm">Saveit</button>         
+
+                                
+                     
+       
+       
+                   
+          </div>
+
+
+        
+
+                </form>                     </div>
+
+<div class="bethapa-table-header">
                    
        
-                     BRANCH BALANCING RECORD   
+                     BRANCH  RECORD   
                      
                      <button type="button"  class="add-newm" @click="newshopbal" >BALANCE NOW </button>
                      </div>
-
-
              <table class="table table-bordered table-striped">
                   <thead>
                     <tr>
@@ -3341,7 +3379,32 @@ myClickEventroletoaddcomponent($event) { const elem = this.$refs.myBtnroledd
             elem.click()
         },
 
+myClickEventtosavemonthlyreportallbranches($event) { const elem = this.$refs.theButtontotosalesreportmonthly
+            elem.click()
+        },
 
+         savethemonthlyreportforallbranches(){
+
+                                this.loading = true;
+                                this.form.post('api/balancingrecordstoview')
+                                .then(()=>{
+axios.get("api/currentbalancingrecords").then(({ data }) => (this.shopbalancingdatarecords = data));
+
+                                Toast.fire({
+                                icon: 'success',
+                                title: 'Record Added Successfully'
+                                });
+
+                                                              this.loading = false;
+
+                                  this.form.clear();
+        this.form.reset();
+                                })
+                                .catch(()=>{
+
+                                })
+
+}, 
 
 myClickEventsavennn($event) { const elem = this.$refs.btnForshopbalancing
             elem.click()

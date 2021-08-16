@@ -35,39 +35,68 @@ class CurrentShopbalancingContoller extends Controller
 
       if($userrole == '101')
       {
-      return   Shopbalancingrecord::with(['userbalancingBranch','branchinBalance'])->orderBy('datedone', 'Desc')
+        /// getting the branch
+        $branch = DB::table('monthlyreporttoviews')->where('ucret', $userid)->value('branchname');
+        if($branch == '900')
+     { return   Shopbalancingrecord::with(['userbalancingBranch','branchinBalance'])->orderBy('datedone', 'Desc')
       
       // return   Shopbalancingrecord::latest('id')
        //  return   Branchpayout::latest('id')
         ->where('ucret', $userid)
         ->paginate(31);
+      }/////
+
+      if($branch != '900')
+      { return   Shopbalancingrecord::with(['userbalancingBranch','branchinBalance'])->orderBy('datedone', 'Desc')
+       
+       // return   Shopbalancingrecord::latest('id')
+        //  return   Branchpayout::latest('id')
+        ->where('branch', $branch)
+         ->where('ucret', $userid)
+         ->paginate(31);
+       }/////
+
+
+
       }
 
 
       if($userrole != '101')
       {
-      
-      
+        $branch = DB::table('monthlyreporttoviews')->where('ucret', $userid)->value('branchname');
+        if($branch != '900')
+        {
       return   Shopbalancingrecord::with(['userbalancingBranch','branchinBalance'])->orderBy('datedone', 'Desc')
       
-      // return   Shopbalancingrecord::latest('id')
-       //  return   Branchpayout::latest('id')
+      ->where('branch', $branch)
          ->where('del', 0)
         ->paginate(31);
+        }
+
+        if($branch == '900')
+        {
+          {
+            return   Shopbalancingrecord::with(['userbalancingBranch','branchinBalance'])->orderBy('datedone', 'Desc')
+            
+          //  ->where('branch', $branch)
+               ->where('del', 0)
+              ->paginate(31);
+              }
+        }
       
     }
-    if($userrole == '103')
-    {
+  //   if($userrole == '103')
+  //   {
     
     
-    return   Shopbalancingrecord::with(['userbalancingBranch','branchinBalance'])->orderBy('datedone', 'Desc')
+  //   return   Shopbalancingrecord::with(['userbalancingBranch','branchinBalance'])->orderBy('datedone', 'Desc')
     
-    // return   Shopbalancingrecord::latest('id')
-     //  return   Branchpayout::latest('id')
-     ->where('ucret', $userid)
-      ->paginate(31);
+  //   // return   Shopbalancingrecord::latest('id')
+  //    //  return   Branchpayout::latest('id')
+  //    ->where('ucret', $userid)
+  //     ->paginate(31);
     
-  }
+  // }
     }
 
    
