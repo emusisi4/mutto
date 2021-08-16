@@ -1048,13 +1048,13 @@
                   
 
 <!-- v-if=" soccergameproduct > 0  " -->
-<th colspan="6"  style="font-size: 30px;  color:#2b2d72; ">SUMMARY ({{currencydetails}})</th>
+<th colspan="6"  style="font-size: 30px; background-color: green; color:white; "> TOTAL ({{currencydetails}} )</th>
                        <th v-if=" soccergameproduct > 0  " colspan="5" style="font-size: 30px;  color:#2b2d72; ">SOCCER ({{currencydetails}})</th>
                      <!-- v-if=" fishgameproduct > 0  " -->
-                   <th colspan="5" style="font-size: 30px;  color:#2b2d72; ">FISH ({{currencydetails}})</th>
+                 <th colspan="5" style="font-size: 30px; background-color: orange; color:white; ">FISH HUNTING ({{currencydetails}} ) </th>
                    
                     <!-- v-if=" virtualgameproduct > 0  " -->
-  <th colspan="6"  style="font-size: 30px;  color:#2b2d72; ">VIRTUAL ({{currencydetails}})</th>
+<th colspan="6"  style="font-size: 30px; background-color: maroon; color:white; ">VIRTUAL ({{currencydetails}} )</th>
                    
 
                       <th>Cashin ({{currencydetails }})</th>
