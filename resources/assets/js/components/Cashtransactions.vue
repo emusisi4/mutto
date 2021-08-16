@@ -1062,9 +1062,9 @@
                      
                       
                       <th>CLOSING  ({{currencydetails }})</th>
-                      <th>RPT CASH  ({{currencydetails }})</th>
+                      <th>RPT. CASH  ({{currencydetails }})</th>
                        <th>SHORT ({{currencydetails }}) </th>
-                        <th>COMMENT ({{currencydetails }}) </th>
+                        <th>COMMENT </th>
                      <th >  </th>
                     </tr>
 
