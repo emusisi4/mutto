@@ -1311,7 +1311,7 @@
    
                       <div class="card-footer">
                 <ul class="pagination pagination-sm m-0 float-right">
-                   <pagination :data="shopbalancingdatarecords" @pagination-change-page="paginationroleAuthorisedcomponents"></pagination>
+                   <pagination :data="shopbalancingdatarecords" @pagination-change-page="paginateBalancingrec"></pagination>
                 </ul>
               </div>
                      
@@ -3484,8 +3484,8 @@ paginationroleAuthorisedsubmenues(page = 1) {
 
 
 
-paginationroleAuthorisedcomponents(page = 1) {
-                        axios.get('api/shopbalancingdatarecords?page=' + page)
+paginateBalancingrec(page = 1) {
+                        axios.get('api/currentbalancingrecords?page=' + page)
                           .then(response => {
                             this.shopbalancingdatarecords = response.data;
                           });

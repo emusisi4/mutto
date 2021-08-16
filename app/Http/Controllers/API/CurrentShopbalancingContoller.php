@@ -40,7 +40,7 @@ class CurrentShopbalancingContoller extends Controller
       // return   Shopbalancingrecord::latest('id')
        //  return   Branchpayout::latest('id')
         ->where('ucret', $userid)
-        ->paginate(20);
+        ->paginate(31);
       }
 
 
@@ -53,7 +53,7 @@ class CurrentShopbalancingContoller extends Controller
       // return   Shopbalancingrecord::latest('id')
        //  return   Branchpayout::latest('id')
          ->where('del', 0)
-        ->paginate(20);
+        ->paginate(31);
       
     }
     if($userrole == '103')
@@ -65,7 +65,7 @@ class CurrentShopbalancingContoller extends Controller
     // return   Shopbalancingrecord::latest('id')
      //  return   Branchpayout::latest('id')
      ->where('ucret', $userid)
-      ->paginate(20);
+      ->paginate(31);
     
   }
     }
