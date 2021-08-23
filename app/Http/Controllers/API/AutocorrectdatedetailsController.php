@@ -82,7 +82,7 @@ $newvirtualprofitsummaryfortheday = \DB::table('dailyreportcodes')
 ->where('datedone', '=', $datedonessd)
 ->sum('virtualprofit'); 
 ///
-$totalsales = $newvirtualsalessummaryfortheday+$newsalesasummaryfortheday-$newvirtualcancelledsummaryfortheday;
+$totalsales = $newvirtualsalessummaryfortheday+$newsalesasummaryfortheday;
 $totalpayout = $newvirtualpayoutsummaryfortheday+$newpayoutsummaryfortheday;
 $totalcancelled = $newvirtualcancelledsummaryfortheday;
 $totalprofit = $totalsales-$totalpayout;
