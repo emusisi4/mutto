@@ -35,9 +35,11 @@ use App\Expensewalet;
 use App\Sortlistreport;
 use App\Mymonth;
 use App\Myyear;
+use App\Collectionreporttoview;
 use App\Generalreport;
 use App\Incomesource;
 use App\Transactiontype;
+use App\Dailyreportcode;
 class APIController extends Controller
 
 {
@@ -401,7 +403,26 @@ public function mybranch()
       ->get();
               return response()->json($data);
  }
+ public function currentlyselecteddebitcollectionsreport()
 
+{
+  $userid =  auth('api')->user()->id;
+  $userbranch =  auth('api')->user()->branch;
+  $userrole =  auth('api')->user()->type;
+  $udefinedrole =  auth('api')->user()->mmaderole;
+
+
+$wordCount = \DB::table('collectionreporttoviews')
+  ->where('reporttype', '=', 2)
+    ->where('ucret', '=', $userid)
+   
+    ->count();
+
+    return $wordCount;
+    
+  
+}
+ 
 
  public function yearslist()
      {
@@ -1014,6 +1035,111 @@ public function collectionsaccountcurrentbalance()
 }
 
 ////////////////////////////////////////////
+
+public function totalrangecredits()
+{
+/// Getting the Logged in User details
+ $userid =  auth('api')->user()->id;
+ $userbranch =  auth('api')->user()->branch;
+ $userrole =  auth('api')->user()->type;
+
+     
+  $currentdate = date('Y-m-d');
+  $startdate  = \DB::table('collectionreporttoviews')->where('ucret', $userid)->orderBy('id', 'Desc')->limit(1)->value('startdate');
+  $enddate  = \DB::table('collectionreporttoviews')->where('ucret', $userid)->orderBy('id', 'Desc')->limit(1)->value('enddate');
+  $branch  = \DB::table('collectionreporttoviews')->where('ucret', $userid)->orderBy('id', 'Desc')->limit(1)->value('branch');
+  if($branch == "900")
+  {
+    $totalsales = \DB::table('couttransfers')
+   
+    //  ->where('datedone', '=', $dateinquestion)
+       ->whereBetween('transferdate', [$startdate, $enddate])
+       ->sum('amount');
+        return $totalsales;
+      
+  }
+  if($branch != "900")
+  {
+    $totalsales = \DB::table('couttransfers')
+   
+       ->where('branchto', '=', $branch)
+       ->whereBetween('transferdate', [$startdate, $enddate])
+       ->sum('amount');
+        return $totalsales;
+      
+  }
+ 
+}
+
+public function totalrangeincome()
+{
+/// Getting the Logged in User details
+ $userid =  auth('api')->user()->id;
+ $userbranch =  auth('api')->user()->branch;
+ $userrole =  auth('api')->user()->type;
+
+     
+  $currentdate = date('Y-m-d');
+  $startdate  = \DB::table('collectionreporttoviews')->where('ucret', $userid)->orderBy('id', 'Desc')->limit(1)->value('startdate');
+  $enddate  = \DB::table('collectionreporttoviews')->where('ucret', $userid)->orderBy('id', 'Desc')->limit(1)->value('enddate');
+  $branch  = \DB::table('collectionreporttoviews')->where('ucret', $userid)->orderBy('id', 'Desc')->limit(1)->value('branch');
+  if($branch == "900")
+  {
+    $totalsales = \DB::table('dailyreportcodes')
+   
+    
+       ->whereBetween('datedone', [$startdate, $enddate])
+       ->sum('totalprofit');
+        return $totalsales;
+      
+  }
+  if($branch != "900")
+  {
+    $totalsales = \DB::table('dailyreportcodes')
+   
+       ->where('branch', '=', $branch)
+       ->whereBetween('datedone', [$startdate, $enddate])
+       ->sum('totalprofit');
+        return $totalsales;
+      
+  }
+ 
+}
+public function totalrangecollections()
+{
+/// Getting the Logged in User details
+ $userid =  auth('api')->user()->id;
+ $userbranch =  auth('api')->user()->branch;
+ $userrole =  auth('api')->user()->type;
+
+     
+  $currentdate = date('Y-m-d');
+  $startdate  = \DB::table('collectionreporttoviews')->where('ucret', $userid)->orderBy('id', 'Desc')->limit(1)->value('startdate');
+  $enddate  = \DB::table('collectionreporttoviews')->where('ucret', $userid)->orderBy('id', 'Desc')->limit(1)->value('enddate');
+  $branch  = \DB::table('collectionreporttoviews')->where('ucret', $userid)->orderBy('id', 'Desc')->limit(1)->value('branch');
+  if($branch == "900")
+  {
+    $totalsales = \DB::table('cintransfers')
+   
+    //  ->where('datedone', '=', $dateinquestion)
+       ->whereBetween('transferdate', [$startdate, $enddate])
+       ->sum('amount');
+        return $totalsales;
+      
+  }
+  if($branch != "900")
+  {
+    $totalsales = \DB::table('cintransfers')
+   
+       ->where('branchto', '=', $branch)
+       ->whereBetween('transferdate', [$startdate, $enddate])
+       ->sum('amount');
+        return $totalsales;
+      
+  }
+ 
+}
+
 
 public function dailytotalsales()
 {

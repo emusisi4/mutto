@@ -87,6 +87,8 @@ let routes = [
 { path: '/componentsandfeatures', component: require('./components/Componentandformfeatures.vue')},
 { path: '/cashtransactions', component: require('./components/Cashtransactions.vue')},
 { path: '/incomes', component: require('./components/Companyincomes.vue')},
+{ path: '/creditanddebotreports', component: require('./components/Debitandcredirreports.vue')},
+
 // { path: '/shopdesdecashout', component: require('./components/Branchescashouttransactions.vue')},
   ]
   const router = new VueRouter({
@@ -105,7 +107,7 @@ Vue.filter('firstletterCapital', function(text){
     return moment(created).format("MMM Do YY");
   });
   Vue.filter('myDate2', function(created){
-    return moment(created).format("Do MMM YYYY  ");
+    return moment(created).format("dddd Do MMMM YYYY  ");
   });
   Vue.filter('round', function(value, decimals) {
     if(!value) {

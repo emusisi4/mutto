@@ -2739,7 +2739,44 @@
                        <button type="submit" id="submit" name= "submit" ref="myBtn" class="btn btn-info btn-sm">Proceed</button>
                                     </div>
                                 </form> -->
-                  
+                   <div class="bethapa-table-header">
+   <form @submit.prevent="savethemonthlyreportforallbranches()">
+                 
+                      <div class="form-group">
+              
+
+       <input v-model="form.actionaidsalesreportbydate" type="hidden" readonly="" name="actionaidsalesreportbydate">
+    
+
+
+
+
+  <label for="exampleInputEmail1">Select the Branch :</label>
+                 
+                 
+
+         <select name ="branchname" v-model="form.branchname" id ="branchname" v-on:change="myClickEventtosavemonthlyreportallbranches" :class="{'is-invalid': form.errors.has('sortby')}">
+<option value="900"> All </option>
+<option v-for='data in brancheslist' v-bind:value='data.branchno'> {{ data.branchname }}</option>
+
+</select>
+            <has-error :form="form" field="branchname"></has-error>
+
+
+                              
+             <button type="submit" id="submit" hidden="hidden" name= "submit" ref="theButtontotosalesreportmonthly" class="btn btn-primary btn-sm">Saveit</button>         
+
+                                
+                     
+       
+       
+                   
+          </div>
+
+
+        
+
+                </form>                     </div>
                        <div class="bethapa-table-header">
                          <!-- v-if="allowedtoaddnewcashcollection > 0" -->
                     Fish COLLECTION DETAILS <button  type="button" class="add-newm" @click="newCashcollection" >Collect / Debit Cash </button>

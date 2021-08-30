@@ -138,6 +138,8 @@ Route::get('expensecategorieslist', 'APIController@expensecategorieslist');
 
 
 Route::get('montheslist', 'APIController@montheslist');
+
+Route::get('currentlyselecteddebitcollectionsreport', 'APIController@currentlyselecteddebitcollectionsreport');
 Route::get('yearslist', 'APIController@yearslist');
 Route::get('monthreportslist2', 'APIController@monthreportslist2');
 
@@ -183,7 +185,7 @@ Route::get('generalcomponentaccessSettings', 'APIController@generalcomponentacce
 Route::get('dailyfishreportAccessComponent', 'APIController@dailyfishreportAccessComponent');
 Route::get('genrealfishreportsAccess', 'APIController@genrealfishreportsAccess');
 Route::get('getallowedtomanageadate', 'APIController@getallowedtomanageadate');
-
+//axios.get("api/currentlyselecteddebitcollectionsreport").then(({ data }) => (this.currentlyselecteddebitcollectionsreport = data));//
 
 Route::get('mainmenuaccessComponent', 'APIController@mainmenuaccessComponent');
 Route::get('submenuaccessComponent', 'APIController@submenuaccessComponent');
@@ -210,8 +212,10 @@ Route::get('collectionsmonthly', 'APIController@collectionsmonthly');
 Route::get('dailytotalsales', 'APIController@dailytotalsales'); 
 Route::get('dailytotalpayout', 'APIController@dailytotalpayout'); 
 Route::get('dailycollection', 'APIController@dailycollection'); 
+Route::get('totalrangecollections', 'APIController@totalrangecollections'); 
+Route::get('totalrangecredits', 'APIController@totalrangecredits'); 
 
-
+Route::get('totalrangeincome', 'APIController@totalrangeincome'); 
 
 Route::get('capitalaccountcurrentbalance', 'APIController@capitalaccountcurrentbalance'); 
 Route::get('pettycashaccountcurrentbalance', 'APIController@pettycashaccountcurrentbalance'); 
@@ -350,8 +354,12 @@ Route::apiResources(['mycashindetails' => 'API\UsercashindetailsController']);
 Route::apiResources(['maycashoutdetails' => 'API\UsercashoutdetailsController']);
 Route::apiResources(['expensesreportbybranch' => 'API\ExpensereportstoviewController']);
 Route::apiResources(['dailyfishrep' => 'API\FishreporttoviewController']);
+Route::apiResources(['dailycollectionsreport' => 'API\CollectionsreporttoviewController']);
+
 //Route::apiResources(['dailycodesreportdata' => 'API\DaillyfishcodesreportController']);
 Route::apiResources(['dailycodesreportdata' => 'API\DailysalessummaryreportController']);
+
+Route::apiResources(['collectiondetails' => 'API\CollectionsreporttoviewController']);
 Route::apiResources(['monthlybranchexpensedetails' => 'API\MonthlyrexpesesreportabchbController']);
 Route::apiResources(['allbranchesexpenserept' => 'API\MonthlyrexpesesreportallbController']);
 Route::apiResources(['allbranchesmreports' => 'API\MonthlyreportsallbranchesController']);

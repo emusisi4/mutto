@@ -29,6 +29,7 @@ class CashCollectionController extends Controller
     
      if($userrole == '101')
      {      
+      
         return   Couttransfer::with(['branchName','branchNamefrom','ceratedUserdetails','approvedUserdetails', 'statusName'])->latest('id')
        //  return   Cintransfer::latest('id')
       // return   Madeexpense::latest('id')
@@ -38,11 +39,21 @@ class CashCollectionController extends Controller
 
      if($userrole == '103')
      {      
-        return   Cintransfer::with(['branchName','branchNamefrom','ceratedUserdetails','approvedUserdetails', 'statusName'])->latest('id')
+      $branch = DB::table('monthlyreporttoviews')->where('ucret', $userid)->value('branchname');
+      if($branch == '900')
+       { return   Cintransfer::with(['branchName','branchNamefrom','ceratedUserdetails','approvedUserdetails', 'statusName'])->latest('id')
        //  return   Cintransfer::latest('id')
       // return   Madeexpense::latest('id')
       ->where('ucret', $userid)
        ->paginate(20);
+      }
+      if($branch != '900')
+       { return   Cintransfer::with(['branchName','branchNamefrom','ceratedUserdetails','approvedUserdetails', 'statusName'])->latest('id')
+       //  return   Cintransfer::latest('id')
+      // return   Madeexpense::latest('id')
+      ->where('branchto', $branch)
+       ->paginate(20);
+      }
      }
      
      
@@ -53,6 +64,51 @@ class CashCollectionController extends Controller
       // return   Madeexpense::latest('id')
       // ->where('branchto', $userbranch)
        ->paginate(25);
+
+
+
+
+
+       $branch = DB::table('monthlyreporttoviews')->where('ucret', $userid)->value('branchname');
+       if($branch == '900')
+        { return   Cintransfer::with(['branchName','branchNamefrom','ceratedUserdetails','approvedUserdetails', 'statusName'])->latest('id')
+        //  return   Cintransfer::latest('id')
+       // return   Madeexpense::latest('id')
+      //  ->where('ucret', $userid)
+        ->paginate(20);
+       }
+       if($branch != '900')
+        { return   Cintransfer::with(['branchName','branchNamefrom','ceratedUserdetails','approvedUserdetails', 'statusName'])->latest('id')
+        //  return   Cintransfer::latest('id')
+       // return   Madeexpense::latest('id')
+       ->where('branchto', $branch)
+        ->paginate(20);
+       }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
      }
     
      
