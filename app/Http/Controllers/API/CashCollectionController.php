@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
@@ -39,6 +40,7 @@ class CashCollectionController extends Controller
 
      if($userrole == '103')
      {      
+       
       $branch = DB::table('monthlyreporttoviews')->where('ucret', $userid)->value('branchname');
       if($branch == '900')
        { return   Cintransfer::with(['branchName','branchNamefrom','ceratedUserdetails','approvedUserdetails', 'statusName'])->latest('id')

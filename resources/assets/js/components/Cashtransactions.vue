@@ -2837,7 +2837,7 @@
                                    </table>
     <div class="card-footer">
                 <ul class="pagination pagination-sm m-0 float-right">
-                   <pagination :data="shopcashoutrecords" @pagination-change-page="paginationResultsBranches"></pagination>
+                   <pagination :data="fishcollectionrecords" @pagination-change-page="paginationResultsBranches"></pagination>
                 </ul>
               </div>
                  
@@ -3057,7 +3057,7 @@
                 
     <div class="card-footer">
                 <ul class="pagination pagination-sm m-0 float-right">
-                   <pagination :data="shopcashoutrecords" @pagination-change-page="paginationResultsBranches"></pagination>
+                   <pagination :data="fishcollectionrecords" @pagination-change-page="paginationResultsBranches"></pagination>
                 </ul>
               </div>
                  
@@ -3426,7 +3426,7 @@ myClickEventtosavemonthlyreportallbranches($event) { const elem = this.$refs.the
                                 this.form.post('api/balancingrecordstoview')
                                 .then(()=>{
 axios.get("api/currentbalancingrecords").then(({ data }) => (this.shopbalancingdatarecords = data));
-
+ axios.get("api/fishcollections").then(({ data }) => (this.fishcollectionrecords = data));
                                 Toast.fire({
                                 icon: 'success',
                                 title: 'Record Added Successfully'
