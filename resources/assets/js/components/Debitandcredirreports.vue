@@ -469,7 +469,7 @@ padding: .25rem;
 
     <div class="card-footer">
                 <ul class="pagination pagination-sm m-0 float-right">
-                   <pagination :data="salesdetailsrecords" @pagination-change-page="paginationResultsSubmenus"></pagination>
+                   <pagination :data="collectiondetails" @pagination-change-page="paginationResultcollectiondetails"></pagination>
                 </ul>
               </div>
                      
@@ -1328,10 +1328,10 @@ paginationResultscomponentfeatures(page = 1) {
                           });
                       },
 
-paginationResultsSubmenus(page = 1) {
-                        axios.get('api/salesrecs?page=' + page)
+paginationResultcollectiondetails(page = 1) {
+                        axios.get('api/collectiondetails?page=' + page)
                           .then(response => {
-                            this.salesdetailsrecords = response.data;
+                            this.collectiondetails = response.data;
                           });
                       },
 
