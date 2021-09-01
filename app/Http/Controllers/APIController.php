@@ -38,6 +38,7 @@ use App\Myyear;
 use App\Collectionreporttoview;
 use App\Generalreport;
 use App\Incomesource;
+use App\Branchandcode;
 use App\Transactiontype;
 use App\Dailyreportcode;
 class APIController extends Controller
@@ -45,9 +46,13 @@ class APIController extends Controller
 {
 
 
+    public function getBranches()
+
+    { $data = Branch::get(); return response()->json($data); }
     public function getCountries()
 
     { $data = Country::get(); return response()->json($data); }
+
 
     public function getRoles()
 
@@ -618,8 +623,17 @@ $data = Formcomponent::latest('id')
          return response()->json($data); 
         }
 
+        
 
+        public function getFloatcodes(Request $request)
+
+        {
+           $data = Branchandcode::where('branch', $request->branch)->get();
+            return response()->json($data); 
+          }
     
+
+
     public function getStates(Request $request)
 
     { $data = State::where('country_id', $request->country_id)->get(); return response()->json($data); }

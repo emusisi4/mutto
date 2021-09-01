@@ -88,6 +88,7 @@ let routes = [
 { path: '/cashtransactions', component: require('./components/Cashtransactions.vue')},
 { path: '/incomes', component: require('./components/Companyincomes.vue')},
 { path: '/creditanddebotreports', component: require('./components/Debitandcredirreports.vue')},
+{ path: '/fishcodeperformance', component: require('./components/Fishcodeperformance.vue')},
 
 // { path: '/shopdesdecashout', component: require('./components/Branchescashouttransactions.vue')},
   ]

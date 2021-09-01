@@ -27,9 +27,15 @@ Route::apiResources(['branchesandmachines' => 'API\BranchesandmachinesController
 Route::apiResources(['companybettingproducta' => 'API\BettingcompanyproductsController']); 
 Route::get('getCountries', 'APIController@getCountries');
 Route::get('getStates', 'APIController@getStates');
+Route::get('getFloatcodes', 'APIController@getFloatcodes');
+
 Route::get('getRoles', 'APIController@getRoles');
 Route::get('getRoles', 'APIController@getRoles');
 Route::get('userslist', 'APIController@userslist');
+Route::get('getBranches', 'APIController@getBranches');
+
+
+
 Route::apiResources(['roletobalance' => 'API\RoletoaddcomponentsController']);
 
 Route::apiResources(['branchtoworkon' => 'API\BranchtoworkonController']);
@@ -356,8 +362,10 @@ Route::apiResources(['expensesreportbybranch' => 'API\ExpensereportstoviewContro
 Route::apiResources(['dailyfishrep' => 'API\FishreporttoviewController']);
 Route::apiResources(['dailycollectionsreport' => 'API\CollectionsreporttoviewController']);
 
-//Route::apiResources(['dailycodesreportdata' => 'API\DaillyfishcodesreportController']);
+Route::apiResources(['dailybranchfloatcodesperformance' => 'API\DaillydailybranchfloatcodesperformancereportController']);
 Route::apiResources(['dailycodesreportdata' => 'API\DailysalessummaryreportController']);
+
+Route::apiResources(['codedetails' => 'API\DaillydailybranchfloatcodesperformancereportController']);
 
 Route::apiResources(['collectiondetails' => 'API\CollectionsreporttoviewController']);
 Route::apiResources(['monthlybranchexpensedetails' => 'API\MonthlyrexpesesreportabchbController']);

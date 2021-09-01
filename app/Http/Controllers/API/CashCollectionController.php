@@ -12,6 +12,7 @@ use App\Expense;
 use App\Expensescategory;
 use App\Cintransfer;
 use App\Couttransfer;
+use App\Madeexpense;
 class CashCollectionController extends Controller
 {
    
@@ -31,7 +32,7 @@ class CashCollectionController extends Controller
      if($userrole == '101')
      {      
       
-        return   Couttransfer::with(['branchName','branchNamefrom','ceratedUserdetails','approvedUserdetails', 'statusName'])->latest('id')
+        return   Couttransfer::with(['branchName','branchNamefrom','ceratedUserdetails','approvedUserdetails', 'statusName'])->latest('datedone')
        //  return   Cintransfer::latest('id')
       // return   Madeexpense::latest('id')
       ->where('branchto', $userbranch)
@@ -149,7 +150,7 @@ class CashCollectionController extends Controller
   
      
   //       $dats = $id;
-       return Cintransfer::Create([
+        Cintransfer::Create([
       'branchto' => $request['branchnametobalance'],
       'branchfrom' => $userbranch,
       'description' => $request['description'],
@@ -160,8 +161,35 @@ class CashCollectionController extends Controller
       
  
       'ucret' => $userid,
+
+    
     
   ]);
+
+
+
+  /////////////////////// adding the expensse
+  ///id, expense, amount, datemade, ucret, branch, description, approvalstate, del, created_at, updated_at, explevel, walletexpense, category, exptype, monthmade, yearmade
+  Madeexpense::Create([
+    'branch' => $request['branchnametobalance'],
+    'expense' => 34,
+    'description' => 'Deposit Charge',
+    'amount' => 1000,
+    'datemade' => $request['transferdate'],
+    'explevel' =>'2',
+    'walletexpense'=> '1',
+    'category'  => '8',
+    'exptype'  => '2',
+    'monthmade' =>  $monthmade,
+    'yearmade' =>  $yearmade,
+    
+
+    'ucret' => $userid,
+
+  
+  
+]);
+
     }
 
    
@@ -171,13 +199,8 @@ class CashCollectionController extends Controller
         //
     }
    
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
+    
     public function update(Request $request, $id)
     {
         //
@@ -196,12 +219,7 @@ $this->validate($request,[
 $user->update($request->all());
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+  
     public function destroy($id)
     {
         //
