@@ -311,7 +311,7 @@ padding: .25rem;
         <tr>
               <tr v-for="submenuinfo in codedetails.data" :key="submenuinfo.id">
             <td>  {{((submenuinfo.id))}}</td>
-            <td>{{submenuinfo.transferdate | myDate2}}</td>
+            <td>{{submenuinfo.datedone | myDate2}}</td>
             <td>   <template v-if="submenuinfo.branchname_dailycodes">	{{submenuinfo.branchname_dailycodes.branchname}}</template></td>  
                   
                 <!-- totals -->
