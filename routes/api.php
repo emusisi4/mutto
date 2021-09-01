@@ -219,9 +219,14 @@ Route::get('dailytotalsales', 'APIController@dailytotalsales');
 Route::get('dailytotalpayout', 'APIController@dailytotalpayout'); 
 Route::get('dailycollection', 'APIController@dailycollection'); 
 Route::get('totalrangecollections', 'APIController@totalrangecollections'); 
+Route::get('tatalgeneratedbythecode', 'APIController@tatalgeneratedbythecode');
+
 Route::get('totalrangecredits', 'APIController@totalrangecredits'); 
 
+Route::get('totalcodecredits', 'APIController@totalcodecredits'); 
 Route::get('totalrangeincome', 'APIController@totalrangeincome'); 
+
+Route::get('totalnumberofdaysforcode', 'APIController@totalnumberofdaysforcode'); 
 
 Route::get('capitalaccountcurrentbalance', 'APIController@capitalaccountcurrentbalance'); 
 Route::get('pettycashaccountcurrentbalance', 'APIController@pettycashaccountcurrentbalance'); 

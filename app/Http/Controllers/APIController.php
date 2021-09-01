@@ -1119,6 +1119,56 @@ public function totalrangeincome()
   }
  
 }
+
+
+public function totalcodecredits()
+{
+/// Getting the Logged in User details
+ $userid =  auth('api')->user()->id;
+ $userbranch =  auth('api')->user()->branch;
+ $userrole =  auth('api')->user()->type;
+
+     
+  $currentdate = date('Y-m-d');
+  $branch = DB::table('floatcodesperformances')->where('ucret', $userid)->value('branch');
+     $codeinuse = DB::table('floatcodesperformances')->where('ucret', $userid)->value('codeinuse');
+  
+    $totalsales = \DB::table('dailyreportcodes')
+    ->where('branch', '=', $branch)
+   ->where('machineunlockcode', '=', $codeinuse)
+     //  ->whereBetween('transferdate', [$startdate, $enddate])
+       ->sum('totalcredits');
+
+      
+        return ($totalsales);
+      
+  }
+public function tatalgeneratedbythecode()
+{
+/// Getting the Logged in User details
+ $userid =  auth('api')->user()->id;
+ $userbranch =  auth('api')->user()->branch;
+ $userrole =  auth('api')->user()->type;
+
+     
+  $currentdate = date('Y-m-d');
+  $branch = DB::table('floatcodesperformances')->where('ucret', $userid)->value('branch');
+     $codeinuse = DB::table('floatcodesperformances')->where('ucret', $userid)->value('codeinuse');
+  
+    $totalsales = \DB::table('dailyreportcodes')
+    ->where('branch', '=', $branch)
+   ->where('machineunlockcode', '=', $codeinuse)
+     //  ->whereBetween('transferdate', [$startdate, $enddate])
+       ->sum('daysalesamount');
+
+       $totalpayout = \DB::table('dailyreportcodes')
+       ->where('branch', '=', $branch)
+      ->where('machineunlockcode', '=', $codeinuse)
+        //  ->whereBetween('transferdate', [$startdate, $enddate])
+          ->sum('daypayoutamount');
+        return ($totalsales - $totalpayout);
+      
+  }
 public function totalrangecollections()
 {
 /// Getting the Logged in User details
@@ -1948,6 +1998,28 @@ public function shopopenningpalance()
 
 }
 ///////////////////////////////////////////////////////////////////////////////
+
+
+public function totalnumberofdaysforcode()
+{
+  $userid =  auth('api')->user()->id;
+  $userbranch =  auth('api')->user()->branch;
+  $userrole =  auth('api')->user()->type;
+  $assignedrole =  auth('api')->user()->mmaderole;
+//////////
+$branch = DB::table('floatcodesperformances')->where('ucret', $userid)->value('branch');
+$codeinuse = DB::table('floatcodesperformances')->where('ucret', $userid)->value('codeinuse');
+
+ $numbero = \DB::table('dailyreportcodes')
+
+    ->where('branch', '=', $branch)
+    ->where('machineunlockcode', '=', $codeinuse)
+    ->count();
+
+    return $numbero;
+   
+}
+
 
 
 public function dailyfishreportAccessComponent()

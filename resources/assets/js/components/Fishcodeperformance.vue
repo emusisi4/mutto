@@ -179,10 +179,15 @@ padding: .25rem;
             
          <div class="small-box bg-pnne">
               <div class="inner">
-                <h3>DAYS ACTIVE  </h3>
+                <h3>CODE USAED  </h3>
 
          
-           <h5>   <b>{{currencydetails}}  {{formatPrice(totalrangeincome) }}</b> </h5>
+           <h5>  
+              <div  v-if="totalnumberofdaysforcode == 1"> <b>  {{(totalnumberofdaysforcode) }} Day </b>   </div>
+               <div  v-if="totalnumberofdaysforcode != 1"> <b>  {{(totalnumberofdaysforcode) }} Days </b>   </div>
+              
+              
+              </h5>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
@@ -202,7 +207,7 @@ padding: .25rem;
                 <h3>INCOME GENERATED  </h3>
 
          
-           <h5>   <b>{{currencydetails}}  {{formatPrice(totalrangecollections) }}</b> </h5>
+           <h5>   <b>{{currencydetails}}  {{formatPrice(tatalgeneratedbythecode) }}</b> </h5>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
@@ -218,7 +223,7 @@ padding: .25rem;
                 <h3>TOTAL CREDITS MADE </h3>
 
          
-           <h5>   <b>{{currencydetails}} {{formatPrice(totalrangecredits) }}</b> </h5>
+           <h5>   <b>{{currencydetails}} {{formatPrice(totalcodecredits) }}</b> </h5>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
@@ -277,15 +282,8 @@ padding: .25rem;
 <table class="table">
     <thead>
         <tr>
-          <th rowspan="1" style="font-size: 30px; background-color: white; "></th>
-            <th rowspan="1" style="font-size: 30px; background-color: white; "></th>
-            <th rowspan="1" style="font-size: 30px; background-color: white; "></th>
-              <th  v-if="currentlyselecteddebitcollectionsreport < 1 " colspan="1"    style="font-size: 30px; background-color: green ; color:white;  "> 
-              
-                  COLLECTIONS ({{currencydetails}} )
-            
-                
-                </th>
+       
+             
              <th  v-if="currentlyselecteddebitcollectionsreport > 0 " colspan="1"    style="font-size: 30px; background-color: maroon ; color:white;  "> 
               
                  Cash  Credits ({{currencydetails}} )
@@ -297,9 +295,12 @@ padding: .25rem;
            <th>#</th>
              <th>DATE</th>
              <th> BRANCH </th>
-
-             <!-- summary  -->
-              <th> AMOUNT </th>
+       <th> FLOAT CODE </th>
+           
+               <th> SALES </th>
+                 <th> PAYOUT </th>
+              <th> PROFIT </th>
+                <th> %profit </th>
            
                   <th> COMMENT / DESCRIPTION</th>
         </tr>
@@ -311,13 +312,21 @@ padding: .25rem;
               <tr v-for="submenuinfo in codedetails.data" :key="submenuinfo.id">
             <td>  {{((submenuinfo.id))}}</td>
             <td>{{submenuinfo.transferdate | myDate2}}</td>
-            <td>   <template v-if="submenuinfo.branch_name">	{{submenuinfo.branch_name.branchname}}</template></td>  
+            <td>   <template v-if="submenuinfo.branchname_dailycodes">	{{submenuinfo.branchname_dailycodes.branchname}}</template></td>  
                   
                 <!-- totals -->
 
-      <td  style="background-color: #32773280; ">  {{formatPrice(( (submenuinfo.amount )  ))}} </td>
+    <td  style="background-color: #32773280; ">  {{(( (submenuinfo.machineunlockcode )  ))}} </td>
+      <td  style="background-color: #32773280; ">  {{formatPrice(( (submenuinfo.daysalesamount )  ))}} </td>
+          <td  style="background-color: #32773280; ">  {{formatPrice(( (submenuinfo.daypayoutamount )  ))}} </td>
+              <td  style="background-color: #32773280; ">  {{formatPrice(( (submenuinfo.daysalesamount- submenuinfo.daypayoutamount)  ))}} </td>
+                <td  style="background-color: #32773280; ">
+                  
+                    {{parseFloat(((submenuinfo.daysalesamount-submenuinfo.daypayoutamount) /(submenuinfo.daysalesamount))*100).toFixed(0)}}%
+
+                   </td>
                                  
-           <td>{{(submenuinfo.description)}}</td>          
+           <td>{{(submenuinfo.branchcomment)}}</td>          
                             
                                     
                                 
@@ -1109,9 +1118,9 @@ totalmonthlypayoutbybranch:null,
 
 
 
-totalrangeincome:null,
-totalrangecollections:null,
-totalrangecredits:null,
+totalnumberofdaysforcode:null,
+tatalgeneratedbythecode:null,
+totalcodecredits:null,
 dailytotalpayout:null,
 dailycollection :null,
 
@@ -1711,10 +1720,10 @@ if (result.isConfirmed) {
      axios.get("api/selecteddatetotalsales").then(({ data }) => (this.selecteddatetotalsales = data));
     
      ////
-      axios.get("api/totalrangecredits").then(({ data }) => (this.totalrangecredits = data));
+      axios.get("api/totalcodecredits").then(({ data }) => (this.totalcodecredits = data));
       
-         axios.get("api/totalrangeincome").then(({ data }) => (this.totalrangeincome = data));
-        axios.get("api/totalrangecollections").then(({ data }) => (this.totalrangecollections = data));
+         axios.get("api/totalnumberofdaysforcode").then(({ data }) => (this.totalnumberofdaysforcode = data));
+        axios.get("api/tatalgeneratedbythecode").then(({ data }) => (this.tatalgeneratedbythecode = data));
          axios.get("api/dailytotalpayout").then(({ data }) => (this.dailytotalpayout = data));
            axios.get("api/dailycollection").then(({ data }) => (this.dailycollection = data));
    
@@ -1854,9 +1863,9 @@ if (result.isConfirmed) {
     axios.get("api/currentlyselecteddebitcollectionsreport").then(({ data }) => (this.currentlyselecteddebitcollectionsreport = data));
      axios.get("api/codedetails").then(({ data }) => (this.codedetails = data));
        axios.get("api/getallowedtomanageadate").then(({ data }) => (this.allowedtoaddmainmenu = data));
-            axios.get("api/totalrangeincome").then(({ data }) => (this.totalrangeincome = data));
-                   axios.get("api/totalrangecollections").then(({ data }) => (this.totalrangecollections = data));
- axios.get("api/totalrangecredits").then(({ data }) => (this.totalrangecredits = data));
+            axios.get("api/totalnumberofdaysforcode").then(({ data }) => (this.totalnumberofdaysforcode = data));
+                   axios.get("api/tatalgeneratedbythecode").then(({ data }) => (this.tatalgeneratedbythecode = data));
+ axios.get("api/totalcodecredits").then(({ data }) => (this.totalcodecredits = data));
     axios.get('/api/branchDetails').then(function (response) { this.brancheslist = response.data;}.bind(this));
      axios.get("api/genrealfishreportsAccess").then(({ data }) => (this.genrealfishreportsAccess = data));
      axios.get("api/dailyfishreportAccessComponent").then(({ data }) => (this.dailyfishreportAccessComponent = data));
@@ -1961,9 +1970,9 @@ axios.get("api/monthrlreporyrecords").then(({ data }) => (this.monthlydatarecord
 
 axios.get("api/salesrecs").then(({ data }) => (this.salesdetailsrecords = data));
 axios.get("api/selecteddatetotalsales").then(({ data }) => (this.selecteddatetotalsales = data));
- axios.get("api/totalrangecollections").then(({ data }) => (this.totalrangecollections = data));
- axios.get("api/totalrangeincome").then(({ data }) => (this.totalrangeincome = data));
-  axios.get("api/totalrangecredits").then(({ data }) => (this.totalrangecredits = data));
+ axios.get("api/tatalgeneratedbythecode").then(({ data }) => (this.tatalgeneratedbythecode = data));
+ axios.get("api/totalnumberofdaysforcode").then(({ data }) => (this.totalnumberofdaysforcode = data));
+  axios.get("api/totalcodecredits").then(({ data }) => (this.totalcodecredits = data));
          axios.get("api/dailytotalpayout").then(({ data }) => (this.dailytotalpayout = data));
            axios.get("api/dailycollection").then(({ data }) => (this.dailycollection = data));
 axios.get("api/seleceteddatefordailyreport").then(({ data }) => (this.seleceteddatefordailyreport = data));
@@ -1999,9 +2008,9 @@ this.loading = true;
  axios.get("api/codedetails").then(({ data }) => (this.codedetails = data));
  axios.get("api/seleceteddatefordailyreportenddate").then(({ data }) => (this.seleceteddatefordailyreportenddate = data));
      axios.get("api/seleceteddatefordailyreport").then(({ data }) => (this.seleceteddatefordailyreport = data));
-        axios.get("api/totalrangecollections").then(({ data }) => (this.totalrangecollections = data));
-             axios.get("api/totalrangecredits").then(({ data }) => (this.totalrangecredits = data));
-axios.get("api/totalrangeincome").then(({ data }) => (this.totalrangeincome = data));
+        axios.get("api/tatalgeneratedbythecode").then(({ data }) => (this.tatalgeneratedbythecode = data));
+             axios.get("api/totalcodecredits").then(({ data }) => (this.totalcodecredits = data));
+axios.get("api/totalnumberofdaysforcode").then(({ data }) => (this.totalnumberofdaysforcode = data));
  axios.get("api/currentlyselecteddebitcollectionsreport").then(({ data }) => (this.currentlyselecteddebitcollectionsreport = data));                              //  Fire.$emit('AfterAction');
 
                                // $('#addNew').modal('hide');

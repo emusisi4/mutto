@@ -29,22 +29,17 @@ class DaillydailybranchfloatcodesperformancereportController extends Controller
      $userbranch =  auth('api')->user()->branch;
     $userrole =  auth('api')->user()->type;
      //   if($userrole = 1)
-
-     $startdat = DB::table('floatcodesperformances')->where('ucret', $userid)->value('startdate');
-     $enddate = DB::table('floatcodesperformances')->where('ucret', $userid)->value('enddate');
-     $branchto = DB::table('floatcodesperformances')->where('ucret', $userid)->value('branch');
-     $reporyttype = DB::table('floatcodesperformances')->where('ucret', $userid)->value('reporttype');
-
-
-
-     
+///id, branch, ucret, created_at, updated_at, codeinuse
+     $branch = DB::table('floatcodesperformances')->where('ucret', $userid)->value('branch');
+     $codeinuse = DB::table('floatcodesperformances')->where('ucret', $userid)->value('codeinuse');
+    
       
-       return   Dailyreportcode::with(['branchnameDailycodes', 'machinenameDailycodes'])->orderby('datedone', 'Dec')
-   //   return   Dailyreportcode::latest('id')
+    return   Dailyreportcode::with(['branchnameDailycodes', 'machinenameDailycodes'])->orderby('datedone', 'Dec')
+      //return   Dailyreportcode::latest('id')
        // ->where('del', 0)
-      //  ->where('branch', $branchto)
-      //  ->whereBetween('datedone', [$startdat, $enddate])
-    /// ->where('branchto', $branchto)
+     ->where('machineunlockcode', $codeinuse)
+    // ->whereBetween('datedone', [$startdat, $enddate])
+  //   ->where('branch', $branch)
        ->paginate(22);
       
 
