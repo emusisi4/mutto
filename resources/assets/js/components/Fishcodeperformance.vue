@@ -28,7 +28,7 @@ padding: .25rem;
  <div  v-if="genrealfishreportsAccess > 0 ">
  <div class="bethapa-component-header" > </div>    
 
-   <div class="bethapa-component-header" >Debit and, Credit Reports  </div>    
+   <div class="bethapa-component-header" >FLOAT CODE PERFORMANCE Reports  </div>    
  
  
  <div>

@@ -38,14 +38,14 @@
  <li class="nav-item"  v-if="allcompanyexpensesaccessSettings > 0 " >
                     <a class="nav-link" id="custom-tabs-two-settings-tab" data-toggle="pill"
                      href="#custom-tabs-two-settings" role="tab" @click="loadGeneralExpenses()"
-                     aria-controls="custom-tabs-two-settings" aria-selected="false">GEneral Expenses</a>
+                     aria-controls="custom-tabs-two-settings" aria-selected="false">General Expenses</a>
                   </li>
 
 
                   <li class="nav-item"  v-if="makeofficeexpenseaccessSettings > 0 "  >
                     <a class="nav-link" id="custom-tabs-two-messages-tab"
                     @click="loadExpensesmadebyoffice()" data-toggle="pill" href="#custom-tabs-two-messages" role="tab" 
-                    aria-controls="custom-tabs-two-messages" aria-selected="false">MAKE EXPENSE</a>
+                    aria-controls="custom-tabs-two-messages" aria-selected="false">Expense Requests</a>
                   </li>
                  
                  
@@ -633,6 +633,11 @@
    
                     <span style="font-size:1.0em;" center >  Investment </span></span>
                               </div>
+                                  <div v-if="((offcmadeexp.walletexpense)) == 3">
+                                <span class="cell" style="color:#maroon ;">  
+   
+                    <span style="font-size:1.0em;" center >  Petty Cash </span></span>
+                              </div>
                               
                                  <div v-if="((offcmadeexp.walletexpense)) == 4">
                                 <span class="cell" style="color:#1378a5 ;">  
@@ -641,6 +646,10 @@
                               </div>
                               
                                </td>
+
+
+
+
                                 <td> <div v-if="((offcmadeexp.approvalstate))== 0">
                                 <span class="cell" style="color:maroon ;">  
    
