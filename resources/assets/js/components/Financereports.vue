@@ -407,7 +407,12 @@ padding: .25rem;
                 <h3>GROSS PROFIT  </h3>
 
          
-           <h5>   <b>{{currencydetails}}   {{formatPrice(dailytotalsales- dailytotalpayout ) }}  ({{parseFloat(((dailytotalsales- dailytotalpayout)/dailytotalsales).toFixed(3))*100}}%) </b> </h5>
+           <h5>   <b>{{currencydetails}} 
+              
+               {{formatPrice(dailytotalsales- dailytotalpayout ) }}  
+               
+               
+               ( {{parseFloat(((dailytotalsales- dailytotalpayout) / ((dailytotalsales)) )*100).toFixed(0)}}% ) </b> </h5>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
@@ -590,7 +595,7 @@ padding: .25rem;
 
  <td style="background-color: #80000069; ">
    <div v-if="(submenuinfo.virtualsales - submenuinfo.virtualcancelled) != 0 ">
-     {{parseFloat(((submenuinfo.virtualprofit) / ((submenuinfo.virtualsales - submenuinfo.virtualcancelled)) )*100).toFixed(0)}}% 
+     {{parseFloat(((submenuinfo.virtualpayout) / ((submenuinfo.virtualsales - submenuinfo.virtualcancelled)) )*100).toFixed(0)}}% 
    </div>
    <div v-if="(submenuinfo.virtualsales - submenuinfo.virtualcancelled) == 0 ">   - </div>
      </td>
