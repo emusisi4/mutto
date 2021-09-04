@@ -64,6 +64,7 @@ Route::apiResources(['dailyexpensesrecordsexpwallet' => 'API\Expensesreporttovie
 
 Route::apiResources(['correctshobalancingrecord' => 'API\AutocorrectShopbalancingController']);
 
+Route::apiResources(['expenseslisttoviewtrio' => 'API\ExpensesrecordstoviewtrioController']);
 Route::apiResources(['balancingrecordstoview' => 'API\BalancingrecordsforuserController']);
 
 Route::apiResources(['monthlyreportstoviewallbranches' => 'API\MonthlyreportsallbranchesController']);

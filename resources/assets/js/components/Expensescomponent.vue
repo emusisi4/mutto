@@ -573,11 +573,68 @@
                                 </div> -->
                                   <button type="submit" id="submit" hidden="hidden" name= "submit" ref="myBtnmainmen" class="btn btn-primary btn-sm">Saveit</button>
                                 </form>
+   <form @submit.prevent="savethemonthlyreportforallbranches()">
+                 
+                      <div class="form-group">
+                
+                   
+  <label>Branch :</label>
+                    <select name ="branchname" v-model="form.branchname" id ="branchname"  class="form-control-sm" v-on:change="myClickEventtosavemonthlyreportallbranches"  :class="{'is-invalid': form.errors.has('branchname')}">
+                    <option value="900"> All  </option>
+                    <option v-for='data in mybrancheslist' v-bind:value='data.branchno'>{{ data.branchname }}</option>
 
+                    </select>
+                    
+
+                                <has-error :form="form" field="branchname"></has-error>
+
+<label>Expense :</label>
+                    <select name ="expensename" v-model="form.expensename" id ="expensename" class="form-control-sm"  v-on:change="myClickEventtosavemonthlyreportallbranches"  :class="{'is-invalid': form.errors.has('expensename')}">
+                    <option value="900"> All  </option>
+                    <option v-for='data in expenseslist' v-bind:value='data.id'>{{ data.expensename }}</option>
+
+                    </select>
+                                <has-error :form="form" field="expensename"></has-error>
+
+<label>Records Per page :</label>
+                    <select name ="displaynumber" v-model="form.displaynumber" id ="displaynumber" class="form-control-sm"  v-on:change="myClickEventtosavemonthlyreportallbranches"  :class="{'is-invalid': form.errors.has('expensename')}">
+                    
+                    
+                      <option value="5"> 5  </option>
+                      <option value="10"> 10  </option>
+                       <option value="20"> 20  </option>
+                      <option value="30"> 30  </option>
+                    
+                      <option value="50"> 50  </option>
+                       <option value="100"> 100  </option>
+                      <option value="150"> 150  </option>
+                       <option value="200"> 200  </option>
+                      <option value="300"> 300  </option>
+                    <option value="900"> All  </option>
+                  
+                    </select>
+                                <has-error :form="form" field="displaynumber"></has-error>
+
+
+                              
+             <button type="submit" id="submit" hidden="hidden" name= "submit" ref="theButtontotosalesreportmonthly" class="btn btn-primary btn-sm">Saveit</button>         
+
+                                
+                     
+       
+       
+                   
+          </div>
+
+
+        
+
+                </form>
+                  <div class="bethapa-table-header"></div>
               <div class="bethapa-table-header">
-                    Expenses made
+                    COMPANY EXPENDITURES
                       <!-- <button type="button"  class="add-newm" @click="newBranchpayoutbranch" >Add New </button> -->
-                        <button type="button" v-if="allowedtomakeofficeexpense > 0" class="add-newm" @click="newofficeexpenditure" >Add Expenditure</button>
+                        <button type="button" v-if="allowedtomakeofficeexpense > 0" class="add-newm" @click="newofficeexpenditure" >Make Expense</button>
                      </div>
         
                     
@@ -684,7 +741,7 @@
    
                       <div class="card-footer">
                 <ul class="pagination pagination-sm m-0 float-right">
-                   <pagination :data="allowedrolecomponentsObject" @pagination-change-page="paginationroleAuthorisedsubmenues"></pagination>
+                   <pagination :data="officemadeexpensesrecords" @pagination-change-page="paginationroleAuthorisedsubmenues"></pagination>
                 </ul>
               </div>
                      
@@ -1624,6 +1681,7 @@
               totaldayscashin:null,
                 totalcashin:null,
                 cashinforcollectiontotal:null,
+                 brancheslist: null,
             ///////////////////////////////////
           brancheslist: [],
           mybrancheslist:[],
@@ -1660,7 +1718,7 @@ makeofficeexpenseaccessSettings:'',
            datarecordscompanyexpenses :{},
           admincashindatarecords:{},
           admincashoutrecords:{},
-          
+           brancheslist:{},
           allowedrolecomponentfeaturesObject : {},
           allowedtoaddmainmenuaccess:{},
           allowedtoaddsubmenuaccess:{},
@@ -1751,6 +1809,33 @@ myClickEventroletoaddcomponent($event) { const elem = this.$refs.myBtnroledd
             elem.click()
         },
 
+
+myClickEventtosavemonthlyreportallbranches($event) { const elem = this.$refs.theButtontotosalesreportmonthly
+            elem.click()
+        },
+           savethemonthlyreportforallbranches(){
+
+                                this.loading = true;
+                                this.form.post('api/expenseslisttoviewtrio')
+                                .then(()=>{
+// axios.get("api/currentbalancingrecords").then(({ data }) => (this.shopbalancingdatarecords = data));
+//  axios.get("api/fishcollections").then(({ data }) => (this.fishcollectionrecords = data));
+axios.get("api/makeexpenseofficeuser").then(({ data }) => (this.officemadeexpensesrecords = data));
+                                // Toast.fire({
+                                // icon: 'success',
+                                // title: 'Record Added Successfully'
+                                // });
+
+                                                              this.loading = false;
+
+                                  this.form.clear();
+        this.form.reset();
+                                })
+                                .catch(()=>{
+
+                                })
+
+}, 
 
 
 myClickEventsavennn($event) { const elem = this.$refs.btnForshopbalancing
@@ -1921,9 +2006,9 @@ SaveRoletoaddsubment (){
 
 
 paginationroleAuthorisedsubmenues(page = 1) {
-                        axios.get('api/authorisedsubmenus?page=' + page)
+                        axios.get('api/makeexpenseofficeuser?page=' + page)
                           .then(response => {
-                            this.datarecordsSubmenusauthorised = response.data;
+                            this.officemadeexpensesrecords = response.data;
                           });
                       },
 

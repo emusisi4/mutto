@@ -30,57 +30,55 @@ class MadeexpensesofficeConroller extends Controller
       $userid =  auth('api')->user()->id;
      $userbranch =  auth('api')->user()->branch;
     $userrole =  auth('api')->user()->mmaderole;
-     //   if($userrole = 1)
-
-
-
-
-
-       // return Student::all();
-     //  return   Submheader::with(['maincomponentSubmenus'])->latest('id')
-       // return   MainmenuList::latest('id')
-     //    ->where('del', 0)
-         //->paginate(15)
-     //    ->get();
-
-     if($userrole == '101')
-      {
-      
-         return   Madeexpense::with(['branchName','expenseName'])->latest('id')
-      // return   Madeexpense::latest('id')
-        ->where('del', 0)
-        ->where('branch', $userbranch)
-       ->paginate(100);
-      }
-      if($userrole != '101')
-      {
-      
-         return   Madeexpense::with(['branchName','expenseName'])->latest('id')
-      // return   Madeexpense::latest('id')
-     //   ->where('del', 0)
-       // ->where('branch', $userbranch)
-       ->paginate(100);
-      }
-
-       //  return Submheader::latest()
-         //  -> where('ucret', $userid)
-           
-
      
+     $branchinb = \DB::table('expenserecordtoselects')->where('ucret', $userid )->value('branch');
+     $expensename = \DB::table('expenserecordtoselects')->where('ucret', $userid )->value('expensename');
+     $displaynumber = \DB::table('expenserecordtoselects')->where('ucret', $userid )->value('displaynumber');
 
-
-
-
-
-
-
-
-       // {
-      // return Submheader::latest()
-      //  -> where('ucret', $userid)
-    //    ->paginate(15);
-      //  }
-
+    //  if($userrole == '101')
+    //   {
+      
+    //      return   Madeexpense::with(['branchName','expenseName'])->latest('datemade')
+    //   // return   Madeexpense::latest('id')
+    //     ->where('del', 0)
+    //     ->where('branch', $userbranch)
+    //    ->paginate(20);
+    //   }
+     
+      
+      if($branchinb != '900' && $expensename != '900')
+      
+     {   return   Madeexpense::with(['branchName','expenseName'])->latest('datemade')
+        
+      ->where('expense', $expensename)
+       ->where('branch', $branchinb)
+       ->paginate($displaynumber);
+      }// all branches
+      if($branchinb == '900' && $expensename == '900')
+      
+      {   return   Madeexpense::with(['branchName','expenseName'])->latest('datemade')
+         
+   //    ->where('expense', $expensename)
+     //   ->where('branch', $branchinb)
+        ->paginate($displaynumber);
+       }// all branches
+       if($branchinb == '900' && $expensename != '900')
+      
+       {   return   Madeexpense::with(['branchName','expenseName'])->latest('datemade')
+          
+    ->where('expense', $expensename)
+      //   ->where('branch', $branchinb)
+         ->paginate($displaynumber);
+        }// all branches
+   
+        if($branchinb != '900' && $expensename == '900')
+      
+        {   return   Madeexpense::with(['branchName','expenseName'])->latest('datemade')
+           
+   //  ->where('expense', $expensename)
+         ->where('branch', $branchinb)
+          ->paginate($displaynumber);
+         }// all branches
       
     }
 

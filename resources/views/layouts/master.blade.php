@@ -589,7 +589,7 @@ foreach ($allowedsubmenu as $rowallsub)
       Anything you want
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+    <strong> <a href="">E<sub>3</sub> Technologies</a>.</strong> Contact - +256704799173: Email :emusisi4@gmail.com.
   </footer>
 </div>
 <!-- ./wrapper -->

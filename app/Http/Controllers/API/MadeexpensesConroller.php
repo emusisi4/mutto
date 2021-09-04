@@ -47,7 +47,7 @@ class MadeexpensesConroller extends Controller
         ->where('del', 0)
         ->where('branch', $userbranch)
         ->where('explevel', 8)
-       ->paginate(30);
+       ->paginate(15);
       }
       if($userrole != '101')
       {
@@ -56,7 +56,7 @@ class MadeexpensesConroller extends Controller
       // return   Madeexpense::latest('id')
         ->where('del', 0)
        // ->where('branch', $userbranch)
-       ->paginate(20);
+       ->paginate(15);
       }
 
        //  return Submheader::latest()
