@@ -18,11 +18,8 @@ use App\Salessummary;
 
 class ConfirmpositemsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
+  
     public function __construct()
     {
  $this->middleware('auth:api');
@@ -74,12 +71,7 @@ $userrole =  auth('api')->user()->type;
       
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
           //
@@ -96,9 +88,12 @@ $userrole =  auth('api')->user()->type;
      /// getting the total cost
      $totalcostoftheinvoice = \DB::table('shopingcats')->where('ucret', '=', $userid)->sum('totalcostprice');
      $totalprofitoninvoice = \DB::table('shopingcats')->where('ucret', '=', $userid)->sum('lineprofit');
+     $totalvatoninvoice = \DB::table('shopingcats')->where('ucret', '=', $userid)->sum('vatamount');
      //// getting the invoice number
      $dto = date('ymd');
-
+///////////////////////////////////////////////////////////////////////////////// getting the branch balance
+$userbranchbalance  = \DB::table('branchcashstandings')->where('branch', '=', $branch)->sum('outstanding');
+$newshopbalance = $userbranchbalance+$totallineforinvoice;
 /// counting the existance of invoice number
 $currentinvoicenumber = \DB::table('salessummaries')->count();
 if($currentinvoicenumber > 0)
@@ -106,14 +101,14 @@ if($currentinvoicenumber > 0)
     
 $invoiceno1  = \DB::table('salessummaries')->orderBy('id', 'Desc')->limit(1)->value('id');
 $inv = $invoiceno1+1;
-$invoiceno = "CFL".$inv ."-".$dto;
+$invoiceno = "s".$inv.$dto;
 
 }
 if($currentinvoicenumber < 1)
 {
     $inv =1;
 //$invoiceno1  = \DB::table('salessummaries')->orderBy('id', 'Desc')->limit(1)->value('id');
-$invoiceno = "CFL". $inv ."-".$dto;
+$invoiceno = "s".$inv.$dto;
 
 }
 
@@ -134,7 +129,8 @@ $invoiceno = "CFL". $inv ."-".$dto;
      'invoiceno' => $invoiceno,
      'quantity' => $user->quantity,
      'datesold' => $user->datesold,
-    
+     'vatamount'=> $user->vatamount, 
+     'linevat'=> $user->linevat, 
      'branch' => $user->branch, 
      'linetotal' => $user->linetotal,
      'unitcost' => $user->unitcost,
@@ -150,19 +146,40 @@ $soldqty = $user->quantity;
 $qtynow   = \DB::table('products')->where('id', $ppcode)->limit(1)->value('qty');
           //// Updatind the quantity
           $upd = $qtynow-$soldqty;
+         
+         
           DB::table('products')
           ->where('id', $ppcode)
           ->update(['qty' => $upd]);
-
+          DB::table('productprices')
+          ->where('productcode', $ppcode)
+          ->update(['qtyavailable' => $upd]);
       
  }
+
+ /// getting the vat out 
+ $currentvatout    = \DB::table('expensewalets')->where('walletno', 6)->value('bal');
+ $newvatout = $currentvatout+$totalvatoninvoice;
 //  $poy =  $user->productcode;
 //           foreach ($poy as $poz) {
 //             $ronn = DB::table('products')->update(['qty' => 1000 ]);
 
 //           }
 
+DB::table('expensewalets')
+->where('walletno', 6)
+->update(['bal' => $newvatout]);
 
+/// updating the branch balance
+DB::table('expensewalets')
+->where('branchname', $branch)
+->update(['bal' => $newshopbalance]);
+
+
+/// updating the branch balance
+DB::table('branchcashstandings')
+->where('branch', $branch)
+->update(['outstanding' => $newshopbalance]);
 
 
 
@@ -174,7 +191,7 @@ $qtynow   = \DB::table('products')->where('id', $ppcode)->limit(1)->value('qty')
    'invoicedate' => $user->datesold,  
    'totalcost' => $totalcostoftheinvoice,
      'lineprofit' => $totalprofitoninvoice,
-     
+     'vatamount' => $totalvatoninvoice,
     'invoiceamount' => $totallineforinvoice,     
              'ucret' => $userid,
            
@@ -191,12 +208,6 @@ $qtynow   = \DB::table('products')->where('id', $ppcode)->limit(1)->value('qty')
 
 
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //

@@ -41,6 +41,12 @@ use App\Incomesource;
 use App\Branchandcode;
 use App\Transactiontype;
 use App\Dailyreportcode;
+use App\Productcategory;
+use App\Brand;
+use App\Unitmeasure;
+use App\Supplier;
+use App\Purchasessummary;
+use App\Product;
 class APIController extends Controller
 
 {
@@ -52,6 +58,159 @@ class APIController extends Controller
     public function getCountries()
 
     { $data = Country::get(); return response()->json($data); }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public function     getthinvoicedocumentno()
+    {
+        $userid =  auth('api')->user()->id;
+        $userbranch =  auth('api')->user()->branch;
+        $userrole =  auth('api')->user()->type;
+        $invoiceno =    \DB::table('invoicetoviews')->where('ucret', '=', $userid)->value('invoiceno');
+        $doccumentno =    \DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $invoiceno)->value('purchaseno');
+               return response()->json($doccumentno);
+  }
+
+
+
+    public function getthinvoicenumberactive()
+    {
+        $userid =  auth('api')->user()->id;
+        $userbranch =  auth('api')->user()->branch;
+        $userrole =  auth('api')->user()->type;
+        $invoiceno =    \DB::table('invoicetoviews')->where('ucret', '=', $userid)->value('invoiceno');
+       
+               return response()->json($invoiceno);
+  }
+
+  public function gettheinvoicedate()
+  {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+      $invoiceno =    \DB::table('invoicetoviews')->where('ucret', '=', $userid)->value('invoiceno');
+      $invoicedate =    \DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $invoiceno)->value('invoicedate');
+     
+             return response()->json($invoicedate);
+}
+public function getthinvoicesuppliername()
+  {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+      $invoiceno =    \DB::table('invoicetoviews')->where('ucret', '=', $userid)->value('invoiceno');
+      $supplierid =    \DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $invoiceno)->value('suppliername');
+      $suppliername =    \DB::table('suppliers')->where('id', '=', $supplierid)->value('suppname');
+     
+             return response()->json($suppliername);
+}
+public function getinvoicepaymentstatus()
+  {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+      $invoiceno =    \DB::table('invoicetoviews')->where('ucret', '=', $userid)->value('invoiceno');
+      $invoicepaymentstatus =    \DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $invoiceno)->value('paymentstatus');
+     // $suppliername =    \DB::table('suppliers')->where('id', '=', $supplierid)->value('suppname');
+     
+             return response()->json($invoicepaymentstatus);
+}
+
+public function gettheinvoicedeliverystatus()
+  {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+    
+      $invoiceno =    \DB::table('invoicetoviews')->where('ucret', '=', $userid)->value('invoiceno');
+      $invoicedeliverystatus =    \DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $invoiceno)->value('status');
+     
+             return response()->json($invoicedeliverystatus);
+}
+
+
+
+
+
+public function gettheinvoicevatamount()
+  {
+    
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+    
+      $invoiceno =    \DB::table('invoicetoviews')->where('ucret', '=', $userid)->value('invoiceno');
+      $vattotal =    \DB::table('purchases')->where('supplierinvoiceno', '=', $invoiceno)->sum('vattotal');
+     
+             return response()->json($vattotal);
+    }
+
+public function gettheinvoicegrandtotal()
+{
+  $userid =  auth('api')->user()->id;
+  $userbranch =  auth('api')->user()->branch;
+  $userrole =  auth('api')->user()->type;
+
+  $invoiceno =    \DB::table('invoicetoviews')->where('ucret', '=', $userid)->value('invoiceno');
+  $grandtotal =    \DB::table('purchases')->where('supplierinvoiceno', '=', $invoiceno)->sum('grandtotal');
+ 
+         return response()->json($grandtotal);
+}
+
+
+public function gettheinvoicetotalwithoutvat()
+  {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+    
+      $invoiceno =    \DB::table('invoicetoviews')->where('ucret', '=', $userid)->value('invoiceno');
+      $totalwithoutvat =    \DB::table('purchases')->where('supplierinvoiceno', '=', $invoiceno)->sum('linetotal');
+     
+             return response()->json($totalwithoutvat);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public function getRoles()
@@ -303,6 +462,125 @@ public function Bopenningbalancetoday()
 
 }
 
+
+
+
+
+public function inputvatamount()
+{
+  $userid =  auth('api')->user()->id;
+  $userbranch =  auth('api')->user()->branch;
+  $userrole =  auth('api')->user()->type;
+
+ $invoicelockstatus = \DB::table('expensewalets')->where('walletno', '=', 5)->value('bal');
+
+    return $invoicelockstatus;
+   
+}
+
+
+public function outputvatamount()
+{
+  $userid =  auth('api')->user()->id;
+  $userbranch =  auth('api')->user()->branch;
+  $userrole =  auth('api')->user()->type;
+
+ $invoicelockstatus = \DB::table('expensewalets')->where('walletno', '=', 6)->value('bal');
+
+    return $invoicelockstatus;
+   
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+public function Carttotal()
+{
+   
+
+ /// Getting the Logged in User details
+ $userid =  auth('api')->user()->id;
+ $userbranch =  auth('api')->user()->branch;
+ $userrole =  auth('api')->user()->type;
+
+{
+
+  
+    $currentdate = date('Y-m-d');
+   $totalcattotal = \DB::table('shopingcats')
+   
+    ->where('ucret', '=', $userid)
+  //  ->where('transferdate', '=', $currentdate)
+    ->where('status', '=', 0)
+    //->orderByDesc('id')
+    //->limit(1)
+    ->sum('linetotal');
+    return $totalcattotal;
+}
+
+}
+
+public function Ordertotal()
+{
+   
+
+ /// Getting the Logged in User details
+ $userid =  auth('api')->user()->id;
+ $userbranch =  auth('api')->user()->branch;
+ $userrole =  auth('api')->user()->type;
+
+{
+
+  
+    $currentdate = date('Y-m-d');
+   $totalcattotal = \DB::table('ordermakings')
+   
+    ->where('ucret', '=', $userid)
+  //  ->where('transferdate', '=', $currentdate)
+   // ->where('status', '=', 0)
+    //->orderByDesc('id')
+    //->limit(1)
+    ->sum('linetotalcost');
+    return $totalcattotal;
+}
+
+}
+
+
+
+public function invoicelockstatus()
+{
+  $userid =  auth('api')->user()->id;
+  $userbranch =  auth('api')->user()->branch;
+  $userrole =  auth('api')->user()->type;
+  $invoiceno =    \DB::table('invoicetoviews')->where('ucret', '=', $userid)->value('invoiceno');
+ $invoicelockstatus = \DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $invoiceno)->value('invoicelockstatus');
+
+    return $invoicelockstatus;
+   
+}
+
      public function getIfthebranchisalreadybalanced()
 {
   $userid =  auth('api')->user()->id;
@@ -336,6 +614,32 @@ public function transactiontypeslist()
                 return response()->json($data);
      
    }
+
+    
+             
+
+            public function productsavailableforsalelist()
+            {
+                $userid =  auth('api')->user()->id;
+                $userbranch =  auth('api')->user()->branch;
+                $userrole =  auth('api')->user()->type;
+              
+            
+               $data = Product::latest('id')
+               ->where('qty', '>', 0)
+               ->get();
+               
+                       return response()->json($data);
+            
+          }
+
+       
+
+
+
+
+
+
 public function incomesourceslist()
      {
          $userid =  auth('api')->user()->id;
@@ -518,20 +822,83 @@ $wordCount = \DB::table('collectionreporttoviews')
       ->get();
               return response()->json($data);
  }
-
- public function expensecategorieslist()
+ 
+ public function unitmeasurelist()
  {
      $userid =  auth('api')->user()->id;
      $userbranch =  auth('api')->user()->branch;
      $userrole =  auth('api')->user()->type;
-    /// $roleto  = Bran::latest('id')->where('ucret', $userid)->orderBy('id', 'Desc')->limit(1)->value('rolename');  
    
-    $data = Expensescategory::latest('id')
+   
+    $data = Unitmeasure::latest('id')
     //->where('sysname', '!=', $component)
     ->get();
             return response()->json($data);
 }
 
+public function walletsofeapenselist()
+{
+    $userid =  auth('api')->user()->id;
+    $userbranch =  auth('api')->user()->branch;
+    $userrole =  auth('api')->user()->type;
+  
+  
+   $data = Expensewalet::latest('id')
+   ->where('spendable', '=', 0)
+   ->get();
+           return response()->json($data);
+}
+public function productslist()
+{
+    $userid =  auth('api')->user()->id;
+    $userbranch =  auth('api')->user()->branch;
+    $userrole =  auth('api')->user()->type;
+  
+  
+   $data = Product::latest('id')
+   //->where('sysname', '!=', $component)
+   ->get();
+           return response()->json($data);
+}
+ public function productbrandslist()
+ {
+     $userid =  auth('api')->user()->id;
+     $userbranch =  auth('api')->user()->branch;
+     $userrole =  auth('api')->user()->type;
+   
+   
+    $data = Brand::latest('id')
+    //->where('sysname', '!=', $component)
+    ->get();
+            return response()->json($data);
+}
+
+ public function productcategorieslist()
+ {
+     $userid =  auth('api')->user()->id;
+     $userbranch =  auth('api')->user()->branch;
+     $userrole =  auth('api')->user()->type;
+   
+   
+    $data = Productcategory::latest('id')
+    //->where('sysname', '!=', $component)
+    ->get();
+            return response()->json($data);
+}
+
+
+public function expensecategorieslist()
+{
+    $userid =  auth('api')->user()->id;
+    $userbranch =  auth('api')->user()->branch;
+    $userrole =  auth('api')->user()->type;
+   /// $roleto  = Bran::latest('id')->where('ucret', $userid)->orderBy('id', 'Desc')->limit(1)->value('rolename');  
+  
+   $data = Expensescategory::latest('id')
+   //->where('sysname', '!=', $component)
+   ->get();
+           return response()->json($data);
+}
 
 
      public function branchDetails()
@@ -585,11 +952,28 @@ $data = Sortlistreport::latest('id')
 ->get();
         return response()->json($data);
     }
-    public function getMainmenues()
+      
+    public function invoiceslist()
+    {
+     
+$data = Purchasessummary::latest('id')
+//->where('del', 0)
+->get();
+        return response()->json($data);
+    }
+    public function supplierslist()
+    {
+     
+$data = Supplier::latest('id')
+//->where('del', 0)
+->get();
+        return response()->json($data);
+    }
+    public function mainmenulist()
     {
      
 $data = Mainmenucomponent::latest('id')
-->where('del', 0)
+//->where('del', 0)
 ->get();
         return response()->json($data);
     }

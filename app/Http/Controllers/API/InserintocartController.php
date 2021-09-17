@@ -84,6 +84,9 @@ $unitcost = \DB::table('productprices') ->where('productcode', '=', $product)->v
 $productexistsoncart = \DB::table('shopingcats')->where('productcode', '=', $product)->where('ucret', '=', $userid)->count();
 if($productexistsoncart < 1)
 {
+  $qty = $request['quantity'];
+  $linevat = ($unitprice*0.18);
+  $totalvat = $linevat*$qty;
         Shopingcat::Create([
     
 
@@ -93,6 +96,8 @@ if($productexistsoncart < 1)
       'branch' => $branch,
       'unitprice' => $unitprice,
       'unitcost' => $unitcost,
+      'vatamount'=> $totalvat,
+      'linevat'=> $linevat,
       'linetotal' => ($unitprice*( $request['quantity'])),
      'totalcostprice'  => ($unitcost*( $request['quantity'])),
      'lineprofit'  => (($unitprice*( $request['quantity']))-($unitcost*( $request['quantity']))),
@@ -109,10 +114,19 @@ if($productexistsoncart < 1)
  
 $newquantity = $request['quantity']+$currentquantity;
   
+
+
+$qty = $newquantity;
+$linevat = ($unitprice*0.18);
+$totalvat = $linevat*$qty;
+
+
 $result = DB::table('shopingcats')
     ->where('productcode', $product)
     ->update([
       'quantity' => $newquantity,
+      'vatamount'=> $totalvat,
+      'linevat'=> $linevat,
       'linetotal' => (($newquantity*$unitprice)),
       'totalcostprice'  => ($cp*($newquantity)),
       'lineprofit'  => (($sp*($newquantity))-($cp*($newquantity))),

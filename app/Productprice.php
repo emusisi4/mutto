@@ -19,7 +19,7 @@ class Productprice extends Authenticatable
 
    
     protected $fillable = [
-        'productcode','lineprofit', 'unitcost', 'unitprice','ucret','profitperc',
+        'productcode','lineprofit', 'unitcost', 'unitprice','ucret','profitperc','qtyavailable'
        
     ];
     
@@ -27,7 +27,14 @@ class Productprice extends Authenticatable
         // creating a relationship between the students model 
         return $this->belongsTo(Brand::class, 'brand'); 
     }
-     
+    public function productName(){
+        // creating a relationship between the students model 
+        return $this->belongsTo(Product::class, 'productcode'); 
+    }
+    public function SupplierName(){
+        // creating a relationship between the students model 
+        return $this->belongsTo(Supplier::class, 'suppliername'); 
+    }
     public function vnnnmmjjh(){
         // creating a relationship between the students model 
         return $this->hasMany(Shopingcat::class, 'productcode', 'id'); 

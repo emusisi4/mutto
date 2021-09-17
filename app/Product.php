@@ -11,15 +11,9 @@ class Product extends Authenticatable
     use HasApiTokens, Notifiable;
 
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-
    
     protected $fillable = [
-        'productcode','brand', 'name', 'qty','ucret','rol','description','category','suppname','unitname','unitmeasure',
+        'productcode','brand', 'productname', 'qty','ucret','rol','description','category','suppname','unitname','unitmeasure','invoicelockstatus'
        
     ];
     
@@ -28,12 +22,20 @@ class Product extends Authenticatable
     
     
     public function brandName(){
-        // creating a relationship between the students model 
+    
         return $this->belongsTo(Brand::class, 'brand'); 
     }
-     
+    
+    public function productName(){
+       
+        return $this->hasMany(Purchase::class, 'id', 'productcode'); 
+    }
+    public function productName2(){
+       
+        return $this->hasMany(Productprice::class, 'id', 'productcode'); 
+    }
     public function vnnnmmjjh(){
-        // creating a relationship between the students model 
+    
         return $this->hasMany(Shopingcat::class, 'productcode', 'id'); 
     }
     public function productCategory(){

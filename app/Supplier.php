@@ -11,15 +11,11 @@ class Supplier extends Authenticatable
     use HasApiTokens, Notifiable;
 
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
 
    
     protected $fillable = [
-        'suppname', 'description','contact','location','company','companycontact','companycontactperson','ucret'
+       
+     'suppname', 'description', 'uret', 'contact', 'location', 'company', 'contactofcontact', 'companycontactperson', 'del', 'companyemailaddress'
        
     ];
     
@@ -28,14 +24,13 @@ class Supplier extends Authenticatable
         // creating a relationship between the students model 
         return $this->belongsTo(Company::class, 'company'); 
     }
-    
+    public function supplierName(){
+      // creating a relationship between the students model 
+      return $this->hasMany(Purchase::class, 'id', 'suppliername'); 
+  }
 
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
+   
     protected $hidden = [
       //  'hid', 'id',
     ];

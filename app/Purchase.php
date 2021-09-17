@@ -11,20 +11,23 @@ class Purchase extends Authenticatable
     use HasApiTokens, Notifiable;
 
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-
+    
    
     protected $fillable = [
-        'productcode','quantity', 'datesold', 'status','ucret','branch','linetotal','unitprice','supplier','unitmeasure','invoiceno'
-       
+          'productcode', 'unitprice', 'quantity', 'dateordered', 'ucret', 'status', 
+         'branch', 'mainunitmeasure', 'smallunitmeasure', 'grandtotal', 'linetotal',
+          'invoiceno', 'suppliername', 'supplierinvoiceno', 'vatstatus', 'vattotal','invoicelockstatus',
+          'itemconfirmed', 'qtydelivered', 'datedelivered', 'ucretconfirmeddelivery', 'linecostdelivery', 'totalcostdelivery','unitvat','lineproductcost'
+          
+         
     ];
     public function productName(){
         // creating a relationship between the students model 
         return $this->belongsTo(Product::class, 'productcode'); 
+    }
+    public function SupplierName(){
+        // creating a relationship between the students model 
+        return $this->belongsTo(Supplier::class, 'suppliername'); 
     }
     
     public function brandName(){

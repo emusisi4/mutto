@@ -19,7 +19,7 @@ class Salessummary extends Authenticatable
 
    
     protected $fillable = [
-        'invoiceno', 'branch','totalcost','lineprofit', 'invoiceamount', 'invoicedate', 'ucret'
+        'invoiceno', 'branch','totalcost','lineprofit', 'invoiceamount', 'invoicedate', 'ucret','vatamount'
        
     ];
     public function productName(){

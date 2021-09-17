@@ -12,11 +12,8 @@ use App\Brand;
 
 class ProductbrandsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
+  
     public function __construct()
     {
        $this->middleware('auth:api');
@@ -55,12 +52,7 @@ class ProductbrandsController extends Controller
       
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+   
     public function store(Request $request)
     {
         //

@@ -24,30 +24,37 @@ class CompanyproductsController extends Controller
       $userid =  auth('api')->user()->id;
       $userbranch =  auth('api')->user()->branch;
       $userrole =  auth('api')->user()->type;
+      $productcategory = \DB::table('productdetailsfilters')->where('ucret', $userid )->value('productcategory');
+      $displaynumber = \DB::table('productdetailsfilters')->where('ucret', $userid )->value('displaynumber');
+      $productbrand = \DB::table('productdetailsfilters')->where('ucret', $userid )->value('productbrand');
+      
+  if($productcategory != '900' and $productbrand != '900')
+    {
+      return   Product::with(['brandName','productCategory','productSupplier','unitMeasure'])->latest('id')
+  ->where('category', $productcategory)
+   ->where('brand', $productbrand)
+    ->where('del', 0)
+        ->paginate($displaynumber);
+ }
+ if($productcategory == '900'  and $productbrand != '900')
+ {
+   return   Product::with(['brandName','productCategory','productSupplier','unitMeasure'])->latest('id')
+//->where('category', $productcategory)
+->where('brand', $productbrand)
+ ->where('del', 0)
+     ->paginate($displaynumber);
+}
+if($productcategory == '900' and $productbrand == '900')
+{
+  return   Product::with(['brandName','productCategory','productSupplier','unitMeasure'])->latest('id')
+//->where('category', $productcategory)
+//->where('brand', $productbrand)
+->where('del', 0)
+    ->paginate($displaynumber);
+}
 
-    //  if($userrole == '101')
-      {
-    //  return   Product::with(['userbalancingBranch','branchinBalance'])->latest('id')
-    return   Product::with(['brandName','productCategory','productSupplier','unitMeasure'])->latest('id')
-    ///  return   Product::latest('id')
-       //  return   Branchpayout::latest('id')
-        // ->where('branch', $userbranch)
-        ->paginate(20);
-      }
 
-
-     // if($userrole == '100')
-      {
-      
-      
-     // return   Product::with(['userbalancingBranch','branchinBalance'])->latest('id')
-      
-      // return   Product::latest('id')
-       //  return   Branchpayout::latest('id')
-    //     ->where('del', 0)
-     //   ->paginate(20);
-      
-    }
+    
       
     }
 
@@ -60,7 +67,7 @@ class CompanyproductsController extends Controller
 
 
        $this->validate($request,[
-      'name'   => 'required  |max:191',
+      'productname'   => 'required  |max:191',
       'brand'   => 'required',
       'unitmeasure'   => 'required',
       'brand'   => 'required', 
@@ -78,11 +85,11 @@ $productcode  = \DB::table('products')->orderBy('id', 'Desc')->limit(1)->value('
        return Product::Create([
     
   //    'productcode' => $request['productcode'],
-      'name' => $request['name'],
+      'productname' => $request['productname'],
       'rol' => $request['rol'],
       'category' => $request['category'],
       'brand' => $request['brand'],
-     // 'supplier' => $request['supplier'],
+      'description' => $request['description'],
       'unitmeasure' =>$request['unitmeasure'],
       'ucret' => $userid,
     

@@ -1,7 +1,9 @@
+
+
 <template>
 
     <div>
-<div class="bethapa-table-header"></div>
+
 
 
 
@@ -14,68 +16,47 @@
 
 
         <!-- Start of the -->
- <div class="bethapa-component-header" >Human Resource </div>        
-<div class="col-12 col-sm-12 col-lg-12">
-            <div class="card card-primary card-outline card-tabs">
-              <div class="card-header p-0 pt-1 border-bottom-0">
-                <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
-                  <li class="nav-item" v-if="branchesccessSettings > 0 " >
-                    <a class="nav-link active" id="custom-tabs-two-home-tab"
-                     data-toggle="pill" href="#custom-tabs-two-home" role="tab"
-                     @click="loadBranches()" aria-controls="custom-tabs-two-home" aria-selected="true">BRANCHES</a>
-                  </li>
-<!--  -->
 
-                  <li class="nav-item" v-if="rolesaccessSettings > 0 " > 
-                    <a class="nav-link" id="custom-tabs-two-profile-tab"
-                     data-toggle="pill" href="#custom-tabs-two-profile" role="tab" aria-controls="custom-tabs-two-profile" aria-selected="false">DEPARTMENTS</a>
-                  </li>
+<link href="plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+<link href="plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
 
- <!-- v-if="mainmenuaccessSettings > 0 "  -->
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                                HUMAN RESOURCE DATA CENTERS
+                            </h2>
+                            
+                        </div>
+                        <div class="body">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active">
+                                    <a href="#home_with_icon_title" @click="loadBranches()" data-toggle="tab">
+                                        <i class="material-icons">home</i> BRANCHES
+                                    </a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#profile_with_icon_title" @click="loadSuppliers()" data-toggle="tab">
+                                        <i class="material-icons">face</i> Suppliers
+                                    </a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#messages_with_icon_title" data-toggle="tab">
+                                        <i class="material-icons">face</i> Customers
+                                    </a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#settings_with_icon_title" data-toggle="tab">
+                                        <i class="material-icons">settings</i> SETTINGS
+                                    </a>
+                                </li>
+                            </ul>
 
-                  <li class="nav-item" >
-                    <a class="nav-link" id="custom-tabs-two-messages-tab"
-                    @click="loadMainmenuaccess()" data-toggle="pill" href="#custom-tabs-two-messages" role="tab" 
-                    aria-controls="custom-tabs-two-messages" aria-selected="false"></a>
-                  </li>
-                 
-                  <li class="nav-item" v-if="submenuaccessSettings > 20">
-                    <a class="nav-link" id="custom-tabs-two-settings-tab" data-toggle="pill"
-                     href="#custom-tabs-two-settings" role="tab" @click="loadSubmenaccess()"
-                     aria-controls="custom-tabs-two-settings" aria-selected="false">Sub-Menu Settings</a>
-                  </li>
-
-                   <li class="nav-item" v-if="componentaccessSettings > 0 ">
-                    <a class="nav-link" id="custom-tabs-two-three-tab" data-toggle="pill"
-                     href="#custom-tabs-two-three" role="tab" @click="loadcomponentsAllowedfortherole()" 
-                     aria-controls="custom-tabs-two-three" aria-selected="false">Component Access</a>
-                  </li>
-
-
-                    <li class="nav-item" v-if="featuresaccessSettings > 0 ">
-                    <a class="nav-link" id="custom-tabs-two-four-tab" data-toggle="pill"
-                     href="#custom-tabs-two-four" role="tab" @click="loadcomponentsAllowedcomponentfeatures()" 
-                     aria-controls="custom-tabs-two-four" aria-selected="false">Component Features Access </a>
-                  </li>
-
-
-                  
-
-                 
-
-
-                </ul>
-              </div>
-              <div class="card-body">
-
-
-
-      <div class="tab-content" id="custom-tabs-two-tabContent"  >
-                  
-                  <!-- tab one start -->
-                 <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel" v-if="branchesccessSettings > 0 " aria-labelledby="custom-tabs-two-home-tab"> 
-               
-                 <div class="bethapa-table-header">
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade in active" id="home_with_icon_title">
+                                      <div class="bethapa-table-header">
                       Branches Details 
                       <button type="button" v-if="allowedtoaddbranch > 0 " class="add-newm" @click="newBranchmodal" >Add New </button> 
                      </div>
@@ -84,7 +65,7 @@
 
 
 
-                      <table class="table table-bordered table-striped">
+                       <table class="table">
                   <thead>
                     <tr>
                    
@@ -118,11 +99,11 @@
                                  <td>{{branchesdata.created_at | myDate }}</td>  
                                  <td> 
                                   
-                              <button type="button" v-if="allowedtoeditbranch > 0 "   class="btn  bg-gradient-secondary btn-xs fas fa-edit"  @click="editUser(branchesdata)">Edit</button>
+                              <button type="button" v-if="allowedtoeditbranch > 0 "   class="btn  bg-gradient-secondary btn-xs fas fa-edit"  @click="editUser(branchesdata)">Edit Record</button>
                              
 
 
-                            <button type="button" v-if="allowedtodeletebranch > 0 " class="btn  bg-gradient-danger btn-xs fas fa-trash-alt" @click="deleteBranch(branchesdata.id)"> DEl </button>
+                            <button type="button" v-if="allowedtodeletebranch > 0 " class="btn  bg-gradient-danger btn-xs fas fa-trash-alt" @click="deleteBranch(branchesdata.id)"> Delete Record </button>
 
 
 
@@ -145,728 +126,196 @@
                 <ul class="pagination pagination-sm m-0 float-right">
                    <pagination :data="branchesrecords" @pagination-change-page="paginationResultsBranches"></pagination>
                 </ul>
-              </div>
-                     
-                 
-                    </div>
+    </div>
+          
  
- <!-- tab one end -->
 
-
-<!-- Modal add menu -->
 <div class="modal fade" id="addnewBranchmodal">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-        <div  class="modal-content">
-            <div  class="modal-header">
-                <h4  v-show="!editmode"    class="modal-title">ADD NEW RECORD</h4> 
+         <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">ADD NEW RECORD</h3> 
                 <h4  v-show="editmode" class="modal-title" >UPDATE RECORD</h4> 
-                <button  type="button" data-dismiss="modal" aria-label="Close" class="close"><span  aria-hidden="true">×</span></button></div> 
-                 <form class="form-horizontal" @submit.prevent="editmode ? updateBranch():createBranch()"> 
+                        </div>
+                  <form class="form-horizontal" @submit.prevent="editmode ? updateBranch():createBranch()"> 
 
-                    <div  class="modal-body">
-                  <div class="form-group  row">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">BRANCH NAME</label>
-                    <div class="col-sm-6">
-                  <input v-model="form.branchname" type="text" name="branchname"
+                
+<div class ="bethapa-table-sectionheader">Branch Details</div>
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Branch Name</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                  <input v-model="form.branchname" type="text" name="branchname"
                       class="form-control" :class="{ 'is-invalid': form.errors.has('branchname') }">
                     <has-error :form="form" field="branchname"></has-error>
-                                  </div>
-                   
-      
-                
-                  </div>
-
-
-               <div class="form-group  row">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">LOCATION</label>
-                    <div class="col-sm-6">
-                  <input v-model="form.location" type="text" name="location"
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="password_2">Location</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input v-model="form.location" type="text" name="location"
                       class="form-control" :class="{ 'is-invalid': form.errors.has('location') }">
                     <has-error :form="form" field="location"></has-error>
-                                  </div>    
-                  </div>
-                
-
-                   <div class="form-group  row">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">CONTACT</label>
-                    <div class="col-sm-6">
-                  <input v-model="form.contact" type="text" name="contact"
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                              
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="password_2">Contact</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input v-model="form.contact" type="text" name="contact"
                       class="form-control" :class="{ 'is-invalid': form.errors.has('contact') }">
                     <has-error :form="form" field="contact"></has-error>
-                                  </div>    
-                  </div>
-                
-                
-                 <div class="form-group  row">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">OPENNING BALANCE</label>
-                    <div class="col-sm-6">
-                  <input v-model="form.openningbalance" type="number" name="openningbalance"
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                        <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="password_2">Openning Balance</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input v-model="form.openningbalance" type="number" name="openningbalance"
                       class="form-control" :class="{ 'is-invalid': form.errors.has('openningbalance') }">
                     <has-error :form="form" field="openningbalance"></has-error>
-                                  </div>
-                   
-      
-                  </div>
-                 
-                    </div>
-
-
-                  <div  class="modal-footer">
-                    <button  v-show="!editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
-                      <button v-show="editmode" type="submit" class="btn btn-success btn-sm" >Update</button>
-                        <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Close</button >
-                        </div>
-                 </form>
-                       </div>
-                          </div>
-                </div>
-                
-
-      <!-- End of Modal for -->
-<!--  -->
-                  <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel" aria-labelledby="custom-tabs-two-profile-tab">
-                   
-                   
-    <!-- tab one start -->
-                  <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
-                 
-                 <div class="bethapa-table-header">
-                      Roles Details <button type="button" class="add-newm" @click="newBranchmodal" >Add New </button>
-                     </div>
-
-
-
-                  </div>
-
-
-
-
-
-
-                  </div>
-<!-- mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm -->
-
-                  <div class="tab-pane fade" id="custom-tabs-two-messages" role="tabpanel" aria-labelledby="custom-tabs-two-messages-tab">
-             
-
- <form @submit.prevent="SaveRoletoaddmainmenu()">
-                  
-                  
-                    <div class="form-group">
-                  <label>Choose Role</label>
-                    <select name ="mainmemurolerrtrrr" v-model="form.mainmemurolerrtrrr" id ="mainmemurolerrtrrr" v-on:change="myClickEventformainmenuas"  :class="{'is-invalid': form.errors.has('mainmemurolerrtrrr')}">
-                    <option value=" ">  </option>
-                    <option v-for='data in roleslist' v-bind:value='data.id'>{{ data.id }} - {{ data.rolename }}</option>
-
-                    </select>
-                       <input type="text" name="inone" value="forsubmenuazccess" hidden class="form-control">
-
-                                <has-error :form="form" field="mainmemurolerrtrrr"></has-error>
-
-                             
-                             
-
-                                
-                                </div>
-                                  <button type="submit" id="submit" hidden="hidden" name= "submit" ref="myBtnmainmen" class="btn btn-primary btn-sm">Saveit</button>
-                                </form>
-
-              <div class="bethapa-table-header">
-                      AUTHORISED MAIN - MENUS 
-                      <!-- <button type="button" v-if="allowedtoaddmainmenuaccess > 0" class="add-newm" @click="newmainmenuaccess" >Add New </button> -->
-                        <button type="button"  class="add-newm" @click="newmainmenuaccess" >Add New </button>
-                     </div>
-        
-                    
-                    
-              <table class="table table-striped">
-                  <thead>
-                    <tr>
-                   
-                      <th > # </th>
-                      <th > MAIN MENU </th>
-                   
-                      <th > AUTHORISED </th>
-                      <th >  </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-
-                                       <tr v-for="allmainmenus in datarecordsMainmenuauthorised.data" :key="allmainmenus.id">
-                      
-                 
-                  
-                
-                      
-                         
-                                <td>{{allmainmenus.id}}</td>
-                                 
- 
-                                  <!-- <td>{{allmainmenus.component}}</td> -->
-                             
-                                <td>   <template v-if="allmainmenus.mainm_name">	{{allmainmenus.mainm_name.mainmenuname}}</template></td>
-                
-
-                                
-                               
-                                 <td>{{allmainmenus.created_at | myDate }}</td>  
-                                 <td> 
-                               
-                           
-
-                            <button type="button" v-if="allowedtorevokemainmenuaccess > 0 " class="btn  bg-gradient-danger btn-xs fas fa-trash-alt" @click="revokeMainmenuuaccess(allmainmenus.id)"> Revoke Menu Item </button>
-
-
-
-
-                             
-                              </td>
-
-
-               
-                              
-                               
-                    </tr>
-              
-                     
-                  </tbody>
-              
- 
-                                   </table>
-   
-   
-                      <div class="card-footer">
-                <ul class="pagination pagination-sm m-0 float-right">
-                   <pagination :data="allowedrolecomponentsObject" @pagination-change-page="paginationroleAuthorisedsubmenues"></pagination>
-                </ul>
-              </div>
-                     
-                 
-                    </div>
- 
- <!-- tab one end -->
-
-
-<!-- Modal add menu -->
-<div class="modal fade" id="addnewaccesstomainmenu">
-        <div class="modal-dialog modal-dialog-top modal-lg">
-        <div  class="modal-content">
-            <div  class="modal-header">
-                <h4  v-show="!editmode"    class="modal-title">Activate Main-Menu Access</h4> 
-                <h4  v-show="editmode" class="modal-title" >UPDATE RECORD</h4> 
-                <button  type="button" data-dismiss="modal" aria-label="Close" class="close"><span  aria-hidden="true">×</span></button></div> 
-                 <form class="form-horizontal" @submit.prevent="editmode ? updateBranch():createMainuaccess()"> 
-
-                    <div  class="modal-body">
-              
-              
-                 
-                 <div class="form-group row">
-
-                            <label class="col-sm-2 col-form-label">Role </label>
-                              <div class="col-sm-6">
-                            <select name ="roleformainmenuaccess" v-model="form.roleformainmenuaccess" 
-                            id ="roleformainmenuaccess"  class="form-control" :class="{'is-invalid': form.errors.has('roleformainmenuaccess')}">
-                    <option value=" ">  </option>
-                    <option v-for='data in roleslist' v-bind:value='data.id'>{{ data.id }} - {{ data.rolename }}</option>
-
-                    </select>
-                   
-
-                                <has-error :form="form" field="roleformainmenuaccess"></has-error>
-
-
-                              </div>
-
-                        </div>
-                
-                      
-               
-                    
-          
-
-                           <div class="form-group row">
-
-                            <label class="col-sm-2 col-form-label">Main Menu </label>
-                              <div class="col-sm-6">
-                            <select name ="mainmenus" v-model="form.mainmenus" id ="mainmenus"  class="form-control" :class="{'is-invalid': form.errors.has('mainmenus')}">
-                    <option value=" ">  </option>
-                    <option v-for='data in mainmenulist' v-bind:value='data.id'>{{ data.id }} - {{ data.mainmenuname }}</option>
-
-                    </select>
-                   
-
-                                <has-error :form="form" field="mainmenus"></has-error>
-
-
-                              </div>
-
-                        </div>
-                
-                      
-               
-
-                      
-                      
-                
-                 
-                 </div>
-                 
-                  <div  class="modal-footer">
-                    <button  v-show="!editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
-                      <button v-show="editmode" type="submit" class="btn btn-success btn-sm" >Update</button>
-                        <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Close</button >
-                        </div>
-                 </form>
-                       </div>
-                          </div>
-                
-                    
-                    
-                    
-              
-              
-              
-                  </div>
-
-                  <!-- mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm -->
-
-
-
-<!-- mmmmmmmmmmmmmmmmmmmmmmmmmmm -->
-                  <div class="tab-pane fade" id="custom-tabs-two-settings" role="tabpanel" aria-labelledby="custom-tabs-two-settings-tab">
-                    
-                    
-                     <form @submit.prevent="SaveRoletoaddsubment()">
-                  
-                  
-                    <div class="form-group">
-                  <label>Choose Role</label>
-                    <select name ="mycpmponenttonnn" v-model="form.mycpmponenttonnn" id ="mycpmponenttonnn" v-on:change="myClickEventforsubmenus"  :class="{'is-invalid': form.errors.has('mycpmponenttonnn')}">
-                    <option value=" ">  </option>
-                    <option v-for='data in roleslist' v-bind:value='data.id'>{{ data.id }} - {{ data.rolename }}</option>
-
-                    </select>
-                       <input type="text" name="inone" value="forsubmenuazccess" hidden class="form-control">
-
-                                <has-error :form="form" field="mycpmponenttonnn"></has-error>
-
-                             
-                             
-
-                                
-                                </div>
-                                  <button type="submit" id="submit" hidden="hidden" name= "submit" ref="myBtnsubmenus" class="btn btn-primary btn-sm">Saveit</button>
-                                </form>
-
-              <div class="bethapa-table-header">
-                      AUTHORISED SUB-MENUS <button v-if="allowedtoaddsubmenuaccess > 0" type="button" class="add-newm" @click="newsubmenuaccess" >Add New </button>
-                     </div>
-        
-                    
-                    
-              <table class="table table-striped">
-                  <thead>
-                    <tr>
-                   
-                      <th > # </th>
-                      <th > COMPONENT </th>
-                      <th > SUBMENU </th>
-                      <th > AUTHORISED </th>
-                      <th >  </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-
-                                       <tr v-for="allsubmenus in datarecordsSubmenusauthorised.data" :key="allsubmenus.id">
-                      
-                 
-                  
-                
-                      
-                         
-                                <td>{{allsubmenus.id}}</td>
-                                 
- 
-                                  <td>{{allsubmenus.component}}</td>
-                             
-                               <td>   <template v-if="allsubmenus.subm_name">	{{allsubmenus.subm_name.submenuname}}</template></td>
-                
-
-                                
-                               
-                                 <td>{{allsubmenus.created_at | myDate }}</td>  
-                                 <td> 
-                                  
-                           
-
-                            <button type="button" v-if="allowedtorevokesubmenuaccess > 0" class="btn  bg-gradient-danger btn-xs fas fa-trash-alt" @click="revokeSubmenuaccess(allsubmenus.id)"> Revoke Sub Menu Item </button>
-
-
-
-
-                             
-                              </td>
-
-
-               
-                              
-                               
-                    </tr>
-              
-                     
-                  </tbody>
-              
- 
-                                   </table>
-   
-   
-                      <div class="card-footer">
-                <ul class="pagination pagination-sm m-0 float-right">
-                   <pagination :data="allowedrolecomponentsObject" @pagination-change-page="paginationroleAuthorisedsubmenues"></pagination>
-                </ul>
-              </div>
-                     
-                 
-                    </div>
- 
- <!-- tab one end -->
-
-
-<!-- Modal add menu -->
-<div class="modal fade" id="addnewaccesstosubmenu">
-        <div class="modal-dialog modal-dialog-top modal-lg">
-        <div  class="modal-content">
-            <div  class="modal-header">
-                <h4  v-show="!editmode"    class="modal-title">Activate Sub-Menu Access</h4> 
-                <h4  v-show="editmode" class="modal-title" >UPDATE RECORD</h4> 
-                <button  type="button" data-dismiss="modal" aria-label="Close" class="close"><span  aria-hidden="true">×</span></button></div> 
-                 <form class="form-horizontal" @submit.prevent="editmode ? updateBranch():createSubmenuaccess()"> 
-
-                    <div  class="modal-body">
-              
-              
-                 
-                 <div class="form-group row">
-
-                            <label class="col-sm-2 col-form-label">Role </label>
-                              <div class="col-sm-6">
-                            <select name ="roleforsubmenuaccess" v-model="form.roleforsubmenuaccess" id ="roleforsubmenuaccess"  class="form-control" :class="{'is-invalid': form.errors.has('roleforsubmenuaccess')}">
-                    <option value=" ">  </option>
-                    <option v-for='data in roleslist' v-bind:value='data.id'>{{ data.id }} - {{ data.rolename }}</option>
-
-                    </select>
-                   
-
-                                <has-error :form="form" field="roleforsubmenuaccess"></has-error>
-
-
-                              </div>
-
-                        </div>
-                
-                      
-               
-                    
-          
-
-                           <div class="form-group row">
-
-                            <label class="col-sm-2 col-form-label">Sub Menu </label>
-                              <div class="col-sm-6">
-                            <select name ="submenus" v-model="form.submenus" id ="submenus"  class="form-control" :class="{'is-invalid': form.errors.has('submenus')}">
-                    <option value=" ">  </option>
-                    <option v-for='data in submenulist' v-bind:value='data.id'>{{ data.id }} - {{ data.submenuname }}</option>
-
-                    </select>
-                   
-
-                                <has-error :form="form" field="submenus"></has-error>
-
-
-                              </div>
-
-                        </div>
-                
-                      
-               
-
-                      
-                      
-                
-                 
-                 </div>
-                 
-                  <div  class="modal-footer">
-                    <button  v-show="!editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
-                      <button v-show="editmode" type="submit" class="btn btn-success btn-sm" >Update</button>
-                        <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Close</button >
-                        </div>
-                 </form>
-                       </div>
-                          </div>
-                
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                        </div>
-
-
-<!-- mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm -->
-                   <div class="tab-pane fade" id="custom-tabs-two-three" role="tabpanel" aria-labelledby="custom-tabs-two-three-tab">
-                  
-                  
-                   <form @submit.prevent="SaveRoletoaddcomponent()">
-                  
-                  
-                    <div class="form-group">
-                  <label>Role</label>
-                    <select name ="mycpmponentto" v-model="form.mycpmponentto" id ="mycpmponentto" v-on:change="myClickEventroletoaddcomponent"  :class="{'is-invalid': form.errors.has('mycpmponentto')}">
-                    <option value=" ">  </option>
-                    <option v-for='data in roleslist' v-bind:value='data.id'>{{ data.id }} - {{ data.rolename }}</option>
-
-                    </select>
-                       <input type="text" name="inone" value="roletoaddcomponent" hidden
-                    class="form-control">
-
-                                <has-error :form="form" field="mycpmponentto"></has-error>
-
-                             
-                             
-
-                                
-                                </div>
-                                  <button type="submit" id="submit" hidden="hidden" name= "submit" ref="myBtnroledd" class="btn btn-primary btn-sm">Saveit</button>
-                                </form>
-
-              <div class="bethapa-table-header">
-                   
-       
-                      AUTHORISED COMPONENTS  <button type="button" v-if="allowedtogivecomponentaccess > 0" class="add-newm" @click="newcomponentadd" >Add New </button>
-                     </div>
-
-
-              <table class="table table-striped">
-                  <thead>
-                    <tr>
-                   
-                      <th > # </th>
-                      <th >  </th>
-                       <th > COMPONENT </th>
-                      <th > AUTHORISED </th>
-                     <th >  </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-
-                                       <tr v-for="allcomponentsdata in allowedrolecomponentsObject.data" :key="allcomponentsdata.id">
-                      
-                 
-                  
-                
-                      
-                         
-                                <td>{{allcomponentsdata.id}}</td>
-                                 <td>
-                                   
-                                 </td>
- 
-                             
-                                  <td>{{allcomponentsdata.componentto}}</td>
-
-                                
-                               
-                                 <td>{{allcomponentsdata.created_at | myDate }}</td>  
-                                 <td> 
-                                  
-                           
-
-                            <button type="button" v-if="allowedtorevokecomponentaccess > 0" class="btn  bg-gradient-danger btn-xs fas fa-trash-alt" @click="revokeroleComponent(allcomponentsdata.id)"> Revoke </button>
-
-
-
-
-                             
-                              </td>
-
-
-               
-                              
-                               
-                    </tr>
-              
-                     
-                  </tbody>
-              
- 
-                                   </table>
-   
-   
-                      <div class="card-footer">
-                <ul class="pagination pagination-sm m-0 float-right">
-                   <pagination :data="allowedrolecomponentsObject" @pagination-change-page="paginationroleAuthorisedcomponents"></pagination>
-                </ul>
-              </div>
-                     
-                 
-                    </div>
- 
- <!-- tab one end -->
-
-
-<!-- Modal add menu -->
-<div class="modal fade" id="addnewComponenttotheRole">
-        <div class="modal-dialog modal-dialog-top modal-lg">
-        <div  class="modal-content">
-            <div  class="modal-header">
-                <h4  v-show="!editmode"    class="modal-title">Activate ROLE- Component</h4> 
-                <h4  v-show="editmode" class="modal-title" >UPDATE RECORD</h4> 
-                <button  type="button" data-dismiss="modal" aria-label="Close" class="close"><span  aria-hidden="true">×</span></button></div> 
-                 <form class="form-horizontal" @submit.prevent="editmode ? updateBranch():createAuthorisedrole()"> 
-
-                    <div  class="modal-body">
-              
-              
-                 
-                   <div class="form-group row">
-
-                            <label class="col-sm-2 col-form-label">Role </label>
-                              <div class="col-sm-6">
-                            <select name ="roleyouareaddingtocomponent" class='form-control'  v-model="form.roleyouareaddingtocomponent">
-
-                              <option value="">  </option>
-
-                              <option v-for='data in roleslist' :value='data.id'>{{ data.rolename }}</option>
-
-                            </select>
-                            
-                               <has-error :form="form" field="roleyouareaddingtocomponent"></has-error>
-                              </div>
-                 
-                        </div>
-
-                    
-          
-
-                           <div class="form-group row">
-
-                            <label class="col-sm-2 col-form-label">Component </label>
-                              <div class="col-sm-6">
-                           <select name ="components" v-model="form.components" id ="components"  class="form-control" :class="{'is-invalid': form.errors.has('components')}">
-                    <option value=" ">  </option>
-                    <option v-for='data in componentslist' v-bind:value='data.sysname'>{{ data.sysname }} - {{ data.componentname }}</option>
-
-                    </select>
-                   
-
-                                <has-error :form="form" field="components"></has-error>
-
-                              </div>
-
-                        </div>
-                
-                      
-               
-
-                      
-                      
-                
-                 
-                 </div>
-                 
-                  <div  class="modal-footer">
-                    <button  v-show="!editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
-                      <button v-show="editmode" type="submit" class="btn btn-success btn-sm" >Update</button>
-                        <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Close</button >
-                        </div>
-                 </form>
-                       </div>
-                          </div>
-                
-
- </div>
-<!-- End od pane -->
-                    <div class="tab-pane fade" id="custom-tabs-two-four" role="tabpanel" aria-labelledby="custom-tabs-two-four-tab">
-                                                     
-            <form @submit.prevent="SaveRoletoaddformcomponent()">
-                  
-                  
-                    <div class="form-group">
-                  <label>Role</label>
-                    <select name ="roletoallow" v-model="form.roletoallow" id ="roletoallow"   :class="{'is-invalid': form.errors.has('roletoallow')}">
-                    <option value=" ">  </option>
-                    <option v-for='data in roleslist' v-bind:value='data.id'>{{ data.id }} - {{ data.rolename }}</option>
-
-                    </select>
-                    
-
-                                <has-error :form="form" field="roletoallow"></has-error>
-
-
-                     <label>Component</label>
-                    <select name ="componentto" v-model="form.componentto" id ="componentto"   :class="{'is-invalid': form.errors.has('componentto')}">
-                    <option value=" ">  </option>
-                    <option v-for='data in componentslist' v-bind:value='data.sysname'> ({{ data.sysname }}) - {{ data.componentname }}</option>
-
-                    </select>
-                    
-
-                                <has-error :form="form" field="componentto"></has-error>
-                       <button type="submit" id="submit" name= "submit" ref="myBtn" class="btn btn-info btn-sm">Proceed</button>
+                                            </div>
+                                        </div>
                                     </div>
-                                </form>
-                  
-                       <div class="bethapa-table-header">
-                      AUTHORISED COMPONENTS FEATURES <button type="button" class="add-newm" @click="newcomponentfeatureadd" >Add New </button>
+                                </div>
+                                 <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="password_2">fgh</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                               <select class="form-control show-tick" data-live-search="true">
+                                        <option></option>
+                                        <option>Burger, Shake and a Smile</option>
+                                        <option>Sugar, Spice and all things nice</option>
+                                    </select>
+                    <has-error :form="form" field="openningbalance"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                  <div  class="modal-footer">
+                    <button  v-show="!editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
+                      <button v-show="editmode" type="submit" class="btn btn-success btn-sm" >Update</button>
+                        <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Close</button >
+                        </div>
+                 </form>
+                       </div>
+                          </div>
+                </div>
+                
+
+
+
+
+
+
+
+
+
+                                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                                <div role="tabpanel" class="tab-pane fade" id="profile_with_icon_title">
+                                  
+                                     <div class="bethapa-table-header">
+                      Supplier Details 
+                      <button type="button" v-if="allowedtoaddbranch > 0 " class="add-newm" @click="newsupplierModal" >Add New </button> 
                      </div>
 
 
-                      <table class="table table-striped">
+
+
+
+                       <table class="table">
                   <thead>
+                      <tr>
+                   
+            <th rowspan="1" style="font-size: 25px; color:white; "></th>
+              <th colspan="4"  style="font-size: 25px; color:white;  "> COMPANY DETAILS</th>
+              <th colspan="2"  style="font-size: 25px;color:white;  "> CONTACT PERSON</th>
+          <th colspan="2"  style="font-size: 25px;color:white;  "> </th>
+          
+          
+        </tr>
                     <tr>
                    
-                      <th > # </th>
-                      <th > COMPONENT </th>
-                      <th > FEATURE </th>
-                      
-                      <th > ACTIVATED </th>
+                      <th > #</th>
+                      <th >  Name </th>
+                      <th >  Location  </th>
+                      <th > Contact </th>
+                     <th > Email </th>
+
+                      <th > Name </th>
+                      <th > Contact </th>
+                    
                      <th >  </th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
 
-                              <tr v-for="allcompfetures in allowedrolecomponentfeaturesObject.data" :key="allcompfetures.id">
+                                       <tr v-for="suppdeta in suppliers.data" :key="suppdeta.id">
                       
                  
                   
                 
                       
                          
-                                <td>{{allcompfetures.id}}</td>
-                               
-                                <td>{{allcompfetures.component}}</td>
+                                <td>{{suppdeta.id}}</td>
+                                 <td>{{suppdeta.suppname | firstletterCapital }}</td>
+ 
                              
-                                <td>{{allcompfetures.formcomponent}}</td>
+                                  <td>{{suppdeta.location}}</td>
 
+                                  <td>{{suppdeta.contact}}</td>
                                 
-                               
-                                 <td>{{allcompfetures.created_at | myDate }}</td>  
+                                 <td>{{suppdeta.companyemailaddress }}</td>
+                                  <td>{{suppdeta.contact}}</td>
+                                
+                                 <td>{{suppdeta.contactofcontact }}</td>  
+                                 
                                  <td> 
                                   
-                           
+                              <button type="button" v-if="allowedtoeditbranch > 0 "   class="btn  bg-gradient-secondary btn-xs fas fa-edit"  @click="editSupplier(suppdeta)">Edit Record</button>
+                             
 
-                            <button type="button" class="btn  bg-gradient-danger btn-xs fas fa-trash-alt" @click="revokeroleComponentfeature(allcompfetures.id)"> Revoke Feature</button>
+
+                            <button type="button" v-if="allowedtodeletebranch > 0 " class="btn  bg-gradient-danger btn-xs fas fa-trash-alt" @click="deleteSupplier(suppdeta.id)"> Delete Record </button>
 
 
 
@@ -885,97 +334,135 @@
               
  
                                    </table>
-   
-   
-                      <div class="card-footer">
+    <div class="card-footer">
                 <ul class="pagination pagination-sm m-0 float-right">
-                   <pagination :data="allowedrolecomponentfeaturesObject" @pagination-change-page="paginationroleAuthorisedcomponentsfeature"></pagination>
+                   <pagination :data="branchesrecords" @pagination-change-page="paginationResultsBranches"></pagination>
                 </ul>
-              </div>
-                     
-                 
-                    </div>
+    </div>
+          
  
- <!-- tab one end -->
 
-
-<!-- Modal add menu -->
-<div class="modal fade" id="addnewcomponentfeature">
-        <div class="modal-dialog modal-dialog-top modal-lg">
-        <div  class="modal-content">
-            <div  class="modal-header">
-                <h4  v-show="!editmode"    class="modal-title">Activate Component Feature</h4> 
-                <h4  v-show="editmode" class="modal-title" >UPDATE RECORD</h4> 
-                <button  type="button" data-dismiss="modal" aria-label="Close" class="close"><span  aria-hidden="true">×</span></button></div> 
-                 <form class="form-horizontal" @submit.prevent="editmode ? updateBranch():createAuthorisecomponentfeature()"> 
-
-                    <div  class="modal-body">
-              
-              
-                 
-                   <div class="form-group row">
-
-                            <label class="col-sm-2 col-form-label">Role </label>
-                              <div class="col-sm-6">
-                            <select name ="roleyouareaddingtocomponent" class='form-control'  v-model="form.roleyouareaddingtocomponent">
-
-                              <option value=" ">  </option>
-
-                              <option v-for='data in roleslist' :value='data.id'>{{ data.rolename }}</option>
-
-                            </select>
-                            
-                               <has-error :form="form" field="roleyouareaddingtocomponent"></has-error>
-                              </div>
-                 
+<div class="modal fade" id="addnewsupplierModal">
+         <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">ADD NEW SUPPLIER</h3> 
+                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Update SUPPLIER</h3> </h4> 
                         </div>
+                  <form class="form-horizontal" @submit.prevent="editmode ? updateSupplier():createSupplier()"> 
 
-                    
-             <div class="form-group row">
-
-                            <label class="col-sm-2 col-form-label">Component </label>
-                              <div class="col-sm-6">
-                            <select name ="componentname" class='form-control'  v-model="form.componentname">
-
-                              <option value="">  </option>
-
-                              <option v-for='data in componentslist' :value='data.sysname'>{{ data.componentname }}</option>
-
-                            </select>
-                            
-                               <has-error :form="form" field="componentname"></has-error>
-                              </div>
-                 
-                        </div>
-
-
-                           <div class="form-group row">
-
-                            <label class="col-sm-2 col-form-label">Component </label>
-                              <div class="col-sm-6">
-                          <select name ="formfeatures" v-model="form.formfeatures" id ="formfeatures"  class="form-control" :class="{'is-invalid': form.errors.has('formfeatures')}">
-                    <option value=" ">  </option>
-                    <option v-for='data in formfeatures' v-bind:value='data.sysname'>{{ data.featurename }}</option>
-
-                    </select>
-                    
-
-                                <has-error :form="form" field="formfeatures"></has-error>
-
-
-                              </div>
-
-                        </div>
                 
-                      
-               
+<div class ="bethapa-table-sectionheader">Company Details</div>
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Name</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                  <input v-model="form.company" type="text" name="company"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('company') }">
+                    <has-error :form="form" field="company"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="password_2">Location</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input v-model="form.location" type="text" name="location"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('location') }">
+                    <has-error :form="form" field="location"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                              
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="password_2">Contact</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input v-model="form.contact" type="text" name="contact"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('contact') }">
+                    <has-error :form="form" field="contact"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                    <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="password_2">Email</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input v-model="form.companyemailaddress" type="text" name="companyemailaddress"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('companyemailaddress') }">
+                    <has-error :form="form" field="companyemailaddress"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+<div class ="bethapa-table-sectionheader">Contact Person Details</div>
+                                           <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="password_2">Name</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input v-model="form.companycontactperson" type="text" name="companycontactperson"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('companycontactperson') }">
+                    <has-error :form="form" field="companycontactperson"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                      
-                      
-                
-                 
-                 </div>
-                 
+    <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="password_2">Contact</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input v-model="form.contactofcontact" type="text" name="contactofcontact"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('contactofcontact') }">
+                    <has-error :form="form" field="contactofcontact"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+   
+
+                                 <!-- <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="password_2">fgh</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                               <select class="form-control show-tick" data-live-search="true">
+                                        <option></option>
+                                        <option>Burger, Shake and a Smile</option>
+                                        <option>Sugar, Spice and all things nice</option>
+                                    </select>
+                    <has-error :form="form" field="openningbalance"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+
+
                   <div  class="modal-footer">
                     <button  v-show="!editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
                       <button v-show="editmode" type="submit" class="btn btn-success btn-sm" >Update</button>
@@ -984,55 +471,42 @@
                  </form>
                        </div>
                           </div>
-                
-                  
-                  
-                  
-                  </div>
-
-<!-- End of pane -->
-
-                <div class="tab-pane fade" id="custom-tabs-two-five" role="tabpanel" aria-labelledby="custom-tabs-two-five-tab">
-                     five  is. 
-                  </div>
-
-
-
-
-  <div class="tab-pane fade" id="custom-tabs-two-six" role="tabpanel" aria-labelledby="custom-tabs-two-six-tab">
-                     six  is. 
-                  </div>
-
-
-                    <div class="tab-pane fade" id="custom-tabs-two-seven" role="tabpanel" aria-labelledby="custom-tabs-two-seven-tab">
-                     seven  is. 
-                  </div>
-
-  <div class="tab-pane fade" id="custom-tabs-two-eight" role="tabpanel" aria-labelledby="custom-tabs-two-eight-tab">
-                     Eight  is. 
-                  </div>
-
-
-
-
-
-
-
-
                 </div>
-              </div>
-              <!-- /.card -->
-            </div>
-          </div>
+                
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="messages_with_icon_title">
+                                    <b>Message Content</b>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, ut duo atqui exerci dicunt, ius impedit mediocritatem an. Pri ut tation electram moderatius.
+                                        Per te suavitate democritum. Duis nemore probatus ne quo, ad liber essent aliquid
+                                        pro. Et eos nusquam accumsan, vide mentitum fabellas ne est, eu munere gubergren
+                                        sadipscing mel.
+                                    </p>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="settings_with_icon_title">
+                                    <b>Settings Content</b>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, ut duo atqui exerci dicunt, ius impedit mediocritatem an. Pri ut tation electram moderatius.
+                                        Per te suavitate democritum. Duis nemore probatus ne quo, ad liber essent aliquid
+                                        pro. Et eos nusquam accumsan, vide mentitum fabellas ne est, eu munere gubergren
+                                        sadipscing mel.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
 
-<!-- All modals container  -->
 
 
 
-               
-<!-- No Modals Beyond -->
+
+
+
+
+
 
 
           <!-- end of the body -->
@@ -1067,6 +541,19 @@
     </div>
 </template>
 <script src="plugins/select2/js/select2.full.min.js"></script>
+<script src="plugins/jquery-datatable/jquery.dataTables.js"></script>
+    <script src="plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+    <script src="plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+    <script src="plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+    <script src="plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+    <script src="plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+    <script src="plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+    <script src="plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+    <script src="plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+
+    <!-- Custom Js -->
+    <script src="js/admin.js"></script>
+    <script src="js/pages/tables/jquery-datatable.js"></script>
 <script>
   $(function () {
     //Initialize Select2 Elements
@@ -1152,6 +639,7 @@
           myOptions: [], // or [{id: key, text: value}, {id: key, text: value}]
           editmode: false,
           branchesrecords : {},
+          suppliers:{},
           datarecordsSubmenusauthorised:{},
           allowedrolecomponentsObject :{},
           datarecordsMainmenuauthorised:{},
@@ -1185,8 +673,16 @@ branchname: '',
 openningbalance:'',
 contact:'', 
 location:'',
+/////id, suppname, description, created_at, updated_at, ucret, contact, location, company, contactofcontact, companycontactperson, del
 
-                
+         suppname: '',
+description:'',
+contact:'', 
+location:'',     
+company:'',
+contactofcontact:'', 
+companycontactperson:'',       
+
 
             })
             }
@@ -1289,6 +785,21 @@ paginationroleAuthorisedcomponentsfeature(page = 1) {
                           });
                       },
   /// users
+  
+  loadSuppliers(){
+       axios.get("api/suppliers").then(({ data }) => (this.suppliers = data));
+     
+        axios.get("api/gencomponentaccessHrms").then(({ data }) => (this.gencomponentaccessHrms = data));
+        axios.get("api/branchesccessSettings").then(({ data }) => (this.branchesccessSettings = data));
+        axios.get("api/rolesaccessSettings").then(({ data }) => (this.rolesaccessSettings = data));
+        axios.get("api/submenuaccessSettings").then(({ data }) => (this.submenuaccessSettings = data));
+        axios.get("api/componentaccessSettings").then(({ data }) => (this.componentaccessSettings = data));
+        axios.get("api/mainmenuaccessSettings").then(({ data }) => (this.mainmenuaccessSettings = data));
+        axios.get("api/featuresaccessSettings").then(({ data }) => (this.featuresaccessSettings = data));
+
+         axios.get('/api/branchDetails').then(function (response) { this.brancheslist = response.data;}.bind(this));
+
+  },
   loadBranches(){
        axios.get("api/branches").then(({ data }) => (this.branchesrecords = data));
      //  this.getRoles();
@@ -1405,7 +916,25 @@ newcomponentfeatureadd(){
      
      $('#addnewcomponentfeature').modal('show');
             },
-            
+        
+ newsupplierModal(){
+        this.editmode = false;
+        this.form.clear();
+        this.form.reset();
+     
+     $('#addnewsupplierModal').modal('show');
+            },
+
+
+  editSupplier(suppliers){
+                this.editmode = true;
+                 this.form.clear();
+        this.form.reset();
+        this.form.fill(suppliers);
+$('#addnewsupplierModal').modal('show');
+            },
+
+
      newBranchmodal(){
         this.editmode = false;
         this.form.clear();
@@ -1420,7 +949,102 @@ newcomponentfeatureadd(){
         this.form.fill(branchesrecords);
 $('#addnewBranchmodal').modal('show');
             },
-           
+          
+       createSupplier(){
+      this.$Progress.start();
+        this.form.post('api/suppliers')
+        .then(()=>{
+
+         
+    $('#addnewsupplierModal').modal('show');
+     this.form.clear();
+        this.form.reset();
+    axios.get("api/suppliers").then(({ data }) => (this.suppliers = data));
+  Toast.fire({
+  icon: 'success',
+  title: 'Record added successfully'
+});
+        this.$Progress.finish();
+
+        })
+        .catch(()=>{
+          
+        })
+         
+    }, // end of create
+   updateSupplier(){
+    this.$Progress.start();
+          
+this.form.put('api/suppliers/'+this.form.id)
+  .then(()=> {
+    // on success
+   $('#addnewsupplierModal').modal('hide');
+    Swal.fire(
+        'Update!',
+        'Record has been updated.',
+        'success'
+      )
+      this.$Progress.finish();
+    // Fire.$emit('AfterAction');
+    axios.get("api/suppliers").then(({ data }) => (this.suppliers = data));
+
+  })
+
+
+  .catch(()=>{
+ this.$Progress.fail();
+   Swal.fire({  
+         icon: 'error',
+        title: 'Failed',
+       text: "Transaction was Not successfull. Contact the Administrator for More Assistance",});
+  
+  
+  });
+   },// end of update
+
+deleteBranch(id){
+   Swal.fire({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes'
+}).then((result) => {
+
+/// send request ti
+if (result.isConfirmed) {
+  this.form.delete('api/branches/'+id).then(()=>{
+  
+                        Swal.fire(
+                          'Deleted!',
+                          'Your file has been deleted.',
+                          'success'
+                        )
+                   
+ axios.get("api/branches").then(({ data }) => (this.branchesrecords = data));
+
+  }).catch(()=>{
+     Swal.fire({  
+         icon: 'error',
+        title: 'Failed',
+       text: "Transaction was Not successfull. Contact the Administrator for More Assistance",});
+
+  });
+
+
+}                  
+
+
+
+})
+
+            },// End of delrte function
+      
+
+
+      /////////////////////////////////////////////////////////
 
     createBranch(){
       this.$Progress.start();

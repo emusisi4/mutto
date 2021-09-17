@@ -73,6 +73,28 @@ let routes = [
   
   { path: '/dashboard', component: require('./components/Dashboard.vue') },
 
+
+
+
+//SENA HARDWARE
+
+{ path: '/products', component: require('./components/Products.vue')},
+//{ path: '/purchasesndsales', component: require('./components/Purchases.vue')},
+	
+
+/// SENA HARD WARE END
+
+
+
+
+
+
+
+
+
+
+
+
 { path: '/hrmsettintings', component: require('./components/Hrsettings.vue') },
 { path: '/settings', component: require('./components/Settings.vue') },
 { path: '/example', component: require('./components/ExampleComponent.vue') },
@@ -89,8 +111,7 @@ let routes = [
 { path: '/incomes', component: require('./components/Companyincomes.vue')},
 { path: '/creditanddebotreports', component: require('./components/Debitandcredirreports.vue')},
 { path: '/fishcodeperformance', component: require('./components/Fishcodeperformance.vue')},
-
-// { path: '/shopdesdecashout', component: require('./components/Branchescashouttransactions.vue')},
+ { path: '/companypayments', component: require('./components/Companypayments.vue')},
   ]
   const router = new VueRouter({
     mode: 'history',

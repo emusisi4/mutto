@@ -56,7 +56,7 @@ a.navbar-brand {
 }
 
 .navbar.fixed-top {
-    background-color: #2b2d72 !important;
+    background-color: #3f2f29 !important;
     border-bottom: 2px solid #ea5b31;
     box-shadow: -1px 1px 2px #676262;
     padding:0px;
@@ -168,14 +168,11 @@ li.notif-header {
 border-radius: 50%;
 margin: auto 10px auto auto;
 width: 40px;
-height: 50px;
+height: 40px;
+
+border: 7px solid #adb5bd;
+margin: auto 10px auto auto;
 }
-.img-circlepreview {
-    border-radius: 50%;
-    margin: auto 10px auto auto;
-    width: 500px;
-    height: 500px;
-    }
 
 .pull-left{
     float:left !important;
@@ -505,7 +502,9 @@ table.low-stock-table {
 
 .low-stock-table td, th {
     border: 0.5px solid #c5c5c5;
-    padding-left: 5px;
+    padding-left: 0px;
+    text-align: center;
+    font-size: 18px;
     background: lightgray;
 }
 
@@ -692,4 +691,109 @@ table.low-stock-table {
     background: #eaeaea;
 }
 
+/*----- ACCORDION TABLE 2 ----*/
 
+.tablesaw th {
+
+/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#fbded6+12,ffffff+25,ffffff+73,fbded6+92 */
+background: #fbded6; /* Old browsers */
+background: -moz-linear-gradient(top,  #fbded6 12%, #ffffff 25%, #ffffff 73%, #fbded6 92%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  #fbded6 12%,#ffffff 25%,#ffffff 73%,#fbded6 92%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  #fbded6 12%,#ffffff 25%,#ffffff 73%,#fbded6 92%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fbded6', endColorstr='#fbded6',GradientType=0 ); /* IE6-9 */
+}
+
+
+.tablesaw tr:nth-child(even) {background: #eaeaea;
+border-bottom: 0.5px solid gray;}
+
+.tablesaw tr:nth-child(odd) {background: #eaeaea8c;
+    border-bottom: 0.5px solid gray;}
+   
+ table.tablesaw {
+     border: 1px solid gray;
+     font-size: 0.9em;
+ }   
+
+ span.tablesaw-cell-content {
+    padding-left: 5px;
+}
+
+.table-action {
+    background: white;
+    border: 0.5px solid gray;
+    text-align: center;
+    border-radius: 2px;
+    padding: 1px !important;
+    font-size: 10px;
+    box-shadow: 0.2px 0.3px 0.5px grey;
+    /* margin: 1px; */
+    float: left;
+    max-width: 20px;
+    /* margin: auto; */
+    left: 5px;
+    margin-right: 4px !important;
+    color: grey;
+}
+
+table.dataTable thead .sorting:before, table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:before, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_asc_disabled:before, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_desc_disabled:before, table.dataTable thead .sorting_desc_disabled:after {
+    margin-bottom: -8px;
+    font-size: 0.8em;
+}
+
+div.dataTables_wrapper div.dataTables_length label {
+    font-size: 0.8em;
+}
+
+.sree-table-main {
+    padding: 5px;
+    border: 1px solid gray;
+    background: #3f2f2936;
+}
+
+th.sorting {
+    color: #3f2f29;
+    font-weight: 400;
+    font-size: 0.9m;
+font-weight: ;
+}
+
+span.tablesaw-cell-content {
+    padding-left: 5px;
+    font-size: 0.9em;
+}
+
+
+
+div.dataTables_wrapper div.dataTables_info, div#sreetable_paginate {
+    font-size: 0.8em;
+    padding-left: 1px;
+    padding-top: 0px;
+    padding-right: 5px;
+    margin-top: -5px;
+}
+
+.page-item.active .page-link {
+
+    background-color: #3f2f29;
+    border-color: #3f2f29;
+}
+
+.page-link {
+    padding: 2px;
+    padding-top: 0px;
+    padding-right: 2px;
+}
+
+
+td {
+    border-left: 0.5px solid #c5c5c5;
+    background-color: #ffffff;
+}
+
+
+#sreetable_length > label > select > option:focus {
+    background: black;
+}
+
+/*---- TABLE --------*/

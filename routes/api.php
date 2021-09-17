@@ -20,7 +20,83 @@ Route::apiResources(['user' => 'API\UserController']);
 Route::apiResources(['machines' => 'API\MachinesController']); 
 Route::apiResources(['newfishcurrentcodes' => 'API\CurrentmacinecodesController']); 
 
+// Sena Hardware Start
+Route::apiResources(['products' => 'API\ExpensesController']);
+Route::apiResources(['inserintocart' => 'API\InserintocartController']);
+Route::apiResources(['productcategoriesrecords' => 'API\ProductcategoriesController']);
+Route::apiResources(['shopingcartdetails' => 'API\InserintocartController']);
+Route::get('getordertotal', 'APIController@Ordertotal');
+Route::get('getcattotal', 'APIController@Carttotal');
+Route::apiResources(['makesalepur' => 'API\ConfirmpositemsController']);
+Route::apiResources(['appenditemtotheinvoice' => 'API\AppenditemstoinvoiceController']);
+Route::apiResources(['newinvoicegeneration' => 'API\NewinvoicegenerationController']);
+Route::apiResources(['productdetailsrecords' => 'API\CompanyproductsController']);
+Route::apiResources(['productunitofmeasurerecords' => 'API\ProductunitmeasuresController']);
 
+Route::apiResources(['makeinvoicepayment' => 'API\MakeinvoicepaymentController']);
+
+
+Route::apiResources(['deleterecordfrompurchases' => 'API\ProductpurchaseconfirmationController']);
+Route::apiResources(['purcaseorderconfirmation' => 'API\ProductpurchaseconfirmationController']);
+Route::apiResources(['productbrandsrecords' => 'API\ProductbrandsController']);
+
+Route::apiResources(['activeinvoicetoupdaterecords' => 'API\InvoicenumberinactionController']);
+Route::apiResources(['invoicenumbertocheck' => 'API\InvoicenumberinactionController']);
+
+Route::apiResources(['closeofftheinvoiceinaction' => 'API\InvoicenumberinactionController']);
+Route::apiResources(['purchaseincoicesummaryrecords' => 'API\PurchasessumaryrecordsController']);
+Route::apiResources(['productpurchasesdetailrecords' => 'API\PurchasesrecordsController']);
+Route::apiResources(['productpriceslist' => 'API\ProductpricesController']);
+
+// filters
+
+Route::apiResources(['productcategoryFiltertoview' => 'API\ProductrecordsFilterController']);
+Route::apiResources(['productdetailsFiltertoview' => 'API\ProductdetailsFilterController']);
+
+/// end of filters
+
+Route::get('productsavailableforsalelist', 'APIController@productsavailableforsalelist');
+
+
+
+Route::get('inputvatamount', 'APIController@inputvatamount');
+Route::get('outputvatamount', 'APIController@outputvatamount');
+
+
+Route::get('invoicelockstatus', 'APIController@invoicelockstatus');
+Route::get('getthinvoicenumberactive', 'APIController@getthinvoicenumberactive');
+Route::get('getthinvoicesuppliername', 'APIController@getthinvoicesuppliername');
+Route::get('gettheinvoicedate', 'APIController@gettheinvoicedate');
+
+Route::get('getthinvoicedocumentno', 'APIController@getthinvoicedocumentno');
+Route::get('gettheinvoicedeliverystatus', 'APIController@gettheinvoicedeliverystatus');
+Route::get('getinvoicepaymentstatus', 'APIController@getinvoicepaymentstatus');
+
+
+Route::get('gettheinvoicevatamount', 'APIController@gettheinvoicevatamount');
+Route::get('gettheinvoicegrandtotal', 'APIController@gettheinvoicegrandtotal');
+Route::get('gettheinvoicetotalwithoutvat', 'APIController@gettheinvoicetotalwithoutvat');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Route::get('productcategorieslist', 'APIController@productcategorieslist');
+Route::get('productbrandslist', 'APIController@productbrandslist');
+Route::get('unitmeasurelist', 'APIController@unitmeasurelist');
+Route::get('productslist', 'APIController@productslist');
+Route::get('walletsofeapenselist', 'APIController@walletsofeapenselist');
+
+// Sena Hardware End
 
 Route::apiResources(['branchesandmachinesadd' => 'API\AuthorisedbranchandmachineController']); 
 Route::apiResources(['branchesandmachines' => 'API\BranchesandmachinesController']); 
@@ -29,7 +105,8 @@ Route::get('getCountries', 'APIController@getCountries');
 Route::get('getStates', 'APIController@getStates');
 Route::get('getFloatcodes', 'APIController@getFloatcodes');
 
-Route::get('getRoles', 'APIController@getRoles');
+Route::get('invoiceslist', 'APIController@invoiceslist');
+Route::get('supplierslist', 'APIController@supplierslist');
 Route::get('getRoles', 'APIController@getRoles');
 Route::get('userslist', 'APIController@userslist');
 Route::get('getBranches', 'APIController@getBranches');
@@ -166,9 +243,9 @@ Route::apiResources(['saveroleformcomponent' => 'API\RoleandformcomponentControl
 Route::apiResources(['authorisedsubmenus' => 'API\AuthorisedsubmenuController']);
 Route::apiResources(['savesubmenuaccess' => 'API\GiveaccesstosubmenuController']);
 Route::apiResources(['savemainmenuaccess' => 'API\GiveaccesstomainmenuController']);
-
+//axios.get("api/mainmenulist").then(({ data }) => (this.mainmenulist = data));
 Route::get('orderlistfordatesalesreport', 'APIController@orderlistfordatesalesreport');
-Route::get('getMainmenues', 'APIController@getMainmenues');
+Route::get('mainmenulist', 'APIController@mainmenulist');
 Route::get('getSubmenues', 'APIController@getSubmenues');
 Route::apiResources(['cashoutfromoffice' => 'API\CashCreditController']);
 Route::apiResources(['authorisedmainmenus' => 'API\AuthorisedmainmenuController']);
@@ -350,6 +427,7 @@ Route::apiResources(['branchtobalance' => 'API\BranchbalacingController']);
 Route::apiResources(['branchintermidiarybalance' => 'API\BranchintermbalacingController']);
 Route::get('shopbalancingaccessSettings', 'APIController@shopbalancingaccessSettings');
 Route::apiResources(['currentbalancingrecords' => 'API\CurrentShopbalancingContoller']);
+Route::apiResources(['branchexpensesrecords' => 'API\BranchmonthlyexpensesContoller']);
 Route::apiResources(['currentintermbalancingrecords' => 'API\CurrentShopintermbalancingContoller']);
 
 Route::get('branchpayoutaccessSettings', 'APIController@branchpayoutaccessSettings');
@@ -537,6 +615,12 @@ Route::get('getbranchnametocollectfrom', 'APIController@Branchnametocollectfrom'
 
 /////////////////////////////////////////////////////////////////////////
 Route::apiResources(['branches' => 'API\BranchesController']);
+Route::apiResources(['suppliers' => 'API\SuppliersController']);
+
+
+
+
+
 
 Route::get('getAddnewbranch', 'APIController@getAddnewbranch');
 

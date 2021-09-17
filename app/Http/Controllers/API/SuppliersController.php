@@ -56,12 +56,8 @@ return   Supplier::with(['supplierCompany'])->latest('id')
       
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
+    
     public function store(Request $request)
     {
         //
@@ -70,12 +66,13 @@ return   Supplier::with(['supplierCompany'])->latest('id')
 
 
        $this->validate($request,[
-      'suppname'   => 'required  |max:191',
+      'company'   => 'required  |max:191',
    
       'contact'   => 'required',
-      'location'   => 'required' 
-    //  'category'   => 'required'
-    //   'unitname'   => 'sometimes |min:0'
+      'location'   => 'required' ,
+      // 'suppname'   => 'required',
+      'companycontactperson'   => 'required',
+      'contactofcontact'  => 'required'
      ]);
      $userid =  auth('api')->user()->id;
 
@@ -88,23 +85,21 @@ $dateinq =  $request['datedone'];
        return Supplier::Create([
     
   //    'productcode' => $request['productcode'],
-      'suppname' => $request['suppname'],
+      'suppname' => $request['companycontactperson'],
+      'companycontactperson' => $request['companycontactperson'],
       'company' => $request['company'],
-      'companycontact' => $request['companycontact'],
+      'location' => $request['location'],
+      'contactofcontact' => $request['contactofcontact'],
       'companycontactperson' => $request['companycontactperson'],
       'contact' => $request['contact'],
-     // 'unitmeasure' =>$request['unitmeasure'],
+      'companyemailaddress' =>$request['companyemailaddress'],
       'ucret' => $userid,
     
   ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+  
+    
     public function show($id)
     {
         //

@@ -10,16 +10,9 @@ class Shopingcat extends Authenticatable
 {
     use HasApiTokens, Notifiable;
 
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-
    
     protected $fillable = [
-        'productcode','quantity','unitcost','totalcostprice','lineprofit', 'datesold', 'status','ucret','branch','linetotal','unitprice','supplier','unitmeasure','invoiceno',
+        'vatamount','linevat','productcode','quantity','unitcost','totalcostprice','lineprofit', 'datesold', 'status','ucret','branch','linetotal','unitprice','supplier','unitmeasure','invoiceno',
        
     ];
     public function productName(){

@@ -1,157 +1,108 @@
-@extends('layouts.app')
-@section('content')
+<!DOCTYPE html>
+<html>
 
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>Sena Hardware Ltd</title>
+    <!-- Favicon-->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 
-<div class="container"> 
-      <div class="flip-container h-100 threed-flip" id="threed-flip">
-          
-            <div class="user_card card-front d-flip">
-              <div class="d-flex justify-content-center">
-                <div class="brand_logo_container">
-                  <img src="images/logo.png" class="brand_logo" alt="Logo">
-                </div>
-              </div>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 
-              <div class="login-welcome"> <span class="big-welcome">  </span> <br>  </div>
-              <div class="d-flex justify-content-center form_container">
+    <!-- Bootstrap Core Css -->
+    <link href="plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
 
-                
-              <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
-              @csrf
-                  <div class="input-group mb-3">
-                    <div class="input-group-append">
-                      <span class="input-group-text"><i class="fas fa-user"></i></span>
-                    </div>
-                    <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
-                    @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
+    <!-- Waves Effect Css -->
+    <link href="plugins/node-waves/waves.css" rel="stylesheet" />
+
+    <!-- Animation Css -->
+    <link href="plugins/animate-css/animate.css" rel="stylesheet" />
+
+    <!-- Custom Css -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body class="login-page">
+    <div class="login-box">
+        <div class="logo">
+            <a href="javascript:void(0);">Admin<b>BSB</b></a>
+            <small>Admin BootStrap Based - Material Design</small>
+        </div>
+        <div class="card">
+            <div class="body">
+            <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
+            @csrf
+                    <div class="msg"></div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">person</i>
+                        </span>
+                        <div class="form-line">
+                       
+                            <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" placeholder="Username" required autofocus>
+                            @if ($errors->has('email'))
+                            <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
-                                @endif
-                  </div>
-                  <div class="input-group mb-2">
-                    <div class="input-group-append">
-                      <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                    @endif
+                        </div>
                     </div>
-                    <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">lock</i>
+                        </span>
+                        <div class="form-line">
+                            <!-- <input type="password" class="form-control" name="password" placeholder="Password" required> -->
+
+                            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
 
 @if ($errors->has('password'))
     <span class="invalid-feedback" role="alert">
         <strong>{{ $errors->first('password') }}</strong>
     </span>
 @endif
-                  </div>
-                  <div class="form-group">
-                    <div class="custom-control custom-checkbox">
-                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                      <label class="custom-control-label" for="customControlInline">Remember me</label>
+                        </div>
                     </div>
-                  </div>
-              <!--  -->
-              </div>
-              <div class="d-flex justify-content-center mt-3 login_container">
-              <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-              </div>
-              </form>
-              <!-- <div class="mt-4">
-                <div class="d-flex justify-content-center links forgot-password">
-                  <span> Don't have an account? </span>  &nbsp;  &nbsp; <a class="login-link" href="#" class="ml-2" onclick="flip()">SIGNUP</a>
-                </div>
-                <div class="d-flex justify-content-center links">
-                  <a class="login-link " href="#">Forgot your password?</a>
-                </div>
-              </div>
-            </div> -->
-
-
-
-             
-            <div class="user_card card-back d-flip">
-                <div class="d-flex justify-content-center">
-
-                    
-                 
-                </div>
-  
-               
-                  
-                  <form>
-                  <div class="row sign-row">  
-                    <div class="container-fluid"> 
-                      <div class="col profile-pic sign-photo sree-reg"> Add photo </div>
-                      <div class="col ml-auto sign-photo sree-reg"> Add Company Logo </div>
-
+                    <div class="row">
+                        <div class="col-xs-8 p-t-5">
+                            <input type="checkbox" name="rememberme" id="rememberme" class="filled-in chk-col-pink">
+                            <label for="rememberme">Remember Me</label>
+                        </div>
+                        <div class="col-xs-4">
+                            <button class="btn btn-block bg-pink waves-effect" type="submit">SIGN IN</button>
+                        </div>
                     </div>
-
-                    <div class=" container-fluid signup-welcome">
-                      Let's set you up. It only takes a few minutes.
+                    <div class="row m-t-15 m-b--20">
+                        <div class="col-xs-6">
+                            <a href="sign-up.html">Register Now!</a>
+                        </div>
+                        <div class="col-xs-6 align-right">
+                            <a href="forgot-password.html">Forgot Password?</a>
+                        </div>
                     </div>
-
-
-
-                    </div>    
-                      <input type="text" name="" class="form-control sree-reg input_user" value="" placeholder="Name">
-                      <input type="text" name="" class="form-control sree-reg input_user" value="" placeholder="Company or Business Name">
-                      <input type="text" name="" class="form-control sree-reg input_user" value="" placeholder="Position">
-                      <div class="input-group">
-    <input type="tel" class="form-control">
-    <span class="input-group-addon">Tel</span>
-  </div>
-                      <input type="email" name="" class="form-control sree-reg input_user" value="" placeholder="Email">
-                      <input type="text" name="" class="form-control sree-reg input_user" value="" placeholder="username">
-                      <input type="password" name="" class="form-control sree-reg input_pass" value="" placeholder="Currency">
-                  
-
-
-                  </form>
-               
-
-                <div class="sign-btns ">
-                  <button type="button" name="button" class="btn login_btn sign-photo"  >SIGNUP</button>
-
-                  <div class="acc-hav ">
-                    <span> Have an account? </span> <a class="login-link" href="#" class="ml-2" onclick ="flip1()" > LOGIN</a>
-                  </div>
-
-
-                </div>
-               
-                 
-                
-                </div>
-              </div>
-              
-
-      
-          </div>
-
+                </form>
+            </div>
         </div>
-         
+    </div>
 
-           
-          
+    <!-- Jquery Core Js -->
+    <script src="plugins/jquery/jquery.min.js"></script>
 
+    <!-- Bootstrap Core Js -->
+    <script src="plugins/bootstrap/js/bootstrap.js"></script>
 
+    <!-- Waves Effect Plugin Js -->
+    <script src="plugins/node-waves/waves.js"></script>
 
+    <!-- Validation Plugin Js -->
+    <script src="plugins/jquery-validation/jquery.validate.js"></script>
 
+    <!-- Custom Js -->
+    <script src="js/admin.js"></script>
+    <script src="js/pages/examples/sign-in.js"></script>
+</body>
 
-
-
-
-          <script type="text/javascript">
-            function flip(){
-              document.getElementById("threed-flip") .style.transform='rotateY(180deg)';
-            }
-            
-            function flip1(){
-              document.getElementById("threed-flip") .style.transform='rotateY(0deg)';
-            }
-            
-            
-            </script>
-
-
-
-@endsection
+</html>

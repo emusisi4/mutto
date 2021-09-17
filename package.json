@@ -28,6 +28,7 @@
         "v-select2-component": "^0.4.7",
         "vform": "^1.0.1",
         "vue-chartjs": "^3.5.1",
+        "vue-html-to-paper": "^1.4.3",
         "vue-progressbar": "^0.7.5",
         "vue-router": "^3.5.1"
     }

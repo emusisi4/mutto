@@ -12,11 +12,8 @@ use App\Productcategory;
 
 class ProductcategoriesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
+  
     public function __construct()
     {
        $this->middleware('auth:api');
@@ -28,39 +25,33 @@ class ProductcategoriesController extends Controller
       $userid =  auth('api')->user()->id;
       $userbranch =  auth('api')->user()->branch;
       $userrole =  auth('api')->user()->type;
+/// Getting the Selection
 
-    //  if($userrole == '101')
+     $productcategory = \DB::table('productcategoriesfilters')->where('ucret', $userid )->value('productcategory');
+     $displaynumber = \DB::table('productcategoriesfilters')->where('ucret', $userid )->value('displaynumber');
+      if($userrole != '900')
       {
-    //  return   Product::with(['userbalancingBranch','branchinBalance'])->latest('id')
-   // return   Productcategory::with(['brandName','productCategory','productSupplier','unitMeasure'])->latest('id')
+  
       return   Productcategory::latest('id')
-       //  return   Branchpayout::latest('id')
-        // ->where('branch', $userbranch)
-        ->paginate(20);
+      
+       ->where('del', 0)
+      
+        ->paginate($displaynumber);
       }
 
-
-     // if($userrole == '100')
+      if($userrole == '900')
       {
-      
-      
-     // return   Product::with(['userbalancingBranch','branchinBalance'])->latest('id')
-      
-      // return   Product::latest('id')
-       //  return   Branchpayout::latest('id')
-    //     ->where('del', 0)
-     //   ->paginate(20);
-      
-    }
+    
+        return   Productcategory::latest('id')
+   
+      // ->where('del', 0)
+        ->paginate($displaynumber);
+      }
+
       
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
         //
@@ -69,8 +60,8 @@ class ProductcategoriesController extends Controller
 
 
        $this->validate($request,[
-     //   'branchname'   => 'required | String |max:191'
-       // 'iconclass'   => 'required',
+       'catname'   => 'required', 
+       'description'   => 'required'
        // 'dorder'   => 'sometimes |min:0'
      ]);
      $userid =  auth('api')->user()->id;
@@ -93,24 +84,14 @@ $dateinq =  $request['datedone'];
   ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
+    
     public function show($id)
     {
         //
     }
    
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, $id)
     {
         //
@@ -127,12 +108,8 @@ $this->validate($request,[
 $user->update($request->all());
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+  
+    
     public function destroy($id)
     {
         //

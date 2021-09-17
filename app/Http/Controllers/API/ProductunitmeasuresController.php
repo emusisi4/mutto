@@ -36,28 +36,11 @@ class ProductunitmeasuresController extends Controller
       }
 
 
-     // if($userrole == '100')
-      {
-      
-      
-     // return   Product::with(['userbalancingBranch','branchinBalance'])->latest('id')
-      
-      // return   Product::latest('id')
-       //  return   Branchpayout::latest('id')
-    //     ->where('del', 0)
-     //   ->paginate(20);
-      
-    }
+    
       
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+       public function store(Request $request)
     {
         //
        // return ['message' => 'i have data'];
@@ -66,7 +49,7 @@ class ProductunitmeasuresController extends Controller
 
        $this->validate($request,[
      'unitname'   => 'required  |max:191',
-     'rop'   => 'required  |max:191',
+     //'rop'   => 'required  |max:191',
      'shotcode'   => 'required  |max:5'
        // 'iconclass'   => 'required',
        // 'dorder'   => 'sometimes |min:0'
@@ -83,7 +66,7 @@ $dateinq =  $request['datedone'];
     
 
       'unitname' => $request['unitname'],
-      'rop' => $request['rop'],
+    //  'rop' => $request['rop'],
       'shotcode' => $request['shotcode'],
      
       'ucret' => $userid,

@@ -5,7 +5,8 @@
 
     <div>
 
-
+<link rel="stylesheet" href="plugins/select2/css/select2.min.css">
+<link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
 <div class="bethapa-table-header"></div>
 
 <!-- general component access -->
@@ -50,10 +51,10 @@
                  
                  
 <!--  -->
-                   <li class="nav-item" v-if="expenserequestsaccessSetting > 0 ">
+                   <li class="nav-item ">
                     <a class="nav-link" id="custom-tabs-two-three-tab" data-toggle="pill"
                      href="#custom-tabs-two-three" role="tab" @click="loadShopbalancingrecords()" 
-                     aria-controls="custom-tabs-two-three" aria-selected="false">EXPENSE REQUESTS</a>
+                     aria-controls="custom-tabs-two-three" aria-selected="false">MONTHLY EXPENSES</a>
                   </li>
                   
 
@@ -449,9 +450,44 @@
                      
                  
                     </div>
- 
+  <!-- <button type="button"   class="btn  bg-gradient-info btn-xs fas fa-eye" @focus="checkAccess()"  @click="editModal(shobalrecs)"> View jjj </button>
+                            <button type="button" v-if="allowedtodeleteshopBalancingRecord > 0" class="btn  bg-gradient-danger btn-xs fas fa-trash-alt"  @click="deleteRecord(shobalrecs.id)"> Delete </button>
+                 <div v-if="allowedtodeleteshopBalancingRecord > 0" @cl>  -->
  <!-- tab one end -->
+<div class="modal fade" id="bringupthemodal">
+        <div class="modal-dialog modal-dialog-top modal-lg">
+        <div  class="modal-content">
+            <div  class="modal-header">
+                <h4  v-show="!editmode"    class="modal-title">ADD NEW EXPENSE</h4> 
+                <h4  v-show="editmode" class="modal-title" >UPDATE RECORD</h4> 
+                <button  type="button" data-dismiss="modal" aria-label="Close" class="close"><span  aria-hidden="true">×</span></button></div> 
+                 <form class="form-horizontal" @submit.prevent="editmode ? updateexpenserecord():createNewcompanyexpense()"> 
 
+                    <div  class="modal-body">
+              
+              
+           
+               
+                    
+          
+
+                          
+                
+                      
+               
+                
+                 
+                 </div>
+                 
+                  <div  class="modal-footer">
+                    <button  v-show="!editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
+                      <button v-show="editmode" type="submit" class="btn btn-success btn-sm" >Update</button>
+                        <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Close</button >
+                        </div>
+                 </form>
+                       </div>
+                          </div>
+</div>
 
 <!-- Modal add menu -->
 <div class="modal fade" id="addnewcompanyexpensemodal">
@@ -620,16 +656,42 @@
              <button type="submit" id="submit" hidden="hidden" name= "submit" ref="theButtontotosalesreportmonthly" class="btn btn-primary btn-sm">Saveit</button>         
 
                                 
-                     
-       
+               <select2 :options="options" v-model="selected"></select2>
        
                    
           </div>
-
-
-        
+      
 
                 </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                   <div class="bethapa-table-header"></div>
               <div class="bethapa-table-header">
                     COMPANY EXPENDITURES
@@ -914,13 +976,60 @@
                                 </div>
                                   <button type="submit" id="submit" hidden="hidden" name= "submit" ref="myBtnroledd" class="btn btn-primary btn-sm">Saveit</button>
                                 </form> -->
+   <form @submit.prevent="savethemonthlyreportforallbranches()">
+                 
+                      <div class="form-group">
+                
+                   
+  <label>Branch :</label>
+                    <select name ="branchname" v-model="form.branchname" id ="branchname"  class="form-control-sm" v-on:change="myClickEventtosavemonthlyreportallbranches"  :class="{'is-invalid': form.errors.has('branchname')}">
+                    <option value="900"> All  </option>
+                    <option v-for='data in mybrancheslist' v-bind:value='data.branchno'>{{ data.branchname }}</option>
+
+                    </select>
+                    
+
+                                <has-error :form="form" field="branchname"></has-error>
+
+
+<label>Records Per page :</label>
+                    <select name ="displaynumber" v-model="form.displaynumber" id ="displaynumber" class="form-control-sm"  v-on:change="myClickEventtosavemonthlyreportallbranches"  :class="{'is-invalid': form.errors.has('expensename')}">
+                    
+                    
+                      <option value="5"> 5  </option>
+                      <option value="10"> 10  </option>
+                       <option value="20"> 20  </option>
+                      <option value="30"> 30  </option>
+                    
+                      <option value="50"> 50  </option>
+                       <option value="100"> 100  </option>
+                      <option value="150"> 150  </option>
+                       <option value="200"> 200  </option>
+                      <option value="300"> 300  </option>
+                    <option value="900"> All  </option>
+                  
+                    </select>
+                                <has-error :form="form" field="displaynumber"></has-error>
+
+
+                              
+             <button type="submit" id="submit" hidden="hidden" name= "submit" ref="theButtontotosalesreportmonthly" class="btn btn-primary btn-sm">Saveit</button>         
+
+                                
+             
+                   
+          </div>
+      
+
+                </form>
+
 
               <div class="bethapa-table-header">
                    
        
-                     BRANCH BALANCING RECORD   
-                     
-                     <button type="button" v-if="allowedtoaddshopBalancingRecord > 0"  class="add-newm" @click="newshopbal" >BALANCE NOW </button>
+                     Branch Monthly Expenses   
+                     <!-- v-if="allowedtoaddshopBalancingRecord > 0" -->
+                     <button type="button"   class="add-newm" @click="newshopbal" >Add Monthly Expense </button>
                      </div>
 
 
@@ -929,66 +1038,31 @@
                     <tr>
                    
                     <th>#</th>
-                       <th>DATE</th>
-                        <th>USER</th>
+                      
                       <th>BRANCH</th>
                      
-                      <th>OPENNING</th>
-                      <th>S-SALES</th>
-                      <th>S-PAYOUT</th>
-                      <th>V-SALES</th>
-                      <th>V- CANCELLED</th>
-                      <th>V-REDEEMED</th>
-                      <th>V-PROFIT</th>
-                      <th>CASH-IN</th>
-                      <th>CASH-OUT</th>
-                      <th>EXPENSES</th>
-                      
-                      <th>CLOSING</th>
-                       <th>SHORTAGE</th>
+                      <th>EXPENSE</th>
+                      <th>AMOUNT</th>
+                      <th>DESCRIPTION</th>
+                    
                      <th >  </th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
 
-                  <tr v-for="shobalrecs in shopbalancingdatarecords.data" :key="shobalrecs.id">
+                  <tr v-for="shobalrecs in branchexpensesrecords.data" :key="shobalrecs.id">
                       
                   <td>{{shobalrecs.id}}</td>
-                     <td>{{shobalrecs.datedone}}</td>
+                  
                       <td>   <template v-if="shobalrecs.userbalancing_branch">	{{shobalrecs.userbalancing_branch.name}}</template></td>
                     
                        <td>    <template v-if="shobalrecs.branchin_balance">	{{shobalrecs.branchin_balance.branchname}}</template></td>
                          
-                               <td>{{currencydetails }} {{formatPrice(shobalrecs.opbalance)}}</td>
-                               <td>Ssp {{formatPrice(shobalrecs.scsales)}}</td>
-                       <td>{{currencydetails }} {{formatPrice(shobalrecs.scpayout)}}</td>
-                       <td>{{currencydetails }} {{formatPrice(shobalrecs.vsales)}}</td>
-                       <td>{{currencydetails }} {{formatPrice(shobalrecs.vcan)}}</td>
-                       <td>{{currencydetails }} {{formatPrice(shobalrecs.vpay)}}</td>
-                       
-                        <td>{{currencydetails }} {{formatPrice((shobalrecs.vprof))}}</td>
-
-                  
-                     <td>{{currencydetails }} {{formatPrice((shobalrecs.cashin))}}</td>
-                    <td>{{currencydetails }} {{formatPrice((shobalrecs.cashout))}}</td>
-                       <td>{{currencydetails }} {{((shobalrecs.expenses))}}</td>
-                     
-                      <td>{{currencydetails }} {{formatPrice((shobalrecs.clcash))}}</td>
-                          
-
-                            <td>
-                              <div v-if="((shobalrecs.clcash)-(shobalrecs.reportedcash)) > 0">
-                                <span class="cell" style="color:maroon ;">  
-   
-                    <span style="font-size:1.0em;" center >  {{currencydetails }} {{formatPrice((shobalrecs.clcash)-(shobalrecs.reportedcash))}} </span></span>
-                              </div>
-                               <div v-if="((shobalrecs.clcash)-(shobalrecs.reportedcash)) < 1">
-                                <span class="cell" style="color:green ;">  
-   
-                    <span style="font-size:1.0em;" center >  {{currencydetails }} {{formatPrice((shobalrecs.clcash)-(shobalrecs.reportedcash))}} </span></span>
-                              </div>
-                             </td>
+                          <td>   <template v-if="shobalrecs.userbalancing_branch">	{{shobalrecs.userbalancing_branch.name}}</template></td>
+                    
+                       <td>    <template v-if="shobalrecs.branchin_balance">	{{shobalrecs.branchin_balance.branchname}}</template></td>
+                         
                          
                          
                     
@@ -1598,67 +1672,64 @@
 
     </div>
 </template>
-<script src="plugins/select2/js/select2.full.min.js"></script>
+
+
+
 <script>
-  $(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2()
-
-    //Initialize Select2 Elements
-    $('.select2bs4').select2({
-      theme: 'bootstrap4'
-    })
-
-    //Datemask dd/mm/yyyy
-    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-    //Datemask2 mm/dd/yyyy
-    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
-    //Money Euro
-    $('[data-mask]').inputmask()
-
-    //Date range picker
-    $('#reservationdate').datetimepicker({
-        format: 'L'
-    });
-    //Date range picker
-    $('#reservation').daterangepicker()
-    //Date range picker with time picker
-    $('#reservationtime').daterangepicker({
-      timePicker: true,
-      timePickerIncrement: 30,
-      locale: {
-        format: 'MM/DD/YYYY hh:mm A'
-      }
-    })
-    //Date range as a button
-    $('#daterange-btn').daterangepicker(
-      {
-        ranges   : {
-          'Today'       : [moment(), moment()],
-          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
-          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-          'This Month'  : [moment().startOf('month'), moment().endOf('month')],
-          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        },
-        startDate: moment().subtract(29, 'days'),
-        endDate  : moment()
-      },
-      function (start, end) {
-        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-      }
-    )
-
-  
-
-  })
-</script>
-<script>
+Vue.component("select2", {
+  template: "<select style='width: 20%'></select>",
+  props: ['options', 'value'],
+  mounted: function() {
+    let vm = this
+    $(this.$el)
+      .select2({
+        data: this.options
+      })
+      .val(this.value)
+      .trigger('change')
+      .on('change', function() {
+        vm.$emit('input', this.value)
+      })
+  },
+  watch: {
+    value: function(value) {
+      $(this.$el)
+        .val(value)
+        .trigger('change')
+    },
+    options: function(val) {
+      $(this.$el).empty().select2({
+        data: val
+      })
+    }
+  },
+  destroyed: function() {
+    $(this.$el).off().select2('destroy')
+  }
+});
     export default {
+
+      
       
          data(){
            
+           
         return {
+
+         selected: null,
+      options: [{ "children": [{
+              "id": 1,
+              "text": "Element 1"
+            },
+            {
+              "id": 2,
+              "text": "User 2"
+            }
+          ]
+        },
+        
+      ],
+        
              country: 0,
 
                 countries: [],
@@ -1713,7 +1784,7 @@ makeofficeexpenseaccessSettings:'',
           expensetypesrecords:{},
           datarecordsSubmenusauthorised:{},
           allowedrolecomponentsObject :{},
-          shopbalancingdatarecords :{},
+          branchexpensesrecords :{},
           officemadeexpensesrecords:{},
            datarecordscompanyexpenses :{},
           admincashindatarecords:{},
@@ -1790,6 +1861,7 @@ description:'',
 
             })
             }
+            
          },
 
 methods:{
@@ -1813,12 +1885,25 @@ myClickEventroletoaddcomponent($event) { const elem = this.$refs.myBtnroledd
 myClickEventtosavemonthlyreportallbranches($event) { const elem = this.$refs.theButtontotosalesreportmonthly
             elem.click()
         },
+
+myClickEventtoshowmodal($event) { const elem = this.$refs.theButtontotosalesreportmonthly
+            elem.click()
+        },
+        
+         bringupthemodal(){
+        this.editmode = false;
+        this.form.clear();
+        this.form.reset();
+     
+     $('#bringupthemodal').modal('show');
+            },
+
            savethemonthlyreportforallbranches(){
 
                                 this.loading = true;
                                 this.form.post('api/expenseslisttoviewtrio')
                                 .then(()=>{
-// axios.get("api/currentbalancingrecords").then(({ data }) => (this.shopbalancingdatarecords = data));
+// axios.get("api/branchexpensesrecords").then(({ data }) => (this.branchexpensesrecords = data));
 //  axios.get("api/fishcollections").then(({ data }) => (this.fishcollectionrecords = data));
 axios.get("api/makeexpenseofficeuser").then(({ data }) => (this.officemadeexpensesrecords = data));
                                 // Toast.fire({
@@ -2050,7 +2135,7 @@ paginationroleAuthorisedcomponentsfeature(page = 1) {
  
 
 loadShopbalancingrecords(){
-       axios.get("api/currentbalancingrecords").then(({ data }) => (this.shopbalancingdatarecords = data));
+       axios.get("api/branchexpensesrecords").then(({ data }) => (this.branchexpensesrecords = data));
  
 
 
@@ -3120,7 +3205,7 @@ axios.get("api/authorisedcomponents").then(({ data }) => (this.allowedrolecompon
     },
     createBalancingrecord(){
       this.$Progress.start();
-        this.form.post('api/currentbalancingrecords')
+        this.form.post('api/branchexpensesrecords')
         .then(()=>{
 
          
@@ -3131,7 +3216,7 @@ axios.get("api/authorisedcomponents").then(({ data }) => (this.allowedrolecompon
   title: 'Component Authorised'
 });
         this.$Progress.finish();
-axios.get("api/currentbalancingrecords").then(({ data }) => (this.shopbalancingdatarecords = data));
+axios.get("api/branchexpensesrecords").then(({ data }) => (this.branchexpensesrecords = data));
         })
         .catch(()=>{
           
