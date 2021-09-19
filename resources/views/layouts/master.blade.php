@@ -18,7 +18,7 @@
       <link href="plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
 <!-- Waves Effect Css -->
 <link href="plugins/node-waves/waves.css" rel="stylesheet" />
-
+<link href="css/betslip.css" rel="stylesheet" />
 <!-- Animation Css -->
 <link href="plugins/animate-css/animate.css" rel="stylesheet" />
 <link href="plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
@@ -164,8 +164,9 @@ foreach ($allowedsubmenu as $rowallsub)
   ?>
                         
                             <li>
-                            <router-link to="<?php echo $routelinkdd; ?>" class="dropdown-item">
-          <p><?php echo $submname; ?></p>
+                            <a href="<?php echo $routelinkdd; ?>" class="dropdown-item"  ><?php echo $submname; ?></a>
+                            <!-- <router-link to="<?php //echo $routelinkdd; ?>" class="dropdown-item">
+          <p><?php //echo $submname; ?></p> -->
           </router-link>
           <?php } //// ?>
           <?php } //// ?>

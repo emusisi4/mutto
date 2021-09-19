@@ -79,7 +79,7 @@ let routes = [
 //SENA HARDWARE
 
 { path: '/products', component: require('./components/Products.vue')},
-//{ path: '/purchasesndsales', component: require('./components/Purchases.vue')},
+{ path: '/pos', component: require('./components/Pos.vue')},
 	
 
 /// SENA HARD WARE END
@@ -121,6 +121,9 @@ let routes = [
 Vue.filter('upText', function(text){
 return text.toUpperCase();
 });
+
+import VueHtmlToPaper from 'vue-html-to-paper';
+Vue.use(VueHtmlToPaper);
 Vue.filter('firstletterCapital', function(text){
   return text.charAt(0).toUpperCase() + text.slice(1);
   });

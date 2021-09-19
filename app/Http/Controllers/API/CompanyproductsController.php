@@ -28,30 +28,30 @@ class CompanyproductsController extends Controller
       $displaynumber = \DB::table('productdetailsfilters')->where('ucret', $userid )->value('displaynumber');
       $productbrand = \DB::table('productdetailsfilters')->where('ucret', $userid )->value('productbrand');
       
-  if($productcategory != '900' and $productbrand != '900')
+  if($productcategory != '900' )
     {
       return   Product::with(['brandName','productCategory','productSupplier','unitMeasure'])->latest('id')
   ->where('category', $productcategory)
-   ->where('brand', $productbrand)
+  //  ->where('brand', $productbrand)
     ->where('del', 0)
         ->paginate($displaynumber);
  }
- if($productcategory == '900'  and $productbrand != '900')
+ if($productcategory == '900' )
  {
    return   Product::with(['brandName','productCategory','productSupplier','unitMeasure'])->latest('id')
 //->where('category', $productcategory)
-->where('brand', $productbrand)
+// ->where('brand', $productbrand)
  ->where('del', 0)
      ->paginate($displaynumber);
 }
-if($productcategory == '900' and $productbrand == '900')
-{
-  return   Product::with(['brandName','productCategory','productSupplier','unitMeasure'])->latest('id')
-//->where('category', $productcategory)
-//->where('brand', $productbrand)
-->where('del', 0)
-    ->paginate($displaynumber);
-}
+// if($productcategory == '900' and $productbrand == '900')
+// {
+//   return   Product::with(['brandName','productCategory','productSupplier','unitMeasure'])->latest('id')
+// //->where('category', $productcategory)
+// //->where('brand', $productbrand)
+// ->where('del', 0)
+//     ->paginate($displaynumber);
+// }
 
 
     

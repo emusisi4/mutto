@@ -880,7 +880,7 @@ pre {
                     </select>
                                 <has-error :form="form" field="iteminquestion"></has-error>         
                    
-  <label>BRAND :</label>
+  <!-- <label>BRAND :</label>
                     <select style="min-width:300px;" name ="brandname" v-model="form.brandname" id ="brandname"  class="show-tick" data-live-search="true" v-on:change="tosubmitProductdetailfilter"   :class="{'is-invalid': form.errors.has('brandname')}">
                     <option value="900"> All  </option>
                      <option v-for='data in productbrandslist' v-bind:value='data.id'>{{ data.brandname }}</option>
@@ -888,7 +888,7 @@ pre {
                     </select>
                     
 
-                                <has-error :form="form" field="brandname"></has-error>
+                                <has-error :form="form" field="brandname"></has-error> -->
 
 
 <label>Records Per page :</label>
@@ -929,11 +929,14 @@ pre {
                     <tr>
                    
                       <th > # </th>
+                        <th > PRODUCT CODE</th>
                       <th > PRODUCT NAME </th>
-                       <th > DESCRIPTION </th>
+                         <th > DESCRIPTION </th>
+                      <th > UNIT OF MEASURE </th>
+                    
                       <th > CATEGORY</th>
                     
-                      <th > BRAND</th>
+                         <th > QTY AVAILABLE</th>
                       <th > RE-STOCK QTY</th>
                      
                      <th >  </th>
@@ -956,11 +959,15 @@ pre {
                       
                          
                                 <td>{{probrands.id}}</td>
-                                 <td>{{probrands.productname | firstletterCapital }}</td>
-                                   <td>{{probrands.description }}</td>  
-                                     <td>   <template v-if="probrands.product_category">	{{probrands.product_category.catname}}</template></td>  
-                    
-   <td>   <template v-if="probrands.brand_name">	{{probrands.brand_name.brandname}}</template></td>
+                                                    
+   <td>   	{{probrands.uracode}}</td>
+   <td>   {{probrands.productname | firstletterCapital }}</td>
+   <td>   {{probrands.description }}</td> 
+   <td>   <template v-if="probrands.unit_measure">	{{probrands.unit_measure.unitname}}</template></td>
+    
+  <td>   <template v-if="probrands.product_category">	{{probrands.product_category.catname}}</template></td>  
+             <td>{{probrands.qty}} - <template v-if="probrands.unit_measure">	{{probrands.unit_measure.unitname}}<sub>(s)</sub></template></td>        
+   
                              
                                
                                   <td>{{probrands.rol}}</td>

@@ -11,12 +11,7 @@ class Unitmeasure extends Authenticatable
     use HasApiTokens, Notifiable;
 
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-
+   
    
     protected $fillable = [
         'unitname', 'shotcode', 'ucret',
@@ -24,7 +19,7 @@ class Unitmeasure extends Authenticatable
     ];
     
 
-    public function students(){
+    public function unitMeasure(){
    
         return $this->hasMany(Product::class, 'unitmeasure', 'id'); 
     }
@@ -34,11 +29,7 @@ class Unitmeasure extends Authenticatable
     }
 
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
+    
     protected $hidden = [
       //  'hid', 'id',
     ];

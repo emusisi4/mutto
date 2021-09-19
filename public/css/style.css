@@ -2377,6 +2377,7 @@ h4,
 h5,
 h6 {
   font-weight: bold; }
+ 
 
 button,
 input,
@@ -4307,6 +4308,7 @@ section.content {
   -moz-border-radius: 0;
   -ms-border-radius: 0;
   border-radius: 0;
+  width: 1268px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.31) !important;
   border: none; }
   .modal .modal-content .modal-body {

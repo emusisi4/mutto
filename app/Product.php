@@ -39,8 +39,7 @@ class Product extends Authenticatable
         return $this->hasMany(Shopingcat::class, 'productcode', 'id'); 
     }
     public function productCategory(){
-        // creating a relationship between the students model 
-        return $this->belongsTo(Productcategory::class, 'category'); 
+            return $this->belongsTo(Productcategory::class, 'category'); 
     }
     public function unitMeasure(){
         
