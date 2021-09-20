@@ -30,7 +30,7 @@ class CompanyproductsController extends Controller
       
   if($productcategory != '900' )
     {
-      return   Product::with(['brandName','productCategory','productSupplier','unitMeasure'])->latest('id')
+      return   Product::with(['brandName','productCategory','productSupplier','unitMeasure'])->orderBy('id', 'Asc')
   ->where('category', $productcategory)
   //  ->where('brand', $productbrand)
     ->where('del', 0)
@@ -38,7 +38,7 @@ class CompanyproductsController extends Controller
  }
  if($productcategory == '900' )
  {
-   return   Product::with(['brandName','productCategory','productSupplier','unitMeasure'])->latest('id')
+   return   Product::with(['brandName','productCategory','productSupplier','unitMeasure'])->orderBy('id', 'Asc')
 //->where('category', $productcategory)
 // ->where('brand', $productbrand)
  ->where('del', 0)

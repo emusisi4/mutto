@@ -127,7 +127,9 @@ border-top:2px dotted black;
 
 }
 
-
+.tabletextalign{
+    text-align: center;
+}
 .book-title {
   color: black;
   display: block;
@@ -929,12 +931,14 @@ pre {
                     <tr>
                    
                       <th > # </th>
-                        <th > PRODUCT CODE</th>
+                      
+                          <th > CATEGORY</th>
+                            <th > CODE</th>
                       <th > PRODUCT NAME </th>
-                         <th > DESCRIPTION </th>
+                     
                       <th > UNIT OF MEASURE </th>
                     
-                      <th > CATEGORY</th>
+                    
                     
                          <th > QTY AVAILABLE</th>
                       <th > RE-STOCK QTY</th>
@@ -953,24 +957,27 @@ pre {
 
                                  <tr v-for="probrands in productdetailsrecords.data" :key="probrands.id">
                       
-                 
-                  
+                               
                 
                       
                          
                                 <td>{{probrands.id}}</td>
-                                                    
-   <td>   	{{probrands.uracode}}</td>
+                              
+                                <td> ({{probrands.category}}) <template v-if="probrands.product_category">	{{probrands.product_category.catname}}</template></td>  
+                                      <td>   	{{probrands.uracode}}</td>                
+                               
    <td>   {{probrands.productname | firstletterCapital }}</td>
-   <td>   {{probrands.description }}</td> 
-   <td>   <template v-if="probrands.unit_measure">	{{probrands.unit_measure.unitname}}</template></td>
+   <td> <template v-if="probrands.unit_measure">	{{probrands.unit_measure.shotcode}}</template> -  <template v-if="probrands.unit_measure">	{{probrands.unit_measure.unitname}}</template></td>
+    <td><div class="tabletextalign"> {{probrands.qty}} - <template v-if="probrands.unit_measure">	{{probrands.unit_measure.unitname}}<sub>(s)</sub></template> </div></td> 
+  
+   
     
-  <td>   <template v-if="probrands.product_category">	{{probrands.product_category.catname}}</template></td>  
-             <td>{{probrands.qty}} - <template v-if="probrands.unit_measure">	{{probrands.unit_measure.unitname}}<sub>(s)</sub></template></td>        
+ 
+                   
    
                              
                                
-                                  <td>{{probrands.rol}}</td>
+                                  <td><div class="tabletextalign"> {{probrands.rol}} </div></td>
                                 
                                
                                  <td> 
@@ -999,8 +1006,9 @@ pre {
  
                                    </table>
     <div class="card-footer">
+      
                 <ul class="pagination pagination-sm m-0 float-right">
-                   <pagination :data="productcategoriesrecords" @pagination-change-page="paginationResultsProductcategories"></pagination>
+                   <pagination :data="productdetailsrecords" @pagination-change-page="paginationResultsProductdetailsrecords"></pagination>
                 </ul>
     </div>
 
@@ -2731,6 +2739,15 @@ paginationroleAuthorisedcomponentsfeature(page = 1) {
                           });
                       },
 
+
+      
+
+paginationResultsProductdetailsrecords(page = 1) {
+                        axios.get('api/productdetailsrecords?page=' + page)
+                          .then(response => {
+                            this.productdetailsrecords = response.data;
+                          });
+                      },
 
 
    paginationResultsProductcategories(page = 1) {
