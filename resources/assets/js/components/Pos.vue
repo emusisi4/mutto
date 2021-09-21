@@ -327,14 +327,14 @@ text-align: center;
    <form @submit.prevent="saveproductdetailsFilter()">
                  
                       <div class="form-group">
-      
+<!--       
 <label><b>Item : </b></label>
                     <select  name ="iteminquestion" v-model="form.iteminquestion" id ="iteminquestion"  data-live-search="true"  v-on:change="tosubmitProductdetailfilter"  :class="{'is-invalid': form.errors.has('iteminquestion')}">
                     <option value="900"> All  </option>
                     <option v-for='data in productsavailableforsalelist' v-bind:value='data.id'>{{ data.productname }} ({{ data.qty }})</option>
 
                     </select>
-                                <has-error :form="form" field="iteminquestion"></has-error>         
+                                <has-error :form="form" field="iteminquestion"></has-error>          -->
          
   <label>Brand :</label>
                     <select  name ="brandname" v-model="form.brandname" id ="brandname"  class="show-tick" data-live-search="true" v-on:change="tosubmitProductdetailfilter"   :class="{'is-invalid': form.errors.has('brandname')}">
@@ -357,9 +357,7 @@ text-align: center;
                       <option value="30"> 30  </option>
                     
                       <option value="50"> 50  </option>
-                       <option value="100"> 100  </option>
-                      
-                       <option value="200"> 200  </option>
+                      <option value="200"> 200  </option>
                       <option value="300"> 300  </option>
                     <option value="900"> All  </option>
                   
@@ -1836,7 +1834,7 @@ if (result.isConfirmed) {
             Fire.$on('AfterAction', () =>{
 // this.loadManinmens();
       });
-setInterval(() =>this.prodlfunction(),3000);
+//setInterval(() =>this.prodlfunction(),3000);
         }
     }
 </script>
