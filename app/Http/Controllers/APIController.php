@@ -629,7 +629,7 @@ public function transactiontypeslist()
                $data = Product::latest('id')
             //   ->where('productname', 'like', '%' . $verit . '%')
                ->where('qty', '>', 0)
-               ->limit(100)
+               ->limit(300)
                ->get();
               // ->paginate(13);
                
