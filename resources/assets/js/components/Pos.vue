@@ -567,7 +567,7 @@ text-align: center;
                     <select name ="productcode" v-model="form.productcode" id ="productcode" 
                      data-live-search="true"    :class="{'is-invalid': form.errors.has('productcode')}">
                     <option value="">  </option>
-                    <option v-for='data in productsavailableforsalelist' v-bind:value='data.id'>{{ data.productname }} ({{ data.qty }})</option>
+                    <option v-for='data in productsavailableforsalelist' v-bind:value='data.id'>({{ data.id }}){{ data.productname }} ({{ data.qty }})</option>
 
                     </select>
                                 <has-error :form="form" field="productcode"></has-error>         

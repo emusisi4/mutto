@@ -626,7 +626,7 @@ public function transactiontypeslist()
               ///BookingDates::where('email', Input::get('email'))
    // ->orWhere('name', 'like', '%' . Input::get('name') . '%')->get();
             //$verit = 'alle';
-               $data = Product::latest('id')
+               $data = Product::orderBy('id', 'Asc')
             //   ->where('productname', 'like', '%' . $verit . '%')
                ->where('qty', '>', 0)
                ->limit(100)
