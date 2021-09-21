@@ -8,6 +8,20 @@ import VueProgressBar from 'vue-progressbar'
 import Select2 from 'v-select2-component';
 Vue.component ('Select2', Select2);
 
+import VueHtmlToPaper from "vue-html-to-paper";
+
+// ...
+const options = {
+  name: "_blank",
+  specs: ["fullscreen=yes", "titlebar=yes", "scrollbars=yes"],
+  styles: [
+    "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css",
+    "https://unpkg.com/kidlat-css/css/kidlat.css"
+  ]
+};
+
+Vue.use(VueHtmlToPaper, options);
+
 
 Vue.use(VueProgressBar, {
   color: 'rgb(143, 255, 199)',
@@ -72,7 +86,7 @@ Vue.component('pagination', require('laravel-vue-pagination'));
 let routes = [
   
   { path: '/dashboard', component: require('./components/Dashboard.vue') },
-
+  //{ path: '/print', component: require('./components/Print.vue') },
 
 
 
@@ -122,8 +136,7 @@ Vue.filter('upText', function(text){
 return text.toUpperCase();
 });
 
-import VueHtmlToPaper from 'vue-html-to-paper';
-Vue.use(VueHtmlToPaper);
+
 Vue.filter('firstletterCapital', function(text){
   return text.charAt(0).toUpperCase() + text.slice(1);
   });

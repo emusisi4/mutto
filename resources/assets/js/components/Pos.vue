@@ -920,6 +920,7 @@ carttotal:[],
           editmode: false,
           mainmenurecords : {},
            productpriceslist:{},
+          productsavailableforsalelist:{},
           shopingcartdetails:{},
           carttotal:{},
           submenurecords : {},
@@ -1675,18 +1676,20 @@ if (result.isConfirmed) {
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// End of Submenus
-
+prodlfunction(){
+ axios.get("api/productsavailableforsalelist").then(({ data }) => (this.productsavailableforsalelist = data));
+},
   /// Main menus
-  loadManinmens(){
-       axios.get("api/mainmenucomponents").then(({ data }) => (this.mainmenurecords = data));
-       this.getRoles();
+  // loadManinmens(){
+  //      axios.get("api/mainmenucomponents").then(({ data }) => (this.mainmenurecords = data));
+  //      this.getRoles();
    
-     axios.get("api/generalcomponentaccessComponentfeatures").then(({ data }) => (this.generalcomponentaccessComponentfeatures = data));
-     axios.get("api/mainmenuaccessComponent").then(({ data }) => (this.mainmenuaccessComponent = data));
+  //    axios.get("api/generalcomponentaccessComponentfeatures").then(({ data }) => (this.generalcomponentaccessComponentfeatures = data));
+  //    axios.get("api/mainmenuaccessComponent").then(({ data }) => (this.mainmenuaccessComponent = data));
 
   
 
-  },
+  // },
 
      newMainmenumodal(){
         this.editmode = false;
@@ -1821,7 +1824,7 @@ if (result.isConfirmed) {
      axios.get("api/submenuaccessComponent").then(({ data }) => (this.submenuaccessComponent = data));
      axios.get("api/formfeaturesaccessComponent").then(({ data }) => (this.formfeaturesaccessComponent = data));
      axios.get("api/vuedetailsaccessComponent").then(({ data }) => (this.vuedetailsaccessComponent = data));
-            this.loadManinmens();
+            // this.loadManinmens();
  axios.get("api/mainmenulist").then(({ data }) => (this.mainmenulist = data));
      axios.get("api/generalcomponentaccessComponentfeatures").then(({ data }) => (this.generalcomponentaccessComponentfeatures = data));
      axios.get("api/mainmenuaccessComponent").then(({ data }) => (this.mainmenuaccessComponent = data));
@@ -1831,9 +1834,9 @@ if (result.isConfirmed) {
       axios.get("api/productbrandslist").then(({ data }) => (this.productbrandslist = data));
         
             Fire.$on('AfterAction', () =>{
-this.loadManinmens();
+// this.loadManinmens();
       });
- /// setInterval(() =>this.loadManinmens(),3000);
+setInterval(() =>this.prodlfunction(),3000);
         }
     }
 </script>

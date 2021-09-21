@@ -345,7 +345,7 @@ foreach ($allowedsubmenu as $rowallsub)
     </section>
 
   
-
+    <script src="/js/app.js"></script>
      <!-- Jquery Core Js -->
     <script src="plugins/jquery/jquery.min.js"></script>
 
@@ -401,13 +401,13 @@ foreach ($allowedsubmenu as $rowallsub)
     <!-- Custom Js -->
     <script src="js/admin.js"></script>
     <script src="js/pages/tables/jquery-datatable.js"></script>
-    <script src="/js/app.js"></script>
-    <script src="jquery.js"></script>
+  
+<!--   
 <script>
 $.noConflict();
 // Code that uses other library's $ can follow here.
-</script>
-
+</script> -->
+<!-- <script src="/js/app.js"></script> -->
 </body>
 
 </html>

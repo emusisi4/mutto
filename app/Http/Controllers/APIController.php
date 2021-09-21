@@ -623,9 +623,11 @@ public function transactiontypeslist()
                 $userid =  auth('api')->user()->id;
                 $userbranch =  auth('api')->user()->branch;
                 $userrole =  auth('api')->user()->type;
-              
-            
+              ///BookingDates::where('email', Input::get('email'))
+   // ->orWhere('name', 'like', '%' . Input::get('name') . '%')->get();
+            $verit = 'alle';
                $data = Product::latest('id')
+            //   ->where('productname', 'like', '%' . $verit . '%')
                ->where('qty', '>', 0)
                ->get();
                
