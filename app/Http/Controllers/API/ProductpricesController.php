@@ -41,13 +41,24 @@ class ProductpricesController extends Controller
       
          ->paginate(30);
     
-
-
-
-
-
+    
     }
-
+public function search(){
+  if($search = \Request::get('q')){
+    $users = Productprice::where(function($query) use ($search){
+      $query->where('productcode', 'LIKE', "%$search%");
+    })
+      -> paginate(30);
+     return $users;
+  }else{
+    return   Productprice::with(['productName'])->orderBy('id', 'Desc')
+    // ->where('supplierinvoiceno', $supplierinvoiceno)
+     
+    
+       ->paginate(30);
+  }
+  
+}
    
     public function store(Request $request)
     {

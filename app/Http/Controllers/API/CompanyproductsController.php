@@ -96,24 +96,29 @@ $productcode  = \DB::table('products')->orderBy('id', 'Desc')->limit(1)->value('
   ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+  
+    public function search(){
+      if($search = \Request::get('q')){
+        $users = Product::where(function($query) use ($search){
+          $query->where('productname', 'LIKE', "%$search%");
+        })
+          -> paginate(30);
+         return $users;
+      }else{
+        return   Product::with(['brandName','productCategory','productSupplier','unitMeasure'])->orderBy('id', 'Asc')
+      //  ->where('category', $productcategory)
+        //  ->where('brand', $productbrand)
+          ->where('del', 0)
+              ->paginate(20);
+      }
+      
+    }
     public function show($id)
     {
         //
     }
    
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, $id)
     {
         //
@@ -130,12 +135,8 @@ $this->validate($request,[
 $user->update($request->all());
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+  
+    
     public function destroy($id)
     {
         //
@@ -145,5 +146,15 @@ $user->update($request->all());
         $user->delete();
        // return['message' => 'user deleted'];
 
+    }
+
+    public function search_unit_by_key()
+    {
+    	$key = \Request::get('q');
+        $unit = Product::where('productname','LIKE',"%{$key}%")
+                                   // ->orWhere('is_active','LIKE',"%{$key}%")
+                                    ->get();
+
+    	return response()->json([ 'unit' => $unit ],Response::HTTP_OK);
     }
 }

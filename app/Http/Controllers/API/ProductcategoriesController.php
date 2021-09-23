@@ -9,6 +9,7 @@ use App\Mainmenucomponent;
 use App\Submheader;
 use App\Branch;
 use App\Productcategory;
+use App\Product;
 
 class ProductcategoriesController extends Controller
 {
@@ -120,4 +121,27 @@ $user->update($request->all());
        // return['message' => 'user deleted'];
 
     }
+
+
+
+
+    // public function search(Request $request)
+    // {
+    //     $categories = Productcategory::where('catname','LIKE',$request->search.'%')->get();
+
+    //     return response()->json($categories);
+    // }
+// public function search(Request $request)
+//     {
+//         $categories = Productcategory::where('catname','LIKE',$request->search.'%')->get();
+
+//         return response()->json($categories);
+//     }
+
+    public function search(Request $request){
+     // $query = Input::get('query');
+      $users = Productcategory::where('catname','LIKE',$request->search.'%')->get();
+      return response()->json($users);
+    }
+
 }

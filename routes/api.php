@@ -32,7 +32,7 @@ Route::apiResources(['appenditemtotheinvoice' => 'API\AppenditemstoinvoiceContro
 Route::apiResources(['newinvoicegeneration' => 'API\NewinvoicegenerationController']);
 Route::apiResources(['productdetailsrecords' => 'API\CompanyproductsController']);
 Route::apiResources(['productunitofmeasurerecords' => 'API\ProductunitmeasuresController']);
-
+Route::apiResources(['productsellingrecords' => 'API\ProductssellingdetailsController']);
 Route::apiResources(['makeinvoicepayment' => 'API\MakeinvoicepaymentController']);
 
 
@@ -47,8 +47,17 @@ Route::apiResources(['closeofftheinvoiceinaction' => 'API\InvoicenumberinactionC
 Route::apiResources(['purchaseincoicesummaryrecords' => 'API\PurchasessumaryrecordsController']);
 Route::apiResources(['productpurchasesdetailrecords' => 'API\PurchasesrecordsController']);
 Route::apiResources(['productpriceslist' => 'API\ProductpricesController']);
+Route::get('findUser', 'API\CompanyproductsController@search');
+// //Route::get('autocomplete', 'ProductcategoriesController@autocomplete');
+// Route::get('search', 'API\ProductcategoriesController@search');
 
+// 
 // filters
+// Route::get('/search',function(){
+//     $query = Input::get('query');
+//     $users = User::where('name','like','%'.$query.'%')->get();
+//     return response()->json($users);
+//    });
 
 Route::apiResources(['productcategoryFiltertoview' => 'API\ProductrecordsFilterController']);
 Route::apiResources(['productdetailsFiltertoview' => 'API\ProductdetailsFilterController']);

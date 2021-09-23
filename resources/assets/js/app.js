@@ -2,25 +2,19 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-import { values } from 'lodash';
+import _, { values } from 'lodash';
 import VueProgressBar from 'vue-progressbar'
 
 import Select2 from 'v-select2-component';
 Vue.component ('Select2', Select2);
 
-import VueHtmlToPaper from "vue-html-to-paper";
+import VueGoodTablePlugin from 'vue-good-table';
 
-// ...
-const options = {
-  name: "_blank",
-  specs: ["fullscreen=yes", "titlebar=yes", "scrollbars=yes"],
-  styles: [
-    "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css",
-    "https://unpkg.com/kidlat-css/css/kidlat.css"
-  ]
-};
+// import the styles 
+import 'vue-good-table/dist/vue-good-table.css'
 
-Vue.use(VueHtmlToPaper, options);
+Vue.use(VueGoodTablePlugin);
+
 
 
 Vue.use(VueProgressBar, {
@@ -85,9 +79,9 @@ Vue.component('passport-personal-access-tokens',require('./components/passport/P
 Vue.component('pagination', require('laravel-vue-pagination'));
 let routes = [
   
-  { path: '/dashboard', component: require('./components/Dashboard.vue') },
-  //{ path: '/print', component: require('./components/Print.vue') },
-
+  { path: '/dashboard', component: require('./components/Autocomplete.vue') },
+  { path: '/autocomplete', component: require('./components/Autocomplete.vue') },
+  // Vue.component('autocomplete',require('./components/Autocomplete.vue'));
 
 
 //SENA HARDWARE
@@ -167,5 +161,11 @@ const app = new Vue({
     router,
     data:{
       search: ''
+    },
+    methods:{
+      searchit: _.debounce(() => {
+        Fire.$emit('searching');
+      },2000)
+
     },
 });

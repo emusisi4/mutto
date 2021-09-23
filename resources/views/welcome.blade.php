@@ -80,6 +80,9 @@
                 <div class="title m-b-md">
                     Laravel
                 </div>
+                <div class="panel-body">
+    <autocomplete></autocomplete>
+</div>
 
                 <div class="links">
                     <a href="https://laravel.com/docs">Documentation</a>

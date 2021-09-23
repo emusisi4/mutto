@@ -1446,7 +1446,7 @@ pre {
                                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                  <input v-model="form.amountbeingpaid"  @keyup="updateremaininginvoicebalance" @@keypress="updateremaininginvoicebalance" type="number" name="amountbeingpaid"
+                                                  <input v-model="form.amountbeingpaid"  @keyup="updateremaininginvoicebalance" @keypress="updateremaininginvoicebalance" type="number" name="amountbeingpaid"
                       class="form-control" :class="{ 'is-invalid': form.errors.has('amountbeingpaid') }">
                     <has-error :form="form" field="amountbeingpaid"></has-error>
                                             </div>

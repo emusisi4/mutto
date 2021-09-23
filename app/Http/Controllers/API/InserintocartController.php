@@ -68,7 +68,7 @@ class InserintocartController extends Controller
       
        $this->validate($request,[
        'quantity'   => 'required',
-       'productcode'   => 'required',
+       'id'   => 'required',
     
      ]);
      $userid =  auth('api')->user()->id;
@@ -77,9 +77,10 @@ class InserintocartController extends Controller
 
   
 /// getting the Unit Price
-$product = $request['productcode'];
-$unitprice = \DB::table('productprices') ->where('productcode', '=', $product)->orderBy('id', 'Desc')->value('unitprice');
-$unitcost = \DB::table('productprices') ->where('productcode', '=', $product)->value('unitcost');
+$product = $request['id'];
+$unitprice = \DB::table('products') ->where('id', '=', $product)->orderBy('id', 'Desc')->value('unitprice');
+$currentproductquantity = \DB::table('products') ->where('id', '=', $product)->orderBy('id', 'Desc')->value('qty');
+$unitcost = \DB::table('products') ->where('id', '=', $product)->value('unitcost');
 /// checking if the product is on the cart
 $productexistsoncart = \DB::table('shopingcats')->where('productcode', '=', $product)->where('ucret', '=', $userid)->count();
 if($productexistsoncart < 1)
@@ -90,7 +91,7 @@ if($productexistsoncart < 1)
         Shopingcat::Create([
     
 
-      'productcode' => $request['productcode'],
+      'productcode' => $request['id'],
       'quantity' => $request['quantity'],
       'datesold' => $datepaid,
       'branch' => $branch,
@@ -104,6 +105,15 @@ if($productexistsoncart < 1)
       'ucret' => $userid,
     
   ]);
+
+  ///// updating the product quantity
+  $newqtt = $currentproductquantity - $qty;
+  $result = DB::table('products')
+    ->where('id', $product)
+    ->update([
+      'qty' => $newqtt,
+     
+    ]);
         }
 
         if($productexistsoncart > 0)
@@ -113,7 +123,9 @@ if($productexistsoncart < 1)
   $sp = \DB::table('shopingcats') ->where('productcode', '=', $product)->where('ucret', '=', $userid)->value('unitprice');
  
 $newquantity = $request['quantity']+$currentquantity;
-  
+$currentproductquantity = \DB::table('products') ->where('id', '=', $product)->orderBy('id', 'Desc')->value('qty');
+$zqty = $request['quantity'];
+$newqtt = $currentproductquantity-$zqty;
 
 
 $qty = $newquantity;
@@ -132,6 +144,14 @@ $result = DB::table('shopingcats')
       'lineprofit'  => (($sp*($newquantity))-($cp*($newquantity))),
     ]);
   
+
+  
+    $result = DB::table('products')
+      ->where('id', $product)
+      ->update([
+        'qty' => $newqtt,
+       
+      ]);
      
         }
  
@@ -187,7 +207,20 @@ $this->validate($request,[
     {
         //
      //   $this->authorize('isAdmin'); 
-
+/// Gettint the product in Question
+$user = Shopingcat::findOrfail($id);
+$userid =  auth('api')->user()->id;
+$branch =  auth('api')->user()->branch;
+$product = \DB::table('shopingcats') ->where('id', '=', $id)->where('ucret', '=', $userid)->value('productcode');
+$soldqty = \DB::table('shopingcats') ->where('id', '=', $id)->where('ucret', '=', $userid)->value('quantity');
+$currentpq = \DB::table('products') ->where('id', '=', $product)->value('qty');
+$newqtytoupdate = $currentpq+$soldqty;
+$result = DB::table('products')
+      ->where('id', $product)
+      ->update([
+        'qty' => $newqtytoupdate,
+       
+      ]);
         $user = Shopingcat::findOrFail($id);
         $user->delete();
     

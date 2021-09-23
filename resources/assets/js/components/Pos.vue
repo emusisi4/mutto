@@ -9,7 +9,19 @@ border-bottom:2px dotted black;
 
 
 }
-
+   .formcont2{
+      display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 28px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+   }
 
 .book-title {
   color: black;
@@ -95,6 +107,9 @@ align-items: center;
   
 }
 
+.tabletextalign{
+    text-align: center;
+}
 
  
 td,
@@ -270,18 +285,7 @@ text-align: center;
                     </div>
                 </div>
 
-<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box bg-indigo">
-                        <div class="icon">
-                            <i class="material-icons">face</i>
-                        </div>
-                        <div class="content">
-                            <div class="text"><b>INPUT VAT (Fom Purchases) </b></div>
-                            <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20">
-                              <b>{{currencydetails}}  {{formatPrice(inputvatamount) }}</b></div>
-                        </div>
-                    </div>
-                </div>
+
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box bg-indigo">
                         <div class="icon">
@@ -324,73 +328,39 @@ text-align: center;
                         
                         </div>
                         <div class="body">
-   <form @submit.prevent="saveproductdetailsFilter()">
-                 
-                      <div class="form-group">
-<!--       
-<label><b>Item : </b></label>
-                    <select  name ="iteminquestion" v-model="form.iteminquestion" id ="iteminquestion"  data-live-search="true"  v-on:change="tosubmitProductdetailfilter"  :class="{'is-invalid': form.errors.has('iteminquestion')}">
-                    <option value="900"> All  </option>
-                    <option v-for='data in productsavailableforsalelist' v-bind:value='data.id'>{{ data.productname }} ({{ data.qty }})</option>
-
-                    </select>
-                                <has-error :form="form" field="iteminquestion"></has-error>          -->
-         
-  <label>Brand :</label>
-                    <select  name ="brandname" v-model="form.brandname" id ="brandname"  class="show-tick" data-live-search="true" v-on:change="tosubmitProductdetailfilter"   :class="{'is-invalid': form.errors.has('brandname')}">
-                    <option value="900"> All  </option>
-                     <option v-for='data in productbrandslist' v-bind:value='data.id'>{{ data.brandname }}</option>
-
-                    </select>
-                    
-
-                                <has-error :form="form" field="brandname"></has-error>
+                          <!-- <div class="mysalessect"> 
+                    <input type="search" placeholder="Search" aria-label="Search">
+                          </div> -->
 
 
-<label>Records Per page :</label>
-                    <select name ="displaynumber" v-model="form.displaynumber" id ="displaynumber" class="show-tick"   v-on:change="tosubmitProductdetailfilter"  :class="{'is-invalid': form.errors.has('expensename')}">
-                    
-                    
-                      <option value="5"> 5  </option>
-                      <option value="10"> 10  </option>
-                    
-                      <option value="30"> 30  </option>
-                    
-                      <option value="50"> 50  </option>
-                      <option value="200"> 200  </option>
-                      <option value="300"> 300  </option>
-                    <option value="900"> All  </option>
-                  
-                    </select>
-                                <has-error :form="form" field="displaynumber"></has-error>
 
 
-                           
-             <button type="submit" style="display:none" id="submit" hidden="hidden" name= "submit" ref="buttontosubmitProductdetailFilter" class="btn btn-primary btn-sm">Saveit</button>         
 
-                                
-            
-       
-                   
-          </div>
-      
+     <div class="mysalessect"> 
+  <input type="text" placeholder="Enter Item Name " v-model="search" v-on:keyup="searchit" @keyup="searchit" class="formcont2">
 
-                </form>  
-                                    
-                        <table class="table">
+  </div>
+
+<!-- 
+   <div class="bethapa-table-header"></div> -->
+
+                       <table class="table">
                   <thead>
                     <tr>
                    
                       <th > # </th>
                       
-                  <th > Item </th>
-                        <th >Brand</th>
-                      <th >Qty Available</th>
-                       <th > Unit Price ({{currencydetails}})</th>
+                    
                       
+                      <th > ITEM </th>
+                     
+                      <th > UNIT  </th>
                     
-                                         
                     
+                    
+                         <th > QTY</th>
+                       <th > SELLING PRICE</th>
+                     
                      <th >  </th>
                     </tr>
                   </thead>
@@ -400,33 +370,41 @@ text-align: center;
 
  
        
-    
-                                 <tr v-for="purcdet in productpriceslist.data" :key="purcdet.id">
+     
+          
+
+                                 <tr v-for="probrands in productsellingrecords.data" :key="probrands.id">
                       
-                 
-                  
+                               
                 
                       
                          
-                                <td>{{purcdet.id}}</td>
-                                     <td><template v-if="purcdet.product_name">	{{purcdet.product_name.productname}}</template></td>
-                                
-                                      <td><template v-if="purcdet.brand_name">	{{purcdet.brand_name.suppname}}</template></td>
-                                <td> {{(purcdet.qtyavailable)  }}</td>
-                                <td> {{formatPrice(purcdet.unitprice)  }}</td>
+                                <td>{{probrands.id}}</td>
                               
-                         
+                                <!-- <td> ({{probrands.category}}) <template v-if="probrands.product_category">	{{probrands.product_category.catname}}</template></td>  
+                                      <td>   	{{probrands.uracode}}</td>                 -->
+                               
+   <td>   {{probrands.productname | firstletterCapital }}</td>
+   <td> <template v-if="probrands.unit_measure">	{{probrands.unit_measure.shotcode}}</template> -  <template v-if="probrands.unit_measure">	{{probrands.unit_measure.unitname}}</template></td>
+    <td><div class="tabletextalign"> {{probrands.qty}} </div></td> 
+  
+    <td><div class="tabletextalign"> {{formatPrice(probrands.unitprice)}} </div></td> 
+    
+ 
+                   
+   
                              
                                
                                  
                                 
                                
                                  <td> 
-                                  
-                          
-                  <button v-if="purcdet.status == '0'" type="button" class="btn bg-teal waves-effect" @click="confirmItempurchaseddelivery(purcdet)">Confirm Delivery</button>           
-                
+                                  <!-- v-if="allowedtoeditbranch > 0 "  -->
+                                                  
 
+
+                  
+<button type="button" v-if="probrands.unitprice > 0 &&  probrands.qty > 0  "  class="btn btn-success btn-xs float-right" @click="editProductdetails(probrands)" >Add to Cart  </button>
 
 
 
@@ -444,13 +422,14 @@ text-align: center;
               
  
                                    </table>
-
-                                   
-    <div class="card-footer">
+   <div class="card-footer">
+      
                 <ul class="pagination pagination-sm m-0 float-right">
-                   <pagination :data="productcategoriesrecords" @pagination-change-page="paginationResultsProductcategories"></pagination>
+                   <pagination :data="productsellingrecords" @pagination-change-page="paginationResultsproductsellingrecords"></pagination>
                 </ul>
     </div>
+
+                   
                         </div>
                     </div>
                 </div>
@@ -497,7 +476,7 @@ text-align: center;
 
 
  
-       
+       productsellingrecords
     
                                  <tr v-for="purcdet in productpriceslist.data" :key="purcdet.id">
                       
@@ -546,49 +525,21 @@ text-align: center;
                                    
     <div class="card-footer">
                 <ul class="pagination pagination-sm m-0 float-right">
-                   <pagination :data="productcategoriesrecords" @pagination-change-page="paginationResultsProductcategories"></pagination>
+                   <pagination :data="productsellingrecords" @pagination-change-page="paginationResultsproductsellingrecords"></pagination>
                 </ul>
     </div>
+
 
                                                 </div>
                                             </div>
                                         </div>
-                                      
+                                      productsellingrecords
                                     </div> 
                         </div>
                         <div class="body">
                            <!-- <div class="mysalessect">               -->
                              <div >  
-<form @submit.prevent="editmode ? updateRecord():createNewrecord()">
-                 
-                      <div class="form-group">
-       
-<label><b>Item : </b></label>
-                    <select name ="productcode" v-model="form.productcode" id ="productcode" 
-                     data-live-search="true"    :class="{'is-invalid': form.errors.has('productcode')}">
-                    <option value="">  </option>
-                    <option v-for='data in productsavailableforsalelist' v-bind:value='data.id'>({{ data.id }}){{ data.productname }} ({{ data.qty }})</option>
 
-                    </select>
-                                <has-error :form="form" field="productcode"></has-error>         
-                   
-  <label>Quantity :</label>
-                   <input v-model="form.quantity" type="number" name="quantity"
-                       :class="{ 'is-invalid': form.errors.has('quantity') }">
-                    
-
-                                <has-error :form="form" field="quantity"></has-error>
-
- <button v-show="!editmode" type="submit" hidden="" ref="myBtn"  id="submit" class="btn btn-primary btn-sm">Add</button>
-       
-                   
-          </div>
-       
- 
-
-            <button v-show="editmode" hidden="" type="submit" class="btn btn-success btn-sm">Update</button>
-
-                </form>
                            </div>
  <table style="width:100%">
   <thead>
@@ -642,11 +593,11 @@ text-align: center;
     </tr>
     <tr>
       <td colspan="4">Total :</td>
-     <td>{{currencydetails}}  {{formatPrice(carttotal+(0.18*carttotal))}}</td>
+     <td>{{currencydetails}}  {{formatPrice(carttotal)}}</td>
     </tr>
   </tfoot>
 </table>
-<button type="button" class="btn btn-danger btn-xs" @click="emptymycart" >Empty Cart </button>
+<!-- <button type="button" class="btn btn-danger btn-xs" @click="emptymycart" >Empty Cart </button> -->
 
 <button type="button" class="btn btn-success btn-xs float-right" @click="completesale" >Complete  </button>
                         
@@ -666,7 +617,71 @@ text-align: center;
      
     </section>
     <!-- //////////////////////////////////////////////////////////////////// -->
-      
+    
+      <div class="modal fade" id="pruductdetailModal">
+         <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">New Product Registration</h3> 
+                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Add Item to Cart</h3> </h4> 
+                        </div>
+
+
+                  <form  @submit.prevent="editmode ? createNewrecord():createNewrecord()">
+
+
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Product Name</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                  <input v-model="form.productname" readonly id="productname" type="text" name="productname"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('productname') }">
+                    <has-error :form="form" field="productname"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                               <input v-model="form.id" type="hidden" name="productcode"> 
+                                 <input v-model="form.qty" type="hidden" name="productcode"> 
+                               <input v-model="form.newqty" type="hidden" name="productcode"> 
+
+
+
+                               
+                                
+    <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Quantity Sold</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                  <input v-model="form.quantity" type="number" @keypress="updatecurrentsalestatus" @keyup="updatecurrentsalestatus" name="quantity"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('quantity') }">
+                    <has-error :form="form" field="quantity"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                              
+
+
+                  <div  class="modal-footer">
+                    <button  v-show="!editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
+                      <button  v-if="this.form.newqty >= 0"  type="submit" class="btn btn-success btn-sm" >Add</button>
+                        <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Cancel</button >
+                        </div>
+                 </form>
+                       </div>
+                          </div>
+                </div>
+
+                <!-- //////////////////////////////////////////////////////////// -->
             <div class="modal fade" id="receiptrintModal">
          <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
@@ -847,53 +862,20 @@ text-align: center;
 
     </div>
 </template>
-<script>
- const options = {
-      name: '_blank',
-      specs: [
-        'fullscreen=yes',
-        'titlebar=yes',
-        'scrollbars=yes'
-      ],
-      styles: [
-        'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
-        'https://unpkg.com/kidlat-css/css/kidlat.css'
-      ],
-    };
-</script>
-
-
 
 
 <script>
+import _ from "lodash";
     export default {
       
          data(){
            
         return {
-          globalOptions: {
-            name: '_blank',
-            specs: [
-              'fullscreen=yes',
-              'titlebar=yes',
-              'scrollbars=yes'
-            ],
-            styles: [
-              'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
-              'https://unpkg.com/kidlat-css/css/kidlat.css'
-            ],
-            timeout: 1000,
-            autoClose: true,
-            windowTitle: window.document.title, // whatever's the window title of the opener
-          },
-            localLandScapeOptions: {
-            styles: [
-              'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
-              'https://unpkg.com/kidlat-css/css/kidlat.css',
-              'public/landscape.css', // must be the path of your public folder
-            ]
+           search: '',
+          results: [],
+    
           
-      },
+     
             output: null,
              country: 0,
 
@@ -918,6 +900,8 @@ carttotal:[],
           editmode: false,
           mainmenurecords : {},
            productpriceslist:{},
+             productsellingrecords:{},
+          
           productsavailableforsalelist:{},
           shopingcartdetails:{},
           carttotal:{},
@@ -944,6 +928,11 @@ carttotal:[],
                 email:'',
                 rolename:'',
                 type:'',
+                productname:'',
+                 qty:'',
+                 newqty:'',
+                 quantity :'',
+                 search:'',
 
     ////
       shid:'',
@@ -968,47 +957,12 @@ carttotal:[],
          },
 
 methods:{
-    async print () {
-          await vm.$htmlToPaper('printMe');
-          console.warn('done');
-        },
-        async printLandscape () {
-          const localOptions = {
-            styles: [
-              'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
-              'https://unpkg.com/kidlat-css/css/kidlat.css',
-              './landscape.css'
-            ]
-          };
-          await vm.$htmlToPaper('printMe', localOptions);
-          console.warn('done landscape');
-        },
-        async printNoStyles () {
-          const localOptions = {
-            styles: []
-          };
-          await vm.$htmlToPaper('printMe', localOptions);
-          console.warn('done no styles');
-        },
-        async printAutoCloseOff () {
-          const localOptions = {
-            autoClose: false,
-          };
-          await vm.$htmlToPaper('printMe', localOptions);
-          console.warn('done');
-        },
-        async printCustomWindowTitle () {
-          const localOptions = {
-            windowTitle: 'This is custom window title',
-          };
-          await vm.$htmlToPaper('printMe', localOptions);
-          console.warn('done');
-        },
-        printCallback () {
-          vm.$htmlToPaper('printMe', null, () => {
-            console.warn('done callback');
-          });
-        },
+
+
+  
+   searchit: _.debounce(() => {
+        Fire.$emit('searching');
+      },1000),
     //////////////////////////////////////////////////////////
 
   paginationResultmainmemurecords(page = 1) {
@@ -1017,7 +971,37 @@ methods:{
                             this.mainmenurecords = response.data;
                           });
                       },
+ saveproductdetailsFilter(){
 
+                                this.loading = true;
+                                this.form.post('api/productdetailsFiltertoview')
+                                .then(()=>{
+   axios.get("api/productsellingrecords").then(({ data }) => (this.productsellingrecords = data));
+     
+//  axios.get("api/fishcollections").then(({ data }) => (this.fishcollectionrecords = data));
+//axios.get("api/makeexpenseofficeuser").then(({ data }) => (this.officemadeexpensesrecords = data));
+                                // Toast.fire({
+                                // icon: 'success',
+                                // title: 'Record Added Successfully'
+                                // });
+
+                                                              this.loading = false;
+
+                                  this.form.clear();
+        this.form.reset();
+                                })
+                                .catch(()=>{
+
+                                })
+
+}, 
+
+paginationResultsproductsellingrecords(page = 1) {
+                        axios.get('api/productsellingrecords?page=' + page)
+                          .then(response => {
+                            this.productsellingrecords = response.data;
+                          });
+                      },
 getRoles: function(){ axios.get('/api/getRoles').then(function (response) { this.roleslist = response.data;}.bind(this));},
 getUsertypes: function(){ axios.get('/api/getUsertypes').then(function (response) { this.typeslist = response.data;}.bind(this));},
 
@@ -1133,6 +1117,15 @@ loadComponentfeatures(){
             },
   
   
+  editProductdetails(productsellingrecords){
+                this.editmode = true;
+                 this.form.clear();
+        this.form.reset();
+        this.form.fill(productsellingrecords);
+$('#pruductdetailModal').modal('show');
+            },
+
+
   
   editcomponentfeature(mainmenurecords){
                 this.editmode = true;
@@ -1143,16 +1136,22 @@ $('#addnewcomponentfeaturemodal').modal('show');
             },
        createNewrecord(){
 
-  this.$Progress.start();
+ 
+if(this.form.newqty >= 0)
+{
+   this.$Progress.start();
 this.form.post('api/inserintocart')
+
 .then(()=>{
 
+ 
   this.$Progress.finish();
   Fire.$emit('AfterAction');
  axios.get("api/shopingcartdetails").then(({ data }) => (this.shopingcartdetails = data));  
+ axios.get("api/productsellingrecords").then(({ data }) => (this.productsellingrecords = data));  
  axios.get("api/getcattotal").then(({ data }) => (this. carttotal = data));
 
-$('#addNew').modal('hide');
+$('#pruductdetailModal').modal('hide');
   this.form.reset();
   this.form.restfocus();
 Toast.fire({
@@ -1160,15 +1159,35 @@ Toast.fire({
   title: 'Item  Added to Cart'
 });
 
+
   this.$Progress.finish();
+ 
 })
+
 .catch(()=>{
-
-})
-
-
+  
+  
 
 
+  });
+
+
+}//////////////
+
+ 
+  
+   if(this.form.newqty < 0)
+{
+ Swal.fire({  
+         icon: 'warning',
+          timer: 5000,
+        title: 'Not Enough Items in Store',
+       text: "The Quantity  Sold is More than The available Quantity. Check Please",});
+
+
+
+
+}//////////////
             },     
 
 
@@ -1276,11 +1295,11 @@ if (result.isConfirmed) {
   this.form.delete('api/shopingcartdetails/'+id).then(()=>{
   
                         Swal.fire(
-                          'Deleted!',
+                          'Removed!',
                           'Your Record has been deleted.',
                           'success'
                         )
-                   
+     axios.get("api/productsellingrecords").then(({ data }) => (this.productsellingrecords = data));  
      axios.get("api/shopingcartdetails").then(({ data }) => (this.shopingcartdetails = data));
      axios.get("api/getcattotal").then(({ data }) => (this. carttotal = data));
   
@@ -1672,10 +1691,13 @@ if (result.isConfirmed) {
 		},
 
 
-
+updatecurrentsalestatus(event) {
+        this.form.quantity = event.target.value
+        this.form.newqty = (this.form.qty)-(this.form.quantity)
+      },
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// End of Submenus
 prodlfunction(){
- axios.get("api/productsavailableforsalelist").then(({ data }) => (this.productsavailableforsalelist = data));
+ axios.get("api/productsellingrecords").then(({ data }) => (this.productsellingrecords = data));
 },
   /// Main menus
   // loadManinmens(){
@@ -1808,17 +1830,39 @@ if (result.isConfirmed) {
    
            },
 
-           
+   getSearchData(){
+        this.results = [];
+        if(this.search.length > 0){
+         axios.get('search',{params: {search: this.search}}).then(response => {
+          this.results = response.data;
+         });
+        }
+       }
+
+                 
          
 },// end of methods
 
 
 ///////////////////////////////////////////////////
         created() {
-          
+
+          Fire.$on('searching', ()=>{
+            // let query = this.$parent.search;
+            let query = this.search;
+          //   axios.get("api/productpriceslist").then(({ data }) => (this.productpriceslist = data));
+ axios.get('api/findUser?q='+ query)
+ .then((data)=> {
+this.productsellingrecords = data.data;
+ })
+ .catch(()=>{
+
+ })
+          })
+           axios.get("api/productsellingrecords").then(({ data }) => (this.productsellingrecords = data));
     axios.get("api/shopingcartdetails").then(({ data }) => (this.shopingcartdetails = data));  
     axios.get("api/getcattotal").then(({ data }) => (this. carttotal = data));
-          axios.get("api/productpriceslist").then(({ data }) => (this.productpriceslist = data));
+    axios.get("api/productpriceslist").then(({ data }) => (this.productpriceslist = data));
      axios.get("api/submenuaccessComponent").then(({ data }) => (this.submenuaccessComponent = data));
      axios.get("api/formfeaturesaccessComponent").then(({ data }) => (this.formfeaturesaccessComponent = data));
      axios.get("api/vuedetailsaccessComponent").then(({ data }) => (this.vuedetailsaccessComponent = data));
@@ -1834,7 +1878,11 @@ if (result.isConfirmed) {
             Fire.$on('AfterAction', () =>{
 // this.loadManinmens();
       });
-//setInterval(() =>this.prodlfunction(),3000);
+////////////////////setInterval(() =>this.prodlfunction(),3000);
         }
+        
     }
+     const app = new Vue({
+        el: '#kek'
+    });
 </script>

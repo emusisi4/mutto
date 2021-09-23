@@ -148,12 +148,12 @@ $qtynow   = \DB::table('products')->where('id', $ppcode)->limit(1)->value('qty')
           $upd = $qtynow-$soldqty;
          
          
-          DB::table('products')
-          ->where('id', $ppcode)
-          ->update(['qty' => $upd]);
-          DB::table('productprices')
-          ->where('productcode', $ppcode)
-          ->update(['qtyavailable' => $upd]);
+          // DB::table('products')
+          // ->where('id', $ppcode)
+          // ->update(['qty' => $upd]);
+          // DB::table('productprices')
+          // ->where('productcode', $ppcode)
+          // ->update(['qtyavailable' => $upd]);
       
  }
 
