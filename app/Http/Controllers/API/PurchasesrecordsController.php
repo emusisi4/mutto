@@ -36,7 +36,7 @@ class PurchasesrecordsController extends Controller
     
       
        return   Purchase::with(['productName','SupplierName'])->orderBy('id', 'Desc')
-       ->where('supplierinvoiceno', $supplierinvoiceno)
+      // ->where('supplierinvoiceno', $supplierinvoiceno)
        
       
          ->paginate(30);

@@ -15,7 +15,7 @@ use App\Shopingcat;
 use App\Productsale;
 use App\Orderdetail;
 use App\Salessummary;
-
+use App\Dailysummaryreport;
 class ConfirmpositemsController extends Controller
 {
     
@@ -101,14 +101,14 @@ if($currentinvoicenumber > 0)
     
 $invoiceno1  = \DB::table('salessummaries')->orderBy('id', 'Desc')->limit(1)->value('id');
 $inv = $invoiceno1+1;
-$invoiceno = "s".$inv.$dto;
+$invoiceno = $inv.$dto;
 
 }
 if($currentinvoicenumber < 1)
 {
     $inv =1;
 //$invoiceno1  = \DB::table('salessummaries')->orderBy('id', 'Desc')->limit(1)->value('id');
-$invoiceno = "s".$inv.$dto;
+$invoiceno = $inv.$dto;
 
 }
 
@@ -182,8 +182,11 @@ DB::table('branchcashstandings')
 ->update(['outstanding' => $newshopbalance]);
 
 
-
+$dto88 = date('Y-m-d');
  /// Saving the Sales Summary
+ $dateandmonth = $user->datesold;
+ $yearmade = date('Y', strtotime($dateandmonth));
+  $monthmade = date('m', strtotime($dateandmonth));
  Salessummary::Create([
    
    'invoiceno' => $invoiceno,
@@ -192,10 +195,55 @@ DB::table('branchcashstandings')
    'totalcost' => $totalcostoftheinvoice,
      'lineprofit' => $totalprofitoninvoice,
      'vatamount' => $totalvatoninvoice,
-    'invoiceamount' => $totallineforinvoice,     
+    'invoiceamount' => $totallineforinvoice,  
+    'actualprofit' => $totalprofitoninvoice-$totalvatoninvoice, 
+    'netinvoiceincome' => ($totallineforinvoice-$totalvatoninvoice),   
+    'monthmade' => $monthmade, 
+    'yearmade' => $yearmade,  
              'ucret' => $userid,
            
          ]);
+
+
+         //// Working on the Daily Sales Summary 
+  /// selecting the records
+  ///  
+  $ddddtt = $user->datesold;
+  $ubranch = $user->branch;
+
+  
+
+
+
+$totalsalesamount = \DB::table('salessummaries')->where('invoicedate', '=', $ddddtt)->where('branch', '=', $ubranch)->sum('invoiceamount');  
+$totalvat = \DB::table('salessummaries')->where('invoicedate', '=', $ddddtt)->where('branch', '=', $ubranch)->sum('vatamount');     
+$totalcost = \DB::table('salessummaries')->where('invoicedate', '=', $ddddtt)->where('branch', '=', $ubranch)->sum('totalcost');      
+$netinvoiceincome = \DB::table('salessummaries')->where('invoicedate', '=', $ddddtt)->where('branch', '=', $ubranch)->sum('netinvoiceincome');      
+$lineprofit = \DB::table('salessummaries')->where('invoicedate', '=', $ddddtt)->where('branch', '=', $ubranch)->sum('lineprofit');     
+$monthmade = \DB::table('salessummaries')->where('invoicedate', '=', $ddddtt)->where('branch', '=', $ubranch)->sum('monthmade');    
+$yearmade = \DB::table('salessummaries')->where('invoicedate', '=', $ddddtt)->where('branch', '=', $ubranch)->sum('yearmade');     
+
+
+
+/// deleting the current record
+DB::table('dailysummaryreports')->where('branch', $ubranch)->where('datedone', $ddddtt)->delete();
+/// Inserting a fresh record
+//id, datedone, branch, invoiceamount, totalcost, netinvoiceincome, lineprofit, vatamount, monthmade, yearmade
+Dailysummaryreport::Create([
+  'datedone' => $ddddtt,
+  'branch' => $ubranch, 
+
+  'invoiceamount' => $totalsalesamount,
+  'totalcost' => $totalcost,
+  'netinvoiceincome' => $netinvoiceincome,
+  'lineprofit' => $lineprofit,
+  'vatamount'=> $totalvat, 
+  'monthmade'=> $monthmade, 
+  'yearmade' => $yearmade,
+         
+       ]);
+
+
  DB::delete('delete from shopingcats where ucret = ?',[$userid]);
    
    

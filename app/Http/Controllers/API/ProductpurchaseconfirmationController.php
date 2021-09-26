@@ -10,7 +10,7 @@ use App\Mainmenucomponent;
 use App\Productprice;
 use App\Branch;
 use App\Purchase;
-
+use App\Productpricechange;
 class ProductpurchaseconfirmationController extends Controller
 {
     
@@ -100,14 +100,15 @@ $dateinq =  $request['datedone'];
 $qtydelivered = $request['qtydelivered'];
 $newsellingprice = $request['unitsellingprice'];
 $datedelivered = $request['deliverydate'];
-     $recordinquestion = $id;
+$dateordered = $request['dateordered'];
+$recordinquestion = $id;
 /// getting the invoice DEtails
 $userid =  auth('api')->user()->id;
       $userbranch =  auth('api')->user()->branch;
       $userrole =  auth('api')->user()->type;
-      $supplierinvoiceno = \DB::table('invoicetoviews')->where('ucret', '=', $userid)->value('invoiceno');
+      $supplierinvoiceno = \DB::table('purchases')->where('id', '=', $recordinquestion)->value('supplierinvoiceno');
 /// GEtting the product in question
-$productnumber = \DB::table('purchases')->where('supplierinvoiceno', '=', $supplierinvoiceno)->value('productcode');
+$productnumber = \DB::table('purchases')->where('id', '=', $recordinquestion)->value('productcode');
 $purchasecostforunit = \DB::table('purchases')->where('id', '=', $id)->value('unitprice');
 $oldinvoicevat =\DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $supplierinvoiceno)->value('totalvat');
 
@@ -129,81 +130,14 @@ if($vatstat != '1')
   $vattotalcurrentbasedonquantitydelivered = ($qtydelivered)*($purchasecostforunit*0.18);
 }
 $newinvoicevat =  $vattotalcurrentbasedonquantitydelivered+$oldinvoicevat;
-/// checking if the product exists in the products that can be sold
-$productexistanceinsellingproducts = \DB::table('productprices')->where('productcode', '=', $productnumber)->count();
-/// working on the costprice
-
-if($productexistanceinsellingproducts > 0)
-{
-    $oldcostprice = \DB::table('productprices')->where('productcode', '=', $productnumber)->value('unitcost');
-    $oldsellingprice = \DB::table('productprices')->where('productcode', '=', $productnumber)->value('unitprice');
-    $oldquantityavailable = \DB::table('productprices')->where('productcode', '=', $productnumber)->value('qtyavailable');
-   //echo round(3.6, 0);      // 4
-
-    
-    $newcostprice =     round((($purchasecostforunit+$oldcostprice)/2),0);
-    $newquantity = $oldquantityavailable+$qtydelivered;
-}
-if($productexistanceinsellingproducts < 1)
-{
-    $oldcostprice = 0;
-    $oldsellingprice = 0;
-    $oldquantityavailable = 0;
-    $newcostprice = ($purchasecostforunit);
-    $newquantity = $oldquantityavailable+$qtydelivered;
-}
-
-      /// Getting the Current Stock quantity
-/// updating the samaries
- ///// Updating the product prices for the Pos
-
- if($productexistanceinsellingproducts > 0)
- {
-     DB::table('productprices')->where('productcode', $productnumber)
-             ->update(array(
-                 'unitcost' => $newcostprice,
-                 'qtyavailable' => $newquantity,
-                 'lineprofit' => $newsellingprice-$newcostprice,
-                 'profitperc' => (($newsellingprice-$newcostprice)/($newcostprice)*100),
-                 'unitprice' =>  $newsellingprice
-             ));
-         }
-  
-      
-
-    ///// Updating the product prices for the Pos
-
-if($productexistanceinsellingproducts < 1)
-{
-    DB::table('productprices')
-            ->where('productcode', $productnumber)
-            ->update(array(
-                'unitcost' => $newcostprice,
-                'qtyavailable' => $newquantity,
-                'lineprofit' => $newsellingprice-$newcostprice,
-                'profitperc' => (($newsellingprice-$newcostprice)/($newcostprice)*100),
-                'unitprice' =>  $newsellingprice
-            
-            
-            
-            ));
 
 
-            Productprice::Create([
-       'productcode' => $productnumber,
-       'unitcost' => $newcostprice,
-        'qtyavailable' => $newquantity,
-        'lineprofit' => $newsellingprice-$newcostprice,
-        'profitperc' => (($newsellingprice-$newcostprice)/($newcostprice)*100),
-        'unitprice' => $newsellingprice,
-         'ucret' => $userid,
-            
-          ]);
-        }
-  
-//////
-//updating the vat wallet for vat input vat
-// getting the current input vat
+   $oldquantityavailable = \DB::table('products')->where('id', '=', $productnumber)->value('qty');
+   $oldsellingprice = \DB::table('products')->where('id', '=', $productnumber)->value('unitprice');
+   $newquantity = $oldquantityavailable+$qtydelivered;
+   $oldcostprice = \DB::table('products')->where('id', '=', $productnumber)->value('unitcost');
+   $newcostprice =     round((($purchasecostforunit+$oldcostprice)/2),0);
+
 $currentinputvat = \DB::table('expensewalets')->where('walletno', '=', 5)->value('bal');
 $newinputvat =  $vattotalcurrentbasedonquantitydelivered;
 $updatedinputtotal = $currentinputvat+$newinputvat;
@@ -212,12 +146,49 @@ DB::table('expensewalets')->where('walletno', 5)->update(array('bal' => $updated
 ////
 //////////////////////////////////////////////////////////////////////////// Purchase summaries
  DB::table('purchasessummaries')->where('supplierinvoiceno', $supplierinvoiceno)->update(array('totalvat' => $newinvoicevat,'finalcost' => $newconfirmedinvoicetotal));
-//////////////////////////////////////////////////////////////////////////// Product quantity
-DB::table('products')->where('id', $productnumber)->update(array('qty' => $newquantity));
+///
+$deliveredamount = \DB::table('purchasessummaries')->where('invoicedate', '=', $dateordered)->sum('finalcost');
+$deliveredvatamount = \DB::table('purchasessummaries')->where('invoicedate', '=', $dateordered)->sum('totalvat');
+
+
+DB::table('dailypurchasesreports')
+                   ->where('datedone', $dateordered)
+               ->update(array(
+                       'deliveredamount' => $deliveredamount,
+                      'deliveredvatamount' =>  $deliveredvatamount
+                    
+                    
+                    
+                   ));
+
+
+ //////////////////////////////////////////////////////////////////////////// Product quantity
+DB::table('products')->where('id', $productnumber)->update(array('qty' => $newquantity,
+ 'unitcost' => $newcostprice,
+ 'unitprice' => $newsellingprice
+));
+ // id, productname, oldcostprice, , , , , ucret, created_at, updated_at
+/// Updating the price fluctuations
+$datenow = date('Y-m-d');
+Productpricechange::Create([
+    
+
+  'productname' => $productnumber,
+  'oldcostprice' => $oldcostprice,
+  'newcostprice' => $newcostprice,
+
+  'oldsellingprice' => $oldsellingprice,
+  'newsellingprice' => $newsellingprice,
+  'datemodified' => $datenow,
+ 
+  'ucret' => $userid,
+
+]);
+
 //////////////////////////////////////////////////////////////////////////// Purchases
 DB::table('purchases')->where('id', $id)->update(array('status' => 1,'qtydelivered' => $qtydelivered,'datedelivered' => $datedelivered,
 'ucretconfirmeddelivery' => $userid,'linecostdelivery' => $purchasecostforunit,'totalcostdelivery'=> $purchasecostforunit*$qtydelivered));
-
+//// Updating 
         
     }
 

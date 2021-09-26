@@ -178,7 +178,15 @@ foreach ($allowedsubmenu as $rowallsub)
 
 }
 ?>
-
+  <div class="pull-right mx-auto">
+                                  <a  href="{{ route('logout') }}"
+           onclick="event.preventDefault();
+                         document.getElementById('logout-form').submit();" class="btn user-btn btn-default btn-flat">
+                Sign out</a>
+<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+                                </div>
                 </ul>
                 
             </div>
@@ -195,8 +203,7 @@ foreach ($allowedsubmenu as $rowallsub)
             </div>
 
             <!-- #Footer -->
-            <div class="position-absolute ml-0 bg-left"> <img src="images/bg-l.png"> </div>
-            <div class="position-absolute mr-0 bg-right"> <img src="images/bg-r.png"> </div>
+            
       
         </aside>
         <!-- #END# Left Sidebar -->

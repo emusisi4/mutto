@@ -210,34 +210,55 @@ pre {
 
 
 <!-- general component access -->
-<div  > 
-<!-- v-if="gencomponentaccessHrms > 0 " -->
-
-
-
+<div v-if="generalProductscomponentAccess > 0 " > 
 
 
         <!-- Start of the -->
 
-<link href="plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
-<link href="plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
 
-<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box bg-purple">
+
+           <div class="row clearfix">
+  <div v-if="branchwalletcomponentaccess > 0 " class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-indigo">
                         <div class="icon">
-                            <i class="material-icons">bookmark</i>
+                            <i class="material-icons">attach_money</i>
                         </div>
                         <div class="content">
-                            <div class="text"><b>JOGO SHOP BALANCE</b></div>
-                            <div class="number count-to" data-from="0" data-to="117" data-speed="1000" data-fresh-interval="20">117</div>
+                            <div class="text"><b>JOGO SHOP BALANCE </b></div>
+                            <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20">
+                              <b>{{currencydetails}}  {{formatPrice(shopcashbalance)}}</b></div>
+                        </div>
+                    </div>
+                </div>
+ <div v-if="administratorcomponentaccess > 0 " class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-indigo">
+                        <div class="icon">
+                            <i class="material-icons">attach_money</i>
+                        </div>
+                        <div class="content">
+                            <div class="text"><b>ADMINISTRATOR ACCOUNT  </b></div>
+                            <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20">
+                              <b>{{currencydetails}}  {{formatPrice(shopcashbalance)}}</b></div>
                         </div>
                     </div>
                 </div>
 
-<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div v-if="bankwalletcomponentaccess > 0 " class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box bg-indigo">
                         <div class="icon">
-                            <i class="material-icons">face</i>
+                            <i class="material-icons">attach_money</i>
+                        </div>
+                        <div class="content">
+                            <div class="text"><b>BANK ACCOUNT  </b></div>
+                            <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20">
+                              <b>{{currencydetails}}  {{formatPrice(shopcashbalance)}}</b></div>
+                        </div>
+                    </div>
+                </div>
+<div v-if="inputvatcomponentaccess > 0 "  class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-indigo">
+                        <div class="icon">
+                            <i class="material-icons">attach_money</i>
                         </div>
                         <div class="content">
                             <div class="text"><b>INPUT VAT (Fom Purchases) </b></div>
@@ -246,10 +267,10 @@ pre {
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+       <div v-if="outputcomponentaccess > 0 " class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box bg-indigo">
                         <div class="icon">
-                            <i class="material-icons">face</i>
+                            <i class="material-icons">attach_money</i>
                         </div>
                         <div class="content">
                             <div class="text"><b>OUTPUT VAT (On Sales) </b></div>
@@ -259,10 +280,10 @@ pre {
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div v-if="netvatvatcomponentcomponentaccess > 0" class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box bg-indigo">
                         <div class="icon">
-                            <i class="material-icons">face</i>
+                            <i class="material-icons">attach_money</i>
                         </div>
                         <div class="content">
                             <div class="text"><b>NET VAT </b></div>
@@ -271,6 +292,7 @@ pre {
                         </div>
                     </div>
                 </div>
+</div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
@@ -282,47 +304,48 @@ pre {
                         <div class="body">
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs" role="tablist">
-                                <li role="presentation" class="active">
+                               
+                                <li role="presentation" class="active" v-if="categoriesComponentaccess > 0">
                                     <a href="#home_with_icon_title" @click="loadProductcategories()" data-toggle="tab">
-                                        <i class="material-icons"></i> Categories
+                                        <i class="material-icons"></i> CATEGORIES
                                     </a>
                                 </li>
                                 <li role="presentation">
-                                    <a href="#profile_with_icon_title" @click="loadProductbrands()" data-toggle="tab">
+                                    <a href="#profile_with_icon_title" v-if="brandsComponentaccess > 0" @click="loadProductbrands()" data-toggle="tab">
                                         <i class="material-icons"></i> BRANDS
                                     </a>
                                 </li>
                                 <li role="presentation">
-                                    <a href="#messages_with_icon_title" @click="loadUnitofmeasure()" data-toggle="tab">
+                                    <a href="#messages_with_icon_title" v-if="unitsofmeasureComponentaccess > 0" @click="loadUnitofmeasure()" data-toggle="tab">
                                         <i class="material-icons"></i> UNIT OF MEASURE
                                     </a>
                                 </li>
                                 <li role="presentation">
-                                    <a href="#settings_with_icon_title" @click="laodProductdetails()" data-toggle="tab">
-                                        <i class="material-icons"></i> COMPANY PRODUCTS
+                                    <a href="#settings_with_icon_title" v-if="companyproductsComponentaccess > 0" @click="laodProductdetails()" data-toggle="tab">
+                                        <i class="material-icons"></i> ITEMS / PRODUCTS
                                     </a>
                                 </li>
 
                                     <li role="presentation">
-                                    <a href="#one_with_icon_title" @click="loadPurchaseInvoicessummary()" data-toggle="tab">
-                                        <i class="material-icons"></i> PURCHASE INVOICES
+                                    <a href="#one_with_icon_title" v-if="purchasesComponentaccess > 0" @click="loadPurchaseInvoicessummary()" data-toggle="tab">
+                                        <i class="material-icons"></i> PURCHASES
                                     </a>
                                 </li>
                                     
                                     <li role="presentation">
-                                    <a href="#two_with_icon_title" @click="loadPurchaserecords()" data-toggle="tab">
+                                    <a href="#two_with_icon_title" v-if="purchaserecordsComponentaccess > 0" @click="loadPurchaserecords()" data-toggle="tab">
                                         <i class="material-icons"></i> PURCHASES RECORDS
                                     </a>
                                 </li>
                                  <li role="presentation">
-                                    <a href="#two_with_icon_title" @click="loadsalesSummary()" data-toggle="tab">
-                                        <i class="material-icons"></i> Sales Receipts
+                                    <a href="#two_with_icon_title" v-if="salessummaryComponentaccess > 0" @click="loadsalesSummary()" data-toggle="tab">
+                                        <i class="material-icons"></i> SALES RECEIPTS
                                     </a>
                                 </li>
                                  
                                  <li role="presentation">
-                                    <a href="#three_with_icon_title" @click="loadactiveProductsonSale()" data-toggle="tab">
-                                        <i class="material-icons"></i> POINT OF SALE
+                                    <a href="#three_with_icon_title" v-if="salesdetailsComponentaccess > 0" @click="loadactiveProductsonSale()" data-toggle="tab">
+                                        <i class="material-icons"></i> PRODUCT SALES DETAILS
                                     </a>
                                 </li>
 
@@ -330,11 +353,11 @@ pre {
 
                             <!-- Tab panes -->
                             <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane fade in active" id="home_with_icon_title">
+                                <div role="tabpanel" class="tab-pane fade in active" id="home_with_icon_title"  v-if="categoriesComponentaccess > 0">
                                       <div class="bethapa-table-header">
                       PRODUCT CATEGORIES
                       <!--  v-if="allowedtoaddbranch > 0 " -->
-                      <button type="button" class="add-newm" @click="newBranchmodal" >Add New Product </button> 
+                      <button type="button"  v-if="addnewcategoryfeature > 0" class="add-newm" @click="newBranchmodal" >Add New Category </button> 
                      </div>
 
 
@@ -545,7 +568,7 @@ pre {
 
 
 
-                                <div role="tabpanel" class="tab-pane fade" id="profile_with_icon_title">
+                                <div role="tabpanel" class="tab-pane fade" id="profile_with_icon_title" v-if="brandsComponentaccess > 0">
                                   
                                      <div class="bethapa-table-header">
                   Prodct Brands 
@@ -686,14 +709,14 @@ pre {
                 
                                 </div>
                   <!--  -->
-                                <div role="tabpanel" class="tab-pane fade" id="messages_with_icon_title">
+                                <div role="tabpanel" class="tab-pane fade" id="messages_with_icon_title" v-if="unitsofmeasureComponentaccess > 0">
                                 
                                 
 
    <div class="bethapa-table-header">
                   Units Of Measure 
                   <!-- v-if="allowedtoaddbranch > 0 " -->
-                      <button type="button"  class="add-newm" @click="newproductunitofmeasureModal" >Add New </button> 
+                      <button type="button" v-if="addnewunitofmeasurefeature > 0" class="add-newm" @click="newproductunitofmeasureModal" >Add New </button> 
                      </div>
 
 
@@ -861,7 +884,7 @@ pre {
                                 </div>
 
                                 <!--  -->
-                                <div role="tabpanel" class="tab-pane fade" id="settings_with_icon_title">
+  <div role="tabpanel" class="tab-pane fade" id="settings_with_icon_title" v-if="companyproductsComponentaccess > 0" >
                                  
                                  
    <div class="bethapa-table-header">
@@ -925,7 +948,10 @@ pre {
 
                 </form>
               <div class="bethapa-table-header"></div>
+   <div class="mysalessect"> 
+  <input type="text" placeholder="Enter Item Name " v-model="search" v-on:keyup="searchit" @keyup="searchit" class="formcont2">
 
+  </div>
                        <table class="table">
                   <thead>
                     <tr>
@@ -1173,15 +1199,15 @@ pre {
 
                                 </div>
 
- <div role="tabpanel" class="tab-pane fade" id="one_with_icon_title">
+ <div role="tabpanel" class="tab-pane fade" id="one_with_icon_title" v-if="purchasesComponentaccess > 0">
                                 
                                 
 
    <div class="bethapa-table-header">
-                  PURCHASES INVOICES 
+                  PURCHASES  / INVOICES SUMMARY
                   <!-- v-if="allowedtoaddbranch > 0 " -->
                       <button type="button"  class="add-newm" @click="newpurchaseInvoice" >Generate Invoice </button> 
-                       <button type="button"  class="add-newm" @click="updateinvoiceproductsModal" >View  Invoice Details </button> 
+                       <button type="button"  class="add-newm" @click="updateinvoiceproductsModal" @mouseover="laodProductdetails" >View  Invoice Details </button> 
                      </div>
 
 
@@ -1322,7 +1348,7 @@ pre {
                             <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">ADD NEW UNIT</h3> 
                 <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Make Invoice Payment</h3> </h4> 
                         </div>
-                  <form class="form-horizontal" @submit.prevent="editmode ? createInvoicePayment():createUnitofmeasure()"> 
+                  <form class="form-horizontal" @submit.prevent="editmode ? createInvoicePayment():createUnitofmeasuhhhre()"> 
 
 <div class ="bethapa-table-sectionheader">ORDER DETAILS</div>
                                 <div class="row clearfix">
@@ -1481,9 +1507,10 @@ pre {
                 </div>
                
 
-<div class="modal fade" id="updateinvoiceproductsModal" style="position:left">
+<div class="modal fade" id="updateinvoiceproductsModal" style="position:left" >
          <div class="modal-dialog modal-lg">
-                    <div class="modal-content" style="width:1500px">
+           <div class="modal-content" >
+                    <!-- <div class="modal-content" style="width:1500px"> -->
                         <div class="modal-header">
                             <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">INVOICE PRODUCT UPDATE</h3> 
                 <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Update Record</h3> </h4> 
@@ -1521,91 +1548,91 @@ pre {
 
               
                                 <div class ="bethapa-table-sectionheader">Product Details to add to invoice</div>  
+  <div class="mysalessect"> 
+  <input type="text" placeholder="Enter Item Name " v-model="search" v-on:keyup="searchit" @keyup="searchit" class="formcont2">
 
+  </div>
+<table class="table">
+                  <thead>
+                    <tr>
+                   
+                      <th > # </th>
+                      
+                          <th > CATEGORY</th>
+                           
+                      <th > PRODUCT NAME </th>
+                     
+                      <th > UNIT OF MEASURE </th>
+                    
+                    
+                    
+                      
+                     
+                     <th >  </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+
+
+ 
+       
+     
+          
+
+                                 <tr v-for="probrands in productstoaddtoinvoicerecords.data" :key="probrands.id">
+                      
+                               
+                
+                      
+                         
+                                <td>{{probrands.id}}</td>
+                              
+                                <td> ({{probrands.category}}) <template v-if="probrands.product_category">	{{probrands.product_category.catname}}</template></td>  
+                                             
+                               
+   <td>   {{probrands.productname | firstletterCapital }}</td>
+   <td> <template v-if="probrands.unit_measure">	{{probrands.unit_measure.shotcode}}</template> -  <template v-if="probrands.unit_measure">	{{probrands.unit_measure.unitname}}</template></td>
+  
+    
+ 
+                   
+   
+                             
+                               
+                                 
+                                
+                               
+                                 <td> 
+                                  <!-- v-if="allowedtoeditbranch > 0 "  -->
+                              <button type="button"   class="btn  bg-secondary btn-xs"  @click="addmyselectedProducttoPurcase(probrands)">Purchase</button>
+                             
+
+
+                          
+
+
+                             
+                              </td>
 
 
                
-
-
-    <form class="form-horizontal" @submit.prevent="editmode ? updateUnitofmeffasure():createnewInvoiceproducts()"> 
-  <div class="col-md-2">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                           <label for="email_address_2">ITEM/PRODUCT</label>
-                                            <select style="width:20px" name ="productonpurchase"  v-model="form.productonpurchase" 
-                                            id ="productonpurchase"  class="orm-control show-tick"
-                                             data-live-search="true"  
-                                             :class="{'is-invalid': form.errors.has('productonpurchase')}">
-                    <option value="">   </option>
-                    <option v-for='data in productslist' v-bind:value='data.id'>{{ data.productname }}</option>
-
-                    </select>
-                     <has-error :form="form" field="productonpurchase"></has-error>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                           <label for="email_address_2">VAT Inclusive</label>
-                                            <select style="width:20px" name ="vatinclussive"  v-model="form.vatinclussive" 
-                                            id ="vatinclussive"  class="orm-control show-tick"
-                                             data-live-search="true"  
-                                             :class="{'is-invalid': form.errors.has('vatinclussive')}">
-                    <option value="">   </option>
-                    <option value="1">No  -   This product has no VAT</option>
-                    <option value="2">Yes - VAT is included in the cost Price</option>
-                     <option value="3">Yes - VAT is NOT IN cost Price</option>
-
-                    </select>
-                     <has-error :form="form" field="vatinclussive"></has-error>
-                                        </div>
-                                    </div>
-                                </div>
-                                 <div class="col-md-2">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                           <label for="email_address_2">UNITCOST</label>
-
-    
-
-        <input :value="form.unitcost" type="text"  id="unitcost"   @keyup="updateunitcost" @keypress="updateunitcost" name="unitcost" class="form-control" :class="{ 'is-invalid': form.errors.has('unitcost') }">
-                                           <has-error :form="form" field="unitcost"></has-error>
-                                        </div>
-                                    </div>
-                                </div>
-                                 <div class="col-md-2">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                           <label for="email_address_2">QTY</label>
-                                            <input type="number" :value="form.quantity" id="quantity" @keyup="updatequantity" @keypress="updatequantity" name="quantity" class="form-control" :class="{ 'is-invalid': form.errors.has('quantity') }">
-                                            <has-error :form="form" field="quantity"></has-error>
-                                        </div>
-                                    </div>
-                                </div>
-
+                              
                                
-                                 <div class="col-md-2">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                           <label for="email_address_2">TOTAL</label>
-                                            <input type="text" :value="form.totalcost"  name="totalcost" readonly class="form-control"  :class="{ 'is-invalid': form.errors.has('totalcost') }" >
+                    </tr>
+              
+                     
+                  </tbody>
+              
+ 
+                                   </table>
 
-                                             <has-error :form="form" field="totalcost"></has-error>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-1">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                           <label for="email_address_2"> </label>
-                                              <button v-if="invoicelockstatus  == '0'"  type="submit"   class="btn btn-info btn-xs"> Add to invoice</button>
+                      <div class ="bethapa-table-sectionheader"></div> 
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
 
-                                          
-                                        </div>
-                                    </div>
-                                </div>
-</form>
+
+
+  
 
 
 
@@ -1804,8 +1831,10 @@ pre {
                     <div class="modal-content">
                         <div class="modal-header">
                             <h3  v-show="!editmode"    class="modal-title">
-                              <img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">NEW INVOICE GENERATION</h3> 
-                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Update Record</h3> </h4> 
+                              <img src="images/logo.png" class="profile-user-img img-fluid img-circle"
+                               style="height: 80px; width: 80px;">NEW INVOICE GENERATION</h3> 
+                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" 
+                class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Update Record</h3> </h4> 
                         </div>
                   <form class="form-horizontal" @submit.prevent="editmode ? updateUnitofmeasure():createnewInvoice()"> 
 
@@ -1905,12 +1934,12 @@ pre {
                                 
                                 </div>
 <!-- ---------------------------------------------------------------------------------------------------------------------- -->
- <div role="tabpanel" class="tab-pane fade" id="two_with_icon_title">
+ <div role="tabpanel" class="tab-pane fade" id="two_with_icon_title" v-if="purchaserecordsComponentaccess > 0">
                                 
                                 
 
    <div class="bethapa-table-header">
-                  COMPANY PURCHASE DETAILS 
+                  PURCHASE / ORDER  DETAILS 
                   <!-- v-if="allowedtoaddbranch > 0 " -->
                  
                      </div>
@@ -2066,13 +2095,13 @@ pre {
 
 
 
-<div class="modal fade" id="confirmitemonpurchase">
-         <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
+<div class="modal fade" id="confirmitemonpurchase" >
+         <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content" style="width:800px">
                         <div class="modal-header">
                             <h3  v-show="!editmode"    class="modal-title">
-                              <img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">ITEM PURCHASE CONFIRMATION</h3> 
-                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">ITEM PURCHASE CONFIRMATION</h3> </h4> 
+                              <img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">CONFIRM PURCHASE</h3> 
+                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">CONFIRM PURCHASE</h3> </h4> 
                         </div>
                   <form class="form-horizontal" @submit.prevent="editmode ? updatecreateOrderconfirmation():createnewInvoice()"> 
 
@@ -2092,7 +2121,8 @@ pre {
                                     </div>
                                 </div>
 
-
+  <input v-model="form.dateordered" readonly type="hidden" name="dateordered"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('invoicedate') }">
                              
 
                                        <div class="row clearfix">
@@ -2190,12 +2220,12 @@ pre {
 <div class ="bethapa-table-sectionheader">PRICE SETTINGS</div>
                                        <div class="row clearfix">
                                     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="email_address_2">Unit Selling Price</label>
+                                        <label for="email_address_2">SELLING PRICE</label>
                                     </div>
                                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                  <input v-model="form.unitsellingprice" type="text" name="unitsellingprice"
+                                                  <input v-model="form.unitsellingprice" type="text" name="unitsellingprice" @keypress="updateunitsellingprice" @keydown="updateunitsellingprice" @keyup="updateunitsellingprice"
                       class="form-control" :class="{ 'is-invalid': form.errors.has('unitsellingprice') }" placeholder="Note that this selling price includes Vat of 18%">
                       
                     <has-error :form="form" field="unitsellingprice"></has-error>
@@ -2204,6 +2234,38 @@ pre {
                                     </div>
                                 </div>
 
+   <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">OUTPUT VAT</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                  <input v-model="form.unitoutputvat" type="text" name="unitoutputvat" readonly
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('unitoutputvat') }" placeholder="">
+                      
+                    <has-error :form="form" field="unitoutputvat"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                  <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">LINE PROFIT</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                  <input v-model="form.netprofit" type="text" name="netprofit" readonly
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('netprofit') }" placeholder="">
+                      
+                    <has-error :form="form" field="netprofit"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
 
 
@@ -2289,7 +2351,7 @@ pre {
                                 
                                 </div>
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
- <div role="tabpanel" class="tab-pane fade" id="three_with_icon_title">
+ <div role="tabpanel" class="tab-pane fade" id="three_with_icon_title" v-if="salessummaryComponentaccess > 0"> 
                                 
                                 
 
@@ -2314,7 +2376,148 @@ pre {
 
 
 
+<div class="modal fade" id="ccfnewpurchaseinvoiceModal">
+         <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3  v-show="!editmode"    class="modal-title">
+                              <img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Add Item to Purchase Invoice</h3> 
+                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Add Item to Purchase Invoice
+                </h3> </h4> 
+                        </div>
+                 <form class="form-horizontal" @submit.prevent="editmode ? createnewInvoiceproducts():createnewInvoiceproducts()"> 
 
+
+
+
+
+
+
+                                 <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">ITEM NAMEnnn </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                              
+                                                 <input v-model="form.id" readonly id="id" type="hidden" name="productonpurchase"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('productname') }">
+                                                  <input v-model="form.productname" readonly id="productname" type="text" name="productname"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('productname') }">
+                    <has-error :form="form" field="productname"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+  <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">VAT CHARGE</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <select style="width:20px" name ="vatinclussive"  v-model="form.vatinclussive" 
+                                            id ="vatinclussive"  class="orm-control show-tick"
+                                             data-live-search="true"  
+                                             :class="{'is-invalid': form.errors.has('vatinclussive')}">
+                    <option value="">   </option>
+                    <option value="1">No  -   This product has no VAT</option>
+                    <option value="2">Yes - VAT is included in the cost Price</option>
+                     <option value="3">Yes - VAT is NOT IN cost Price</option>
+
+                    </select>
+                    <has-error :form="form" field="vatinclussive"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+  <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">UNIT COST</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input :value="form.unitcost" type="text"  id="unitcost"   @keyup="updateunitcost" @keypress="updateunitcost" name="unitcost" class="form-control" :class="{ 'is-invalid': form.errors.has('unitcost') }">
+                                           <has-error :form="form" field="unitcost"></has-error>
+      
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+  <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">QUANTITY TO PURCHASE</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                            <input type="number" :value="form.quantity" id="quantity" @keyup="updatequantity" @keypress="updatequantity" name="quantity" class="form-control" :class="{ 'is-invalid': form.errors.has('quantity') }">
+                                            <has-error :form="form" field="quantity"></has-error>
+ 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+  <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">TOTAL COST</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                          <input type="text" :value="form.totalcost"  name="totalcost" readonly class="form-control"  :class="{ 'is-invalid': form.errors.has('totalcost') }" >
+
+                                             <has-error :form="form" field="totalcost"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+<br>
+
+
+
+
+
+
+ <div  class="modal-footer">
+   <button v-if="invoicelockstatus  == '0'"  type="submit"   class="btn btn-primary btn-sm"> Add to invoice</button>
+                
+                      <button  v-if="this.form.newqty >= 0"  type="submit" class="btn btn-success btn-sm" >Add</button>
+                        <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Cancel</button >
+                        </div>
+  
+
+
+                             
+      
+                             
+</form>
+                       </div>
+                          </div>
+                </div>
 
 
 
@@ -2330,7 +2533,7 @@ pre {
 <!-- closure of allowed -->
 <!--   if not authorised -->
 
-<div  v-if="gencomponentaccessHrms < 1 "> 
+<div  v-if="generalProductscomponentAccess < 1 "> 
 
    <div class="container">
         <div class="row justify-content-center">
@@ -2379,7 +2582,14 @@ productsandpriceslist:[],
           productbrandslist:[],
         unitmeasurelist:[],
          ///// Access authorities
-         gencomponentaccessHrms:'',
+         generalProductscomponentAccess:'',
+         categoriesComponentaccess:'',
+brandsComponentaccess:'',
+unitsofmeasureComponentaccess:'',
+companyproductsComponentaccess:'',
+purchasesComponentaccess:'',
+purchaserecordsComponentaccess:'',
+salessummaryComponentaccess:'',
          branchesccessSettings:'',
            
          rolesaccessSettings:'',
@@ -2413,6 +2623,7 @@ gettheinvoicedeliverystatus:{},
           activeproductsonsalerecords:{},
 
           productdetailsrecords:{},
+          productstoaddtoinvoicerecords:{},
           datarecordsSubmenusauthorised:{},
           allowedrolecomponentsObject :{},
           datarecordsMainmenuauthorised:{},
@@ -2426,6 +2637,7 @@ gettheinvoicedeliverystatus:{},
           allowedtodeleteProductCategory:{},
           allowedtoeditbranch:{},
           inputvatamount:{},
+          shopcashbalance:{},
           outputvatamount:{},
           invoicelockstatus:{},
 
@@ -2442,6 +2654,11 @@ unitcost :1,
 quantity: 1,
 finalcost:'',
 amountpaid:'',
+unitoutputvat: 1,
+netprofit:1,
+unitsellingprice:1,
+invoicedate:'',
+dateordered:'',
 
                 id: '',
                 name:'',
@@ -2488,8 +2705,21 @@ companycontactperson:'',
 
 methods:{
 
+   searchit: _.debounce(() => {
+        Fire.$emit('searching');
+      },1000),
 
 //  SENA HARDWARE
+updateunitsellingprice(event) {
+        this.form.unitsellingprice = event.target.value
+        this.form.unitoutputvat = this.form.unitsellingprice * 0.18
+        this.form.netprofit = (this.form.unitsellingprice)- (this.form.unitprice) - (this.form.unitsellingprice * 0.18)
+      },
+
+
+
+
+
 updateunitcost(event) {
         this.form.unitcost = event.target.value
         this.form.totalcost = this.form.unitcost * this.form.quantity
@@ -2508,9 +2738,9 @@ updateunitcost(event) {
                                 this.loading = true;
                                 this.form.post('api/productdetailsFiltertoview')
                                 .then(()=>{
-   axios.get("api/productdetailsrecords").then(({ data }) => (this.productdetailsrecords = data));
-     
-//  axios.get("api/fishcollections").then(({ data }) => (this.fishcollectionrecords = data));
+  
+  axios.get("api/productdetailsrecords").then(({ data }) => (this.productdetailsrecords = data));
+ 
 //axios.get("api/makeexpenseofficeuser").then(({ data }) => (this.officemadeexpensesrecords = data));
                                 // Toast.fire({
                                 // icon: 'success',
@@ -2761,8 +2991,8 @@ paginationResultsProductdetailsrecords(page = 1) {
 
     laodProductdetails(){
        axios.get("api/productdetailsrecords").then(({ data }) => (this.productdetailsrecords = data));
-     
-        axios.get("api/gencomponentaccessHrms").then(({ data }) => (this.gencomponentaccessHrms = data));
+     axios.get("api/productstoaddtoinvoicerecords").then(({ data }) => (this.productstoaddtoinvoicerecords = data));
+        axios.get("api/generalProductscomponentAccess").then(({ data }) => (this.generalProductscomponentAccess = data));
         axios.get("api/branchesccessSettings").then(({ data }) => (this.branchesccessSettings = data));
         axios.get("api/rolesaccessSettings").then(({ data }) => (this.rolesaccessSettings = data));
         axios.get("api/submenuaccessSettings").then(({ data }) => (this.submenuaccessSettings = data));
@@ -2772,11 +3002,18 @@ paginationResultsProductdetailsrecords(page = 1) {
 axios.get('/api/unitmeasurelist').then(function (response) { this.unitmeasurelist = response.data;}.bind(this));
 axios.get('/api/productbrandslist').then(function (response) { this.productbrandslist = response.data;}.bind(this));
         //  axios.get('/api/branchDetails').then(function (response) { this.brancheslist = response.data;}.bind(this));
+        axios.get("api/brandsComponentaccess").then(({ data }) => (this.brandsComponentaccess = data));
+axios.get("api/categoriesComponentaccess").then(({ data }) => (this.categoriesComponentaccess = data));
+axios.get("api/unitsofmeasureComponentaccess").then(({ data }) => (this.unitsofmeasureComponentaccess = data));
+axios.get("api/companyproductsComponentaccess").then(({ data }) => (this.companyproductsComponentaccess = data));
+axios.get("api/purchasesComponentaccess").then(({ data }) => (this.purchasesComponentaccess = data));
+axios.get("api/purchaserecordsComponentaccess").then(({ data }) => (this.purchaserecordsComponentaccess = data));
+axios.get("api/salessummaryComponentaccess").then(({ data }) => (this.salessummaryComponentaccess = data));
 
   },
     loadUnitofmeasure(){
         axios.get("api/productunitofmeasurerecords").then(({ data }) => (this.productunitofmeasurerecords = data));
-        axios.get("api/gencomponentaccessHrms").then(({ data }) => (this.gencomponentaccessHrms = data));
+        axios.get("api/generalProductscomponentAccess").then(({ data }) => (this.generalProductscomponentAccess = data));
         axios.get("api/branchesccessSettings").then(({ data }) => (this.branchesccessSettings = data));
         axios.get("api/rolesaccessSettings").then(({ data }) => (this.rolesaccessSettings = data));
         axios.get("api/submenuaccessSettings").then(({ data }) => (this.submenuaccessSettings = data));
@@ -2828,7 +3065,7 @@ loadactiveProductsonSale(){
   loadProductbrands(){
        axios.get("api/productbrandsrecords").then(({ data }) => (this.productbrandsrecords = data));
      
-        axios.get("api/gencomponentaccessHrms").then(({ data }) => (this.gencomponentaccessHrms = data));
+        axios.get("api/generalProductscomponentAccess").then(({ data }) => (this.generalProductscomponentAccess = data));
         axios.get("api/branchesccessSettings").then(({ data }) => (this.branchesccessSettings = data));
         axios.get("api/rolesaccessSettings").then(({ data }) => (this.rolesaccessSettings = data));
         axios.get("api/submenuaccessSettings").then(({ data }) => (this.submenuaccessSettings = data));
@@ -2838,6 +3075,13 @@ loadactiveProductsonSale(){
 
 axios.get('/api/productbrandslist').then(function (response) { this.productbrandslist = response.data;}.bind(this));
         //  axios.get('/api/branchDetails').then(function (response) { this.brancheslist = response.data;}.bind(this));
+        axios.get("api/brandsComponentaccess").then(({ data }) => (this.brandsComponentaccess = data));
+axios.get("api/categoriesComponentaccess").then(({ data }) => (this.categoriesComponentaccess = data));
+axios.get("api/unitsofmeasureComponentaccess").then(({ data }) => (this.unitsofmeasureComponentaccess = data));
+axios.get("api/companyproductsComponentaccess").then(({ data }) => (this.companyproductsComponentaccess = data));
+axios.get("api/purchasesComponentaccess").then(({ data }) => (this.purchasesComponentaccess = data));
+axios.get("api/purchaserecordsComponentaccess").then(({ data }) => (this.purchaserecordsComponentaccess = data));
+axios.get("api/salessummaryComponentaccess").then(({ data }) => (this.salessummaryComponentaccess = data));
 
   },
   loadProductcategories(){
@@ -2846,7 +3090,27 @@ axios.get('/api/productbrandslist').then(function (response) { this.productbrand
      //  this.getRoles();
      //  this.getUsertypes();
         this.checkBranchescomponentfeatures();
-        axios.get("api/gencomponentaccessHrms").then(({ data }) => (this.gencomponentaccessHrms = data));
+
+axios.get("api/brandsComponentaccess").then(({ data }) => (this.brandsComponentaccess = data));
+axios.get("api/categoriesComponentaccess").then(({ data }) => (this.categoriesComponentaccess = data));
+axios.get("api/unitsofmeasureComponentaccess").then(({ data }) => (this.unitsofmeasureComponentaccess = data));
+axios.get("api/companyproductsComponentaccess").then(({ data }) => (this.companyproductsComponentaccess = data));
+axios.get("api/purchasesComponentaccess").then(({ data }) => (this.purchasesComponentaccess = data));
+axios.get("api/purchaserecordsComponentaccess").then(({ data }) => (this.purchaserecordsComponentaccess = data));
+axios.get("api/salessummaryComponentaccess").then(({ data }) => (this.salessummaryComponentaccess = data));
+
+
+
+
+
+
+
+
+
+
+
+
+        axios.get("api/generalProductscomponentAccess").then(({ data }) => (this.generalProductscomponentAccess = data));
         axios.get("api/branchesccessSettings").then(({ data }) => (this.branchesccessSettings = data));
         axios.get("api/rolesaccessSettings").then(({ data }) => (this.rolesaccessSettings = data));
         axios.get("api/submenuaccessSettings").then(({ data }) => (this.submenuaccessSettings = data));
@@ -2864,8 +3128,14 @@ loadSubmenaccess(){
         axios.get("api/getSubmenues").then(({ data }) => (this.submenulist = data));
       //  this.getRoles();
       //  this.getUsertypes();
-     
-    axios.get("api/gencomponentaccessHrms").then(({ data }) => (this.gencomponentaccessHrms = data));
+     axios.get("api/brandsComponentaccess").then(({ data }) => (this.brandsComponentaccess = data));
+axios.get("api/categoriesComponentaccess").then(({ data }) => (this.categoriesComponentaccess = data));
+axios.get("api/unitsofmeasureComponentaccess").then(({ data }) => (this.unitsofmeasureComponentaccess = data));
+axios.get("api/companyproductsComponentaccess").then(({ data }) => (this.companyproductsComponentaccess = data));
+axios.get("api/purchasesComponentaccess").then(({ data }) => (this.purchasesComponentaccess = data));
+axios.get("api/purchaserecordsComponentaccess").then(({ data }) => (this.purchaserecordsComponentaccess = data));
+axios.get("api/salessummaryComponentaccess").then(({ data }) => (this.salessummaryComponentaccess = data));
+    axios.get("api/generalProductscomponentAccess").then(({ data }) => (this.generalProductscomponentAccess = data));
         axios.get("api/branchesccessSettings").then(({ data }) => (this.branchesccessSettings = data));
         axios.get("api/rolesaccessSettings").then(({ data }) => (this.rolesaccessSettings = data));
         axios.get("api/submenuaccessSettings").then(({ data }) => (this.submenuaccessSettings = data));
@@ -2881,8 +3151,14 @@ loadMainmenuaccess(){
 axios.get("api/authorisedmainmenus").then(({ data }) => (this.datarecordsMainmenuauthorised = data));
           
         axios.get("api/getMainmenues").then(({ data }) => (this.mainmenulist = data));
-
-      axios.get("api/gencomponentaccessHrms").then(({ data }) => (this.gencomponentaccessHrms = data));
+axios.get("api/brandsComponentaccess").then(({ data }) => (this.brandsComponentaccess = data));
+axios.get("api/categoriesComponentaccess").then(({ data }) => (this.categoriesComponentaccess = data));
+axios.get("api/unitsofmeasureComponentaccess").then(({ data }) => (this.unitsofmeasureComponentaccess = data));
+axios.get("api/companyproductsComponentaccess").then(({ data }) => (this.companyproductsComponentaccess = data));
+axios.get("api/purchasesComponentaccess").then(({ data }) => (this.purchasesComponentaccess = data));
+axios.get("api/purchaserecordsComponentaccess").then(({ data }) => (this.purchaserecordsComponentaccess = data));
+axios.get("api/salessummaryComponentaccess").then(({ data }) => (this.salessummaryComponentaccess = data));
+      axios.get("api/generalProductscomponentAccess").then(({ data }) => (this.generalProductscomponentAccess = data));
         axios.get("api/branchesccessSettings").then(({ data }) => (this.branchesccessSettings = data));
         
         axios.get("api/rolesaccessSettings").then(({ data }) => (this.rolesaccessSettings = data));
@@ -2899,7 +3175,14 @@ axios.get("api/authorisedmainmenus").then(({ data }) => (this.datarecordsMainmen
         axios.get("api/getlistofcomponents").then(({ data }) => (this.componentslist = data));
       //  this.getRoles();
       //  this.getUsertypes();
-    axios.get("api/gencomponentaccessHrms").then(({ data }) => (this.gencomponentaccessHrms = data));
+      axios.get("api/brandsComponentaccess").then(({ data }) => (this.brandsComponentaccess = data));
+axios.get("api/categoriesComponentaccess").then(({ data }) => (this.categoriesComponentaccess = data));
+axios.get("api/unitsofmeasureComponentaccess").then(({ data }) => (this.unitsofmeasureComponentaccess = data));
+axios.get("api/companyproductsComponentaccess").then(({ data }) => (this.companyproductsComponentaccess = data));
+axios.get("api/purchasesComponentaccess").then(({ data }) => (this.purchasesComponentaccess = data));
+axios.get("api/purchaserecordsComponentaccess").then(({ data }) => (this.purchaserecordsComponentaccess = data));
+axios.get("api/salessummaryComponentaccess").then(({ data }) => (this.salessummaryComponentaccess = data));
+    axios.get("api/generalProductscomponentAccess").then(({ data }) => (this.generalProductscomponentAccess = data));
         axios.get("api/branchesccessSettings").then(({ data }) => (this.branchesccessSettings = data));
         axios.get("api/rolesaccessSettings").then(({ data }) => (this.rolesaccessSettings = data));
         axios.get("api/submenuaccessSettings").then(({ data }) => (this.submenuaccessSettings = data));
@@ -2997,6 +3280,13 @@ newproductunitofmeasureModal(){
             },
 
 
+addmyselectedProducttoPurcase(productstoaddtoinvoicerecords){
+                this.editmode = true;
+                 this.form.clear();
+        this.form.reset();
+        this.form.fill(productstoaddtoinvoicerecords);
+$('#ccfnewpurchaseinvoiceModal').modal('show');
+            },
   editProductdetails(productdetailsrecords){
                 this.editmode = true;
                  this.form.clear();
@@ -3075,6 +3365,7 @@ $('#addproductcategoryModal').modal('show');
      this.form.clear();
         this.form.reset();
     axios.get("api/productdetailsrecords").then(({ data }) => (this.productdetailsrecords = data));
+    axios.get("api/productstoaddtoinvoicerecords").then(({ data }) => (this.productstoaddtoinvoicerecords = data));
   Toast.fire({
   icon: 'success',
   title: 'Record added successfully'
@@ -3099,6 +3390,10 @@ $('#addproductcategoryModal').modal('show');
     //  $('#updateinvoiceproductsModal').modal('show');
      this.form.clear();
         this.form.reset();
+          $('#ccfnewpurchaseinvoiceModal').modal('hide');
+               
+                  $('#updateinvoiceproductsModal').modal('show');
+
     axios.get("api/productunitofmeasurerecords").then(({ data }) => (this.productunitofmeasurerecords = data));
      axios.get("api/activeinvoicetoupdaterecords").then(({ data }) => (this.activeinvoicetoupdaterecords = data));
 
@@ -3111,6 +3406,7 @@ axios.get("api/gettheinvoicetotalwithoutvat").then(({ data }) => (this.gettheinv
   icon: 'success',
   title: 'Record added successfully'
 });
+
         this.$Progress.finish();
 
         })
@@ -3128,7 +3424,7 @@ axios.get("api/gettheinvoicetotalwithoutvat").then(({ data }) => (this.gettheinv
 
          
     $('#newpurchaseinvoiceModal').modal('hide');
-     $('#updateinvoiceproductsModal').modal('show');
+    //  $('#updateinvoiceproductsModal').modal('show');
      this.form.clear();
         this.form.reset();
     axios.get("api/productunitofmeasurerecords").then(({ data }) => (this.productunitofmeasurerecords = data));
@@ -3206,6 +3502,7 @@ this.form.put('api/productdetailsrecords/'+this.form.id)
       this.$Progress.finish();
     // Fire.$emit('AfterAction');
     axios.get("api/productdetailsrecords").then(({ data }) => (this.productdetailsrecords = data));
+    axios.get("api/productstoaddtoinvoicerecords").then(({ data }) => (this.productstoaddtoinvoicerecords = data));
 
   })
 
@@ -3912,18 +4209,58 @@ if (result.isConfirmed) {
               axios.get("api/getGrantcomponentaccess").then(({ data }) => (this.allowedtogivecomponentaccess = data));
            },
 
+loadvatvalues(){
+  axios.get('/api/shopcashbalance').then(function (response) { this.shopcashbalance = response.data;}.bind(this));
 
+   axios.get('/api/inputvatamount').then(function (response) { this.inputvatamount = response.data;}.bind(this));
+
+ axios.get('/api/outputvatamount').then(function (response) { this.outputvatamount = response.data;}.bind(this));
+
+
+},
 
             
 
 },// end of methods
-loadvatvalues(){
-   axios.get("api/inputvatamount").then(({ data }) => (this.inputvatamount = data));
-              axios.get("api/outputvatamount").then(({ data }) => (this.outputvatamount = data));
-},
+
 
 ///////////////////////////////////////////////////
         created() {
+
+
+
+
+
+   Fire.$on('searching', ()=>{
+            // let query = this.$parent.search;
+            let query = this.search;
+          //   axios.get("api/productpriceslist").then(({ data }) => (this.productpriceslist = data));
+ axios.get('api/findUser?q='+ query)
+ .then((data)=> {
+this.productstoaddtoinvoicerecords = data.data;
+ })
+ .catch(()=>{
+
+ })
+          })
+
+
+
+
+
+
+
+
+   axios.get('/api/inputvatamount').then(function (response) { this.inputvatamount = response.data;}.bind(this));
+
+ axios.get('/api/outputvatamount').then(function (response) { this.outputvatamount = response.data;}.bind(this));
+
+
+
+
+
+
+
             this.loadProductcategories();
             axios.get("api/getcurrencydetails").then(({ data }) => (this.currencydetails = data));
                axios.get('/api/productcategorieslist').then(function (response) { this.productcategorieslist = response.data;}.bind(this));

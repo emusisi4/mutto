@@ -789,6 +789,9 @@ div.dataTables_wrapper div.dataTables_info, div#sreetable_paginate {
 td {
     border-left: 0.5px solid #c5c5c5;
     background-color: #ffffff;
+    padding-left: 18px;
+    color: black;
+
 }
 
 

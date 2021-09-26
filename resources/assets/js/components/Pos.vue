@@ -270,26 +270,64 @@ text-align: center;
 
 
 <!-- general component access -->
-<div  v-if="generalcomponentaccessComponentfeatures > 0 "> 
+<div  v-if="generalPointofsalecomponentaccess > 0 "> 
 
  <div>
-<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box bg-purple">
+<div class="row clearfix">
+  <div v-if="branchwalletcomponentaccess > 0 " class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-indigo">
                         <div class="icon">
-                            <i class="material-icons">bookmark</i>
+                            <i class="material-icons">attach_money</i>
                         </div>
                         <div class="content">
-                            <div class="text"><b>JOGO SHOP BALANCE</b></div>
-                            <div class="number count-to" data-from="0" data-to="117" data-speed="1000" data-fresh-interval="20">117</div>
+                            <div class="text"><b>JOGO SHOP BALANCE </b></div>
+                            <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20">
+                              <b>{{currencydetails}}  {{formatPrice(shopcashbalance)}}</b></div>
+                        </div>
+                    </div>
+                </div>
+ <div v-if="administratorcomponentaccess > 0 " class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-indigo">
+                        <div class="icon">
+                            <i class="material-icons">attach_money</i>
+                        </div>
+                        <div class="content">
+                            <div class="text"><b>ADMINISTRATOR ACCOUNT  </b></div>
+                            <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20">
+                              <b>{{currencydetails}}  {{formatPrice(administratoraccountbalance)}}</b></div>
                         </div>
                     </div>
                 </div>
 
-
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div v-if="bankwalletcomponentaccess > 0 " class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box bg-indigo">
                         <div class="icon">
-                            <i class="material-icons">face</i>
+                            <i class="material-icons">attach_money</i>
+                        </div>
+                        <div class="content">
+                            <div class="text"><b>BANK ACCOUNT  </b></div>
+                            <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20">
+                              <b>{{currencydetails}}  {{formatPrice(bankaccountbalance)}}</b></div>
+                        </div>
+                       
+                    </div>
+                </div>
+<div v-if="inputvatcomponentaccess > 0 "  class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-indigo">
+                        <div class="icon">
+                            <i class="material-icons">attach_money</i>
+                        </div>
+                        <div class="content">
+                            <div class="text"><b>INPUT VAT (Fom Purchases) </b></div>
+                            <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20">
+                              <b>{{currencydetails}}  {{formatPrice(inputvatamount) }}</b></div>
+                        </div>
+                    </div>
+                </div>
+       <div v-if="outputcomponentaccess > 0 " class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-indigo">
+                        <div class="icon">
+                            <i class="material-icons">attach_money</i>
                         </div>
                         <div class="content">
                             <div class="text"><b>OUTPUT VAT (On Sales) </b></div>
@@ -299,10 +337,10 @@ text-align: center;
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div v-if="netvatvatcomponentcomponentaccess > 0" class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box bg-indigo">
                         <div class="icon">
-                            <i class="material-icons">face</i>
+                            <i class="material-icons">attach_money</i>
                         </div>
                         <div class="content">
                             <div class="text"><b>NET VAT </b></div>
@@ -311,6 +349,7 @@ text-align: center;
                         </div>
                     </div>
                 </div>
+</div>
  <section >
 
    
@@ -756,7 +795,7 @@ text-align: center;
                         <tr>
                           <th style="color:black" class="tresed">#</th>
                             <th style="color:black" class="tresed">Item</th>
-                               <th style="color:black"class="tresed" >Unit Price</th>
+                               <th style="color:black" class="tresed" >Unit Price</th>
                              <th style="color:black" class="tresed">Qty</th>
                                 <th style="color:black" class="tresed">Total</th>
                         </tr>
@@ -838,7 +877,7 @@ text-align: center;
 
 
 <!--   if not authorised -->
-<div  v-if="generalcomponentaccessComponentfeatures < 1 ">
+<div  v-if="generalPointofsalecomponentaccess < 1 ">
    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10 mt-4">
@@ -884,13 +923,15 @@ import _ from "lodash";
                 typeslist:[],
 mainmenulist:[],
 currencydetails:[],
+
     productsavailableforsalelist :[],
             productbrandslist:[],
 carttotal:[],
             ///////////////////////////////////
           brancheslist: null,
          // accessusercoponent : null,
-         generalcomponentaccessComponentfeatures:'',
+         generalPointofsalecomponentaccess:'',
+         branchwalletcomponentaccess:'',
          mainmenuaccessComponent:'',
          submenuaccessComponent : '',
          vuedetailsaccessComponent : '',
@@ -995,6 +1036,31 @@ methods:{
                                 })
 
 }, 
+
+loadvatvalues(){
+
+  
+
+
+axios.get('/api/bankaccountbalance').then(function (response) { this.bankaccountbalance = response.data;}.bind(this));
+  axios.get('/api/administratoraccountbalance').then(function (response) { this.administratoraccountbalance = response.data;}.bind(this));
+
+
+  axios.get('/api/shopcashbalance').then(function (response) { this.shopcashbalance = response.data;}.bind(this));
+  axios.get('/api/inputvatamount').then(function (response) { this.inputvatamount = response.data;}.bind(this));
+
+ axios.get('/api/outputvatamount').then(function (response) { this.outputvatamount = response.data;}.bind(this));
+
+axios.get('/api/inputvatcomponentaccess').then(function (response) { this.inputvatcomponentaccess = response.data;}.bind(this));
+axios.get('/api/outputcomponentaccess').then(function (response) { this.outputcomponentaccess = response.data;}.bind(this));
+axios.get('/api/bankwalletcomponentaccess').then(function (response) { this.bankwalletcomponentaccess = response.data;}.bind(this));
+axios.get('/api/netvatvatcomponentcomponentaccess').then(function (response) { this.netvatvatcomponentcomponentaccess = response.data;}.bind(this));
+axios.get('/api/administratorcomponentaccess').then(function (response) { this.administratorcomponentaccess = response.data;}.bind(this));
+axios.get('/api/branchwalletcomponentaccess').then(function (response) { this.branchwalletcomponentaccess = response.data;}.bind(this));
+
+
+
+},
 
 paginationResultsproductsellingrecords(page = 1) {
                         axios.get('api/productsellingrecords?page=' + page)
@@ -1559,7 +1625,7 @@ if (result.isConfirmed) {
        axios.get("api/submenus").then(({ data }) => (this.submenurecords = data));
           
        axios.get("api/mainmenulist").then(({ data }) => (this.mainmenulist = data));
-     axios.get("api/generalcomponentaccessComponentfeatures").then(({ data }) => (this.generalcomponentaccessComponentfeatures = data));
+     axios.get("api/generalPointofsalecomponentaccess").then(({ data }) => (this.generalPointofsalecomponentaccess = data));
      axios.get("api/mainmenuaccessComponent").then(({ data }) => (this.mainmenuaccessComponent = data));
      axios.get("api/submenuaccessComponent").then(({ data }) => (this.submenuaccessComponent = data));
 
@@ -1704,7 +1770,7 @@ prodlfunction(){
   //      axios.get("api/mainmenucomponents").then(({ data }) => (this.mainmenurecords = data));
   //      this.getRoles();
    
-  //    axios.get("api/generalcomponentaccessComponentfeatures").then(({ data }) => (this.generalcomponentaccessComponentfeatures = data));
+  //    axios.get("api/generalPointofsalecomponentaccess").then(({ data }) => (this.generalPointofsalecomponentaccess = data));
   //    axios.get("api/mainmenuaccessComponent").then(({ data }) => (this.mainmenuaccessComponent = data));
 
   
@@ -1825,7 +1891,7 @@ if (result.isConfirmed) {
               axios.get("api/geteditmainmenu").then(({ data }) => (this.allowedtoeditmainmenu = data));
               axios.get("api/getdeletemainmenu").then(({ data }) => (this.allowedtodeletemainmenu = data));
 
-     axios.get("api/generalcomponentaccessComponentfeatures").then(({ data }) => (this.generalcomponentaccessComponentfeatures = data));
+     axios.get("api/generalPointofsalecomponentaccess").then(({ data }) => (this.generalPointofsalecomponentaccess = data));
      axios.get("api/mainmenuaccessComponent").then(({ data }) => (this.mainmenuaccessComponent = data));
    
            },
@@ -1868,7 +1934,7 @@ this.productsellingrecords = data.data;
      axios.get("api/vuedetailsaccessComponent").then(({ data }) => (this.vuedetailsaccessComponent = data));
             // this.loadManinmens();
  axios.get("api/mainmenulist").then(({ data }) => (this.mainmenulist = data));
-     axios.get("api/generalcomponentaccessComponentfeatures").then(({ data }) => (this.generalcomponentaccessComponentfeatures = data));
+     axios.get("api/generalPointofsalecomponentaccess").then(({ data }) => (this.generalPointofsalecomponentaccess = data));
      axios.get("api/mainmenuaccessComponent").then(({ data }) => (this.mainmenuaccessComponent = data));
     axios.get("api/getcurrencydetails").then(({ data }) => (this.currencydetails = data));
 
@@ -1878,11 +1944,9 @@ this.productsellingrecords = data.data;
             Fire.$on('AfterAction', () =>{
 // this.loadManinmens();
       });
-////////////////////setInterval(() =>this.prodlfunction(),3000);
+setInterval(() =>this.loadvatvalues(),3000);
         }
         
     }
-     const app = new Vue({
-        el: '#kek'
-    });
+    
 </script>

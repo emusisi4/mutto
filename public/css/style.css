@@ -6726,7 +6726,7 @@ fieldset[disabled] .form-control {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   -ms-border-radius: 0;
-  height: 10rem;
+  height: -1rem;
   border-radius: 0;
   background: #42428a;
 

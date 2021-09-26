@@ -19,7 +19,7 @@ class Productsale extends Authenticatable
 
    
     protected $fillable = [
-       'vatamount','linevat', 'productcode','quantity','unitcost','totalcost','lineprofit', 'datesold', 'status','ucret','branch','linetotal','unitprice','supplier','unitmeasure','invoiceno'
+       'vatamount','linevat','netinvoiceincome', 'productcode','quantity','unitcost','totalcost','lineprofit', 'datesold', 'status','ucret','branch','linetotal','unitprice','supplier','unitmeasure','invoiceno'
        
     ];
     public function productName(){

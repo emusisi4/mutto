@@ -81,14 +81,16 @@ let routes = [
   
   { path: '/dashboard', component: require('./components/Autocomplete.vue') },
   { path: '/autocomplete', component: require('./components/Autocomplete.vue') },
-  // Vue.component('autocomplete',require('./components/Autocomplete.vue'));
-
+  
+  
 
 //SENA HARDWARE
 
 { path: '/products', component: require('./components/Products.vue')},
 { path: '/pos', component: require('./components/Pos.vue')},
-	
+{ path: '/sennasalessesreports', component: require('./components/Senasalesreports.vue')},
+{ path: '/senasewpurcrept', component: require('./components/Senapurchasesreport.vue')},
+{ path: '/senarevrepoz', component: require('./components/Revenuereports.vue')},
 
 /// SENA HARD WARE END
 

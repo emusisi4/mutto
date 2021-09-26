@@ -31,10 +31,10 @@ class ProductssellingdetailsController extends Controller
   if($productcategory != '900' )
     {
       return   Product::with(['brandName','productCategory','productSupplier','unitMeasure'])->orderBy('id', 'Asc')
-  ->where('category', $productcategory)
-    ->where('brand', $productbrand)
+//  ->where('category', $productcategory)
+  //  ->where('brand', $productbrand)
     ->where('del', 0)
-        ->paginate($displaynumber);
+        ->paginate(25);
  }
  if($productcategory == '900' )
  {

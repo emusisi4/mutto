@@ -27,10 +27,85 @@ Route::apiResources(['productcategoriesrecords' => 'API\ProductcategoriesControl
 Route::apiResources(['shopingcartdetails' => 'API\InserintocartController']);
 Route::get('getordertotal', 'APIController@Ordertotal');
 Route::get('getcattotal', 'APIController@Carttotal');
+
+
+
+
+
+
+
+
+
+
+
 Route::apiResources(['makesalepur' => 'API\ConfirmpositemsController']);
 Route::apiResources(['appenditemtotheinvoice' => 'API\AppenditemstoinvoiceController']);
 Route::apiResources(['newinvoicegeneration' => 'API\NewinvoicegenerationController']);
 Route::apiResources(['productdetailsrecords' => 'API\CompanyproductsController']);
+//Route::apiResources(['salesreportsummaryrecords' => 'API\CompanyReportsController@dailysalesreports']);
+
+//Route::apiResources(['productstoaddtoinvoicerecords' => 'API\CompanyproductsController@purchaseproducts']);
+Route::get('salesreportsummaryrecords', 'API\CompanyReportsController@dailysalesreports');
+Route::get('dailysalessummaryrecords', 'API\CompanyReportsController@dailysalessummaryrecords');
+
+
+
+
+
+
+
+
+
+Route::get('totaldailypurchasesordersrangereports', 'API\CompanyReportsController@totaldailypurchasesordersrangereports');
+Route::get('totaldailypurchasesvatsrangereports', 'API\CompanyReportsController@totaldailypurchasesvatsrangereports');
+Route::get('totaldailypurchasesdeliveriesamountrangereports', 'API\CompanyReportsController@totaldailypurchasesdeliveriesamountrangereports');
+Route::get('totaldailypurchasesdeliveriesvatsrangereports', 'API\CompanyReportsController@totaldailypurchasesdeliveriesvatsrangereports');
+
+Route::get('totaldailypurchasespaymentsamountrangereports', 'API\CompanyReportsController@totaldailypurchasespaymentsamountrangereports');
+Route::get('totaldailypurchasespaymentsbalancerangereports', 'API\CompanyReportsController@totaldailypurchasespaymentsbalancerangereports');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Route::get('dailypurchasesreportsummaryrecords', 'API\CompanyReportsController@dailypurchasesreportsummaryrecords');
+Route::get('dailypurchasesreportdetailedrecords', 'API\CompanyReportsController@dailypurchasesreportdetailedrecords');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Route::get('totalsalesdailysalesreports', 'API\CompanyReportsController@totalsalesdailysalesreports');
+Route::get('totalvatdailysalesreports', 'API\CompanyReportsController@totalvatdailysalesreports');
+Route::get('totalnetinvoicedailysalesreports', 'API\CompanyReportsController@totalnetinvoicedailysalesreports');
+
+Route::get('productstoaddtoinvoicerecords', 'API\CompanyproductsController@purchaseproducts');
 Route::apiResources(['productunitofmeasurerecords' => 'API\ProductunitmeasuresController']);
 Route::apiResources(['productsellingrecords' => 'API\ProductssellingdetailsController']);
 Route::apiResources(['makeinvoicepayment' => 'API\MakeinvoicepaymentController']);
@@ -51,25 +126,39 @@ Route::get('findUser', 'API\CompanyproductsController@search');
 // //Route::get('autocomplete', 'ProductcategoriesController@autocomplete');
 // Route::get('search', 'API\ProductcategoriesController@search');
 
-// 
-// filters
-// Route::get('/search',function(){
-//     $query = Input::get('query');
-//     $users = User::where('name','like','%'.$query.'%')->get();
-//     return response()->json($users);
-//    });
 
 Route::apiResources(['productcategoryFiltertoview' => 'API\ProductrecordsFilterController']);
 Route::apiResources(['productdetailsFiltertoview' => 'API\ProductdetailsFilterController']);
-
+Route::apiResources(['setdatestoviewdailyreport' => 'API\ReportstoviewController']);
 /// end of filters
 
 Route::get('productsavailableforsalelist', 'APIController@productsavailableforsalelist');
 
+Route::get('inputvatcomponentaccess', 'APIController@inputvatcomponentaccess');
+Route::get('outputcomponentaccess', 'APIController@outputcomponentaccess');
+Route::get('branchwalletcomponentaccess', 'APIController@branchwalletcomponentaccess');
+Route::get('administratorcomponentaccess', 'APIController@administratorcomponentaccess');
+Route::get('netvatvatcomponentcomponentaccess', 'APIController@netvatvatcomponentcomponentaccess');
+Route::get('bankwalletcomponentaccess', 'APIController@bankwalletcomponentaccess');
+// Route::get('setdatestoviewdailyreport', 'API\ReportstoviewController@setdatestoviewdailyreport');
 
 
+
+Route::get('administratoraccountbalance', 'APIController@administratoraccountbalance');
+Route::get('bankaccountbalance', 'APIController@bankaccountbalance');
+
+
+Route::get('shopcashbalance', 'APIController@shopcashbalance');
 Route::get('inputvatamount', 'APIController@inputvatamount');
 Route::get('outputvatamount', 'APIController@outputvatamount');
+   
+             
+
+
+             Route::get('dailytotalsalesforselection', 'API\CompanyReportsController@dailytotalsalesforselection');
+             Route::get('dailyvatcollectedforselection', 'API\CompanyReportsController@dailyvatcollectedforselection');
+
+
 
 
 Route::get('invoicelockstatus', 'APIController@invoicelockstatus');
@@ -284,13 +373,32 @@ Route::get('mainmenuaccessComponent', 'APIController@mainmenuaccessComponent');
 Route::get('submenuaccessComponent', 'APIController@submenuaccessComponent');
 Route::get('formfeaturesaccessComponent', 'APIController@formfeaturesaccessComponent');
 Route::get('vuedetailsaccessComponent', 'APIController@vuedetailsaccessComponent');
+
 Route::get('gencomponentaccessHrms', 'APIController@gencomponentaccessHrms');
 
+
+
+Route::get('categoriesComponentaccess', 'APIController@categoriesComponentaccess');
+Route::get('brandsComponentaccess', 'APIController@brandsComponentaccess');
+Route::get('unitsofmeasureComponentaccess', 'APIController@unitsofmeasureComponentaccess');
+Route::get('companyproductsComponentaccess', 'APIController@companyproductsComponentaccess');
+Route::get('purchasesComponentaccess', 'APIController@purchasesComponentaccess');
+Route::get('purchaserecordsComponentaccess', 'APIController@purchaserecordsComponentaccess');
+Route::get('salessummaryComponentaccess', 'APIController@salessummaryComponentaccess');
+
+
+
+
+
+
+
+Route::get('generalProductscomponentAccess', 'APIController@generalProductscomponentAccess');
 Route::get('gencomponentaccessCahtransactions', 'APIController@gencomponentaccessCahtransactions');
 
 Route::get('gencomponentaccessCompanyincomes', 'APIController@gencomponentaccessCompanyincomes');
 Route::get('gencomponentaccessExpenses', 'APIController@gencomponentaccessExpenses');
 Route::get('generalcomponentaccessComponentfeatures', 'APIController@generalcomponentaccessComponentfeatures');
+Route::get('generalPointofsalecomponentaccess', 'APIController@generalPointofsalecomponentaccess');
 Route::get('usersccessSettings', 'APIController@usersccessSettings');
 Route::get('branchesccessSettings', 'APIController@branchesccessSettings');
 

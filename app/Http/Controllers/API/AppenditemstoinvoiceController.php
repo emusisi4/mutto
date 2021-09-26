@@ -19,7 +19,7 @@ use App\Fishreportselection;
 use App\Purchase;
 use App\Invoicetoview;
 use App\Productdetailsfilter;
-
+use App\Dailypurchasesreport;
 
 class AppenditemstoinvoiceController extends Controller
 {
@@ -60,7 +60,7 @@ class AppenditemstoinvoiceController extends Controller
         $userid =  auth('api')->user()->id;
 // Getting the Invoice to work on 
 $this->validate($request,[
-     'productonpurchase'   => 'required |max:191',
+     'id'   => 'required |max:191',
        'vatinclussive'   => 'required',
 
       // 'dorder'   => 'sometimes |min:0'
@@ -121,7 +121,7 @@ $newinvoicetotalvat = $currentinvoivetax+$vatamount;
 //    mainunitmeasure, smallunitmeasure, grandtotal, linetotal, invoiceno, suppliername, supplierinvoiceno
  Purchase::Create([
 
- 'productcode' => $request['productonpurchase'],
+ 'productcode' => $request['id'],
  'unitprice' => $exactunitcost,
  'quantity' => $request['quantity'],
  'dateordered' => $dateordered,
@@ -149,14 +149,50 @@ $newinvoicetotalvat = $currentinvoivetax+$vatamount;
                     
                     
                    ));
+
+///// Updating the 
+$totalinvoiceamount = \DB::table('purchasessummaries')->where('invoicedate', '=', $dateordered)->sum('tendercost');
+$orderedvatamount = \DB::table('purchasessummaries')->where('invoicedate', '=', $dateordered)->sum('expectedvat');
+
         //         }
          
       
+//// existance in daily summary
 
 
 
+  /// checking and creating the invoice for the Daily purchases report
+  $dexist = \DB::table('dailypurchasesreports')->where('datedone', '=', $dateordered)->count();
+ if($dexist < 1) 
+ {
 
+  ///id, datedone, orderedamount, orderedvatamount, deliveredamount, deliveredvatamount, paymentsmade, balanceonpayments, created_at
+   Dailypurchasesreport::Create([
+    
+  
+    'datedone' => $dateordered,
+    'orderedamount' => 0,
+    'orderedvatamount' => 0,
+    'deliveredamount' => 0,
+  'deliveredvatamount'=>0,
+  'paymentsmade'=>0,
+  'balanceonpayments'=>0,
+    // 'ucret' => $userid,
+  
+]);
+}
 
+///id, datedone, orderedamount, orderedvatamount, deliveredamount, deliveredvatamount, paymentsmade, balanceonpayments
+
+DB::table('dailypurchasesreports')
+                   ->where('datedone', $dateordered)
+               ->update(array(
+                       'orderedamount' => $totalinvoiceamount,
+                      'orderedvatamount' =>  $orderedvatamount
+                    
+                    
+                    
+                   ));
 
 
 

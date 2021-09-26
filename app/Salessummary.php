@@ -9,24 +9,20 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Salessummary extends Authenticatable
 {
     use HasApiTokens, Notifiable;
-
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-
    
     protected $fillable = [
-        'invoiceno', 'branch','totalcost','lineprofit', 'invoiceamount', 'invoicedate', 'ucret','vatamount'
+        'invoiceno','netinvoiceincome', 'branch','totalcost','lineprofit', 'invoiceamount',
+         'invoicedate', 'ucret','vatamount', 'monthmade','yearmade','actualprofit'
        
     ];
     public function productName(){
         // creating a relationship between the students model 
         return $this->belongsTo(Product::class, 'productcode'); 
     }
-    
+    public function branchName(){
+        // creating a relationship between the students model 
+        return $this->belongsTo(Branch::class, 'branch'); 
+    }
     public function brandName(){
         // creating a relationship between the students model 
         return $this->belongsTo(Brand::class, 'brand'); 
@@ -65,11 +61,6 @@ class Salessummary extends Authenticatable
     
 
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
       //  'hid', 'id',
     ];

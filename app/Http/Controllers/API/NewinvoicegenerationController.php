@@ -9,6 +9,7 @@ use App\Mainmenucomponent;
 use App\Submheader;
 use App\Branch;
 use App\Purchasessummary;
+use App\Dailypurchasesreport;
 
 class NewinvoicegenerationController extends Controller
 {
@@ -84,9 +85,9 @@ $invd = date('Ymd');
 
 $wordCount = \DB::table('purchasessummaries')->where('invoicedate', '=', $invd)->count();
 $yyt = $wordCount+1;
-$dateinq =  $request['datedone'];
+$dateinq =   $request['invoicedate'];
 $purcaseno = $invd.$yyt;
-       return Purchasessummary::Create([
+   Purchasessummary::Create([
     
   
       'suppliername' => $request['suppliername'],
@@ -97,6 +98,28 @@ $purcaseno = $invd.$yyt;
       'ucret' => $userid,
     
   ]);
+
+
+  /// checking and creating the invoice for the Daily purchases report
+  $dexist = \DB::table('dailypurchasesreports')->where('datedone', '=', $dateinq)->count();
+ if($dexist < 1) 
+ {
+
+  ///id, datedone, orderedamount, orderedvatamount, deliveredamount, deliveredvatamount, paymentsmade, balanceonpayments, created_at
+   Dailypurchasesreport::Create([
+    
+  
+    'datedone' => $dateinq,
+    'orderedamount' => 0,
+    'orderedvatamount' => 0,
+    'deliveredamount' => 0,
+  'deliveredvatamount'=>0,
+  'paymentsmade'=>0,
+  'balanceonpayments'=>0,
+    // 'ucret' => $userid,
+  
+]);
+}
     }
 
    

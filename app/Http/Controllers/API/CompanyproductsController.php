@@ -57,7 +57,29 @@ class CompanyproductsController extends Controller
     
       
     }
+    public function purchaseproducts()
+    {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+      $productcategory = \DB::table('productdetailsfilters')->where('ucret', $userid )->value('productcategory');
+      $displaynumber = \DB::table('productdetailsfilters')->where('ucret', $userid )->value('displaynumber');
+      $productbrand = \DB::table('productdetailsfilters')->where('ucret', $userid )->value('productbrand');
+      
+ 
+    {
+      return   Product::with(['brandName','productCategory','productSupplier','unitMeasure'])->orderBy('id', 'Asc')
+  //->where('category', $productcategory)
+  //  ->where('brand', $productbrand)
+    ->where('del', 0)
+        ->paginate(10);
+ }
+ 
 
+
+    
+      
+    }
    
     public function store(Request $request)
     {

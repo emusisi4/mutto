@@ -160,6 +160,34 @@ DB::table('purchasessummaries')
   'invoicebalance' => $newinvoicebalance
 )); //// End of update for product summaries
 
+
+
+$paymentsmade = \DB::table('purchasessummaries')->where('invoicedate', '=', $invoicedate)->sum('amountpaid');
+$invoicebalance = \DB::table('purchasessummaries')->where('invoicedate', '=', $invoicedate)->sum('invoicebalance');
+
+
+DB::table('dailypurchasesreports')
+                   ->where('datedone', $invoicedate)
+               ->update(array(
+                       'paymentsmade' => $paymentsmade,
+                       'balanceonpayments' =>  $invoicebalance
+                    
+                    
+                    
+                   ));
+
+
+
+
+
+
+
+
+
+
+
+
+
 //// Updating the account balance
 DB::table('expensewalets')
 ->where('id', $walletofexpense)
