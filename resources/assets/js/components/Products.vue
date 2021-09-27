@@ -944,14 +944,21 @@ pre {
        
                    
           </div>
-      
+      <!-- 
+        searchproduct
+       productlistsearch
+       -->
 
                 </form>
               <div class="bethapa-table-header"></div>
    <div class="mysalessect"> 
-  <input type="text" placeholder="Enter Item Name " v-model="search" v-on:keyup="searchit" @keyup="searchit" class="formcont2">
+  <input type="text" placeholder="Enter Item Name " v-model="myrposearch" v-on:keyup="productlistsearch" @keyup="productlistsearch" class="formcont2">
 
   </div>
+
+
+
+  
                        <table class="table">
                   <thead>
                     <tr>
@@ -967,7 +974,10 @@ pre {
                     
                     
                          <th > QTY AVAILABLE</th>
-                      <th > RE-STOCK QTY</th>
+                           <th > RE-STOCK QTY</th>
+                             <th > COST PRICE</th>
+                                 <th > SELLING PRICE</th>
+                    
                      
                      <th >  </th>
                     </tr>
@@ -1004,8 +1014,8 @@ pre {
                              
                                
                                   <td><div class="tabletextalign"> {{probrands.rol}} </div></td>
-                                
-                               
+                                <td><div class="tabletextalign"> {{probrands.unitprice}} </div></td>
+                               <td><div class="tabletextalign"> {{probrands.unitprice}} </div></td>
                                  <td> 
                                   <!-- v-if="allowedtoeditbranch > 0 "  -->
                               <button type="button"   class="btn  bg-gradient-secondary btn-xs fas fa-edit"  @click="editProductdetails(probrands)">Edit Record</button>
@@ -1204,6 +1214,7 @@ pre {
                                 
 
    <div class="bethapa-table-header">
+     
                   PURCHASES  / INVOICES SUMMARY
                   <!-- v-if="allowedtoaddbranch > 0 " -->
                       <button type="button"  class="add-newm" @click="newpurchaseInvoice" >Generate Invoice </button> 
@@ -1543,6 +1554,7 @@ pre {
                                         </div>
                                     </div>
                                 </div>
+                                <button type="button" name= "submit" @click="laodIvoiceslist" class="btn btn-primary btn-sm">Load invoices</button>
                                 <button type="submit" style="display:none" id="submit" hidden="hidden" name= "submit" ref="buttontosubmitinvoicenumbertoview" class="btn btn-primary btn-sm">Saveit</button>   
                             </form>
 
@@ -1983,35 +1995,7 @@ pre {
       
 
                 </form>        
-                             <!-- <div class="bethapa-table-header">
-                                <form @submit.prevent="saveinvoiceInaction()">     
-                               
-                                 
-                                 
-                                 <div class="row clearfix">
-                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="email_address_2">Select Invoice</label>
-                                    </div>
-                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                        <div class="form-group">
-                                            <div class="form-line">
-
-                                                               
-
-  
-                                                <select name ="invoiceinaction"  v-model="form.invoiceinaction" id ="invoiceinaction"  class="show-tick" data-live-search="true" v-on:change="tosubmitInvoivenumbertoview"  :class="{'is-invalid': form.errors.has('invoiceinaction')}">
-                    <option value="">   </option>
-                    <option v-for='data in invoiceslist' v-bind:value='data.supplierinvoiceno'>{{ data.supplierinvoiceno }}</option>
-
-                    </select>
-                    <has-error :form="form" field="invoiceinaction"></has-error>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                              
-                            </form>
-                             </div> -->
+                       
                        <table class="table">
                   <thead>
                     <tr>
@@ -2709,6 +2693,11 @@ methods:{
         Fire.$emit('searching');
       },1000),
 
+       productlistsearch: _.debounce(() => {
+        Fire.$emit('searchforproductlist');
+      },1000),
+
+
 //  SENA HARDWARE
 updateunitsellingprice(event) {
         this.form.unitsellingprice = event.target.value
@@ -2987,9 +2976,12 @@ paginationResultsProductdetailsrecords(page = 1) {
                           });
                       },
   /// users
-  
+     laodIvoiceslist(){
+      axios.get('api/invoiceslist').then(function (response) { this.invoiceslist = response.data;}.bind(this));
+     },
 
     laodProductdetails(){
+      axios.get('api/invoiceslist').then(function (response) { this.invoiceslist = response.data;}.bind(this));
        axios.get("api/productdetailsrecords").then(({ data }) => (this.productdetailsrecords = data));
      axios.get("api/productstoaddtoinvoicerecords").then(({ data }) => (this.productstoaddtoinvoicerecords = data));
         axios.get("api/generalProductscomponentAccess").then(({ data }) => (this.generalProductscomponentAccess = data));
@@ -3394,7 +3386,7 @@ $('#addproductcategoryModal').modal('show');
                
                   $('#updateinvoiceproductsModal').modal('show');
 
-    axios.get("api/productunitofmeasurerecords").then(({ data }) => (this.productunitofmeasurerecords = data));
+    axios.get("api/purchaseincoicesummaryrecords").then(({ data }) => (this.purchaseincoicesummaryrecords = data));
      axios.get("api/activeinvoicetoupdaterecords").then(({ data }) => (this.activeinvoicetoupdaterecords = data));
 
      axios.get("api/gettheinvoicevatamount").then(({ data }) => (this.gettheinvoicevatamount = data));
@@ -3424,10 +3416,12 @@ axios.get("api/gettheinvoicetotalwithoutvat").then(({ data }) => (this.gettheinv
 
          
     $('#newpurchaseinvoiceModal').modal('hide');
-    //  $('#updateinvoiceproductsModal').modal('show');
+   
      this.form.clear();
         this.form.reset();
-    axios.get("api/productunitofmeasurerecords").then(({ data }) => (this.productunitofmeasurerecords = data));
+   axios.get("api/purchaseincoicesummaryrecords").then(({ data }) => (this.purchaseincoicesummaryrecords = data));
+        axios.get('api/invoiceslist').then(function (response) { this.invoiceslist = response.data;}.bind(this));
+           $('#updateinvoiceproductsModal').modal('show');
   Toast.fire({
   icon: 'success',
   title: 'Record added successfully'
@@ -4229,6 +4223,18 @@ loadvatvalues(){
 
 
 
+   Fire.$on('searchforproductlist', ()=>{
+            // let query = this.$parent.search;
+            let query = this.myrposearch;
+          //   axios.get("api/productpriceslist").then(({ data }) => (this.productpriceslist = data));
+ axios.get('api/findtheProdctinlist?q='+ query)
+ .then((data)=> {
+this.productdetailsrecords = data.data;
+ })
+ .catch(()=>{
+
+ })
+          })
 
 
    Fire.$on('searching', ()=>{

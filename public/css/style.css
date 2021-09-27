@@ -1875,7 +1875,7 @@
     color: #fff !important; }
 
 .bg-indigo {
-  background-color: #3F51B5 !important;
+  background-color: #3095b7 !important;
   color: #fff; }
   .bg-indigo .content .text,
   .bg-indigo .content .number {
@@ -6723,17 +6723,14 @@ fieldset[disabled] .form-control {
 /* Navbars ===================================== */
 .navbar {
   font-family: "Roboto", sans-serif;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  -ms-border-radius: 0;
-  height: -1rem;
+  height: 5em;
   border-radius: 0;
-  background: #42428a;
+  background: #0064c8;
 
-  -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+  /* -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
   -ms-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3); */
   border: none;
   position: fixed;
   top: 0;
@@ -7654,13 +7651,15 @@ fieldset[disabled] .form-control {
     height: 90vh; }
     .sidebar .menu .list {
       list-style: none;
-      padding-left: 0; }
+      padding-left: 0; 
+      background-color: #e9edf2;
+    }
       .sidebar .menu .list li.active > :first-child span {
         font-weight: bold; }
       .sidebar .menu .list .header {
-        background: #eee;
+        background: #3095b7;
         font-size: 12px;
-        font-weight: 600;
+        font-weight: 900;
         padding: 8px 16px; }
       .sidebar .menu .list i.material-icons {
         margin-top: 4px; }
@@ -7705,7 +7704,7 @@ fieldset[disabled] .form-control {
         -webkit-transform: scale(1);
         transform: scale(1); }
       .sidebar .menu .list a {
-        color: #747474;
+        color: #190404;
         position: relative;
         display: inline-flex;
         vertical-align: middle;
@@ -7721,8 +7720,12 @@ fieldset[disabled] .form-control {
           margin: 7px 0 7px 12px;
           color: #333;
           font-weight: bold;
-          font-size: 14px;
-          overflow: hidden; }
+          font-size: 20px;
+          overflow: hidden;
+          border-bottom-style: dashed;
+          border-bottom-color: #722f2f;
+          border-bottom-width: 2px;
+          width: 100%; }
       .sidebar .menu .list .ml-menu {
         list-style: none;
         display: none;

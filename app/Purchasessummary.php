@@ -14,7 +14,8 @@ class Purchasessummary extends Authenticatable
    
     protected $fillable = [
         'purchaseno', 'tendercost', 'totalitems', 'ucret', 'del', 'finalcost', 'suppliername', 
-        'supplierinvoiceno','invoicedate','totalvat','vatstatus','invoicelockstatus'
+        'supplierinvoiceno','invoicedate','totalvat','vatstatus','invoicelockstatus',
+        'ordercostwithoutvat','deliverycostwithoutvat'
        
     ];
     public function productName(){

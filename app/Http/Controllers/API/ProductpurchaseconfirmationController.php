@@ -96,7 +96,7 @@ $dateinq =  $request['datedone'];
 
 
 
-
+          $unitcostwithoutvat = $request['unitprice'];
 $qtydelivered = $request['qtydelivered'];
 $newsellingprice = $request['unitsellingprice'];
 $datedelivered = $request['deliverydate'];
@@ -109,11 +109,11 @@ $userid =  auth('api')->user()->id;
       $supplierinvoiceno = \DB::table('purchases')->where('id', '=', $recordinquestion)->value('supplierinvoiceno');
 /// GEtting the product in question
 $productnumber = \DB::table('purchases')->where('id', '=', $recordinquestion)->value('productcode');
-$purchasecostforunit = \DB::table('purchases')->where('id', '=', $id)->value('unitprice');
+$purchasecostforunit = \DB::table('purchases')->where('id', '=', $id)->value('lineproductcost');
 $oldinvoicevat =\DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $supplierinvoiceno)->value('totalvat');
 
-
-
+$olddeliverycostwithoutvat =\DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $supplierinvoiceno)->value('deliverycostwithoutvat');
+$newdeliverycostwithoutvat = $olddeliverycostwithoutvat+($unitcostwithoutvat*$qtydelivered);
 $oldinvoicetotal =\DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $supplierinvoiceno)->value('finalcost');
 $newamounttoaddtoinvoice = $qtydelivered*$purchasecostforunit;
 $newconfirmedinvoicetotal = $oldinvoicetotal+$newamounttoaddtoinvoice;
@@ -145,18 +145,23 @@ DB::table('expensewalets')->where('walletno', 5)->update(array('bal' => $updated
 
 ////
 //////////////////////////////////////////////////////////////////////////// Purchase summaries
- DB::table('purchasessummaries')->where('supplierinvoiceno', $supplierinvoiceno)->update(array('totalvat' => $newinvoicevat,'finalcost' => $newconfirmedinvoicetotal));
+ DB::table('purchasessummaries')->where('supplierinvoiceno', $supplierinvoiceno)->update(array('totalvat' => $newinvoicevat,
+ 'finalcost' => $newconfirmedinvoicetotal,
+ 'deliverycostwithoutvat' => $newdeliverycostwithoutvat));
 ///
 $deliveredamount = \DB::table('purchasessummaries')->where('invoicedate', '=', $dateordered)->sum('finalcost');
 $deliveredvatamount = \DB::table('purchasessummaries')->where('invoicedate', '=', $dateordered)->sum('totalvat');
-
+///
+$deliverycostwithoutvat = \DB::table('purchasessummaries')->where('invoicedate', '=', $dateordered)->sum('deliverycostwithoutvat');
+$ordercostwithoutvat = \DB::table('purchasessummaries')->where('invoicedate', '=', $dateordered)->sum('ordercostwithoutvat');
 
 DB::table('dailypurchasesreports')
                    ->where('datedone', $dateordered)
                ->update(array(
-                       'deliveredamount' => $deliveredamount,
-                      'deliveredvatamount' =>  $deliveredvatamount
-                    
+                    'deliveredamount' => $deliveredamount,
+                    'deliveredvatamount' =>  $deliveredvatamount,
+                    'deliverycostwithoutvat'=>  $deliverycostwithoutvat,
+                    'ordercostwithoutvat' =>  $ordercostwithoutvat
                     
                     
                    ));

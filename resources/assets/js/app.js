@@ -163,6 +163,7 @@ const app = new Vue({
     router,
     data:{
       search: ''
+      
     },
     methods:{
       searchit: _.debounce(() => {

@@ -317,6 +317,77 @@ public function totaldailypurchasesdeliveriesamountrangereports()
 
 }
 
+
+
+
+
+
+
+public function totaldailypurchaseswithouttaxrangereports()
+{
+  $userid =  auth('api')->user()->id;
+  $userbranch =  auth('api')->user()->branch;
+  $userrole =  auth('api')->user()->type;
+
+  $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+  $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+
+  $totalcashin = \DB::table('dailypurchasesreports')
+   
+  ->whereBetween('datedone', [$startdate, $enddate])
+  ->sum('ordercostwithoutvat');
+    return $totalcashin;
+
+
+}
+
+
+public function totaldailydeliverieswithouttaxrangereports()
+{
+  $userid =  auth('api')->user()->id;
+  $userbranch =  auth('api')->user()->branch;
+  $userrole =  auth('api')->user()->type;
+
+  $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+  $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+
+  $totalcashin = \DB::table('dailypurchasesreports')
+   
+  ->whereBetween('datedone', [$startdate, $enddate])
+  ->sum('deliverycostwithoutvat');
+    return $totalcashin;
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 public function totaldailypurchasesvatsrangereports()
 {
   $userid =  auth('api')->user()->id;

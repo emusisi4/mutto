@@ -17,7 +17,9 @@ class Purchase extends Authenticatable
           'productcode', 'unitprice', 'quantity', 'dateordered', 'ucret', 'status', 
          'branch', 'mainunitmeasure', 'smallunitmeasure', 'grandtotal', 'linetotal',
           'invoiceno', 'suppliername', 'supplierinvoiceno', 'vatstatus', 'vattotal','invoicelockstatus',
-          'itemconfirmed', 'qtydelivered', 'datedelivered', 'ucretconfirmeddelivery', 'linecostdelivery', 'totalcostdelivery','unitvat','lineproductcost'
+          'itemconfirmed', 'qtydelivered', 'datedelivered', 'ucretconfirmeddelivery', 'linecostdelivery', 
+          'totalcostdelivery','unitvat','lineproductcost',
+          'ordercostwithoutvat','deliverycostwithoutvat'
           
          
     ];

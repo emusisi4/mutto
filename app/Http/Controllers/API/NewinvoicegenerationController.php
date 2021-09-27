@@ -82,8 +82,8 @@ if($productcategory == '900' and $productbrand == '900')
 $latestid  = \DB::table('purchasessummaries')->orderBy('id', 'Desc')->limit(1)->value('id');
 //$invd = $request['invoicedate'];
 $invd = date('Ymd');
-
-$wordCount = \DB::table('purchasessummaries')->where('invoicedate', '=', $invd)->count();
+$currentdats = date('Y-m-d');
+$wordCount = \DB::table('purchasessummaries')->where('invoicedate', '=', $currentdats)->count();
 $yyt = $wordCount+1;
 $dateinq =   $request['invoicedate'];
 $purcaseno = $invd.$yyt;

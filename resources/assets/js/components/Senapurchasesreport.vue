@@ -432,10 +432,10 @@ Daily Purchases Detailed Report : From - To -
            
           
 
-              <th colspan="2"  style="font-size: 18px; text-align:center;    
+              <th colspan="3"  style="font-size: 18px; text-align:center;    
                border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> TOTAL PURCHASE ORDERS </th>
               
-            <th colspan="2"  style="font-size: 18px; text-align:center;    
+            <th colspan="3"  style="font-size: 18px; text-align:center;    
                border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> TOTAL DELIVERIES </th>
               
              <th colspan="2"  style="font-size: 18px; text-align:center;    
@@ -446,13 +446,15 @@ Daily Purchases Detailed Report : From - To -
     <th></th>
 
 <th></th>
+<th>  Cost without Tax ({{currencydetails}}) </th>
+<th>  Tax (VAT) ({{currencydetails}})</th>
+<th>  Total Cost ({{currencydetails}}) </th>
 
-<th>  Amount ({{currencydetails}}) </th>
-<th>  VAT ({{currencydetails}})</th>
 <!-- <th> Status</th> -->
 
-<th>  Amount ({{currencydetails}})</th>
-<th>  VAT ({{currencydetails}})</th>
+<th>  Cost without Tax ({{currencydetails}}) </th>
+<th>  Tax (VAT) ({{currencydetails}})</th>
+<th>  Total Cost ({{currencydetails}}) </th>
 <!-- <th> Status</th> -->
 
 <th>  Amount Paid ({{currencydetails}})</th>
@@ -466,10 +468,11 @@ Daily Purchases Detailed Report : From - To -
  
                                  <td>{{prodcates.datedone | myDate2 }}</td>
  
-                                
+                                 <td><div class="musisialignright">  {{formatPrice(prodcates.ordercostwithoutvat)}} </div></td>
+                                  <td><div class="musisialignright">  {{formatPrice(prodcates.orderedvatamount)}} </div></td>
                                <td><div class="musisialignright">  {{formatPrice(prodcates.orderedamount)}} </div></td>
 
-                                <td><div class="musisialignright">  {{formatPrice(prodcates.orderedvatamount)}} </div></td>
+                               
 
                                 <!-- <td><div v-if="prodcates.status == '1' " >
                                  <span class="label bg-orange">Partialy Delivered</span>
@@ -483,9 +486,10 @@ Daily Purchases Detailed Report : From - To -
 
                                  </td> -->
 
-
+                                  <td><div class="musisialignright"> {{formatPrice(prodcates.deliverycostwithoutvat)}} </div></td> 
+                                  <td><div class="musisialignright">  {{formatPrice(prodcates.deliveredvatamount)}} </div></td>
                                <td><div class="musisialignright"> {{formatPrice(prodcates.deliveredamount)}} </div></td>                   
-                               <td><div class="musisialignright">  {{formatPrice(prodcates.deliveredvatamount)}} </div></td>
+                               
                             
 
 
@@ -521,8 +525,9 @@ Daily Purchases Detailed Report : From - To -
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasesordersrangereports)}} </div>
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchaseswithouttaxrangereports)}} </div>
 </th>
+
 
 
 <th style="font-size: 18px; text-align:center;    
@@ -531,18 +536,42 @@ Daily Purchases Detailed Report : From - To -
 <div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasesvatsrangereports)}} </div>
 </th>
 
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasesordersrangereports)}} </div>
+</th>
 
+
+
+
+
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailydeliverieswithouttaxrangereports)}} </div>
+</th>
+
+
+
+
+
+
+
+
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasesdeliveriesvatsrangereports)}} </div>
+</th>
 
 
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
 <div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasesdeliveriesamountrangereports)}} </div>
-</th>
-<th style="font-size: 18px; text-align:center;    
-               border-top: 4px solid rgb(124 102 102);    
-                background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasesdeliveriesvatsrangereports)}} </div>
 </th>
 
 <th style="font-size: 18px; text-align:center;    
@@ -711,10 +740,11 @@ Purchases report Summary by Invoice : From - To -
               <th colspan="2"  style="font-size: 18px; text-align:center;   
                 border-bottom: 4px solid rgb(124 102 102); 
                   background-color: rgb(29 31 34 / 37%); color: #131378;"> SUPPLIER DETAILS</th>
-              <th colspan="2"  style="font-size: 18px; text-align:center;    
+        
+              <th colspan="3"  style="font-size: 18px; text-align:center;    
                border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> PURCHASE </th>
               
-            <th colspan="2"  style="font-size: 18px; text-align:center;    
+            <th colspan="3"  style="font-size: 18px; text-align:center;    
                border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> DELIVERY </th>
               
              <th colspan="2"  style="font-size: 18px; text-align:center;    
@@ -728,13 +758,15 @@ Purchases report Summary by Invoice : From - To -
 <th></th>
 <th> Invoice No.</th>
 <th> Supplier Name</th>
-
-<th>  Amount ( {{currencydetails}} ) </th>
+<th>  Cost Without VAT ( {{currencydetails}} ) </th>
 <th>  VAT ({{currencydetails}})</th>
+<th>  Total Cost ( {{currencydetails}} ) </th>
+
 <!-- <th> Status</th> -->
 
-<th>  Amount ( {{currencydetails}} ) </th>
-<th>  VAT( {{currencydetails}} )</th>
+<th>  Cost Without VAT ( {{currencydetails}} ) </th>
+<th>  VAT ({{currencydetails}})</th>
+<th>  Total Cost ( {{currencydetails}} ) </th>
 <!-- <th> Status</th> -->
 
 <th>  Amount Paid( {{currencydetails}}) </th>
@@ -753,14 +785,20 @@ Purchases report Summary by Invoice : From - To -
                                   <td><div class="musisialignleft">   {{prodcates.supplierinvoiceno}} </div></td>
                                        <td>  <template v-if="prodcates.supplier_name">	{{prodcates.supplier_name.suppname}}</template></td>  
                                 
+
+                                  <td><div class="musisialignright">{{formatPrice(prodcates.ordercostwithoutvat)}} </div></td>
+                                  <td><div class="musisialignright">  {{formatPrice(prodcates.expectedvat)}} </div></td>
                                <td><div class="musisialignright">{{formatPrice(prodcates.tendercost)}} </div></td>
 
 
-                                  <td><div class="musisialignright">  {{formatPrice(prodcates.expectedvat)}} </div></td>
                                   
                                   
+                                  
+
+                                       <td><div class="musisialignright">{{formatPrice(prodcates.deliverycostwithoutvat)}} </div></td>
+                                        <td><div class="musisialignright">   {{formatPrice(prodcates.totalvat)}} </div></td>
                                   <td><div class="musisialignright">    {{formatPrice(prodcates.finalcost)}} </div></td>
-                                  <td><div class="musisialignright">   {{formatPrice(prodcates.totalvat)}} </div></td>
+                                 
 
 
                                   
@@ -800,6 +838,24 @@ Purchases report Summary by Invoice : From - To -
                 background-color: rgb(211 211 211); color: #131378;" >
 <div class="musisialignright">  </div>
 </th>
+
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchaseswithouttaxrangereports)}} </div>
+</th>
+
+
+
+
+
+
+
+
+
+
+
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
@@ -814,6 +870,11 @@ Purchases report Summary by Invoice : From - To -
 </th>
 
 
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailydeliverieswithouttaxrangereports)}} </div>
+</th>
 
 
 <th style="font-size: 18px; text-align:center;    
@@ -992,10 +1053,10 @@ Purchases report Summary by Invoice : From - To -
               <th colspan="2"  style="font-size: 18px; text-align:center;   
                 border-bottom: 4px solid rgb(124 102 102); 
                   background-color: rgb(29 31 34 / 37%); color: #131378;"> SUPPLIER DETAILS</th>
-              <th colspan="4"  style="font-size: 18px; text-align:center;    
+              <th colspan="5"  style="font-size: 18px; text-align:center;    
                border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> PURCHASE </th>
               
-            <th colspan="4"  style="font-size: 18px; text-align:center;    
+            <th colspan="5"  style="font-size: 18px; text-align:center;    
                border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> DELIVERY </th>
 <!--               
              <th colspan="2"  style="font-size: 18px; text-align:center;    
@@ -1003,6 +1064,10 @@ Purchases report Summary by Invoice : From - To -
              <th colspan="1"  style="font-size: 18px;     border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> </th>
           
         </tr>
+
+
+
+        
 <tr>
     <th></th>
 
@@ -1011,21 +1076,25 @@ Purchases report Summary by Invoice : From - To -
 <th> Invoice No.</th>
 <th> Supplier Name</th>
 
-<th>  UnitCost ( {{currencydetails}} ) </th>
+<th>  C.P.U Without Vat ({{currencydetails}}) </th>
 <th>  Qty</th>
-<th> Vat IN ({{currencydetails}})</th>
-<th> Total cost</th>
+<th> UNIT Vat </th>
+<th> Total VAT ({{currencydetails}})</th>
+<th> Total Cost</th>
 
 
-<th>  UnitCost ( {{currencydetails}} ) </th>
+
+<th>  C.P.U Without Vat ({{currencydetails}}) </th>
 <th>  Qty</th>
-<th> Vat IN ({{currencydetails}})</th>
-<th> Total cost</th>
+<th> Unit Vat</th>
+<th> Total VAT ({{currencydetails}})</th>
+<th> Total Cost</th>
 <th> </th>
 
 
 
 </tr>
+
 <tr>
     
           <tr v-for="prodcates in productpurchasesdetailrecords.data" :key="prodcates.id">
@@ -1039,22 +1108,24 @@ Purchases report Summary by Invoice : From - To -
                                   <td><div class="musisialignleft">   {{prodcates.supplierinvoiceno}} </div></td>
                                        <td>  <template v-if="prodcates.supplier_name">	{{prodcates.supplier_name.suppname}}</template></td>  
                                 
-                               <td><div class="musisialignright">{{formatPrice(prodcates.unitprice)}} </div></td>
+                               <td><div class="musisialignright">{{formatPrice(prodcates.ordercostwithoutvat)}} </div></td>
 
 
-                                  <td><div class="musisialign">  {{formatPrice(prodcates.quantity)}} </div></td>
-                                  
+                                  <td><div class="musisialign">  {{(prodcates.quantity)}} </div></td>
+                                    <td><div class="musisialignright">   {{formatPrice(prodcates.unitvat)}} </div></td>
                                    <td><div class="musisialignright">   {{formatPrice(prodcates.vattotal)}} </div></td>
                                   <td><div class="musisialignright">    {{formatPrice(prodcates.linetotal)}} </div></td>
                                  
 
 
-                                  
+                                    <td><div class="musisialignright"> {{formatPrice(prodcates.deliverycostwithoutvat)}} </div></td>
+                                       <td><div class="musisialign">  {{(prodcates.qtydelivered)}} </div></td>
+                              <td><div class="musisialignright"> {{formatPrice(prodcates.unitvat)}} </div></td>
                                   
                                  <td><div class="musisialignright"> {{formatPrice(prodcates.linecostdelivery)}} </div></td>
-                               <td><div class="musisialign">  {{(prodcates.qtydelivered)}} </div></td>
                             
-                             <td><div class="musisialignright"> {{formatPrice(prodcates.unitvat)}} </div></td>
+                            
+                             
                                   <td><div class="musisialignright"> {{formatPrice(prodcates.totalcostdelivery)}} </div></td>
                                 
                             
@@ -3009,6 +3080,8 @@ totaldailypurchasesdeliveriesvatsrangereports:{},
 totaldailypurchasespaymentsamountrangereports:{},
 totaldailypurchasespaymentsbalancerangereports:{},
 
+totaldailypurchaseswithouttaxrangereports:{},
+totaldailydeliverieswithouttaxrangereports:{},
 
 
           shopcashbalance:{},
@@ -3187,6 +3260,13 @@ axios.get("api/gettheinvoicetotalwithoutvat").then(({ data }) => (this.gettheinv
                                 this.loading = true;
                                 this.form.post('api/setdatestoviewdailyreport')
                                 .then(()=>{
+
+
+axios.get("api/totaldailydeliverieswithouttaxrangereports").then(({ data }) => (this.totaldailydeliverieswithouttaxrangereports = data));
+
+axios.get("api/totaldailypurchaseswithouttaxrangereports").then(({ data }) => (this.totaldailypurchaseswithouttaxrangereports = data));
+
+
 axios.get("api/dailypurchasesreportdetailedrecords").then(({ data }) => (this.dailypurchasesreportdetailedrecords = data));
 
 axios.get("api/totaldailypurchasesordersrangereports").then(({ data }) => (this.totaldailypurchasesordersrangereports = data));
@@ -3224,6 +3304,9 @@ axios.get("api/totaldailypurchasespaymentsbalancerangereports").then(({ data }) 
                                 this.form.post('api/setdatestoviewdailyreport')
                                 .then(()=>{
 axios.get("api/dailypurchasesreportsummaryrecords").then(({ data }) => (this.dailypurchasesreportsummaryrecords = data));
+axios.get("api/totaldailydeliverieswithouttaxrangereports").then(({ data }) => (this.totaldailydeliverieswithouttaxrangereports = data));
+
+axios.get("api/totaldailypurchaseswithouttaxrangereports").then(({ data }) => (this.totaldailypurchaseswithouttaxrangereports = data));
 
 axios.get("api/totaldailypurchasesordersrangereports").then(({ data }) => (this.totaldailypurchasesordersrangereports = data));
 axios.get("api/totaldailypurchasesvatsrangereports").then(({ data }) => (this.totaldailypurchasesvatsrangereports = data));
@@ -4685,6 +4768,9 @@ loadvatvalues(){
 //    axios.get('/api/inputvatamount').then(function (response) { this.inputvatamount = response.data;}.bind(this));
 
 //  axios.get('/api/outputvatamount').then(function (response) { this.outputvatamount = response.data;}.bind(this));
+axios.get("api/totaldailydeliverieswithouttaxrangereports").then(({ data }) => (this.totaldailydeliverieswithouttaxrangereports = data));
+
+axios.get("api/totaldailypurchaseswithouttaxrangereports").then(({ data }) => (this.totaldailypurchaseswithouttaxrangereports = data));
 
 
 axios.get("api/totaldailypurchasesordersrangereports").then(({ data }) => (this.totaldailypurchasesordersrangereports = data));

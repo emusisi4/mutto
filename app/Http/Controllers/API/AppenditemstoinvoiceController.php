@@ -74,6 +74,7 @@ $currentinvoivetax = \DB::table('purchasessummaries')->where('supplierinvoiceno'
 
 $currentinvoicetotal = \DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $supplierinvoiceno)->sum('tendercost');
 $currentinvoicevat = \DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $supplierinvoiceno)->sum('expectedvat');
+$currentordercostwithoutvat = \DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $supplierinvoiceno)->sum('ordercostwithoutvat');
 $newamount = $request['totalcost'];
 $vatstatus = $request['vatinclussive'];
 $newtotalinvoiceamount = $currentinvoicetotal+$newamount;
@@ -93,6 +94,8 @@ if($vatstatus == '2')
     $exactunitcost = $givenunitcost-($vatamount/$qtttty);
     $unitvat = $vatamount/$qtttty;
     $lineproductcost = $exactunitcost+$unitvat;
+    $costwithoutvat = $exactunitcost-$unitvat;
+    $newordercostwithoutvat = $currentordercostwithoutvat+($qtttty*$exactunitcost );
 }
 if($vatstatus == '1')
 {
@@ -101,6 +104,9 @@ if($vatstatus == '1')
     $exactunitcost = $givenunitcost;
     $unitvat = 0;
     $lineproductcost = $exactunitcost+$unitvat;
+    $costwithoutvat = $exactunitcost-$unitvat;
+    $newordercostwithoutvat = $currentordercostwithoutvat+($qtttty*$exactunitcost );
+
 }
 if($vatstatus == '3')
 {
@@ -109,6 +115,9 @@ if($vatstatus == '3')
     $exactunitcost = $givenunitcost;
     $unitvat = $vatamount/$qtttty;
     $lineproductcost = $exactunitcost+$unitvat;
+    $costwithoutvat = $exactunitcost-$unitvat;
+    $newordercostwithoutvat = $currentordercostwithoutvat+($qtttty*$exactunitcost );
+
 }
 
 $newinvoicetotalvat = $currentinvoivetax+$vatamount;   
@@ -134,6 +143,8 @@ $newinvoicetotalvat = $currentinvoivetax+$vatamount;
  'vattotal'=>$vatamount,
  'unitvat' => $unitvat,
  'lineproductcost' => $lineproductcost,
+ 'ordercostwithoutvat' => $exactunitcost,
+ 
  'ucret' => $userid,
 
 
@@ -144,6 +155,7 @@ $newinvoicetotalvat = $currentinvoivetax+$vatamount;
                    ->where('supplierinvoiceno', $supplierinvoiceno)
                ->update(array(
                        'tendercost' => $newtotalinvoiceamount,
+                       'ordercostwithoutvat' => $newordercostwithoutvat,
                       'expectedvat' =>  $newinvoicetotalvat
                     
                     

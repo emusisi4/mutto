@@ -58,6 +58,8 @@ Route::get('dailysalessummaryrecords', 'API\CompanyReportsController@dailysaless
 
 Route::get('totaldailypurchasesordersrangereports', 'API\CompanyReportsController@totaldailypurchasesordersrangereports');
 Route::get('totaldailypurchasesvatsrangereports', 'API\CompanyReportsController@totaldailypurchasesvatsrangereports');
+Route::get('totaldailypurchaseswithouttaxrangereports', 'API\CompanyReportsController@totaldailypurchaseswithouttaxrangereports');
+Route::get('totaldailydeliverieswithouttaxrangereports', 'API\CompanyReportsController@totaldailydeliverieswithouttaxrangereports');
 Route::get('totaldailypurchasesdeliveriesamountrangereports', 'API\CompanyReportsController@totaldailypurchasesdeliveriesamountrangereports');
 Route::get('totaldailypurchasesdeliveriesvatsrangereports', 'API\CompanyReportsController@totaldailypurchasesdeliveriesvatsrangereports');
 
@@ -123,6 +125,8 @@ Route::apiResources(['purchaseincoicesummaryrecords' => 'API\Purchasessumaryreco
 Route::apiResources(['productpurchasesdetailrecords' => 'API\PurchasesrecordsController']);
 Route::apiResources(['productpriceslist' => 'API\ProductpricesController']);
 Route::get('findUser', 'API\CompanyproductsController@search');
+Route::get('findtheProdctinlist', 'API\CompanyproductsController@searchproductinproductlist');
+
 // //Route::get('autocomplete', 'ProductcategoriesController@autocomplete');
 // Route::get('search', 'API\ProductcategoriesController@search');
 

@@ -247,7 +247,7 @@ pre {
  <div  class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box bg-indigo">
                         <div class="icon">
-                            <i class="material-icons">attach_money</i>
+                            <i class="material-icons"></i>
                         </div>
                         <div class="content">
                             <div class="text"><b>TOTAL SALES  </b></div>
@@ -260,7 +260,7 @@ pre {
  <div  class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box bg-indigo">
                         <div class="icon">
-                            <i class="material-icons">attach_money</i>
+                            <i class="material-icons"></i>
                         </div>
                         <div class="content">
                             <div class="text"><b>TAX COLLECTED (VAT INPUT)  </b></div>
@@ -273,7 +273,7 @@ pre {
                <div  class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box bg-indigo">
                         <div class="icon">
-                            <i class="material-icons">attach_money</i>
+                            <i class="material-icons"></i>
                         </div>
                         <div class="content">
                             <div class="text"><b>NET SALES (AFTER VAT)  </b></div>
@@ -286,7 +286,7 @@ pre {
        <div v-if="outputcomponentaccess > 0 " class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box bg-indigo">
                         <div class="icon">
-                            <i class="material-icons">attach_money</i>
+                            <i class="material-icons"></i>
                         </div>
                         <div class="content">
                             <div class="text"><b>OUTPUT VAT (On Sales) </b></div>
@@ -299,7 +299,7 @@ pre {
                 <div v-if="netvatvatcomponentcomponentaccess > 0" class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box bg-indigo">
                         <div class="icon">
-                            <i class="material-icons">attach_money</i>
+                            <i class="material-icons"></i>
                         </div>
                         <div class="content">
                             <div class="text"><b>NET VAT </b></div>

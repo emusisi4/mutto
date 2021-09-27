@@ -118,8 +118,8 @@ $productcode  = \DB::table('products')->orderBy('id', 'Desc')->limit(1)->value('
   ]);
     }
 
-  
-    public function search(){
+    
+    public function searchproductinproductlist(){
       if($search = \Request::get('q')){
         $users = Product::where(function($query) use ($search){
           $query->where('productname', 'LIKE', "%$search%");
@@ -132,6 +132,22 @@ $productcode  = \DB::table('products')->orderBy('id', 'Desc')->limit(1)->value('
         //  ->where('brand', $productbrand)
           ->where('del', 0)
               ->paginate(20);
+      }
+      
+    }
+    public function search(){
+      if($search = \Request::get('q')){
+        $users = Product::where(function($query) use ($search){
+          $query->where('productname', 'LIKE', "%$search%");
+        })
+          -> paginate(30);
+         return $users;
+      }else{
+        return   Product::with(['brandName','productCategory','productSupplier','unitMeasure'])->orderBy('id', 'Asc')
+      //  ->where('category', $productcategory)
+        //  ->where('brand', $productbrand)
+          ->where('del', 0)
+              ->paginate(10);
       }
       
     }

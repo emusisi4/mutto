@@ -82,14 +82,16 @@
    
     <!-- Top Bar -->
     <nav class="navbar">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
-                <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand"> <img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 50px; width: 50px;"></a>
-            </div>
-                  </div>
+    
+        <div class="emmietopheader">
+           
+    SENNAH - GENRAL HARDWARE - Jjogo
+</div>
+
     </nav>
+
+    <div class="">
+           </div>
     <!-- #Top Bar -->
     <section>
         <!-- Left Sidebar -->
