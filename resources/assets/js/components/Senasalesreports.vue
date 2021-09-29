@@ -16,10 +16,19 @@
     border-bottom: 2px solid #dee2e6;
         padding: -0.25rem;
  
-    border-top: 1px solid #822119
+    /* border-top: 1px solid #822119 */
 }
 .musisialign{
      text-align: center;
+
+}
+.musisialignright{
+     text-align: right;
+         padding-right: 10px;
+
+}
+.musisialignleft{
+     text-align: left;
 
 }
 
@@ -322,20 +331,22 @@ pre {
                             <ul class="nav nav-tabs" role="tablist">
                                
                                 <li role="presentation" class="active" v-if="categoriesComponentaccess > 0">
-                                    <a href="#home_with_icon_title" @click="loadProductcategories()" data-toggle="tab">
-                                        <i class="material-icons"></i> DAILY SALES REPORT SUMMARY
+                                    <a href="#home_with_icon_title" @click="loadDailysalesreportdetails()" data-toggle="tab">
+                                        <i class="material-icons"></i> Daily Sales Report
                                     </a>
                                 </li>
+                                <!-- v-if="brandsComponentaccess > 0" -->
                                 <li role="presentation">
-                                    <a href="#profile_with_icon_title" v-if="brandsComponentaccess > 0" @click="loadProductbrands()" data-toggle="tab">
-                                        <i class="material-icons"></i> SALES REPORT - DETAILED
+                                    <a href="#profile_with_icon_title"  @click="loadSalesreportsummary()" data-toggle="tab">
+                                        <i class="material-icons"></i> Sales Reports Summary
                                     </a>
                                 </li>
-                                <!-- <li role="presentation">
-                                    <a href="#messages_with_icon_title" v-if="unitsofmeasureComponentaccess > 0" @click="loadUnitofmeasure()" data-toggle="tab">
-                                        <i class="material-icons"></i> UNIT OF MEASURE
+                                <!-- v-if="unitsofmeasureComponentaccess > 0" -->
+                                <li role="presentation">
+                                    <a href="#messages_with_icon_title"  @click="loadSalesdetailsreportdetailed()" data-toggle="tab">
+                                        <i class="material-icons"></i> Sales Report Details
                                     </a>
-                                </li> -->
+                                </li>
                                 <!-- <li role="presentation">
                                     <a href="#settings_with_icon_title" v-if="companyproductsComponentaccess > 0" @click="laodProductdetails()" data-toggle="tab">
                                         <i class="material-icons"></i> ITEMS / PRODUCTS
@@ -410,44 +421,153 @@ Sales report summary : From - To -
      
 
 <table  class="musisireporttable" width="100%" border="1">
+
+      <tr>
+             <th colspan="1"  style="font-size: 18px;     border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> #</th>
+             <th colspan="1"  style="font-size: 18px;     border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> DATE</th>
+           
+          
+              <th colspan="1"  style="font-size: 18px; text-align:center;   
+                border-bottom: 4px solid rgb(124 102 102); 
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> BRANCH</th>
+        
+              <th colspan="3"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> TOTALS WITH VAT-IN INCLUSSIVE </th>
+              
+  <th colspan="1"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> TAX (VAT) DETAILS  </th>
+              
+          
+              
+            <th colspan="3"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> TOTALS WITHOUT VAT </th>
+              
+             <th colspan="1"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;">  </th>
+              
+        </tr>
 <tr>
-    <th>DATE</th>
+    <th></th>
 
-<th>BRANCH</th>
-<th> SALES</th>
-<th> TAX (VAT Collected)</th>
-<!-- <th>LINE TOTAL</th> -->
+<th></th>
+<th></th>
+<th> Total Sales ( {{currencydetails}} )</th>
+<th> Total Cost ( {{currencydetails}} )</th>
+<th> Total Profit ( {{currencydetails}} )</th>
 
+   <th> Total VAT - IN ( {{currencydetails}} )</th>
+ <th> Gross Sales ( {{currencydetails}} )</th>
+  <th> Total Cost ( {{currencydetails}} )</th>
+
+   <th> Line Profit ( {{currencydetails}} )</th>
+      <th> </th>
 </tr>
 <tr>
           <tr v-for="prodcates in dailysalessummaryrecords.data" :key="prodcates.id">
-         
+              <td>{{prodcates.id }}</td>
                                  <td>{{prodcates.datedone | myDate2 }}</td>
  
                      <td>  <template v-if="prodcates.branch_name">	{{prodcates.branch_name.branchname}}</template></td>  
                             
 
-                                  <td><div class="musisialign">  {{currencydetails}}  {{formatPrice(prodcates.invoiceamount)}} </div></td>
+                    <td><div class="musisialignright">   {{formatPrice(prodcates.invoiceamount)}} </div></td>
+                          <td><div class="musisialignright">   {{formatPrice(prodcates.totalcost)}} </div></td>
+                          <td><div class="musisialignright">   {{formatPrice(prodcates.lineprofit)}} </div></td>
                                 
-                               <td><div class="musisialign"> {{currencydetails}} {{formatPrice(prodcates.vatamount)}} </div></td>
-                                 <!-- <td style="background-color:#eeeeee "><div class="musisialign"> {{formatPrice(prodcates.netinvoiceincome)}} </div></td>
-                                 -->
-                                  
-<!-- <tfoot>
-    <tr>
+ <td><div class="musisialignright"> {{formatPrice(prodcates.vatamount)}} </div></td>
 
 
-<th></th>
-<th></th>
-<th></th>
-<th ><div class="musisialign"> {{currencydetails}} {{formatPrice(totalsalesdailysalesreports)}} </div></th>
-<!-- <th><div class="musisialign">  {{currencydetails}} {{formatPrice(totalvatdailysalesreports)}} </div></th>
-<th><div class="musisialign">  {{currencydetails}} {{formatPrice(totalnetinvoicedailysalesreports)}} </div></th> -->
-    <!-- </tr> -->
-<!-- </tfoot> -->
+ <td><div class="musisialignright">   {{formatPrice(prodcates.netinvoiceincome)}} </div></td>
+                          <td><div class="musisialignright">   {{formatPrice(prodcates.totalcost)}} </div></td>
+                            <td><div class="musisialignright">   {{formatPrice(prodcates.netsalewithoutvat)}} </div></td>
+                          <td><div class="musisialignright">    </div></td>
+
+                             
 
 </tr>
+  <tr>
 
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+
+
+
+
+
+
+
+
+
+
+
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasesordersrangereports)}} </div>
+</th>
+
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasesvatsrangereports)}} </div>
+</th>
+
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailydeliverieswithouttaxrangereports)}} </div>
+</th>
+
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasesdeliveriesamountrangereports)}} </div>
+</th>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasesdeliveriesvatsrangereports)}} </div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasespaymentsamountrangereports)}} </div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasespaymentsbalancerangereports)}} </div>
+</th>
+    
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+</tr>
 </table>
 
 
@@ -574,16 +694,53 @@ Sales report summary : From - To -
                 </form>
                   </div> 
                <table  class="table" width="100%" border="1">
+                   <tr>
+             <th colspan="1"  style="font-size: 18px;     border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> RECEIPT NUMBER</th>
+             <th colspan="1"  style="font-size: 18px;     border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> DATE</th>
+           
+          
+              <th colspan="1"  style="font-size: 18px; text-align:center;   
+                border-bottom: 4px solid rgb(124 102 102); 
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> BRANCH</th>
+        
+              <th colspan="3"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> TOTALS WITH VAT-IN INCLUSSIVE </th>
+              
+  <th colspan="1"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> TAX (VAT) DETAILS  </th>
+              
+          
+              
+            <th colspan="3"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> TOTALS WITHOUT VAT </th>
+              
+             
+              
+        </tr>
 <tr>
-    <th>RECEIPT NUMBER</th>
-<th>DATE</th>
+<th></th>
+<th></th>
+<th></th>
+<th>Total Sales</th>
+<th>Total Cost</th>
+<th>Total Profit</th>
 
-<th>BRANCH</th>
-<th>RECEIPT AMOUNT</th>
-<th>TAX (VAT Collected)</th>
-<th>LINE TOTAL</th>
 
+
+
+
+
+
+<th> Total Tax ( {{currencydetails}} )</th>
+
+
+ <th> Gross Sales ( {{currencydetails}} )</th>
+  <th> Total Cost ( {{currencydetails}} )</th>
+
+   <th> Line Profit ( {{currencydetails}} )</th>
+    
 </tr>
+
 <tr>
           <tr v-for="prodcates in salesreportsummaryrecords.data" :key="prodcates.id">
                <td>{{prodcates.invoiceno}}</td>
@@ -592,24 +749,92 @@ Sales report summary : From - To -
                              
                           <td> <b> <template v-if="prodcates.branch_name">	{{prodcates.branch_name.branchname}}</template></b></td>  
 
-                                  <td><div class="musisialign"> {{formatPrice(prodcates.invoiceamount)}} </div></td>
-                                
-                               <td><div class="musisialign"> {{formatPrice(prodcates.vatamount)}} </div></td>
-                                 <td style="background-color:#eeeeee "><div class="musisialign"> {{formatPrice(prodcates.netinvoiceincome)}} </div></td>
+                                  <td><div class="musisialignright"> {{formatPrice(prodcates.invoiceamount)}} </div></td>
+                                  <td><div class="musisialignright"> {{formatPrice(prodcates.totalcost)}} </div></td>
+                                  <td><div class="musisialignright"> {{formatPrice(prodcates.lineprofit)}} </div></td>
+                               <td><div class="musisialignright"> {{formatPrice(prodcates.vatamount)}} </div></td>
+                               <!-- style="background-color:#eeeeee " -->
+                                 <td >
+                                   <div class="musisialignright"> {{formatPrice(prodcates.netinvoiceincome)}} </div></td>
+                                 <td >
+                                   <div class="musisialignright"> {{formatPrice(prodcates.totalcost)}} </div></td>
+
+                                   <td >
+                                   <div class="musisialignright"> {{formatPrice(prodcates.netsalewithoutvat)}} </div></td>
                                 
                                   
 <tfoot>
 </tfoot>
-<tr>
+
+ <tr>
 
 
-<th></th>
-<th></th>
-<th></th>
-<th ><div class="musisialign"> {{currencydetails}} {{formatPrice(totalsalesdailysalesreports)}} </div></th>
-<th><div class="musisialign">  {{currencydetails}} {{formatPrice(totalvatdailysalesreports)}} </div></th>
-<th><div class="musisialign">  {{currencydetails}} {{formatPrice(totalnetinvoicedailysalesreports)}} </div></th>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totalsalesdailysalesreports)}} </div>
+</th>
+
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasesvatsrangereports)}} </div>
+</th>
+
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailydeliverieswithouttaxrangereports)}} </div>
+</th>
+
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasesdeliveriesamountrangereports)}} </div>
+</th>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasesdeliveriesvatsrangereports)}} </div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasespaymentsamountrangereports)}} </div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasespaymentsbalancerangereports)}} </div>
+</th>
+    
+
 </tr>
+
 
 </table>      
 
@@ -692,81 +917,236 @@ Sales report summary : From - To -
                                 </div>
                   <!--  -->
                                 <div role="tabpanel" class="tab-pane fade" id="messages_with_icon_title" v-if="unitsofmeasureComponentaccess > 0">
-                                
-                                
 
-   <div class="bethapa-table-header">
-                  Units Of Measure 
-                  <!-- v-if="allowedtoaddbranch > 0 " -->
-                      <button type="button" v-if="addnewunitofmeasurefeature > 0" class="add-newm" @click="newproductunitofmeasureModal" >Add New </button> 
+
+
+
+
+  <div class="bethapa-reports-header">
+            Product Sales details  
+                      <button type="button" v-if="allowedtoaddbranch > 0 " class="add-newm" @click="newproductbrandModal" >Add New </button> 
                      </div>
-
-
-                       <table class="table">
-                  <thead>
-                    <tr>
-                   
-                      <th > # </th>
-                      <th > UNIT  NAME </th>
-                      <th > CODE</th>
-                    
-                      <th > CREATED BY</th>
-                     
-                      <th > DATE CREATED </th>
-                     <th >  </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-
-
- 
-       
-     
-          
-
-                                 <tr v-for="probrands in productunitofmeasurerecords.data" :key="probrands.id">
-                      
+     <div class="mysalessect2"> 
+ <form @submit.prevent="savedatestoVieedailyreport()">
                  
-                  
-                
-                      
-                         
-                                <td>{{probrands.id}}</td>
-                                 <td>{{probrands.unitname | firstletterCapital }}</td>
-                                    <td>{{probrands.shotcode}}</td>
- 
-                             
-                               
-                                  <td>{{probrands.ucret}}</td>
-                                
-                                 <td>{{probrands.created_at | myDate2 }}</td>  
-                                 <td> 
-                                  
-                              <button type="button" v-if="allowedtoeditbranch > 0 "   class="btn  bg-gradient-secondary btn-xs fas fa-edit"  @click="editUnitofmeasure(probrands)">Edit Record</button>
-                             
+                      <div class="form-group">
 
+                                        <label>Start Date</label>
+  <input v-model="form.startdate" type="date" name="startdate" id="startdate" v-on:change="tosubmitProductcategoryfilter" >
 
-                            <button type="button"  class="btn  bg-gradient-danger btn-xs fas fa-trash-alt" @click="deleteUnitofmeasure(probrands.id)"> Delete Record </button>
-
-
-
-
-                             
-                              </td>
-
-
-               
+      <label>End Date</label>
+  <input v-model="form.enddate" type="date" name="enddate" id="enddate" v-on:change="tosubmitProductcategoryfilter" > 
                               
-                               
-                    </tr>
+             <button type="submit" style="display:none" id="submit" hidden="hidden" name= "submit" ref="buttontosubmitProductcategoryFilter" class="btn btn-primary btn-sm">Saveit</button>         
+
+                                
+            
+       
+                   
+          </div>
+      
+
+                </form>
+                  </div> 
+
+
+
+
+
+
+
+
+
+
+
+                       <table  class="table" width="100%" border="1">
+                   <tr>
+             <th colspan="1"  style="font-size: 18px;     border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> RECEIPT NUMBER</th>
+             <th colspan="1"  style="font-size: 18px;     border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> DATE</th>
+           
+          
+              <th colspan="1"  style="font-size: 18px; text-align:center;   
+                border-bottom: 4px solid rgb(124 102 102); 
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> BRANCH</th>
+
+                     <th colspan="1"  style="font-size: 18px; text-align:center;   
+                border-bottom: 4px solid rgb(124 102 102); 
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> Item Name</th>
+        
+              <th colspan="3"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> COST SETTINGS </th>
               
-                     
-                  </tbody>
+  <th colspan="6"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> SALES DETAILS  </th>
               
+          
+              
+            <th colspan="3"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> PROFIT WITHOUT VAT </th>
+              
+             
+              
+        </tr>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th>Unit Cost ( {{currencydetails}} )</th>
+<th>Qty</th>
+<th>Total Cost ( {{currencydetails}} )</th>
+
+
+<th>Unit Price ( {{currencydetails}} )</th>
+<th>Qty</th>
+<th>Total ( {{currencydetails}} ) </th>
+<th>Unit VAT ( {{currencydetails}} ) </th>
+<th>Total VAT  ( {{currencydetails}} )</th>
+<th>Gross Profit ( {{currencydetails}} )</th>
+<th>Line Profit ( {{currencydetails}} ) </th>
+
+
+
+</tr>
+
+<tr>
+          <tr v-for="prodcates in salesdetailsreportdetailedrecords.data" :key="prodcates.id">
+               <td>{{prodcates.invoiceno}}</td>
+                                 <td>{{prodcates.invoicedate | myDate2 }}</td>
  
-                                   </table>
-    <div class="card-footer">
+                             
+                          <td> <template v-if="prodcates.branch_name">	{{prodcates.branch_name.branchname}}</template></td>  
+                               <td> <template v-if="prodcates.product_name">	{{prodcates.product_name.productname}}</template></td>  
+
+                                  <td><div class="musisialignright"> {{formatPrice(prodcates.unitcost)}} </div></td>
+                                  <td><div class="musisialign"> {{formatPrice(prodcates.quantity)}} </div></td>
+                                  <td><div class="musisialignright"> {{formatPrice(prodcates.totalcost)}} </div></td>
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                               <td><div class="musisialignright"> {{formatPrice(prodcates.unitprice)}} </div></td>
+                               <!-- style="background-color:#eeeeee " -->
+                                 <td >
+                                   <div class="musisialignright"> {{formatPrice(prodcates.quantity)}} </div></td>
+                                 <td >
+                                   <div class="musisialignright"> {{formatPrice(prodcates.linetotal)}} </div></td>
+
+                                   <td >
+                                   <div class="musisialignright"> {{formatPrice(prodcates.linevat)}} </div></td>
+
+                                      <td >
+                                   <div class="musisialignright"> {{formatPrice(prodcates.vatamount)}} </div></td>
+                                      <td >
+                                   <div class="musisialignright"> {{formatPrice(prodcates.lineprofit)}} </div></td>
+                                    <td >
+                                   
+                                   <div class="musisialignright"> {{formatPrice(prodcates.netsalewithoutvat)}} </div></td>
+                                   
+                                
+                                
+                                  
+
+
+ <tr>
+
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totalsalesdailysalesreports)}} </div>
+</th>
+
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailydeliverieswithouttaxrangereports)}} </div>
+</th>
+
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasesdeliveriesamountrangereports)}} </div>
+</th>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasesdeliveriesvatsrangereports)}} </div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasespaymentsamountrangereports)}} </div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasespaymentsbalancerangereports)}} </div>
+</th>
+    
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasespaymentsbalancerangereports)}} </div>
+</th>
+    <th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasespaymentsbalancerangereports)}} </div>
+</th>
+    <th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasespaymentsbalancerangereports)}} </div>
+</th>
+    <th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasespaymentsbalancerangereports)}} </div>
+</th>
+    
+</tr>
+
+
+</table>      
+      
+      
+
+                 
+                     <div class="card-footer">
                 <ul class="pagination pagination-sm m-0 float-right">
                    <pagination :data="salesreportsummaryrecords" @pagination-change-page="paginationResultsProductcategories"></pagination>
                 </ul>
@@ -2584,6 +2964,7 @@ salessummaryComponentaccess:'',
           editmode: false,
            shopingcartdetails:{},
           salesreportsummaryrecords : {},
+          salesdetailsreportdetailedrecords:{},
           dailysalessummaryrecords:{},
           totalsalesdailysalesreports:{},
           totalvatdailysalesreports:{},
@@ -2998,8 +3379,8 @@ axios.get("api/purchaserecordsComponentaccess").then(({ data }) => (this.purchas
 axios.get("api/salessummaryComponentaccess").then(({ data }) => (this.salessummaryComponentaccess = data));
 
   },
-    loadUnitofmeasure(){
-        axios.get("api/productunitofmeasurerecords").then(({ data }) => (this.productunitofmeasurerecords = data));
+    loadSalesdetailsreportdetailed(){
+        axios.get("api/salesdetailsreportdetailedrecords").then(({ data }) => (this.salesdetailsreportdetailedrecords = data));
         axios.get("api/generalProductscomponentAccess").then(({ data }) => (this.generalProductscomponentAccess = data));
         axios.get("api/branchesccessSettings").then(({ data }) => (this.branchesccessSettings = data));
         axios.get("api/rolesaccessSettings").then(({ data }) => (this.rolesaccessSettings = data));
@@ -3049,7 +3430,7 @@ loadactiveProductsonSale(){
 
 
 ////------------------------------------------------------------------------------------------------------------------
-  loadProductbrands(){
+  loadSalesreportsummary(){
        axios.get("api/productbrandsrecords").then(({ data }) => (this.productbrandsrecords = data));
      
         axios.get("api/generalProductscomponentAccess").then(({ data }) => (this.generalProductscomponentAccess = data));
@@ -3071,14 +3452,15 @@ axios.get("api/purchaserecordsComponentaccess").then(({ data }) => (this.purchas
 axios.get("api/salessummaryComponentaccess").then(({ data }) => (this.salessummaryComponentaccess = data));
 
   },
-  loadProductcategories(){
+  loadDailysalesreportdetails(){
      
    axios.get("api/totalnetinvoicedailysalesreports").then(({ data }) => (this.totalnetinvoicedailysalesreports = data));
       axios.get("api/totalvatdailysalesreports").then(({ data }) => (this.totalvatdailysalesreports = data));
        axios.get("api/totalsalesdailysalesreports").then(({ data }) => (this.totalsalesdailysalesreports = data));
        axios.get("api/salesreportsummaryrecords").then(({ data }) => (this.salesreportsummaryrecords = data));
         axios.get("api/dailysalessummaryrecords").then(({ data }) => (this.dailysalessummaryrecords = data));
-       
+         axios.get("api/salesdetailsreportdetailedrecords").then(({ data }) => (this.salesdetailsreportdetailedrecords = data));
+
        axios.get('/api/productcategorieslist').then(function (response) { this.productcategorieslist = response.data;}.bind(this));
      //  this.getRoles();
      //  this.getUsertypes();
@@ -4258,7 +4640,7 @@ this.productstoaddtoinvoicerecords = data.data;
 
 
 
-            this.loadProductcategories();
+            this.loadDailysalesreportdetails();
             axios.get("api/getcurrencydetails").then(({ data }) => (this.currencydetails = data));
                axios.get('/api/productcategorieslist').then(function (response) { this.productcategorieslist = response.data;}.bind(this));
                axios.get('/api/productbrandslist').then(function (response) { this.productbrandslist = response.data;}.bind(this));
@@ -4274,7 +4656,7 @@ this.productstoaddtoinvoicerecords = data.data;
               axios.get("api/outputvatamount").then(({ data }) => (this.outputvatamount = data));
            //this.checkBranchescomponentfeatures();
             Fire.$on('AfterAction', () =>{
-this.loadProductcategories();
+this.loadDailysalesreportdetails();
       });
   setInterval(() =>this.loadvatvalues(),3000);
         }

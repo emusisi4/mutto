@@ -89,6 +89,11 @@ $userrole =  auth('api')->user()->type;
      $totalcostoftheinvoice = \DB::table('shopingcats')->where('ucret', '=', $userid)->sum('totalcostprice');
      $totalprofitoninvoice = \DB::table('shopingcats')->where('ucret', '=', $userid)->sum('lineprofit');
      $totalvatoninvoice = \DB::table('shopingcats')->where('ucret', '=', $userid)->sum('vatamount');
+///neteters
+$totalnetsaleswithoutvatinvoice = \DB::table('shopingcats')->where('ucret', '=', $userid)->sum('netsalewithoutvat');
+$totalnetunitsalewithoutvatinvoice = \DB::table('shopingcats')->where('ucret', '=', $userid)->sum('netunitsalewithoutvat');
+
+
      //// getting the invoice number
      $dto = date('ymd');
 ///////////////////////////////////////////////////////////////////////////////// getting the branch balance
@@ -136,6 +141,8 @@ $invoiceno = $inv.$dto;
      'unitcost' => $user->unitcost,
     'totalcost' => $user->totalcostprice,
      'lineprofit' => $user->lineprofit,
+     'netsalewithoutvat' => $user->netsalewithoutvat,
+     'netunitsalewithoutvat'=> $user->netunitsalewithoutvat,
      'status' => 10,  
       
               'ucret' => $userid,
@@ -187,6 +194,8 @@ $dto88 = date('Y-m-d');
  $dateandmonth = $user->datesold;
  $yearmade = date('Y', strtotime($dateandmonth));
   $monthmade = date('m', strtotime($dateandmonth));
+  ///$totalnetsaleswithoutvatinvoice = \DB::table('shopingcats')->where('ucret', '=', $userid)->sum('netsalewithoutvat');
+//$totalnetunitsalewithoutvatinvoice = \DB::table('shopingcats')->where('ucret', '=', $userid)->sum('netunitsalewithoutvat');
  Salessummary::Create([
    
    'invoiceno' => $invoiceno,
@@ -200,6 +209,9 @@ $dto88 = date('Y-m-d');
     'netinvoiceincome' => ($totallineforinvoice-$totalvatoninvoice),   
     'monthmade' => $monthmade, 
     'yearmade' => $yearmade,  
+    'netsalewithoutvat' => $totalnetsaleswithoutvatinvoice,
+    'netunitsalewithoutvat'=> $totalnetunitsalewithoutvatinvoice,
+
              'ucret' => $userid,
            
          ]);
@@ -212,7 +224,8 @@ $dto88 = date('Y-m-d');
   $ubranch = $user->branch;
 
   
-
+  $totalnetunitsalewithoutvat = \DB::table('salessummaries')->where('invoicedate', '=', $ddddtt)->where('branch', '=', $ubranch)->sum('netunitsalewithoutvat');  
+  $totalnetsalewithoutvat = \DB::table('salessummaries')->where('invoicedate', '=', $ddddtt)->where('branch', '=', $ubranch)->sum('netsalewithoutvat');  
 
 
 $totalsalesamount = \DB::table('salessummaries')->where('invoicedate', '=', $ddddtt)->where('branch', '=', $ubranch)->sum('invoiceamount');  
@@ -232,6 +245,10 @@ DB::table('dailysummaryreports')->where('branch', $ubranch)->where('datedone', $
 Dailysummaryreport::Create([
   'datedone' => $ddddtt,
   'branch' => $ubranch, 
+
+  'netunitsalewithoutvat' => $totalnetunitsalewithoutvat,
+  'netsalewithoutvat' => $totalnetsalewithoutvat,
+
 
   'invoiceamount' => $totalsalesamount,
   'totalcost' => $totalcost,

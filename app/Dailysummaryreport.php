@@ -12,7 +12,7 @@ class Dailysummaryreport extends Authenticatable
    
     protected $fillable = [
         'invoiceno','netinvoiceincome', 'branch','totalcost','lineprofit', 'invoiceamount',
-         'invoicedate', 'ucret','vatamount', 'monthmade','yearmade','datedone'
+         'invoicedate', 'ucret','vatamount', 'monthmade','yearmade','datedone','netsalewithoutvat','netunitsalewithoutvat'
        
     ];
     public function productName(){

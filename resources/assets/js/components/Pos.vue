@@ -9,6 +9,33 @@ border-bottom:2px dotted black;
 
 
 }
+.musisireporttable-table td, th {
+    border: 0.5px solid #c5c5c5;
+    padding-left: 18px;
+    text-align: left;
+    font-size: 20px;
+    /* background: #a99696; */
+    color: black;
+        vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+        padding: -0.25rem;
+ 
+    /* border-top: 1px solid #822119 */
+}
+.musisialign{
+     text-align: center;
+
+}
+.musisialignright{
+     text-align: right;
+         padding-right: 10px;
+
+}
+.musisialignleft{
+     text-align: left;
+
+}
+
    .formcont2{
       display: block;
     width: 100%;
@@ -380,87 +407,83 @@ text-align: center;
 
   </div>
 
-<!-- 
-   <div class="bethapa-table-header"></div> -->
 
-                       <table class="table">
-                  <thead>
-                    <tr>
-                   
-                      <th > # </th>
-                      
-                    
-                      
-                      <th > ITEM </th>
-                     
-                      <th > UNIT  </th>
-                    
-                    
-                    
-                         <th > QTY</th>
-                       <th > SELLING PRICE</th>
-                     
-                     <th >  </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-
-
- 
-       
-     
+<table  class="musisireporttable" width="100%" border="1">
+       <tr>
+             <th colspan="1"  style="font-size: 18px;     border-bottom: 4px solid rgb(124 102 102);  
+                background-color: rgb(29 31 34 / 37%); color: #131378;"> #</th>
+            
           
-
-                                 <tr v-for="probrands in productsellingrecords.data" :key="probrands.id">
-                      
-                               
+              <th colspan="1"  style="font-size: 18px; text-align:center;   
+                border-bottom: 4px solid rgb(124 102 102); 
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> ITEM</th>
+        
+              <th colspan="1"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> UNIT </th>
+              
+            <th colspan="1"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> QTY AVAILABLE </th>
+              
+             <th colspan="1"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> SELLING PRICE	</th>
+             <th colspan="1"  style="font-size: 18px;     border-bottom: 4px solid rgb(124 102 102); 
+                 background-color: rgb(29 31 34 / 37%); color: #131378;"> </th>
+          
+        </tr>
+<!--  -->
+          <tr v-for="prodcates in productsellingrecords.data" :key="prodcates.id">
+             <td>{{prodcates.id  }}</td>
+            <td><div class="musisialignleft">   {{prodcates.productname | firstletterCapital}} </div></td>
+            <td>  <template v-if="prodcates.unit_measure">	{{prodcates.unit_measure.shotcode}}</template> -
+              <template v-if="prodcates.unit_measure">	{{prodcates.unit_measure.unitname}}</template></td>  
                 
-                      
-                         
-                                <td>{{probrands.id}}</td>
+                <td><div class="musisialign">{{(prodcates.qty)}} </div></td>
+                                  <td><div class="musisialignright">  {{formatPrice(prodcates.unitprice)}} </div></td>
                               
-                                <!-- <td> ({{probrands.category}}) <template v-if="probrands.product_category">	{{probrands.product_category.catname}}</template></td>  
-                                      <td>   	{{probrands.uracode}}</td>                 -->
-                               
-   <td>   {{probrands.productname | firstletterCapital }}</td>
-   <td> <template v-if="probrands.unit_measure">	{{probrands.unit_measure.shotcode}}</template> -  <template v-if="probrands.unit_measure">	{{probrands.unit_measure.unitname}}</template></td>
-    <td><div class="tabletextalign"> {{probrands.qty}} </div></td> 
-  
-    <td><div class="tabletextalign"> {{formatPrice(probrands.unitprice)}} </div></td> 
-    
- 
-                   
-   
+                                  
+                                  
+                                  
+
+
+                                  
+                             <td><div class="musisialignright">   
+                                   
+                             <button type="button" v-if="prodcates.unitprice > 0 &&  prodcates.qty > 0  "  class="btn bg-brown waves-effect btn-sm float-right" @click="editProductdetails(prodcates)" >Sell Out  </button>
                              
-                               
-                                 
-                                
-                               
-                                 <td> 
-                                  <!-- v-if="allowedtoeditbranch > 0 "  -->
-                                                  
+                             </div></td>
+                                 <!-- <td style="background-color:#eeeeee "><div class="musisialign"> {{formatPrice(prodcates.netinvoiceincome)}} </div></td>
+                                 -->
+       <tr>
 
 
-                  
-<button type="button" v-if="probrands.unitprice > 0 &&  probrands.qty > 0  "  class="btn btn-success btn-xs float-right" @click="editProductdetails(probrands)" >Add to Cart  </button>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+
+</tr>
+</table>
 
 
-
-                             
-                              </td>
-
-
-               
-                              
-                               
-                    </tr>
-              
-                     
-                  </tbody>
-              
- 
-                                   </table>
+                    
    <div class="card-footer">
       
                 <ul class="pagination pagination-sm m-0 float-right">
@@ -481,99 +504,7 @@ text-align: center;
                                 RECEIPT DETAILS
                                <button type="button" class="btn btn-default waves-effect m-r-20" data-toggle="modal" data-target="#receiptrintModal">MODAL - DEFAULT SIZE</button>
                             </h2>
-                              <div class="" id="accordion_1" role="tablist" aria-multiselectable="true">
-                                
-                                        <div class="panel panel-primary">
-                                            <div class="panel-heading" role="tab" id="headingTwo_1">
-                                                <h4 class="panel-title">
-                                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion_1" href="#collapseTwo_1" aria-expanded="false" aria-controls="collapseTwo_1">
-                                                        Today's Sold Receipts
-                                                    </a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapseTwo_1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo_1">
-                                                <div class="panel-body">
-                                                               <table class="table">
-                  <thead>
-                    <tr>
-                   
-                      <th > # </th>
-                      
-                  <th > Item </th>
-                        <th >Brand</th>
-                      <th >Qty Available</th>
-                       <th > Unit Price ({{currencydetails}})</th>
-                      
-                    
-                                         
-                    
-                     <th >  </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-
-
- 
-       productsellingrecords
-    
-                                 <tr v-for="purcdet in productpriceslist.data" :key="purcdet.id">
-                      
-                 
-                  
-                
-                      
-                         
-                                <td>{{purcdet.id}}</td>
-                                     <td><template v-if="purcdet.product_name">	{{purcdet.product_name.productname}}</template></td>
-                                
-                                      <td><template v-if="purcdet.brand_name">	{{purcdet.brand_name.suppname}}</template></td>
-                                <td> {{(purcdet.qtyavailable)  }}</td>
-                                <td> {{formatPrice(purcdet.unitprice)  }}</td>
-                              
-                         
-                             
-                               
-                                 
-                                
-                               
-                                 <td> 
-                                  
                           
-                  <button v-if="purcdet.status == '0'" type="button" class="btn bg-teal waves-effect" @click="confirmItempurchaseddelivery(purcdet)">Confirm Delivery</button>           
-                
-
-
-
-
-                             
-                              </td>
-
-
-               
-                              
-                               
-                    </tr>
-              
-                     
-                  </tbody>
-              
- 
-                                   </table>
-
-                                   
-    <div class="card-footer">
-                <ul class="pagination pagination-sm m-0 float-right">
-                   <pagination :data="productsellingrecords" @pagination-change-page="paginationResultsproductsellingrecords"></pagination>
-                </ul>
-    </div>
-
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                      productsellingrecords
-                                    </div> 
                         </div>
                         <div class="body">
                            <!-- <div class="mysalessect">               -->

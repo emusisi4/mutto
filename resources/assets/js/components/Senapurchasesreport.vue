@@ -258,7 +258,7 @@ pre {
 
 
            <div class="row clearfix">
- <div  class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+ <div  class="col-lg-3 col-md-3 col-sm-6 col-xs-4">
                     <div class="info-box bg-indigo">
                         <div class="icon">
                             <i class="material-icons"></i>
@@ -470,21 +470,11 @@ Daily Purchases Detailed Report : From - To -
  
                                  <td><div class="musisialignright">  {{formatPrice(prodcates.ordercostwithoutvat)}} </div></td>
                                   <td><div class="musisialignright">  {{formatPrice(prodcates.orderedvatamount)}} </div></td>
-                               <td><div class="musisialignright">  {{formatPrice(prodcates.orderedamount)}} </div></td>
+                               <td><div class="musisialignright">  {{formatPrice(prodcates.totalinvoicewithvat)}} </div></td>
 
                                
 
-                                <!-- <td><div v-if="prodcates.status == '1' " >
-                                 <span class="label bg-orange">Partialy Delivered</span>
-                                 </div>
-                                 <div v-if="prodcates.status == '0' " >
-                                 <span class="label bg-deep-orange">Not Delivered</span>
-                                 </div>
-                                  <div v-if="prodcates.status == '2' " >
-                                 <span class="label bg-green">Delivered</span>
-                                 </div>
 
-                                 </td> -->
 
                                   <td><div class="musisialignright"> {{formatPrice(prodcates.deliverycostwithoutvat)}} </div></td> 
                                   <td><div class="musisialignright">  {{formatPrice(prodcates.deliveredvatamount)}} </div></td>
@@ -788,7 +778,7 @@ Purchases report Summary by Invoice : From - To -
 
                                   <td><div class="musisialignright">{{formatPrice(prodcates.ordercostwithoutvat)}} </div></td>
                                   <td><div class="musisialignright">  {{formatPrice(prodcates.expectedvat)}} </div></td>
-                               <td><div class="musisialignright">{{formatPrice(prodcates.tendercost)}} </div></td>
+                               <td><div class="musisialignright">{{formatPrice(prodcates.totalinvoicewithvat)}} </div></td>
 
 
                                   
@@ -993,7 +983,7 @@ Purchases report Summary by Invoice : From - To -
 
  <div class="bethapa-reports-header">
    
-   Purchases   Report details : From - To - 
+   Purchases Report details : From - To - 
 </div>
 
 <!-- <div class="mysalessect">  -->
@@ -1114,13 +1104,14 @@ Purchases report Summary by Invoice : From - To -
                                   <td><div class="musisialign">  {{(prodcates.quantity)}} </div></td>
                                     <td><div class="musisialignright">   {{formatPrice(prodcates.unitvat)}} </div></td>
                                    <td><div class="musisialignright">   {{formatPrice(prodcates.vattotal)}} </div></td>
-                                  <td><div class="musisialignright">    {{formatPrice(prodcates.linetotal)}} </div></td>
+                                  <td><div class="musisialignright">    {{formatPrice(prodcates.grandtotal)}} </div></td>
                                  
 
-
-                                    <td><div class="musisialignright"> {{formatPrice(prodcates.deliverycostwithoutvat)}} </div></td>
+                                     <td><div class="musisialignright"> {{formatPrice(prodcates.linecostdelivery)}} </div></td>
+                                    
                                        <td><div class="musisialign">  {{(prodcates.qtydelivered)}} </div></td>
-                              <td><div class="musisialignright"> {{formatPrice(prodcates.unitvat)}} </div></td>
+                                       
+                              <td><div class="musisialignright"> {{formatPrice(prodcates.vattotal)}} </div></td>
                                   
                                  <td><div class="musisialignright"> {{formatPrice(prodcates.linecostdelivery)}} </div></td>
                             

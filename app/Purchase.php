@@ -19,7 +19,7 @@ class Purchase extends Authenticatable
           'invoiceno', 'suppliername', 'supplierinvoiceno', 'vatstatus', 'vattotal','invoicelockstatus',
           'itemconfirmed', 'qtydelivered', 'datedelivered', 'ucretconfirmeddelivery', 'linecostdelivery', 
           'totalcostdelivery','unitvat','lineproductcost',
-          'ordercostwithoutvat','deliverycostwithoutvat'
+          'ordercostwithoutvat','deliverycostwithoutvat','totalinvoicewithvat'
           
          
     ];

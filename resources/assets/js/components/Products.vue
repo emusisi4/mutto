@@ -6,6 +6,33 @@
 
 }
 
+.musisireporttable-table td, th {
+    border: 0.5px solid #c5c5c5;
+    padding-left: 18px;
+    text-align: left;
+    font-size: 20px;
+    /* background: #a99696; */
+    color: black;
+        vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+        padding: -0.25rem;
+ 
+    /* border-top: 1px solid #822119 */
+}
+.musisialign{
+     text-align: center;
+
+}
+.musisialignright{
+     text-align: right;
+         padding-right: 10px;
+
+}
+.musisialignleft{
+     text-align: left;
+
+}
+
 .invoice-company {
     font-size: 20px
 }
@@ -297,8 +324,7 @@ pre {
                     <div class="card">
                         <div class="header">
                             <h2>
-                                COMPANY PRODUCT DETAILS
-                            </h2>
+                                 PRODUCT SETTINGS                            </h2>
                             
                         </div>
                         <div class="body">
@@ -956,97 +982,139 @@ pre {
 
   </div>
 
-
-
-  
-                       <table class="table">
-                  <thead>
-                    <tr>
-                   
-                      <th > # </th>
-                      
-                          <th > CATEGORY</th>
-                            <th > CODE</th>
-                      <th > PRODUCT NAME </th>
-                     
-                      <th > UNIT OF MEASURE </th>
-                    
-                    
-                    
-                         <th > QTY AVAILABLE</th>
-                           <th > RE-STOCK QTY</th>
-                             <th > COST PRICE</th>
-                                 <th > SELLING PRICE</th>
-                    
-                     
-                     <th >  </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-
-
- 
-       
-     
+<table  class="musisireporttable" width="100%" border="1">
+       <tr>
+             <th colspan="1"  style="font-size: 18px;     border-bottom: 4px solid rgb(124 102 102);  
+                background-color: rgb(29 31 34 / 37%); color: #131378;"> #</th>
+            
           
+              <th colspan="1"  style="font-size: 18px; text-align:center;   
+                border-bottom: 4px solid rgb(124 102 102); 
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> CATEGORY</th>
+        
+              <th colspan="1"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> CODE </th>
+              
+            <th colspan="1"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> PRODUCT NAME </th>
+              
+             <th colspan="1"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> UNIT MEASURE	</th>
+          
+             <th colspan="3"  style="font-size: 18px;   text-align:center;  border-bottom: 4px solid rgb(124 102 102); 
+                 background-color: rgb(29 31 34 / 37%); color: #131378;"> STOCK LEVELS</th>
 
-                                 <tr v-for="probrands in productdetailsrecords.data" :key="probrands.id">
-                      
-                               
+                 
+
+                <th colspan="2"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> PRICE SETTINGS</th>
+
+              <th colspan="2"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> PROFITABILITY</th>
+
+                <th colspan="1"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> 	</th>
+          
+        </tr>
+
+        <tr>
+    <th></th>
+
+<th></th>
+<th> </th>
+<th> </th>
+<th>  </th>
+<th>  QTY in stock</th>
+<th>  QTY to Re-stock </th>
+
+<th> RE- Stock status</th>
+
+<th>  Cost Price ( {{currencydetails}} ) </th>
+<th>  Selling Price ({{currencydetails}})</th>
+
+<th>  Line Profit ( {{currencydetails}} ) </th>
+<th>  Status</th>
+<th> </th>
+</tr>
+<!--  -->
+          <tr v-for="prodcates in productdetailsrecords.data" :key="prodcates.id">
+             <td>{{prodcates.id  }}</td>
+             <td><div class="musisialignleft">({{prodcates.category}})   <template v-if="prodcates.product_category">	{{prodcates.product_category.catname}}  </template></div></td>
+                     <td>{{prodcates.uracode  }}</td>
+            <td><div class="musisialignleft">   {{prodcates.productname | firstletterCapital}} </div></td>
+            <td>  <template v-if="prodcates.unit_measure">	{{prodcates.unit_measure.shotcode}}</template> -
+              <template v-if="prodcates.unit_measure">	{{prodcates.unit_measure.unitname}}</template></td>  
                 
-                      
-                         
-                                <td>{{probrands.id}}</td>
+                <td><div class="musisialign">{{(prodcates.qty)}} </div></td>
+                <td><div class="musisialign">{{(prodcates.rol)}} </div></td>
+                <td><div class="musisialign"> </div></td>
+
+                   <td><div class="musisialignright">  {{formatPrice(prodcates.unitcost)}} </div></td>
+                <td><div class="musisialignright">  {{formatPrice(prodcates.unitprice)}} </div></td>
+
+
+
+                 <td><div class="musisialignright">  {{formatPrice(prodcates.unitprice - prodcates.unitcost)}} </div></td>
+                <td><div class="musisialignright">  {{formatPrice()}} </div></td>
+                        
                               
-                                <td> ({{probrands.category}}) <template v-if="probrands.product_category">	{{probrands.product_category.catname}}</template></td>  
-                                      <td>   	{{probrands.uracode}}</td>                
-                               
-   <td>   {{probrands.productname | firstletterCapital }}</td>
-   <td> <template v-if="probrands.unit_measure">	{{probrands.unit_measure.shotcode}}</template> -  <template v-if="probrands.unit_measure">	{{probrands.unit_measure.unitname}}</template></td>
-    <td><div class="tabletextalign"> {{probrands.qty}} - <template v-if="probrands.unit_measure">	{{probrands.unit_measure.unitname}}<sub>(s)</sub></template> </div></td> 
-  
-   
+                                  
+                                  
+                                  
+
+
+                                  
+                             <td><div class="musisialignright">   
+                                   
+                          <button type="button"   class="btn bg-brown btn-xs waves-effect"  @click="editProductdetails(prodcates)">Edit Record</button>
+                        
+
+
+
+                            <button type="button"  class="btn bg-deep-orange btn-xs waves-effect" @click="deleteUnitofmeasure(prodcates.id)"> Delete Record </button>
+
     
- 
+                             </div></td>
+                                 <!-- <td style="background-color:#eeeeee "><div class="musisialign"> {{formatPrice(prodcates.netinvoiceincome)}} </div></td>
+                                 -->
+       <tr>
+
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+
+</tr>
+</table>
+
+<div class="btn-group" role="group" aria-label="First group">
+<button type="button" class="btn btn-default waves-effect"> 
+  <pagination :data="productdetailsrecords" @pagination-change-page="paginationResultsProductdetailsrecords"></pagination>
+  </button>
+                                     
+                                    </div>
+  
                    
-   
-                             
-                               
-                                  <td><div class="tabletextalign"> {{probrands.rol}} </div></td>
-                                <td><div class="tabletextalign"> {{probrands.unitprice}} </div></td>
-                               <td><div class="tabletextalign"> {{probrands.unitprice}} </div></td>
-                                 <td> 
-                                  <!-- v-if="allowedtoeditbranch > 0 "  -->
-                              <button type="button"   class="btn  bg-gradient-secondary btn-xs fas fa-edit"  @click="editProductdetails(probrands)">Edit Record</button>
-                             
-
-
-                            <button type="button"  class="btn  bg-gradient-danger btn-xs fas fa-trash-alt" @click="deleteUnitofmeasure(probrands.id)"> Delete Record </button>
-
-
-
-
-                             
-                              </td>
-
-
-               
-                              
-                               
-                    </tr>
-              
-                     
-                  </tbody>
-              
- 
-                                   </table>
-    <div class="card-footer">
-      
-                <ul class="pagination pagination-sm m-0 float-right">
-                   <pagination :data="productdetailsrecords" @pagination-change-page="paginationResultsProductdetailsrecords"></pagination>
-                </ul>
-    </div>
+    
 
 
 
@@ -1063,7 +1131,7 @@ pre {
                         </div>
                   <form class="form-horizontal" @submit.prevent="editmode ? updateProductdetails():createProductdetails()"> 
 
-
+  <div class ="bethapa-table-sectionheader">Product Details</div>    
                                 <div class="row clearfix">
                                     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
                                         <label for="email_address_2">Product Name</label>
@@ -1151,13 +1219,8 @@ pre {
                                         </div>
                                     </div>
                                 </div>
-
-
-
-
-                               
-                                
-    <div class="row clearfix">
+ <div class ="bethapa-table-sectionheader">Stock Settings</div> 
+  <div class="row clearfix">
                                     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
                                         <label for="email_address_2">Re-Stock Qty</label>
                                     </div>
@@ -1172,6 +1235,56 @@ pre {
                                     </div>
                                 </div>
 
+ <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Quantity Available</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                  <input v-model="form.qty" type="number" name="rol"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('rol') }">
+                    <has-error :form="form" field="rol"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+  <div class ="bethapa-table-sectionheader">Price Settings</div>    
+
+ <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Unit Cost Price</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                  <input v-model="form.unitcost" type="number" name="unitcost"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('unitcost') }">
+                    <has-error :form="form" field="unitcost"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Unit Selling Price</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                  <input v-model="form.unitprice" type="number" name="unitprice"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('unitprice') }">
+                    <has-error :form="form" field="unitprice"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+   
                               
 
 
@@ -2633,6 +2746,8 @@ gettheinvoicedeliverystatus:{},
           formfeatures:{},
           form: new Form({
                 /// Users Form
+                rol:'',
+                qty:'',
 totalcost:1,
 unitcost :1,
 quantity: 1,
@@ -2643,6 +2758,9 @@ netprofit:1,
 unitsellingprice:1,
 invoicedate:'',
 dateordered:'',
+vatinclussive:'',
+unitprice:'',
+unitcost:'',
 
                 id: '',
                 name:'',
@@ -2701,8 +2819,8 @@ methods:{
 //  SENA HARDWARE
 updateunitsellingprice(event) {
         this.form.unitsellingprice = event.target.value
-        this.form.unitoutputvat = this.form.unitsellingprice * 0.18
-        this.form.netprofit = (this.form.unitsellingprice)- (this.form.unitprice) - (this.form.unitsellingprice * 0.18)
+        this.form.unitoutputvat = Math.round((this.form.unitsellingprice) * (0.18/1.18))
+        this.form.netprofit = (this.form.unitsellingprice)- (this.form.unitprice) - (Math.round((this.form.unitsellingprice *(0.18/1.18))))
       },
 
 

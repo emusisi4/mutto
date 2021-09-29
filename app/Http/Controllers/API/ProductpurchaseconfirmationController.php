@@ -92,11 +92,7 @@ $dateinq =  $request['datedone'];
       
           ]);
       
-
-
-
-
-          $unitcostwithoutvat = $request['unitprice'];
+$unitcostwithoutvat = $request['unitprice'];
 $qtydelivered = $request['qtydelivered'];
 $newsellingprice = $request['unitsellingprice'];
 $datedelivered = $request['deliverydate'];
@@ -109,7 +105,7 @@ $userid =  auth('api')->user()->id;
       $supplierinvoiceno = \DB::table('purchases')->where('id', '=', $recordinquestion)->value('supplierinvoiceno');
 /// GEtting the product in question
 $productnumber = \DB::table('purchases')->where('id', '=', $recordinquestion)->value('productcode');
-$purchasecostforunit = \DB::table('purchases')->where('id', '=', $id)->value('lineproductcost');
+$purchasecostforunit = \DB::table('purchases')->where('id', '=', $id)->value('ordercostwithoutvat');
 $oldinvoicevat =\DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $supplierinvoiceno)->value('totalvat');
 
 $olddeliverycostwithoutvat =\DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $supplierinvoiceno)->value('deliverycostwithoutvat');
@@ -124,10 +120,15 @@ $vatstat = \DB::table('purchases')->where('supplierinvoiceno', '=', $supplierinv
 if($vatstat == '1')
 {
   $vattotalcurrentbasedonquantitydelivered = 0;
+  // $actualsellingprice = $newsellingprice;
 }
-if($vatstat != '1')
+if($vatstat == '2')
 {
-  $vattotalcurrentbasedonquantitydelivered = ($qtydelivered)*($purchasecostforunit*0.18);
+  $vattotalcurrentbasedonquantitydelivered = ((round((($purchasecostforunit*1.18))))-$purchasecostforunit )*($qtydelivered);
+}
+if($vatstat == '3')
+{
+  $vattotalcurrentbasedonquantitydelivered = ((round((($purchasecostforunit*1.18))))-$purchasecostforunit )*($qtydelivered);
 }
 $newinvoicevat =  $vattotalcurrentbasedonquantitydelivered+$oldinvoicevat;
 
@@ -136,8 +137,13 @@ $newinvoicevat =  $vattotalcurrentbasedonquantitydelivered+$oldinvoicevat;
    $oldsellingprice = \DB::table('products')->where('id', '=', $productnumber)->value('unitprice');
    $newquantity = $oldquantityavailable+$qtydelivered;
    $oldcostprice = \DB::table('products')->where('id', '=', $productnumber)->value('unitcost');
-   $newcostprice =     round((($purchasecostforunit+$oldcostprice)/2),0);
-
+   if($oldcostprice > 0)
+  { $newcostprice =     round((($purchasecostforunit+$oldcostprice)/2),0);
+}
+if($oldcostprice < 1)
+{ 
+  $newcostprice =     $purchasecostforunit;
+}
 $currentinputvat = \DB::table('expensewalets')->where('walletno', '=', 5)->value('bal');
 $newinputvat =  $vattotalcurrentbasedonquantitydelivered;
 $updatedinputtotal = $currentinputvat+$newinputvat;

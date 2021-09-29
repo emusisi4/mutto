@@ -73,6 +73,9 @@ $currentinvoivetax = \DB::table('purchasessummaries')->where('supplierinvoiceno'
        ////getting the current invoice total
 
 $currentinvoicetotal = \DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $supplierinvoiceno)->sum('tendercost');
+$currenttotalinvoicewithvat = \DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $supplierinvoiceno)->sum('totalinvoicewithvat');
+
+
 $currentinvoicevat = \DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $supplierinvoiceno)->sum('expectedvat');
 $currentordercostwithoutvat = \DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $supplierinvoiceno)->sum('ordercostwithoutvat');
 $newamount = $request['totalcost'];
@@ -80,6 +83,7 @@ $vatstatus = $request['vatinclussive'];
 $newtotalinvoiceamount = $currentinvoicetotal+$newamount;
 $ttpc = $request['totalcost'];
 $newtotalinvoiceamount = $currentinvoicetotal+$newamount;
+
 //////////
 $givenunitcost = $request['unitcost'];
 $qtttty = $request['quantity'];
@@ -89,13 +93,14 @@ $qtttty = $request['quantity'];
 //// calculating vat total
 if($vatstatus == '2')
 {
-    $vatamount = ($request['totalcost'])*(0.18);
+    $vatamount = (0.18/1.18)*($request['totalcost']);
     $totalproductcost = $ttpc-$vatamount;
     $exactunitcost = $givenunitcost-($vatamount/$qtttty);
     $unitvat = $vatamount/$qtttty;
     $lineproductcost = $exactunitcost+$unitvat;
     $costwithoutvat = $exactunitcost-$unitvat;
     $newordercostwithoutvat = $currentordercostwithoutvat+($qtttty*$exactunitcost );
+    $totalinvoicewithvatnew = $currenttotalinvoicewithvat+(($exactunitcost+$unitvat)*($qtttty));
 }
 if($vatstatus == '1')
 {
@@ -107,20 +112,24 @@ if($vatstatus == '1')
     $costwithoutvat = $exactunitcost-$unitvat;
     $newordercostwithoutvat = $currentordercostwithoutvat+($qtttty*$exactunitcost );
 
+    $totalinvoicewithvatnew = $currenttotalinvoicewithvat+(($exactunitcost+$unitvat)*($qtttty));
+
 }
 if($vatstatus == '3')
 {
-    $vatamount = ($request['totalcost'])*(0.18);
+    $vatamount = (($request['totalcost'])*(1.18)) - ($request['totalcost']);
     $totalproductcost = $ttpc;
     $exactunitcost = $givenunitcost;
     $unitvat = $vatamount/$qtttty;
     $lineproductcost = $exactunitcost+$unitvat;
     $costwithoutvat = $exactunitcost-$unitvat;
     $newordercostwithoutvat = $currentordercostwithoutvat+($qtttty*$exactunitcost );
+    $totalinvoicewithvatnew = $currenttotalinvoicewithvat+(($exactunitcost+$unitvat)*($qtttty));
 
 }
 
-$newinvoicetotalvat = $currentinvoivetax+$vatamount;   
+$newinvoicetotalvat = $currentinvoivetax+$vatamount;  
+
   $datepaid = date('Y-m-d');
   
 
@@ -156,8 +165,8 @@ $newinvoicetotalvat = $currentinvoivetax+$vatamount;
                ->update(array(
                        'tendercost' => $newtotalinvoiceamount,
                        'ordercostwithoutvat' => $newordercostwithoutvat,
-                      'expectedvat' =>  $newinvoicetotalvat
-                    
+                      'expectedvat' =>  $newinvoicetotalvat,
+                      'totalinvoicewithvat' =>     $totalinvoicewithvatnew
                     
                     
                    ));
@@ -165,13 +174,14 @@ $newinvoicetotalvat = $currentinvoivetax+$vatamount;
 ///// Updating the 
 $totalinvoiceamount = \DB::table('purchasessummaries')->where('invoicedate', '=', $dateordered)->sum('tendercost');
 $orderedvatamount = \DB::table('purchasessummaries')->where('invoicedate', '=', $dateordered)->sum('expectedvat');
-
+$orderedvatamountwithoutvat = \DB::table('purchasessummaries')->where('invoicedate', '=', $dateordered)->sum('ordercostwithoutvat');
+$invtotalwithvat = \DB::table('purchasessummaries')->where('invoicedate', '=', $dateordered)->sum('totalinvoicewithvat');
         //         }
          
       
 //// existance in daily summary
 
-
+$qttty =  $request['quantity'];
 
   /// checking and creating the invoice for the Daily purchases report
   $dexist = \DB::table('dailypurchasesreports')->where('datedone', '=', $dateordered)->count();
@@ -189,6 +199,7 @@ $orderedvatamount = \DB::table('purchasessummaries')->where('invoicedate', '=', 
   'deliveredvatamount'=>0,
   'paymentsmade'=>0,
   'balanceonpayments'=>0,
+  
     // 'ucret' => $userid,
   
 ]);
@@ -200,7 +211,9 @@ DB::table('dailypurchasesreports')
                    ->where('datedone', $dateordered)
                ->update(array(
                        'orderedamount' => $totalinvoiceamount,
-                      'orderedvatamount' =>  $orderedvatamount
+                      'orderedvatamount' =>  $orderedvatamount,
+                      'ordercostwithoutvat'=>$orderedvatamountwithoutvat,
+                      'totalinvoicewithvat'=>$invtotalwithvat,
                     
                     
                     

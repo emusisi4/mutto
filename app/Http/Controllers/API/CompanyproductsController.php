@@ -123,6 +123,7 @@ $productcode  = \DB::table('products')->orderBy('id', 'Desc')->limit(1)->value('
       if($search = \Request::get('q')){
         $users = Product::where(function($query) use ($search){
           $query->where('productname', 'LIKE', "%$search%");
+        //  ->where('uracode', 'LIKE', "%$search%");
         })
           -> paginate(30);
          return $users;

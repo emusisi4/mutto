@@ -101,7 +101,9 @@
             <!-- Menu -->
             <div class="menu">
                 <ul class="list">
-                    <li class="header">MAIN NAVIGATION</li>
+                    <li class="header">
+                    <img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">
+                    MAIN NAVIGATION</li>
                     <li class="active">
 
 
@@ -192,7 +194,8 @@ foreach ($allowedsubmenu as $rowallsub)
                 </ul>
                 
             </div>
-            
+            <div class="position-absolute ml-0 bg-left"> <img src="images/bg-l.png"> </div>
+            <div class="position-absolute mr-0 bg-right"> <img src="images/bg-r.png"> </div>     
             <!-- #Menu -->
             <!-- Footer -->
             <div class="legal">

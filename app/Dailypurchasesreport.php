@@ -11,7 +11,8 @@ class Dailypurchasesreport extends Authenticatable
     use HasApiTokens, Notifiable;
    
     protected $fillable = [
-      'datedone', 'orderedamount', 'orderedvatamount', 'deliveredamount', 'deliveredvatamount', 'paymentsmade', 'balanceonpayments', 
+      'datedone', 'orderedamount', 'orderedvatamount', 'deliveredamount', 
+      'deliveredvatamount', 'paymentsmade', 'balanceonpayments', 'totalinvoicewithvat'
        
     ];
     public function productName(){

@@ -13,6 +13,7 @@ use App\Salessummary;
 use App\Dailysummaryreport;
 use App\Dailypurchasesreport;
 use App\Purchasessummary;
+use App\Productsale;
 
 class CompanyReportsController extends Controller
 {
@@ -209,6 +210,29 @@ if($supplier == '900')
     }
 
     
+    public function salesdetailsreportdetailedrecords()
+    {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+      $productcategory = \DB::table('productdetailsfilters')->where('ucret', $userid )->value('productcategory');
+      $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+      $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+   
+     return   Productsale::with(['productName','branchName'])->orderBy('datesold', 'Desc')->orderBy('invoiceno', 'Desc')
+     // return   Purchase::orderBy('id', 'Desc')
+     // ->whereBetween('invoicedate', [$startdate, $enddate])
+      
+  //  ->where('brand', $productbrand)
+ //   ->where('del', 0)
+        ->paginate(90);
+ 
+ 
+
+
+    
+      
+    }
 
     public function dailysalesreports()
     {

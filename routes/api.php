@@ -46,6 +46,8 @@ Route::apiResources(['productdetailsrecords' => 'API\CompanyproductsController']
 
 //Route::apiResources(['productstoaddtoinvoicerecords' => 'API\CompanyproductsController@purchaseproducts']);
 Route::get('salesreportsummaryrecords', 'API\CompanyReportsController@dailysalesreports');
+Route::get('salesdetailsreportdetailedrecords', 'API\CompanyReportsController@salesdetailsreportdetailedrecords');
+
 Route::get('dailysalessummaryrecords', 'API\CompanyReportsController@dailysalessummaryrecords');
 
 
