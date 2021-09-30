@@ -19,6 +19,8 @@
 <!-- Waves Effect Css -->
 <link href="plugins/node-waves/waves.css" rel="stylesheet" />
 <link href="css/betslip.css" rel="stylesheet" />
+<link href="css/betslip-printstyles.css" rel="stylesheet" />
+
 <!-- Animation Css -->
 <link href="plugins/animate-css/animate.css" rel="stylesheet" />
 <link href="plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
@@ -103,7 +105,9 @@
                 <ul class="list">
                     <li class="header">
                     <img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">
-                    MAIN NAVIGATION</li>
+                    <?php echo $useridtousess = Auth::user()->name; ?>
+                </li>
+                
                     <li class="active">
 
 

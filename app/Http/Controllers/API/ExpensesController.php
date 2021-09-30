@@ -12,11 +12,8 @@ use App\Expensescategory;
 
 class ExpensesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
+  
     public function __construct()
     {
        $this->middleware('auth:api');
@@ -70,12 +67,8 @@ class ExpensesController extends Controller
       
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
+    
     public function store(Request $request)
     {
         //
@@ -111,25 +104,31 @@ class ExpensesController extends Controller
   ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+ 
+    
     public function show($id)
     {
         //
     }
    
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-
+  
+    public function findExpensefromexpenseslist(){
+      if($search = \Request::get('q')){
+        $users = Expense::where(function($query) use ($search){
+          $query->where('expensename', 'LIKE', "%$search%");
+        //  ->where('uracode', 'LIKE', "%$search%");
+        })
+          -> paginate(30);
+         return $users;
+      }else{
+        return  Expense::with(['ExpenseTypeconnect','expenseCategory'])->latest('id')
+      //  ->where('category', $productcategory)
+        //  ->where('brand', $productbrand)
+          ->where('del', 0)
+              ->paginate(20);
+      }
+      
+    }
 
     public function search(){
 

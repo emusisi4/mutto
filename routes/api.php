@@ -129,9 +129,9 @@ Route::apiResources(['productpriceslist' => 'API\ProductpricesController']);
 Route::get('findUser', 'API\CompanyproductsController@search');
 Route::get('findtheProdctinlist', 'API\CompanyproductsController@searchproductinproductlist');
 
-// //Route::get('autocomplete', 'ProductcategoriesController@autocomplete');
-// Route::get('search', 'API\ProductcategoriesController@search');
 
+
+Route::get('findExpensefromexpenseslist', 'API\ExpensesController@findExpensefromexpenseslist');
 
 Route::apiResources(['productcategoryFiltertoview' => 'API\ProductrecordsFilterController']);
 Route::apiResources(['productdetailsFiltertoview' => 'API\ProductdetailsFilterController']);

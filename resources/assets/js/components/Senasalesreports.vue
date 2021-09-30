@@ -318,6 +318,7 @@ pre {
                     </div>
                 </div>
 </div>
+  
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
@@ -383,15 +384,17 @@ pre {
 <div role="tabpanel" class="tab-pane fade in active" id="home_with_icon_title"  v-if="categoriesComponentaccess > 0">
                                          
                     
-               
+              
 
- <div class="bethapa-reports-header">
+
+ <div class="bethapa-reports-header"  >
    
 Sales report summary : From - To - 
 </div>
 
 <!-- <div class="mysalessect">  -->
     <div> 
+
       
           <!-- <div class="mysalessect">  -->
            <div class="mysalessect2"> 
@@ -2754,7 +2757,7 @@ Sales report summary : From - To -
 
                                  <div class="row clearfix">
                                     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="email_address_2">ITEM NAMEnnn </label>
+                                        <label for="email_address_2">ITEM NAME </label>
                                     </div>
                                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                         <div class="form-group">
@@ -3073,6 +3076,19 @@ methods:{
         Fire.$emit('searching');
       },1000),
 
+      printme(){
+        window.print();
+      },
+
+  printuuy() {
+      var prtContent = document.getElementById("print");
+      var WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+      WinPrint.document.write(prtContent.innerHTML);
+      WinPrint.document.close();
+      WinPrint.focus();
+      WinPrint.print();
+      WinPrint.close();
+    },
 //  SENA HARDWARE
 updateunitsellingprice(event) {
         this.form.unitsellingprice = event.target.value

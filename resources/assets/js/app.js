@@ -71,6 +71,7 @@ Vue.use(VueRouter)
 /// importing Moment after npm install moment --save
 import moment from 'moment';
 
+
 Vue.component('passport-clients', require('./components/passport/Clients.vue'));
 
 Vue.component('passport-authorized-clients',require('./components/passport/AuthorizedClients.vue'));
@@ -168,7 +169,8 @@ const app = new Vue({
     methods:{
       searchit: _.debounce(() => {
         Fire.$emit('searching');
-      },2000)
+      },2000),
 
+      
     },
 });

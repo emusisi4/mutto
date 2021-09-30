@@ -1,0 +1,205 @@
+@media print {
+    #page{
+
+        width:226.77px;
+        border: 1px solid black;
+        margin:auto;
+        padding:5px;
+        font-family:tahoma;
+    }
+    
+    .cuts {
+        width:100%;
+        min-height:10px;
+        display:block;
+        
+    }
+    
+    
+    #top {
+        height:80px;
+    }
+    
+    
+    #logo {
+        height:62px;
+        
+        text-align: center;
+    }
+    
+    #logo img {
+        width: 50%;
+        max-width: 120px;
+    }
+    
+    
+    #website {
+        height:18px;
+        
+        text-align: center;
+        border-bottom: 1px solid black;
+        
+    }
+    
+    #website p:first-child {
+        font-weight:bold;
+    }
+    
+    #website p {
+        /* line-height: 1em; */
+        display: inline;
+        font-size: 0.65em;
+        /* text-align: center; */
+    }
+    
+    
+    
+    #info {
+        height:80px;
+        border-top: 1px solid black;
+        margin-top: 1.5px;
+    }
+    
+    #selections {
+        border: 1px solid black;
+        margin: auto;
+        width: 99%;
+        padding-bottom: 15px;
+    }
+    
+    
+    #top-info {
+        width:100%
+    }
+    
+    #top-info td {
+        font-size: 0.6em;
+    }
+    
+    #top-info td p:first-child{
+        font-weight:bold;
+    }
+    
+    #branch-info td p, #top-info td p{
+       display:inline;
+    }
+    
+    #branch-info td p:first-child{
+        font-weight:bold;
+    }
+    
+    #ticket-codes td {
+        font-size: 0.6em;
+    }
+    
+    #ticket-codes td p:first-child{
+        font-weight:bold;
+    }
+    
+    #top-info > tbody > tr:nth-child(1) {
+        margin-bottom: 5px;
+        line-height: 1.2em;
+    }
+    
+    #top-info > tbody > tr:nth-child(5) {
+        margin-bottom: 5px;
+        line-height: 1.2em;
+    }
+    
+    .branch {
+        font-size: 0.9em;
+        line-height: 0.8;
+    }
+    
+    .single {
+        border-bottom: 1px solid black;
+    }
+    
+    .tselections tr{
+    
+       
+        line-height: 0.9em;
+        font-size: 0.75em;
+       
+    }
+    
+    table.tselections {
+        width: 100%;
+        border-bottom: 1px solid black;
+        padding-top: 3px;
+        padding-bottom: 3px;
+    }
+    
+    .tselections p {
+        display: inline;
+    }
+    
+    .markets {
+        /* text-align: right; */
+        width: 50%;
+        float: left;
+        margin-top: 5px;
+        font-weight: bolder;
+    }
+    
+    .odds{
+    
+        text-align:right;
+    }
+    
+    .game-number {
+        font-weight: bold;
+        text-align: center;
+    }
+    
+    .selection-number {
+        font-weight: bold;
+        border-radius: 100%;
+        background: black;
+        color: white;
+        text-align: center;
+        padding: 4px;
+        width: 10px;
+        /* height: 15px; */
+        margin: auto;
+    }
+    
+    table#t-totals {
+        width: 100%;
+        font-size: 0.7em;
+    }
+    
+    #total-titles {
+        font-weight:bold;
+        border-bottom: 0.7px solid black;
+    }
+    
+    .right {
+        text-align: right;
+    }
+    
+    .calculations {
+        width: 100%;
+        font-size: 0.8em;
+        font-weight: bolder;
+        border-bottom: 1px solid black;
+    }
+    
+    .bold-bottom {
+        border-bottom: 1.3px solid black;
+    }
+    
+    #cal-top{
+        border-top: 1px solid black
+    
+    }
+    
+    div#tandcs {
+        text-align: center;
+        font-size: 0.6em;
+        font-weight: 400;
+        padding-top: 10px;
+        margin-bottom: 15px;
+    }
+    
+}

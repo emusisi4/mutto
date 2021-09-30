@@ -116,7 +116,7 @@ class MadeexpensesofficeConroller extends Controller
      $monthmade = date('m', strtotime($dateinact));
        Madeexpense::Create([
       'expense' => $request['expense'],
-      'approvalstate' => 1,
+      'approvalstate' => 0,
       'description' => $request['description'],
       'amount' => $request['amount'],
       'datemade' => $request['datemade'],

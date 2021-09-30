@@ -173,9 +173,38 @@ th.price {
 }
 
 .ticket {
-    width: 155px;
-    max-width: 500px;
-    /* align-content: center; */
+   width: 100%;
+    padding-left: 40px;
+    padding-right: 40px;
+    text-align: center;
+
+}
+.ticketcompanyname {
+   width: 100%;
+    padding-left: 40px;
+    padding-right: 40px;
+    font-size: 1.5em;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+
+}
+.ticketreceipttitle{
+   padding-left: 40px;
+    padding-right: 40px;
+    font-size: 1.5em;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.ticketreceiptno {
+  width: 100%;
+    padding-left: 0px;
+    padding-right: 40px;
+    font-size: 20px;
+    text-align: left;
+    font-weight: normal;
+
 }
 .text-danger strong {
     		color: #9f181c;
@@ -667,95 +696,61 @@ text-align: center;
 <div>
 
 
-<h1> do not print this </h1>
+ <!-- <a href="" @click.prevent="printme" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a> -->
 
-<div id='printMe'>
-  Print this only 
-</div>
+   
 
-<button @onclick="printDiv()">Print only the above div</button>
-	<div class="row">
-		
-        <div class="receipt-main col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
-            <div class="row">
-    			<div class="receipt-header">
-					<div class="col-xs-6 col-sm-6 col-md-6">
-						<div class="receipt-left">
-							<img class="img-responsive" alt="iamgurdeeposahan" src="images/logo.png" style="width: 30px; border-radius: 43px;">
-						</div>
-					</div>
-					<div class="col-xs-6 col-sm-6 col-md-6 text-right">
-						<div class="receipt-right">
-							<h5>SENNAH HARDWARE</h5>
-							<p>+256775294763 <i class="fa fa-phone"></i></p>
-              <p>+256775294763 <i class="fa fa-phone"></i></p>
-							<p>info@gmail.com <i class="fa fa-envelope-o"></i></p>
-						
-						</div>
-					</div>
-				</div>
-            </div>
-			
-			<div class="row">
-				<div class="receipt-header receipt-header-mid">
-					<div class="col-xs-8 col-sm-8 col-md-8 text-left">
-						<div class="receipt-right">
-							<h5>Receipt Number : 156</h5>
-							<p><b>Date :</b>2020-04-04</p>
-							<p><b>Cashier :</b> Emmanuel</p>
-							<p><b>Branch  :</b> JoGO</p>
-						</div>
-					</div>
-				
-				</div>
-            </div>
-		<h3>Receipt </h3>
-            <div>
-              
+      <!-- SOURCE -->
+    <div id="printMe" style="display:none">
+      <h1>Print me!</h1>
+    </div>
+    <!-- OUTPUT -->
+    <!-- <button @click="print">iuuu</button> -->
 
 
 
-					
-							
-					
-		
+<div class="ticket" id="print">
+        <div class="ticketcompanyname"  > Sennah General Hardware </div>
+          <!-- <div class="ticketlocation"  > Jogo </div>
+            <div class="ticketcontact"  > +235782064113 </div> -->
+            <div class="ticketreceiptno"  > Receipt No. : </div>   
+    <div class="ticketreceiptno"  > Dater </div>
+      <div class="ticketreceiptno"  > Branch :</div>
+      <div class="ticketreceiptno"  > Cashier : </div>
+              <div class="ticketreceipttitle"  > CASH RECEIPT </div>
+  
+           
+           <table   width="100%" border="1">
+      
+<tr>
+    <th>#</th>
 
+<th>ITEM</th>
+<th> UNIT PRICE</th>
+<th> QTY</th>
 
-                <table style="width:100%">
-                    <thead>
-                        <tr>
-                          <th style="color:black" class="tresed">#</th>
-                            <th style="color:black" class="tresed">Item</th>
-                               <th style="color:black" class="tresed" >Unit Price</th>
-                             <th style="color:black" class="tresed">Qty</th>
-                                <th style="color:black" class="tresed">Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                       <tr v-for="shobalrecs in shopingcartdetails.data" :key="shobalrecs.id">
+<th>  TOTAL </th>
+</tr>
+  <tr v-for="shobalrecs in shopingcartdetails.data" :key="shobalrecs.id">
                             <td>
         
         <span > {{shobalrecs.id}} </span>
         
       </td>
-      <td >
+      <td  >
         
       <span> <template v-if="shobalrecs.product_name">	{{shobalrecs.product_name.productname}}</template></span>
        
       </td>
-         <td >
+         <td class="item-pricetotal" >
           
         <span>{{formatPrice(shobalrecs.unitprice)}}</span>
         
       </td>
-      <td>   <span >{{shobalrecs.quantity}}</span></td>
+      <td class="item-qty">   <span>{{shobalrecs.quantity}}</span></td>
         <td class="item-pricetotal"> <span> {{formatPrice(shobalrecs.linetotal)}}</span></td>
                         </tr>
-                    
-                        
-                       
-                    </tbody>
-                     <tfoot>
+            <tfoot>
     
   
     <tr>
@@ -763,23 +758,32 @@ text-align: center;
      <td>{{currencydetails}}  {{formatPrice(carttotal+(0.18*carttotal))}}</td>
     </tr>
   </tfoot>
-                </table>
-            </div>
-			
-			<div class="row">
-				
-						<div class="receipt-centre">
-							
-							<h3 style="color: black">Thank you for your business!</h3>
-						
-					
-			
-				</div>
-      
-            </div>
-			
-        </div>    
-	</div>
+</table>
+
+ <div class="ticketreceipttitle"  > Thank you for Your  Business </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
 </div>
 
 </div>
@@ -791,8 +795,9 @@ text-align: center;
    
 
                   <div  class="modal-footer">
-                    <button  v-show="!editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
-                      <button v-show="editmode" type="submit" class="btn btn-success btn-sm" >Update</button>
+                     <!-- <a href="" class="btn btn-primary btn-sm" @click.prevent="printreceipt" target="_blank" ><i class="fas fa-print"></i> Print Receipt</a> -->
+                    <button   type="submit"  @click.prevent="printreceipt" target="_blank" class="btn btn-primary btn-sm">Print Receipt</button> 
+                    
                         <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Close</button >
                         </div>
                
@@ -835,6 +840,26 @@ text-align: center;
 
 
 <script>
+import Vue from 'vue';
+import VueHtmlToPaper from 'vue-html-to-paper';
+
+const options = {
+  name: '_blank',
+  specs: [
+    'fullscreen=yes',
+    'titlebar=yes',
+    'scrollbars=yes'
+  ],
+  styles: [
+    'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
+    'https://unpkg.com/kidlat-css/css/kidlat.css'
+  ]
+}
+
+Vue.use(VueHtmlToPaper, options);
+
+// or, using the defaults with no stylesheet
+Vue.use(VueHtmlToPaper);
 import _ from "lodash";
     export default {
       
@@ -929,8 +954,38 @@ carttotal:[],
          },
 
 methods:{
+  print () {
+      // Pass the element id here
+      this.$htmlToPaper('print');
+    },
 
+  printreceipt() {
+     const prtHtml = document.getElementById('print').innerHTML;
 
+// Get all stylesheets HTML
+let stylesHtml = '';
+for (const node of [...document.querySelectorAll('link[rel="stylesheet"], style')]) {
+  stylesHtml += node.outerHTML;
+}
+
+// Open the print window
+const WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+
+WinPrint.document.write(`<!DOCTYPE html>
+<html>
+  <head>
+    ${stylesHtml}
+  </head>
+  <body>
+    ${prtHtml}
+  </body>
+</html>`);
+
+WinPrint.document.close();
+WinPrint.focus();
+WinPrint.print();
+WinPrint.close();
+    },
   
    searchit: _.debounce(() => {
         Fire.$emit('searching');
