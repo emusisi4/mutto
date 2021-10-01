@@ -208,6 +208,16 @@ th.price {
     /* font-weight: bold; */
     text-transform: uppercase;
 }
+
+.ticketdisclaimer{
+  width: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
+    font-size: 1.0em;
+    text-align: center;
+    /* font-weight: bold; */
+    /* text-transform: uppercase; */
+}
 .ticketreceipttitle{
   width: 100%;
     padding-left: 0px;
@@ -782,7 +792,7 @@ text-align: center;
     </tr>
   </tfoot>
 </table>
-
+<div class="ticketdisclaimer"  > Goods once Sold are not returnable </div>
  <div class="ticketreceipttitle"  > Thank you for Your  Business </div>
         </div>
 
