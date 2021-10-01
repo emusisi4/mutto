@@ -181,18 +181,38 @@ th.price {
 }
 .ticketcompanyname {
    width: 100%;
-    padding-left: 40px;
-    padding-right: 40px;
+    padding-left: 0px;
+    padding-right: 0px;
     font-size: 1.5em;
     text-align: center;
     font-weight: bold;
     text-transform: uppercase;
 
 }
+
+.ticketlocation{
+  width: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
+    font-size: 1.0em;
+    text-align: center;
+    /* font-weight: bold; */
+    text-transform: uppercase;
+}
+.ticketcontact{
+  width: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
+    font-size: 1.0em;
+    text-align: center;
+    /* font-weight: bold; */
+    text-transform: uppercase;
+}
 .ticketreceipttitle{
-   padding-left: 40px;
-    padding-right: 40px;
-    font-size: 1.5em;
+  width: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
+    font-size: 1.0em;
     text-align: center;
     font-weight: bold;
     text-transform: uppercase;
@@ -710,14 +730,17 @@ text-align: center;
 
 
 <div class="ticket" id="print">
-        <div class="ticketcompanyname"  > Sennah General Hardware </div>
-          <!-- <div class="ticketlocation"  > Jogo </div>
-            <div class="ticketcontact"  > +235782064113 </div> -->
-            <div class="ticketreceiptno"  > Receipt No. : </div>   
-    <div class="ticketreceiptno"  > Dater </div>
-      <div class="ticketreceiptno"  > Branch :</div>
-      <div class="ticketreceiptno"  > Cashier : </div>
-              <div class="ticketreceipttitle"  > CASH RECEIPT </div>
+        <div class="ticketcompanyname"  > Ssennah Hardware </div>
+          <div class="ticketlocation"  > Misindye Jjogo </div>
+           <div class="ticketlocation"  > Bukeerere Road </div>
+            <div class="ticketcontact"  > 0702941704 / 0392941704 </div>
+            <div class="ticketcontact"  > Tin Number : 1019044346 </div>
+
+
+            <div class="ticketreceiptno"  > Receipt No.  </div>   
+    <div class="ticketreceiptno"  > Date  </div>
+    <div class="ticketreceiptno"  > Cashier : </div>
+              <div class="ticketreceipttitle"  > RECEIPT </div>
   
            
            <table   width="100%" border="1">
@@ -726,7 +749,7 @@ text-align: center;
     <th>#</th>
 
 <th>ITEM</th>
-<th> UNIT PRICE</th>
+<th> PRICE</th>
 <th> QTY</th>
 
 <th>  TOTAL </th>
