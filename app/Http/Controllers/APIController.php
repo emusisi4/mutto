@@ -631,6 +631,27 @@ public function invoicelockstatus()
    
 }
 
+public function existanceofitemsoncart()
+{
+  $userid =  auth('api')->user()->id;
+        $userbranch =  auth('api')->user()->branch;
+        $userrole =  auth('api')->user()->type;
+       
+        // $receiptno = \DB::table('salessummaries') ->where('ucret', '=', $userid)->orderBy('id', 'Desc')->value('invoiceno');
+
+ $branchtobalanceexisits = \DB::table('shopingcats')
+
+  
+    ->where('ucret', '=', $userid)
+    ->count();
+
+    return $branchtobalanceexisits;
+   
+}
+
+
+
+
      public function getIfthebranchisalreadybalanced()
 {
   $userid =  auth('api')->user()->id;

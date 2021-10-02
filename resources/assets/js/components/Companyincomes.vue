@@ -11,122 +11,32 @@
 
 <div class="bethapa-table-header"></div>
         <!-- end of Headers -->
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                               COMPANNY OTHER INCOMES
+                            
+                            </h2>
+                       
+                        </div>
+                        <div class="body">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs tab-nav-right" role="tablist">
+                                <li role="presentation" class="active"><a href="#home" data-toggle="tab" aria-expanded="false">Cash Transfers</a></li>
+                                <li role="presentation" class=""><a href="#profile" @click="loadincomedetails()"
+                                  data-toggle="tab" aria-expanded="false">Other Incomes Details</a></li>
+                                <li role="presentation" class=""><a href="#messages" data-toggle="tab" @click="loadIncomesources()" aria-expanded="false">Other Income Sources</a></li>
+                                <!-- <li role="presentation" class="active"><a href="#settings" data-toggle="tab" aria-expanded="true">SETTINGS</a></li> -->
+                            </ul>
 
-        <!-- Start of the -->
- <div class="bethapa-component-header" >COMPANY INCOMES </div>    
-   <div class="row">   
-    <div class="col-lg-3 col-2" v-if="allowedtoviewcapitalaccount > 0 ">
-            <!-- small box -->
-         <div class="small-box bg-pnne">
-              <div class="inner">
-                <h3>CAPITAL ACCOUNT  </h3>
-
-         
-           <h5>   <b> Available Cash : {{currencydetails}} {{formatPrice(capitalaccountcurrentbalance) }}</b> </h5>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
-              <a href="#" class="small-box-footer"> <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-
-
-
-
-           <div class="col-lg-3 col-2" v-if="allowedtoviewcollectionsccount > 0 ">
-
-            <!-- small box -->
-        <div class="small-box bg-pnne">
-              <div class="inner">
-                <h3>COLLECTIONS ACCOUNT</h3>
-   <h5>   <b> Available Cash : {{currencydetails}} {{formatPrice(collectionsaccountcurrentbalance) }}</b> </h5>
-        
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
-              <a href="#" class="small-box-footer"> <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade active in"  id="home">
 
 
 
-           <div class="col-lg-3 col-2"  v-if="allowedtoviewpettycashaccount > 0 ">
-            <!-- small box -->
-         <div class="small-box bg-pnne">
-              <div class="inner">
-                <h3>PETTY CASH ACCOUNT</h3>
-   <h5>   <b> Available Cash : {{currencydetails}} {{formatPrice(pettycashaccountcurrentbalance) }}</b> </h5>
-        
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
-              <a href="#" class="small-box-footer"> <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-
-
-  <div class="col-lg-3 col-2"  v-if="allowedtoviewbankaccount > 0 ">
-            <!-- small box -->
-           <div class="small-box bg-pnne">
-              <div class="inner">
-                <h3>BANK ACCOUNT</h3>
-
-           <h5>   <b> Available Cash : {{currencydetails}} {{formatPrice(bankaccountcurrentbalance) }}</b> </h5>
-        
-    
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
-              <a href="#" class="small-box-footer"> <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-
-          
-          
-        </div>    
-<div class="col-12 col-sm-12 col-lg-12">
-            <div class="card card-primary card-outline card-tabs">
-              <div class="card-header p-0 pt-1 border-bottom-0">
-                <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
-                    <!--  -->
-                  <li class="nav-item"  v-if="cashtransferSettings > 0 " >
-                    <a class="nav-link active" id="custom-tabs-two-home-tab"
-                     data-toggle="pill" href="#custom-tabs-two-home" role="tab"
-                     @click="loadExpensecategories()" aria-controls="custom-tabs-two-home" aria-selected="true">CASH TRANSFERS</a>
-                  </li>
-<!--   v-if="branchcashInSettings > 0 " -->
-
-                 
-<!-- incomeaccessSetting -->
-                   <li class="nav-item" v-if="incomeaccessSetting > 0 " >
-                    <a class="nav-link" id="custom-tabs-two-three-tab" data-toggle="pill"
-                     href="#custom-tabs-two-three" role="tab" @click="loadincomedetails()" 
-                     aria-controls="custom-tabs-two-three" aria-selected="false">INCOMES</a>
-                  </li>
-
-
-           
-
-
-                 
-                  
-
-                </ul>
-              </div>
-              <div class="card-body">
-
-
-<div class="tab-content" id="custom-tabs-two-tabContent"  >
-                  
-                  <!-- tab one start -->
-                  <!-- v-if="branchcashOutSettings > 0 " -->
-                 <div class="tab-pane fade show active" id="custom-tabs-two-home" v-if="cashtransferSettings > 0 "  role="tabpanel"  aria-labelledby="custom-tabs-two-home-tab"> 
-
-        <div class="bethapa-table-header"></div>
+               <div class="bethapa-table-header"></div>
              <form @submit.prevent="savedetailsforcashtransactionstoview()">
                  
                       <div class="form-group">
@@ -167,16 +77,11 @@
                       
                       <!-- -->
                       <button type="button" class="add-newm" @click="makethetransfer" >Transfer Cash</button>
-                     </div>
+                     </div>                     
+                                 <table  class="musisireporttable" width="100%" border="1">
 
-
-
-
-
-                      <table class="table table-bordered table-striped">
-                  <thead>
-                    <tr>
-                        <th>#</th>
+<tr>
+       <th>#</th>
                       <th>TRANSACTION DATE</th>
                       <th>DESCRIPTION</th>
                       <th>AMOUNT</th>
@@ -188,108 +93,280 @@
                      
                         
                         <th ></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
+</tr>
+<tr>
+  
 
-                    <tr v-for="expcat in cashtransferrecords.data" :key="expcat.id">
+
+
+
                       
-                    <td>{{expcat.id}}</td>
-                       <td>{{(expcat.transerdate)}}</td>
+  
+          <tr v-for="prodcates in cashtransferrecords.data" :key="prodcates.id">
+          
+       <td>{{prodcates.id }}</td>
+                                 <td>{{prodcates.transerdate | myDate2 }}</td>
+ 
+
+
+
+
+  
+                  
                       <td>
-   <div v-if="((expcat.transfertype)) == 2">
+   <div v-if="((prodcates.transfertype)) == 2">
                                 <span class="cell" style="color:green ;">  
    
                     <span style="font-size:1.0em;" center >  Credit </span></span>
                               </div> 
 
-                               <div v-if="((expcat.transfertype)) == 1">
+                               <div v-if="((prodcates.transfertype)) == 1">
                                 <span class="cell" style="color:maroon ;">  
    
                     <span style="font-size:1.0em;" center >  Debit </span></span>
                               </div> 
 
                       </td>
-                      <td>{{formatPrice(expcat.amount)}}</td>
-
-    <td>{{(expcat.accountinact)}}</td>
-    <td>{{(expcat.destinatin)}}</td>
-        <td>{{(expcat.ucret)}}</td>
-            <td>{{(expcat.accountinact)}}</td>
+                      <td class="musisialignright">{{formatPrice(prodcates.amount)}}</td>
 
 
+ <td>{{(prodcates.accountinact)}}</td>
+    <td>{{(prodcates.destinatin)}}</td>
+<td>{{(prodcates.ucret)}}</td>
+<td>{{(prodcates.accountinact)}}</td>
 
-
-
-                           <td>
-   <div v-if="((expcat.status)) == 1">
+                                   <td>
+   <div  v-if="((prodcates.status)) == 1">
                                 <span class="cell" style="color:green ;">  
    
                     <span style="font-size:1.0em;" center >  Confirmed </span></span>
                               </div> 
 
-                               <div v-if="((expcat.status)) == '0'">
+                               <div v-if="((prodcates.status)) == '0'">
                                 <span class="cell" style="color:maroon ;">  
    
                     <span style="font-size:1.0em;" center >  Pending confirmation </span></span>
                               </div> 
 
                       </td>
-                       <td>
-                      <!-- allowedtoaddexpensecategory
-
- -->
- <div v-if="((expcat.transfertype)) == '2'" >
-       <button v-show="expcat.status < 1" type="button"   class="btn  bg-gradient-success btn-xs fas fa-eye"  @click="confirmcashintras(expcat.id)"> Confirm  </button>
-       <button type="button" v-if="((expcat.status)) == '0'"   class="btn  bg-gradient-secondary btn-xs fas fa-edit"  @click="editexpensecategory(expcat)">Edkkkkit</button>
-       <button type="button" v-if="((expcat.status)) == '0'" class="btn  bg-gradient-danger btn-xs fas fa-trash-alt" @click="deleteexpensecategory(expcat.id)"> DEl </button>
- </div>
-
- <div v-if="((expcat.transfertype)) == '1'">
-      
-       <button type="button" v-if="((expcat.status)) == '0'"   class="btn  bg-gradient-secondary btn-xs fas fa-edit"  @click="editexpensecategory(expcat)">Edkkkkit</button>
-       <button type="button" v-if="((expcat.status)) == '0'" class="btn  bg-gradient-danger btn-xs fas fa-trash-alt" @click="deleteexpensecategory(expcat.id)"> DEl </button>
- </div>
-
-                       </td>
-                  
-                
-                      
-                         
                                 
-
-
-               
-                              
+                               <td>
+                            <div  class="musisialignright" v-if="((prodcates.transfertype)) == '1'">
+      
+       <button type="button" v-if="((prodcates.status)) == '0'"   class="btn  bg-gradient-secondary btn-xs fas fa-edit"  @click="editexpensecategory(prodcates)">Edkkkkit</button>
+       <button type="button" v-if="((prodcates.status)) == '0'" class="btn  bg-gradient-danger btn-xs fas fa-trash-alt" @click="deleteexpensecategory(prodcates.id)"> DEl </button>
+ </div>
+</td>
+                                
+                                
+                                
                                
-                    </tr>
-              
-                     
-                  </tbody>
-              <tfoot>
-    <tr>
-      <td colspan="2"></td>
-       <td>GRAND TOTAL</td>
-      <td colspan="1">{{currencydetails}}</td>
-   <td colspan="6"> </td>
+                            
+                                 <!-- <td style="background-color:#eeeeee "><div class="musisialign"> {{formatPrice(prodcates.netinvoiceincome)}} </div></td>
+                                 -->
+     
+</tr>
+<tr>
+
+
+
     </tr>
-  </tfoot>
- 
-                                   </table>
-    <div class="card-footer">
-                <ul class="pagination pagination-sm m-0 float-right">
-                   <pagination :data="cashtransferrecords" @pagination-change-page="paginationResultsExpensecategories"></pagination>
-                </ul>
-              </div>
+</table>
+                                 
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="profile">
+
+                                   <div class="bethapa-table-header">
+                   
+       
+                     INCOME DETAILS   
                      
+           <button type="button" v-if="allowedtoaddincome > 0" class="add-newm" @click="newofficeexpenditure" >Add New Income</button>
+                     </div>
+              <table  class="musisireporttable" width="100%" border="1">
+
+<tr>
+       <th>#</th>
+                       <th>DATE</th>
+                        <th>INCOME SOURCE</th>
+                      <th>AMOUNT ( {{currencydetails }} ) </th>
+                     
+                      <th>DESCRIPTION</th>
+                      <th>STATUS</th>
+                   
+                     <th >  </th>
+</tr>
+<tr>
+  
+
+
+
+   <tr v-for="shobalrecs in companyincomerecords.data" :key="shobalrecs.id">
+          
+        <td>{{shobalrecs.id}}</td>
+                     <td>{{shobalrecs.daterecieved}}</td>
+                      <td>   <template v-if="shobalrecs.company_incomesourcenames">	{{shobalrecs.company_incomesourcenames.incomesourcename}}</template></td>
+                    
+                  
+                                 <td>{{formatPrice(shobalrecs.amount)}}</td>
+                            
+                               <td>{{(shobalrecs.description)}}</td>
+                   
+
+                    
+                          
+
+                            <td>
+                              <div v-if="((shobalrecs.status)) == 0">
+                                <span class="cell" style="color:maroon ;">  
+   
+                    <span style="font-size:1.0em;" center >  Pending</span></span>
+                              </div>
+                               <div v-if="((shobalrecs.status)) == 1">
+                                <span class="cell" style="color:green ;">  
+   
+                    <span style="font-size:1.0em;" center >  Approved</span></span>
+                              </div>
+                             </td>
+                         
+                         
+                    
+                       <td><button type="button"  v-if="((shobalrecs.status)) == 0" class="btn  bg-gradient-info btn-xs fas fa-eye" @click="confirmmycashrecievedbank(shobalrecs.id)"> Confirm </button>
+                          
+                            <button type="button" v-if="((shobalrecs.status)) == 0"  class="btn  bg-gradient-secondary btn-xs fas fa-edit"  @click="editcashcredit(shobalrecs)">Edit</button>
+                            <button type="button"  v-if="((shobalrecs.status)) == 0" class="btn  bg-gradient-danger btn-xs fas fa-trash-alt" @click="deleteincomerecieved(shobalrecs.id)"> DEl </button>
                  
+                      </td>
+</tr>
+<tr>
+
+
+
+    </tr>
+</table>
+          
+                                </div>
+
+ <!-- ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; -->
+                                <div role="tabpanel" class="tab-pane" id="messages">
+                                   <div class="bethapa-table-header"></div>
+                 <div class="bethapa-table-header">
+                      Other Income Sources {{currencydetails}} To {{currencydetails}}
+                      
+                      <!-- -->
+                      <button type="button" class="add-newm" @click="makethetransfer" >Transfer Cash</button>
+                     </div>                     
+                                 <table  class="musisireporttable" width="100%" border="1">
+
+<tr>
+       <th>#</th>
+                      <th>Source Name</th>
+                      <th>Description</th>
+                 
+                        
+                        <th ></th>
+</tr>
+<tr>
+  
+
+
+
+
+                      
+  
+          <tr v-for="prodcates in incomesourcerecords.data" :key="prodcates.id">
+          
+       <td>{{prodcates.id }}</td>
+                                 <!-- <td>{{prodcates.transerdate | myDate2 }}</td>
+  -->
+
+
+
+
+  
+                  
+                      <td>
+   <div v-if="((prodcates.transfertype)) == 2">
+                                <span class="cell" style="color:green ;">  
+   
+                    <span style="font-size:1.0em;" center >  Credit </span></span>
+                              </div> 
+
+                               <div v-if="((prodcates.transfertype)) == 1">
+                                <span class="cell" style="color:maroon ;">  
+   
+                    <span style="font-size:1.0em;" center >  Debit </span></span>
+                              </div> 
+
+                      </td>
+                      <td class="musisialignright">{{formatPrice(prodcates.amount)}}</td>
+
+
+ <td>{{(prodcates.accountinact)}}</td>
+    <td>{{(prodcates.destinatin)}}</td>
+<td>{{(prodcates.ucret)}}</td>
+<td>{{(prodcates.accountinact)}}</td>
+
+                                   <td>
+   <div  v-if="((prodcates.status)) == 1">
+                                <span class="cell" style="color:green ;">  
+   
+                    <span style="font-size:1.0em;" center >  Confirmed </span></span>
+                              </div> 
+
+                               <div v-if="((prodcates.status)) == '0'">
+                                <span class="cell" style="color:maroon ;">  
+   
+                    <span style="font-size:1.0em;" center >  Pending confirmation </span></span>
+                              </div> 
+
+                      </td>
+                                
+                               <td>
+                            <div  class="musisialignright" v-if="((prodcates.transfertype)) == '1'">
+      
+       <button type="button" v-if="((prodcates.status)) == '0'"   class="btn  bg-gradient-secondary btn-xs fas fa-edit"  @click="editexpensecategory(prodcates)">Edkkkkit</button>
+       <button type="button" v-if="((prodcates.status)) == '0'" class="btn  bg-gradient-danger btn-xs fas fa-trash-alt" @click="deleteexpensecategory(prodcates.id)"> DEl </button>
+ </div>
+</td>
+                                
+                                
+                                
+                               
+                            
+                                 <!-- <td style="background-color:#eeeeee "><div class="musisialign"> {{formatPrice(prodcates.netinvoiceincome)}} </div></td>
+                                 -->
+     
+</tr>
+<tr>
+
+
+
+    </tr>
+</table>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="settings">
+                                    <b>Settings Content</b>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, ut duo atqui exerci dicunt, ius impedit mediocritatem an. Pri ut tation electram moderatius.
+                                        Per te suavitate democritum. Duis nemore probatus ne quo, ad liber essent aliquid
+                                        pro. Et eos nusquam accumsan, vide mentitum fabellas ne est, eu munere gubergren
+                                        sadipscing mel.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                </div>
+        <!-- Start of the -->
  
- <!-- tab one end -->
+     
 
 
-<!-- Modal add menu -->
+
+
+<!-- All modals container  -->
+
 <div class="modal fade" id="addnewExpensecategorymodal">
         <div class="modal-dialog modal-dialog-centered modal-xl">
         <div  class="modal-content">
@@ -340,25 +417,6 @@
                        </div>
                           </div>
                 </div>
-                
-
-      <!-- End of Modal for -->
-<!--  -->
-
-<!-- mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm -->
-
-  
-
-                  <!-- mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm -->
-
-
-
-<!-- mmmmmmmmmmmmmmmmmmmmmmmmmmm -->
-
- 
- <!-- tab one end -->
-
-
 <!-- Modal add menu -->
 <div class="modal fade" id="addnewcompanyexpensemodal">
         <div class="modal-dialog modal-dialog-top modal-lg">
@@ -452,14 +510,6 @@
                         </div>
 
 
-<!-- mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm -->
-
-
-  
- <!-- tab one end -->
-
-
-<!-- Modal add menu -->
 <div class="modal fade" id="makeofficeexpensemodal">
         <div class="modal-dialog modal-dialog-top modal-lg">
         <div  class="modal-content">
@@ -595,11 +645,6 @@
                   </div>
 
 
-            
-
-
-
-<!-- Modal add menu -->
 <div class="modal fade" id="makecashtransferstart">
         <div class="modal-dialog modal-dialog-top modal-lg">
         <div  class="modal-content">
@@ -748,131 +793,6 @@
                   </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-                   <div v-if="incomeaccessSetting > 0 " class="tab-pane fade" id="custom-tabs-two-three" role="tabpanel" aria-labelledby="custom-tabs-two-three-tab">
-                  
-                  
-                   <!-- <form @submit.prevent="SaveRoletoaddcomponent()">
-                  
-                  
-                    <div class="form-group">
-                  <label>Role</label>
-                    <select name ="mycpmponentto" v-model="form.mycpmponentto" id ="mycpmponentto" v-on:change="myClickEventroletoaddcomponent"  :class="{'is-invalid': form.errors.has('mycpmponentto')}">
-                    <option value=" ">  </option>
-                    <option v-for='data in roleslist' v-bind:value='data.id'>{{ data.id }} - {{ data.rolename }}</option>
-
-                    </select>
-                       <input type="text" name="inone" value="roletoaddcomponent" hidden
-                    class="form-control">
-
-                                <has-error :form="form" field="mycpmponentto"></has-error>
-
-                             
-                             
-
-                                
-                                </div>
-                                  <button type="submit" id="submit" hidden="hidden" name= "submit" ref="myBtnroledd" class="btn btn-primary btn-sm">Saveit</button>
-                                </form> -->
-   <!-- <div class="bethapa-reportheader-header" >DAILY BRANCH EXPENSES REPORT :  STARTING <i>{{ selecteddailyexpensesreport|myDate2 }} </i>ENDING <i>{{selecteddailyexpensesreport2|myDate2}} </i></div>  -->
-
-              <div class="bethapa-table-header">
-                   
-       
-                     INCOME DETAILS   
-                     
-           <button type="button" v-if="allowedtoaddincome > 0" class="add-newm" @click="newofficeexpenditure" >Add New Income</button>
-                     </div>
-
-
-             <table class="table table-bordered table-striped">
-                  <thead>
-                    <tr>
-                   
-                    <th>#</th>
-                       <th>DATE</th>
-                        <th>INCOME SOURCE</th>
-                      <th>AMOUNT ( {{currencydetails }} ) </th>
-                     
-                      <th>DESCRIPTION</th>
-                      <th>STATUS</th>
-                   
-                     <th >  </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-
-                  <tr v-for="shobalrecs in companyincomerecords.data" :key="shobalrecs.id">
-                      
-                  <td>{{shobalrecs.id}}</td>
-                     <td>{{shobalrecs.daterecieved}}</td>
-                      <td>   <template v-if="shobalrecs.company_incomesourcenames">	{{shobalrecs.company_incomesourcenames.incomesourcename}}</template></td>
-                    
-                  
-                                 <td>{{formatPrice(shobalrecs.amount)}}</td>
-                            
-                               <td>{{(shobalrecs.description)}}</td>
-                   
-
-                    
-                          
-
-                            <td>
-                              <div v-if="((shobalrecs.status)) == 0">
-                                <span class="cell" style="color:maroon ;">  
-   
-                    <span style="font-size:1.0em;" center >  Pending</span></span>
-                              </div>
-                               <div v-if="((shobalrecs.status)) == 1">
-                                <span class="cell" style="color:green ;">  
-   
-                    <span style="font-size:1.0em;" center >  Approved</span></span>
-                              </div>
-                             </td>
-                         
-                         
-                    
-                       <td><button type="button"  v-if="((shobalrecs.status)) == 0" class="btn  bg-gradient-info btn-xs fas fa-eye" @click="confirmmycashrecievedbank(shobalrecs.id)"> Confirm </button>
-                          
-                            <button type="button" v-if="((shobalrecs.status)) == 0"  class="btn  bg-gradient-secondary btn-xs fas fa-edit"  @click="editcashcredit(shobalrecs)">Edit</button>
-                            <button type="button"  v-if="((shobalrecs.status)) == 0" class="btn  bg-gradient-danger btn-xs fas fa-trash-alt" @click="deleteincomerecieved(shobalrecs.id)"> DEl </button>
-                 
-                      </td>
-                    </tr>
-              
-                     
-                  </tbody>
-              
- 
-                                   </table>
-   
-   
-                      <div class="card-footer">
-                <ul class="pagination pagination-sm m-0 float-right">
-                   <pagination :data="allowedrolecomponentsObject" @pagination-change-page="paginationroleAuthorisedcomponents"></pagination>
-                </ul>
-              </div>
-                     
-                 
-                    </div>
- 
- <!-- tab one end -->
-
-
-<!-- Modal add menu -->
 <div class="modal fade" id="addnewshopbalancingrecord">
         <div class="modal-dialog modal-dialog-top modal-xl">
         <div  class="modal-content">
@@ -1108,12 +1028,8 @@
                 
 
  </div>
-<!-- End od pane -->
-
- <!-- tab one end -->
 
 
-<!-- Modal add menu -->
 <div class="modal fade" id="addnewcashcollection">
         <div class="modal-dialog modal-dialog-top modal-lg">
         <div  class="modal-content">
@@ -1236,13 +1152,7 @@
                   
                   </div>
 
-<!-- End of pane -->
 
- 
- <!-- tab one end -->
-
-
-<!-- Modal add menu -->
 <div class="modal fade" id="addnewcashcredit">
         <div class="modal-dialog modal-dialog-top modal-lg">
         <div  class="modal-content">
@@ -1385,39 +1295,6 @@
 
 
 
-
-  <div class="tab-pane fade" id="custom-tabs-two-six" role="tabpanel" aria-labelledby="custom-tabs-two-six-tab">
-                     six  is. 
-                  </div>
-
-
-                    <div class="tab-pane fade" id="custom-tabs-two-seven" role="tabpanel" aria-labelledby="custom-tabs-two-seven-tab">
-                     seven  is. 
-                  </div>
-
-  <div class="tab-pane fade" id="custom-tabs-two-eight" role="tabpanel" aria-labelledby="custom-tabs-two-eight-tab">
-                     Eight  is. 
-                  </div>
-
-
-
-
-
-
-
-
-                </div>
-              </div>
-              <!-- /.card -->
-            </div>
-          </div>
-
-
-
-<!-- All modals container  -->
-
-
-
                
 <!-- No Modals Beyond -->
 
@@ -1520,6 +1397,7 @@ incomeaccessSetting:'',
           myOptions: [], // or [{id: key, text: value}, {id: key, text: value}]
           editmode: false,
           cashtransferrecords : {},
+          incomesourcerecords:{},
           expensetypesrecords:{},
           datarecordsSubmenusauthorised:{},
           allowedrolecomponentsObject :{},
@@ -1875,6 +1753,11 @@ balancescheck(){
              axios.get('/api/incomesourceslist').then(function (response) { this.incomesourceslist = response.data;}.bind(this));
 
   },
+   loadIncomesources(){
+     
+       axios.get("api/incomesourcerecords").then(({ data }) => (this.incomesourcerecords = data));
+    
+   },
   loadExpensecategories(){
       axios.get("api/getWalletlist").then(({ data }) => (this.walletlist = data)); 
        axios.get("api/cashtransferrecords").then(({ data }) => (this.cashtransferrecords = data));

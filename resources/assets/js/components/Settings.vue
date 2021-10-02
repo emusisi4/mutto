@@ -804,7 +804,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Allow Sub Menu Access</h3> 
-                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Update Record</h3> </h4> 
+                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Update Record</h4> 
                         </div>
                   <form class="form-horizontal" @submit.prevent="editmode ? updateUser():createSubmenuaccess()"> 
                             
@@ -828,7 +828,7 @@
 
                                  <div class="row clearfix">
                                     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="password_2">Main Menu</label>
+                                        <label for="password_2">Main Menddu</label>
                                     </div>
                                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                         <div class="form-group">

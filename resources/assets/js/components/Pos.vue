@@ -177,6 +177,10 @@ th.price {
     padding-left: 40px;
     padding-right: 40px;
     text-align: center;
+      padding-top: 2.5cm;
+       padding-bottom: 2.5cm;
+       height: auto;
+     vertical-align: -webkit-baseline-middle;
 
 }
 .ticketcompanyname {
@@ -231,7 +235,7 @@ th.price {
   width: 100%;
     padding-left: 0px;
     padding-right: 40px;
-    font-size: 20px;
+    font-size: 15px;
     text-align: left;
     font-weight: normal;
 
@@ -363,7 +367,7 @@ text-align: center;
   <div v-if="branchwalletcomponentaccess > 0 " class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box bg-indigo">
                         <div class="icon">
-                            <i class="material-icons">attach_money</i>
+                            <i class="material-icons"></i>
                         </div>
                         <div class="content">
                             <div class="text"><b>JOGO SHOP BALANCE </b></div>
@@ -375,7 +379,7 @@ text-align: center;
  <div v-if="administratorcomponentaccess > 0 " class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box bg-indigo">
                         <div class="icon">
-                            <i class="material-icons">attach_money</i>
+                            <i class="material-icons"></i>
                         </div>
                         <div class="content">
                             <div class="text"><b>ADMINISTRATOR ACCOUNT  </b></div>
@@ -388,7 +392,7 @@ text-align: center;
                 <div v-if="bankwalletcomponentaccess > 0 " class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box bg-indigo">
                         <div class="icon">
-                            <i class="material-icons">attach_money</i>
+                            <i class="material-icons"></i>
                         </div>
                         <div class="content">
                             <div class="text"><b>BANK ACCOUNT  </b></div>
@@ -401,7 +405,7 @@ text-align: center;
 <div v-if="inputvatcomponentaccess > 0 "  class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box bg-indigo">
                         <div class="icon">
-                            <i class="material-icons">attach_money</i>
+                            <i class="material-icons"></i>
                         </div>
                         <div class="content">
                             <div class="text"><b>INPUT VAT (Fom Purchases) </b></div>
@@ -413,7 +417,7 @@ text-align: center;
        <div v-if="outputcomponentaccess > 0 " class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box bg-indigo">
                         <div class="icon">
-                            <i class="material-icons">attach_money</i>
+                            <i class="material-icons"></i>
                         </div>
                         <div class="content">
                             <div class="text"><b>OUTPUT VAT (On Sales) </b></div>
@@ -426,7 +430,7 @@ text-align: center;
                 <div v-if="netvatvatcomponentcomponentaccess > 0" class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box bg-indigo">
                         <div class="icon">
-                            <i class="material-icons">attach_money</i>
+                            <i class="material-icons"></i>
                         </div>
                         <div class="content">
                             <div class="text"><b>NET VAT </b></div>
@@ -561,7 +565,7 @@ text-align: center;
                         <div class="header">
                             <h2>
                                 RECEIPT DETAILS
-                               <button type="button" class="btn btn-default waves-effect m-r-20" data-toggle="modal" data-target="#receiptrintModal">MODAL - DEFAULT SIZE</button>
+                               <!-- <button type="button" class="btn btn-default waves-effect m-r-20" data-toggle="modal" data-target="#receiptrintModal">MODAL - DEFAULT SIZE</button> -->
                             </h2>
                           
                         </div>
@@ -570,6 +574,10 @@ text-align: center;
                              <div >  
 
                            </div>
+                        <div class="mysalessect" >
+                           <button     @click.prevent="printreceipt" @mouseover="loadlatestReceiptdetails" target="_blank" class="btn bg-brown btn-xs waves-effect"> Print Last Sale recept </button> 
+
+                    </div>
  <table style="width:100%">
   <thead>
     <tr>
@@ -626,10 +634,10 @@ text-align: center;
     </tr>
   </tfoot>
 </table>
-<!-- <button type="button" class="btn btn-danger btn-xs" @click="emptymycart" >Empty Cart </button> -->
+<!-- <button type="button" class="btn btn-danger btn-xs" @click="emptymycart" >Empty Cart </button>   -->
 
-<button type="button" class="btn btn-success btn-xs float-right" @click="completesale" >Complete  </button>
-                        
+<button v-if="existanceofitemsoncart > 0" type="button" class="btn btn-success btn-xs float-right" @click="completesale" >Complete  </button>
+                            
                         </div>
                     </div>
                 </div>
@@ -716,7 +724,7 @@ text-align: center;
                     <div class="modal-content">
                         <div class="modal-header">
                             <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Receipt print</h3> 
-                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Update SUPPLIER</h3> </h4> 
+                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Update SUPPLIER </h4> 
                         </div>
              
      <div id="invoiceS">
@@ -731,9 +739,7 @@ text-align: center;
    
 
       <!-- SOURCE -->
-    <div id="printMe" style="display:none">
-      <h1>Print me!</h1>
-    </div>
+   
     <!-- OUTPUT -->
     <!-- <button @click="print">iuuu</button> -->
 
@@ -747,9 +753,9 @@ text-align: center;
             <div class="ticketcontact"  > Tin Number : 1019044346 </div>
 
 
-            <div class="ticketreceiptno"  > Receipt No.  </div>   
-    <div class="ticketreceiptno"  > Date  </div>
-    <div class="ticketreceiptno"  > Cashier : </div>
+            <div  class="ticketreceiptno"  > Receipt : {{getreceiptno}} </div>   
+    <div class="ticketreceiptno"  > Date :  {{getreceiptdate}} </div>
+    <div class="ticketreceiptno"  > Cashier : {{receiptcashier}} </div>
               <div class="ticketreceipttitle"  > RECEIPT </div>
   
            
@@ -764,36 +770,38 @@ text-align: center;
 
 <th>  TOTAL </th>
 </tr>
-  <tr v-for="shobalrecs in shopingcartdetails.data" :key="shobalrecs.id">
+  <tr v-for="salesprint in latestreceiptdetails.data" :key="salesprint.id">
                             <td>
         
-        <span > {{shobalrecs.id}} </span>
+        <span > {{salesprint.id}} </span>
         
       </td>
-      <td  >
+      
+      
+      <td>
         
-      <span> <template v-if="shobalrecs.product_name">	{{shobalrecs.product_name.productname}}</template></span>
+      <span> <template v-if="salesprint.product_name">	{{salesprint.product_name.productname}}</template></span>
        
       </td>
          <td class="item-pricetotal" >
           
-        <span>{{formatPrice(shobalrecs.unitprice)}}</span>
+        <span>{{formatPrice(salesprint.unitprice)}}</span>
         
       </td>
-      <td class="item-qty">   <span>{{shobalrecs.quantity}}</span></td>
-        <td class="item-pricetotal"> <span> {{formatPrice(shobalrecs.linetotal)}}</span></td>
+      <td class="item-qty">   <span>{{salesprint.quantity}}</span></td>
+        <td class="item-pricetotal"> <span> {{formatPrice(salesprint.linetotal)}}</span></td>
                         </tr>
             <tfoot>
     
   
     <tr>
       <td colspan="4">Total :</td>
-     <td>{{currencydetails}}  {{formatPrice(carttotal+(0.18*carttotal))}}</td>
+     <td>{{currencydetails}}   {{formatPrice(receipttotal)}}</td>
     </tr>
   </tfoot>
 </table>
 <div class="ticketdisclaimer"  > Goods once Sold are not returnable </div>
- <div class="ticketreceipttitle"  > Thank you for Your  Business </div>
+ <div class="ticketreceipttitle"  > Biuld the Best with Materials and tools from Us. </div>
         </div>
 
 
@@ -929,12 +937,18 @@ carttotal:[],
           myOptions: [], // or [{id: key, text: value}, {id: key, text: value}]
           editmode: false,
           mainmenurecords : {},
+          existanceofitemsoncart:'',
            productpriceslist:{},
              productsellingrecords:{},
           
           productsavailableforsalelist:{},
           shopingcartdetails:{},
+          receipttotal : {}, 
+    receiptcashier :{},
+    getreceiptdate:{},
+    getreceiptno:{},
           carttotal:{},
+          latestreceiptdetails:{},
           submenurecords : {},
           vuecomponentsrecords : {},
           componentfeaturesrecords :{},
@@ -987,10 +1001,10 @@ carttotal:[],
          },
 
 methods:{
-  print () {
-      // Pass the element id here
-      this.$htmlToPaper('print');
-    },
+  // print () {
+  //     // Pass the element id here
+  //     this.$htmlToPaper('print');
+  //   },
 
   printreceipt() {
      const prtHtml = document.getElementById('print').innerHTML;
@@ -999,6 +1013,7 @@ methods:{
 let stylesHtml = '';
 for (const node of [...document.querySelectorAll('link[rel="stylesheet"], style')]) {
   stylesHtml += node.outerHTML;
+  
 }
 
 // Open the print window
@@ -1007,10 +1022,12 @@ const WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=
 WinPrint.document.write(`<!DOCTYPE html>
 <html>
   <head>
+  
     ${stylesHtml}
   </head>
   <body>
     ${prtHtml}
+  
   </body>
 </html>`);
 
@@ -1056,11 +1073,17 @@ WinPrint.close();
 
 }, 
 
+  loadlatestReceiptdetails(){
+      axios.get('api/latestreceiptdetails').then(function (response) { this.latestreceiptdetails = response.data;}.bind(this));
+
+axios.get('/api/receipttotal').then(function (response) { this.receipttotal = response.data;}.bind(this));
+  axios.get('/api/receiptcashier').then(function (response) { this.receiptcashier = response.data;}.bind(this));
+  axios.get('/api/getreceiptdate').then(function (response) { this.getreceiptdate = response.data;}.bind(this));
+  axios.get('/api/getreceiptno').then(function (response) { this.getreceiptno = response.data;}.bind(this));
+
+
+  },
 loadvatvalues(){
-
-  
-
-
 axios.get('/api/bankaccountbalance').then(function (response) { this.bankaccountbalance = response.data;}.bind(this));
   axios.get('/api/administratoraccountbalance').then(function (response) { this.administratoraccountbalance = response.data;}.bind(this));
 
@@ -1232,6 +1255,7 @@ this.form.post('api/inserintocart')
  
   this.$Progress.finish();
   Fire.$emit('AfterAction');
+   axios.get("api/existanceofitemsoncart").then(({ data }) => (this.existanceofitemsoncart = data)); 
  axios.get("api/shopingcartdetails").then(({ data }) => (this.shopingcartdetails = data));  
  axios.get("api/productsellingrecords").then(({ data }) => (this.productsellingrecords = data));  
  axios.get("api/getcattotal").then(({ data }) => (this. carttotal = data));
@@ -1299,10 +1323,11 @@ if (result.isConfirmed) {
                           'Your Record has been deleted.',
                           'success'
                         )
-                   
+                  
+       axios.get("api/existanceofitemsoncart").then(({ data }) => (this.existanceofitemsoncart = data)); 
      axios.get("api/shopingcartdetails").then(({ data }) => (this.shopingcartdetails = data));
       axios.get("api/getcattotal").then(({ data }) => (this. carttotal = data));
-       $('#receiptrintModal').modal('show');
+     //  $('#receiptrintModal').modal('show');
   
   }).catch(()=>{
      Swal.fire({  
@@ -1345,7 +1370,7 @@ if (result.isConfirmed) {
                           'Your Record has been deleted.',
                           'success'
                         )
-                   
+       axios.get("api/existanceofitemsoncart").then(({ data }) => (this.existanceofitemsoncart = data));              
      axios.get("api/shopingcartdetails").then(({ data }) => (this.shopingcartdetails = data));
   
   }).catch(()=>{
@@ -1386,6 +1411,7 @@ if (result.isConfirmed) {
                         )
      axios.get("api/productsellingrecords").then(({ data }) => (this.productsellingrecords = data));  
      axios.get("api/shopingcartdetails").then(({ data }) => (this.shopingcartdetails = data));
+      axios.get("api/existanceofitemsoncart").then(({ data }) => (this.existanceofitemsoncart = data)); 
      axios.get("api/getcattotal").then(({ data }) => (this. carttotal = data));
   
   }).catch(()=>{
@@ -1945,6 +1971,8 @@ this.productsellingrecords = data.data;
  })
           })
            axios.get("api/productsellingrecords").then(({ data }) => (this.productsellingrecords = data));
+            axios.get("api/existanceofitemsoncart").then(({ data }) => (this.existanceofitemsoncart = data)); 
+            
     axios.get("api/shopingcartdetails").then(({ data }) => (this.shopingcartdetails = data));  
     axios.get("api/getcattotal").then(({ data }) => (this. carttotal = data));
     axios.get("api/productpriceslist").then(({ data }) => (this.productpriceslist = data));

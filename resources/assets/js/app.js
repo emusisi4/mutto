@@ -92,7 +92,7 @@ let routes = [
 { path: '/sennasalessesreports', component: require('./components/Senasalesreports.vue')},
 { path: '/senasewpurcrept', component: require('./components/Senapurchasesreport.vue')},
 { path: '/senarevrepoz', component: require('./components/Revenuereports.vue')},
-
+{ path: '/incomedesstatementodocs', component: require('./components/Incomestatement.vue')},
 /// SENA HARD WARE END
 
 

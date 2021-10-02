@@ -39,18 +39,18 @@ class CashtransfersConroller extends Controller
      
 
 
-        if($transaction == '900')
+        if($transaction == '900' || $transaction == '100')
         {
          return  Cashtransfer::latest('id')
   
-      ->where('accountinact', $mywallet)
+      //->where('accountinact', $mywallet)
       ->whereBetween('transerdate', [$startdate, $enddate])
       ->paginate(30);
     }
    
    
    
-    if($transaction != '900')
+    if($transaction != '900' || $transaction != '100')
     {
       return Cashtransfer::latest('id')
       ->where('accountinact', $mywallet)

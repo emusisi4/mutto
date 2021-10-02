@@ -16,6 +16,8 @@ use App\Productsale;
 use App\Orderdetail;
 use App\Salessummary;
 use App\Dailysummaryreport;
+use App\Incomestatementrecord;
+use App\Incomestatementsummary;
 class ConfirmpositemsController extends Controller
 {
     
@@ -215,6 +217,25 @@ $dto88 = date('Y-m-d');
              'ucret' => $userid,
            
          ]);
+         $ddddtt4 = $user->datesold;
+         $incomestatementexpenses = \DB::table('madeexpenses')->where('datemade', '=', $ddddtt4)->where('approvalstate', '=', 1)->sum('amount');
+         $incomestatementotherincomes = \DB::table('companyincomes')->where('daterecieved', '=', $ddddtt4)->where('status', '=', 1)->sum('amount');
+         Incomestatementrecord::Create([
+   
+          'incomerefrenceid' => $invoiceno,
+          // 'branch' => $user->branch,
+          'incomestatementdate' => $user->datesold,  
+          'totalcost' => $totalcostoftheinvoice,
+          'otherincomes'=> $incomestatementotherincomes,
+          'expenses'=> $incomestatementexpenses,
+           'totalsales' => ($totallineforinvoice-$totalvatoninvoice),   
+          'incomesourcedescription' =>  'From Sales Made',   
+           'grossprofit' => $totalnetsaleswithoutvatinvoice,
+       
+       
+                    'ucret' => $userid,
+                  
+                ]);
 
 
          //// Working on the Daily Sales Summary 
@@ -259,12 +280,62 @@ Dailysummaryreport::Create([
   'yearmade' => $yearmade,
          
        ]);
+//// getting the day details for the income statement
+/// sales without vat is netinvoiceincome
+$incomestatementtotalsales = \DB::table('dailysummaryreports')->where('datedone', '=', $ddddtt)->sum('netinvoiceincome');
+$incomestatementtotalcost = \DB::table('dailysummaryreports')->where('datedone', '=', $ddddtt)->sum('totalcost');
+$incomestatementgrossprofit = \DB::table('dailysummaryreports')->where('datedone', '=', $ddddtt)->sum('netsalewithoutvat');
+//// checking if the day exists in the incomestatement summaru
+$ggetrsummaryincome = \DB::table('incomestatementsummaries')->where('statementdate', '=', $ddddtt)->count();
+if($ggetrsummaryincome > 0)
+{
+  //// getting the expenses, and other incomes
+  /// expenses 
+  $incomestatementexpenses = \DB::table('madeexpenses')->where('datemade', '=', $ddddtt)->where('approvalstate', '=', 1)->sum('amount');
+  $incomestatementotherincomes = \DB::table('companyincomes')->where('daterecieved', '=', $ddddtt)->where('status', '=', 1)->sum('amount');
+  DB::table('incomestatementsummaries')
+->where('statementdate', $ddddtt)
+->update([
+'totalsales' => $incomestatementtotalsales,
+'totalcost' => $incomestatementtotalcost,
+'otherincomes'=> $incomestatementotherincomes,
+'expenses'=> $incomestatementexpenses,
+'grossprofitonsales' => $incomestatementtotalsales-$incomestatementtotalcost,
+'netprofitbeforetaxes' => $incomestatementtotalsales-$incomestatementtotalcost+$incomestatementotherincomes-$incomestatementexpenses
+]);
+}
+//////////////
+if($ggetrsummaryincome < 1)
+{
+  $incomestatementexpenses = \DB::table('madeexpenses')->where('datemade', '=', $ddddtt)->where('approvalstate', '=', 1)->sum('amount');
+  $incomestatementotherincomes = \DB::table('companyincomes')->where('daterecieved', '=', $ddddtt)->where('status', '=', 1)->sum('amount');
+Incomestatementsummary::Create([
+   
+  'statementdate' => $ddddtt,
+ 'totalcost' => $incomestatementtotalcost,
+  'totalsales' =>$incomestatementtotalsales,  
+  'otherincomes'=> $incomestatementotherincomes,
+  'expenses'=> $incomestatementexpenses,
+
+  'grossprofitonsales' => $incomestatementtotalsales-$incomestatementtotalcost,
+'netprofitbeforetaxes' => $incomestatementtotalsales-$incomestatementtotalcost+$incomestatementotherincomes-$incomestatementexpenses,
+    
+  
+   
 
 
+            'ucret' => $userid,
+          
+        ]);
+}
+
+
+
+//////
  DB::delete('delete from shopingcats where ucret = ?',[$userid]);
    
    
-  //}
+  
     }
 ///////////////////////////////////////////////////////////////////////
 

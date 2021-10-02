@@ -14,6 +14,7 @@ use App\Dailysummaryreport;
 use App\Dailypurchasesreport;
 use App\Purchasessummary;
 use App\Productsale;
+use App\Incomestatementsummary;
 
 class CompanyReportsController extends Controller
 {
@@ -107,6 +108,24 @@ class CompanyReportsController extends Controller
       
     }
 
+    public function incomestatementreportrecords()
+    {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+      
+      $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+      $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+   
+    //  return   Dailypurchasesreport::with(['branchName'])->orderBy('datedone', 'Asc')
+      return   Incomestatementsummary::orderBy('statementdate', 'Desc')
+      ->whereBetween('statementdate', [$startdate, $enddate])
+      
+      ->paginate(90);
+ 
+  
+      
+    }
 
 
 
@@ -341,12 +360,154 @@ public function totaldailypurchasesdeliveriesamountrangereports()
 
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+public function totalsalesforincomestatement()
+{
+  $userid =  auth('api')->user()->id;
+  $userbranch =  auth('api')->user()->branch;
+  $userrole =  auth('api')->user()->type;
+
+  $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+  $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+
+  $totalcashin = \DB::table('incomestatementsummaries')
+   
+  ->whereBetween('statementdate', [$startdate, $enddate])
+  ->sum('totalsales');
+    return $totalcashin;
+
+}
+
+public function totalcostforincomestatement()
+{
+  $userid =  auth('api')->user()->id;
+  $userbranch =  auth('api')->user()->branch;
+  $userrole =  auth('api')->user()->type;
+
+  $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+  $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+
+  $totalcashin = \DB::table('incomestatementsummaries')
+   
+  ->whereBetween('statementdate', [$startdate, $enddate])
+  ->sum('totalcost');
+    return $totalcashin;
+
+
+}
+public function totalgrossprofitincomestatement()
+{
+  $userid =  auth('api')->user()->id;
+  $userbranch =  auth('api')->user()->branch;
+  $userrole =  auth('api')->user()->type;
+
+  $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+  $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+
+  $totalcashin = \DB::table('incomestatementsummaries')
+   
+  ->whereBetween('statementdate', [$startdate, $enddate])
+  ->sum('grossprofitonsales');
+    return $totalcashin;
+
+
+}
+
+public function totalotherincomesforincomestatement()
+{
+  $userid =  auth('api')->user()->id;
+  $userbranch =  auth('api')->user()->branch;
+  $userrole =  auth('api')->user()->type;
+
+  $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+  $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+
+  $totalcashin = \DB::table('incomestatementsummaries')
+   
+  ->whereBetween('statementdate', [$startdate, $enddate])
+  ->sum('otherincomes');
+    return $totalcashin;
+
+
+}
+
+
+
+public function totalexpensesforincomestatement()
+{
+  $userid =  auth('api')->user()->id;
+  $userbranch =  auth('api')->user()->branch;
+  $userrole =  auth('api')->user()->type;
+
+  $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+  $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+
+  $totalcashin = \DB::table('incomestatementsummaries')
+   
+  ->whereBetween('statementdate', [$startdate, $enddate])
+  ->sum('expenses');
+    return $totalcashin;
+
+
+}
+
+
+public function totalnetprofitbeforothertaxesforincomestatements()
+{
+  $userid =  auth('api')->user()->id;
+  $userbranch =  auth('api')->user()->branch;
+  $userrole =  auth('api')->user()->type;
+
+  $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+  $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+
+  $totalcashin = \DB::table('incomestatementsummaries')
+   
+  ->whereBetween('statementdate', [$startdate, $enddate])
+  ->sum('netprofitbeforetaxes');
+    return $totalcashin;
+
+
+}
 
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
 public function totaldailypurchaseswithouttaxrangereports()
 {
   $userid =  auth('api')->user()->id;

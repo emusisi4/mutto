@@ -11,12 +11,6 @@ class Productsale extends Authenticatable
     use HasApiTokens, Notifiable;
 
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-
    
     protected $fillable = [
        'vatamount','linevat','netinvoiceincome', 'productcode','quantity','unitcost','totalcost','lineprofit',

@@ -26,11 +26,17 @@ Route::apiResources(['inserintocart' => 'API\InserintocartController']);
 Route::apiResources(['productcategoriesrecords' => 'API\ProductcategoriesController']);
 Route::apiResources(['shopingcartdetails' => 'API\InserintocartController']);
 Route::get('getordertotal', 'APIController@Ordertotal');
+Route::get('existanceofitemsoncart', 'APIController@existanceofitemsoncart');
+
+
 Route::get('getcattotal', 'APIController@Carttotal');
 
 
-
-
+Route::get('receipttotal', 'API\ReceiptprintingController@receipttotal');
+Route::get('receiptcashier', 'API\ReceiptprintingController@receiptcashier');
+Route::get('getreceiptdate', 'API\ReceiptprintingController@getreceiptdate');
+Route::get('getreceiptno', 'API\ReceiptprintingController@getreceiptno');
+;
 
 
 
@@ -55,7 +61,12 @@ Route::get('dailysalessummaryrecords', 'API\CompanyReportsController@dailysaless
 
 
 
-
+Route::get('totalsalesforincomestatement', 'API\CompanyReportsController@totalsalesforincomestatement');
+Route::get('totalcostforincomestatement', 'API\CompanyReportsController@totalcostforincomestatement');
+Route::get('totalgrossprofitincomestatement', 'API\CompanyReportsController@totalgrossprofitincomestatement');
+Route::get('totalotherincomesforincomestatement', 'API\CompanyReportsController@totalotherincomesforincomestatement');
+Route::get('totalexpensesforincomestatement', 'API\CompanyReportsController@totalexpensesforincomestatement');
+Route::get('totalnetprofitbeforothertaxesforincomestatements', 'API\CompanyReportsController@totalnetprofitbeforothertaxesforincomestatements');
 
 
 Route::get('totaldailypurchasesordersrangereports', 'API\CompanyReportsController@totaldailypurchasesordersrangereports');
@@ -87,7 +98,7 @@ Route::get('totaldailypurchasespaymentsbalancerangereports', 'API\CompanyReports
 
 
 
-
+Route::get('incomestatementreportrecords', 'API\CompanyReportsController@incomestatementreportrecords');
 Route::get('dailypurchasesreportsummaryrecords', 'API\CompanyReportsController@dailypurchasesreportsummaryrecords');
 Route::get('dailypurchasesreportdetailedrecords', 'API\CompanyReportsController@dailypurchasesreportdetailedrecords');
 
@@ -261,6 +272,8 @@ Route::apiResources(['roletoaddmainmenu' => 'API\RoletoaddmainmenuController']);
 Route::apiResources(['expensecategories' => 'API\ExpensecategoriesController']);
 Route::apiResources(['cashtransferrecords' => 'API\CashtransfersConroller']);
 
+Route::apiResources(['incomesourcerecords' => 'API\IncomesourcesController']);
+Route::apiResources(['latestreceiptdetails' => 'API\ReceiptprintingController']);
 
 
 Route::apiResources(['expensetypes' => 'API\ExpensetypesController']);
@@ -777,7 +790,7 @@ Route::get('getRevokecomponentaccess', 'APIController@getRevokecomponentaccess')
 Route::get('getcurrencydetails', 'APIController@Currencysymbol'); 
 /// cash transactions
 
-// Route::apiResources(['registernewincome' => 'API\CompanyincomesConroller']);
+Route::apiResources(['incomesources' => 'API\IncomesourcesConroller']);
 Route::apiResources(['theincomedetails' => 'API\CompanyincomesConroller']);
 Route::apiResources(['cashindetails' => 'API\CashCollectionController']);
 Route::get('allowedtoaddshopBalancingRecord', 'APIController@allowedtoaddshopBalancingRecord');
