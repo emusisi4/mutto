@@ -17,6 +17,7 @@ use App\Orderdetail;
 use App\Salessummary;
 use App\Dailysummaryreport;
 use App\Incomestatementrecord;
+use App\Incomestatementminirecord;
 use App\Incomestatementsummary;
 class ConfirmpositemsController extends Controller
 {
@@ -231,11 +232,46 @@ $dto88 = date('Y-m-d');
            'totalsales' => ($totallineforinvoice-$totalvatoninvoice),   
           'incomesourcedescription' =>  'From Sales Made',   
            'grossprofit' => $totalnetsaleswithoutvatinvoice,
+
+           
+
+
+
        
        
                     'ucret' => $userid,
                   
                 ]);
+
+/// creating the sales statement Total salss - 1, totalcost = 2, incomefromothersources = 3 expenses = 4
+                Incomestatementminirecord::Create([
+   
+                  'incomerefrenceid' => $invoiceno,
+                  // 'branch' => $user->branch,
+                  'dateoftransaction' => $ddddtt4,  
+                  'sourceoftransaction' => '1',
+                  'typeoftransaction'=> '1',
+                  'descriptionoftransaction'=> 'Item Sales',
+                   'transactionamount' => ($totallineforinvoice-$totalvatoninvoice),   
+
+                        'ucret' => $userid,
+                          
+                        ]);
+
+                        //// creating the totalcost Transaction
+                        /// creating the sales statement Total salss - 1, totalcost = 2, incomefromothersources = 3 expenses = 4
+                Incomestatementminirecord::Create([
+   
+                  'incomerefrenceid' => $invoiceno,
+                  // 'branch' => $user->branch,
+                  'dateoftransaction' => $ddddtt4,  
+                  'sourceoftransaction' => '2',
+                  'typeoftransaction'=> '2',
+                  'descriptionoftransaction'=> 'Purcase of items',
+                   'transactionamount' => ($totalcostoftheinvoice),   
+                   'ucret' => $userid,
+                          
+                        ]);
 
 
          //// Working on the Daily Sales Summary 

@@ -87,7 +87,7 @@
     
         <div class="emmietopheader">
            
-    SENNAH - GENRAL HARDWARE - Jjogo
+    SSENNAH - GENERAL HARDWARE - Jjogo
 </div>
 
     </nav>

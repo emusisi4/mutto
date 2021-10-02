@@ -685,19 +685,20 @@ INCOME STATEMENT REPORT
              <th colspan="1"  style="font-size: 18px;
                  border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;">DATE</th>
            
-          
+            
+            
 
               <th colspan="1"  style="font-size: 18px; text-align:center;    
-               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> TOTAL SALES ({{currencydetails}})</th>
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> TYPE OF TRANSACTION ({{currencydetails}})</th>
               
             <th colspan="1"  style="font-size: 18px; text-align:center;    
-               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> TOTAL COST ({{currencydetails}})</th>
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> DESCRIPTION ({{currencydetails}})</th>
               
              <th colspan="1"  style="font-size: 18px; text-align:center;    
-               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> GROSS PROFIT ({{currencydetails}})</th>
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> AMOUNT ({{currencydetails}})</th>
 
                   <th colspan="1"  style="font-size: 18px; text-align:center;    
-               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> TOTAL OTHER INCOMES ({{currencydetails}})</th>
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> CREATED  ({{currencydetails}})</th>
 
   <th colspan="1"  style="font-size: 18px; text-align:center;    
                border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> TOTAL EXPENSES ({{currencydetails}})</th>
@@ -736,7 +737,7 @@ INCOME STATEMENT REPORT
                                  -->
      
 </tr>
-<tr>
+<!-- <tr>
 
 
 <th style="font-size: 18px; text-align:center;    
@@ -795,7 +796,7 @@ INCOME STATEMENT REPORT
                 background-color: rgb(211 211 211); color: #131378;" >
 <div class="musisialignright"> {{currencydetails}} {{formatPrice(totalnetprofitbeforothertaxesforincomestatements)}} </div>
 </th>
-    </tr>
+    </tr> -->
 </table>
                 
                                 </div>
