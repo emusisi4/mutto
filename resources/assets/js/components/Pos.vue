@@ -660,7 +660,7 @@ text-align: center;
                     <div class="modal-content">
                         <div class="modal-header">
                             <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">New Product Registration</h3> 
-                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Add Item to Cart</h3> </h4> 
+                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Add Item to Cart</h4> 
                         </div>
 
 
@@ -1991,7 +1991,7 @@ this.productsellingrecords = data.data;
             Fire.$on('AfterAction', () =>{
 // this.loadManinmens();
       });
-setInterval(() =>this.loadvatvalues(),3000);
+////setInterval(() =>this.loadvatvalues(),3000);
         }
         
     }

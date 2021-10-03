@@ -13,8 +13,12 @@ class Incomestatementrecord extends Authenticatable
 
     //id, incomesourcename, ucret, created_at, updated_at
     protected $fillable = [
-      'totalsales', 'totalcost', 'grossprofit', 'otherincomes', 'expenses',
-       'netprofitbeforetax', 'ucret', 'incomestatementdate', 'incomerefrenceid', 'incomesourcedescription'
+      // 'totalsales', 'totalcost', 'grossprofit', 'otherincomes', 'expenses',
+      //  'netprofitbeforetax', 'ucret', 'incomestatementdate', 'incomerefrenceid', 'incomesourcedescription'
+
+       'totalsales', 'totalcost', 'grossprofit', 'otherincomes', 'expenses', 'netprofitbeforetax', 'ucret', 'incomestatementdate', 'incomerefrenceid', 
+       'incomesourcedescription', 'typeoftransaction', 'amountoftransaction', 'dateoftransaction', 'sourceoftransaction', 'transactionamount', 'status'
+
     ];
 
 

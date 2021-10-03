@@ -444,25 +444,19 @@ pre {
                 </form>
                
  <div class="bethapa-table-header"></div>
-
-
-                       <table class="table">
-                  <thead>
-                    <tr>
-                   
-                      <th > # </th>
+<table  class="musisireporttable" width="100%" border="1">
+     <tr>
+     <th > # </th>
                       <th > CATEGORY NAME </th>
                       <th > DESCRIPTION </th>
                       <th > CREATED BY</th>
                      
                       <th > DATE CREATED </th>
                      <th >  </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
 
-                                       <tr v-for="prodcates in productcategoriesrecords.data" :key="prodcates.id">
+</tr>
+<!--  -->
+                                <tr v-for="prodcates in productcategoriesrecords.data" :key="prodcates.id">
                       
                  
                   
@@ -497,17 +491,10 @@ pre {
                               
                                
                     </tr>
-              
-                     
-                  </tbody>
-              
- 
-                                   </table>
-    <div class="card-footer">
-                <ul class="pagination pagination-sm m-0 float-right">
-                   <pagination :data="productcategoriesrecords" @pagination-change-page="paginationResultsProductcategories"></pagination>
-                </ul>
-    </div>
+</table>
+
+
+                   
           
  
 
@@ -603,23 +590,21 @@ pre {
                      </div>
 
 
-                       <table class="table">
-                  <thead>
-                    <tr>
-                   
-                      <th > # </th>
+
+
+<table  class="musisireporttable" width="100%" border="1">
+     <tr>
+    <th > # </th>
                       <th > BRAND NAME </th>
                       <th > DESCRIPTION </th>
                       <th > CREATED BY</th>
                      
                       <th > DATE CREATED </th>
                      <th >  </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
 
-                                 <tr v-for="probrands in productbrandsrecords.data" :key="probrands.id">
+</tr>
+<!--  -->
+                          <tr v-for="probrands in productbrandsrecords.data" :key="probrands.id">
                       
                  
                   
@@ -650,21 +635,34 @@ pre {
                               </td>
 
 
-               
-                              
-                               
                     </tr>
-              
-                     
-                  </tbody>
-              
- 
-                                   </table>
-    <div class="card-footer">
-                <ul class="pagination pagination-sm m-0 float-right">
-                   <pagination :data="productcategoriesrecords" @pagination-change-page="paginationResultsProductcategories"></pagination>
-                </ul>
-    </div>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    
 
 
 
@@ -745,13 +743,9 @@ pre {
                   <!-- v-if="allowedtoaddbranch > 0 " -->
                       <button type="button" v-if="addnewunitofmeasurefeature > 0" class="add-newm" @click="newproductunitofmeasureModal" >Add New </button> 
                      </div>
-
-
-                       <table class="table">
-                  <thead>
-                    <tr>
-                   
-                      <th > # </th>
+<table  class="musisireporttable" width="100%" border="1">
+     <tr>
+    <th > # </th>
                       <th > UNIT  NAME </th>
                       <th > CODE</th>
                     
@@ -759,18 +753,10 @@ pre {
                      
                       <th > DATE CREATED </th>
                      <th >  </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
 
-
- 
-       
-     
-          
-
-                                 <tr v-for="probrands in productunitofmeasurerecords.data" :key="probrands.id">
+</tr>
+<!--  -->
+              <tr v-for="probrands in productunitofmeasurerecords.data" :key="probrands.id">
                       
                  
                   
@@ -805,18 +791,10 @@ pre {
                               
                                
                     </tr>
-              
-                     
-                  </tbody>
-              
- 
-                                   </table>
-    <div class="card-footer">
-                <ul class="pagination pagination-sm m-0 float-right">
-                   <pagination :data="productcategoriesrecords" @pagination-change-page="paginationResultsProductcategories"></pagination>
-                </ul>
-    </div>
+</table>
 
+  
+  
 
 
           
@@ -1336,55 +1314,64 @@ pre {
                      </div>
 
 
-                       <table class="table">
-                  <thead>
-                      <tr>
-          <th rowspan="1" style="font-size: 25px; background-color:#c5c5c5; "></th>
-            <th rowspan="1" style="font-size: 25px; background-color:#c5c5c5; "></th>
-            <th rowspan="1" style="font-size: 25px; background-color:#c5c5c5;"></th>
-             <th rowspan="1" style="font-size: 25px; background-color:#c5c5c5; "></th>
-              <th colspan="3"  style="font-size: 25px;     background-color: rgb(29 31 34 / 37%); color: #131378;"> PURCHASE ORDER DETAILS</th>
-            <th colspan="3" style="font-size: 25px; background-color: rgb(29 31 34 / 37%); color: #131378; " >  DELIVERY DETAILS</th>
-            <th colspan="3"  style="font-size: 25px; background-color: rgb(29 31 34 / 37%);color: #131378; ">PAYMENT DETAILS </th>
-          <th rowspan="1" style="font-size: 25px; background-color:#c5c5c5; "></th>
+
+
+
+
+
+
+
+
+
+<table  class="musisireporttable" width="100%" border="1">
+       <tr>
+             <th colspan="1"  style="font-size: 18px;     border-bottom: 4px solid rgb(124 102 102);  
+                background-color: rgb(29 31 34 / 37%); color: #131378;"> #</th>
+            
+          
+              <th colspan="3"  style="font-size: 18px; text-align:center;   
+                border-bottom: 4px solid rgb(124 102 102); 
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> ORDER DETAILS</th>
+        
+              <th colspan="3"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> COST DETAILS </th>
+              
+            <th colspan="3"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> DELIVERY DETAILS </th>
+              
+             <th colspan="3"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> PAYMENT DETAILS	</th>
+          
+            <th colspan="1"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> 	</th>
           
         </tr>
-                    <tr>
-                   
-                      <th># </th>
-                      <th> ORDER DATE</th>
-                          <th> SUPPLIER INVOICE No. </th>
-                      <th> SUPPLIER NAME </th>
-                      <th>  AMOUNT ({{currencydetails}} ) </th>
-                      <th>  VAT ({{currencydetails}} )</th>
-                      <th> STATUS</th>
-                      <th>  AMOUNT ({{currencydetails}} ) </th>
-                      <th>  VAT ({{currencydetails}} )</th>
-                       <th>  STATUS </th>
-                     
 
-                          <th> PAID ( {{currencydetails}} )</th>
-                          <th> BALANCE ( {{currencydetails}} )</th>
-                          <th> STATUS ( {{currencydetails}} )</th>
-                     <th >  </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
+        <tr>
+    <th></th>
 
+<th>Date	</th>
+<th>Supplier Invoice number </th>
+<th> Supplier Name</th>
 
- 
-       
-     
+<th>  Invoice Amount ( {{currencydetails}} )</th>
+<th>  Total Vat Expected ( {{currencydetails}} )</th>
+<th> Status</th>
+
+<th>  Amount Delivered ( {{currencydetails}} ) </th>
+<th>  Tatal Vat Paid ({{currencydetails}})</th>
+<th>  Status </th>
+
+<th>  Amount Paid ( {{currencydetails}} ) </th>
+<th>  Balance ({{currencydetails}})</th>
+<th>  Status </th>
+
+<th>  </th>
+
+</tr>
+<!--  -->
+           <tr v-for="probrands in purchaseincoicesummaryrecords.data" :key="probrands.id">
           
-
-                                 <tr v-for="probrands in purchaseincoicesummaryrecords.data" :key="probrands.id">
-                      
-                 
-                  
-                
-                      
-                         
                                 <td>{{probrands.purchaseno}}</td>
                                  <td>{{probrands.invoicedate | myDate2 }}</td>
                                     <td>{{probrands.supplierinvoiceno}}</td>
@@ -1434,11 +1421,12 @@ pre {
                                  <td> 
                                   
                             <div v-if="probrands.finalcost > 0 ">
-                             <button type="button"  @click="paypurchaseInvoice(probrands)" class="btn bg-brown waves-effect">Pay Invoice</button>
+                             <button type="button"  @click="paypurchaseInvoice(probrands)" class="btn bg-brown btn-xs waves-effect">Pay Invoice</button>
                             
                             </div>
                              <div v-if="probrands.invoicelockstatus == 0 ">
-  <button type="button"  class="btn bg-deep-orange waves-effect" @click="deleteUnitofmeasure(probrands.id)"> Delete  Invoice</button>
+                               <button type="button"  class="btn bg-green btn-xs waves-effect" @click="deleteUnitofmeasure(probrands.id)"> Edit  Invoice</button>
+  <button type="button"  class="btn bg-deep-orange btn-xs waves-effect" @click="deleteUnitofmeasure(probrands.id)"> Del</button>
                            
                              </div>
 
@@ -1446,23 +1434,117 @@ pre {
 
                              
                               </td>
+       <tr>
 
 
-               
-                              
-                               
-                    </tr>
-              
-                     
-                  </tbody>
-              
- 
-                                   </table>
-    <div class="card-footer">
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+</tr>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+           
+    <!-- <div class="card-footer">
                 <ul class="pagination pagination-sm m-0 float-right">
                    <pagination :data="productcategoriesrecords" @pagination-change-page="paginationResultsProductcategories"></pagination>
                 </ul>
-    </div>
+    </div> -->
 
 
    
@@ -2110,11 +2192,11 @@ pre {
 
                 </form>        
                        
-                       <table class="table">
-                  <thead>
-                    <tr>
-                   
-                      <th > # </th>
+
+
+<table  class="musisireporttable" width="100%" border="1">
+     <tr>
+   <th > # </th>
                        <th > DATE</th>
                       <th > SUPPLIER INVOICE</th>
                         <th >SUPPLIER</th>
@@ -2128,16 +2210,10 @@ pre {
                                          
                     
                      <th >  </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
 
-
- 
-       
-    
-                                 <tr v-for="purcdet in productpurchasesdetailrecords.data" :key="purcdet.id">
+</tr>
+<!--  -->
+                                   <tr v-for="purcdet in productpurchasesdetailrecords.data" :key="purcdet.id">
                       
                  
                   
@@ -2175,21 +2251,26 @@ pre {
                               </td>
 
 
-               
                               
                                
                     </tr>
-              
-                     
-                  </tbody>
-              
- 
-                                   </table>
-    <div class="card-footer">
-                <ul class="pagination pagination-sm m-0 float-right">
-                   <pagination :data="productcategoriesrecords" @pagination-change-page="paginationResultsProductcategories"></pagination>
-                </ul>
-    </div>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
 
 
 
@@ -3540,7 +3621,7 @@ axios.get("api/gettheinvoicetotalwithoutvat").then(({ data }) => (this.gettheinv
         this.form.reset();
    axios.get("api/purchaseincoicesummaryrecords").then(({ data }) => (this.purchaseincoicesummaryrecords = data));
         axios.get('api/invoiceslist').then(function (response) { this.invoiceslist = response.data;}.bind(this));
-           $('#updateinvoiceproductsModal').modal('show');
+     ///      $('#updateinvoiceproductsModal').modal('show');
   Toast.fire({
   icon: 'success',
   title: 'Record added successfully'
