@@ -16,11 +16,7 @@ use App\ productstock;
 
 class InserintocartController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function __construct()
     {
        $this->middleware('auth:api');
@@ -37,11 +33,11 @@ class InserintocartController extends Controller
       {
     //  return   Product::wvith(['userbalancingBranch','branchinBalance'])->latest('id')
   //  return   Shopingcat::with(['brandName','productCategory','productSupplier','unitMeasure'])->latest('id')
-  return   Shopingcat::with(['productName'])->latest('id')
+  return   Shopingcat::with(['productName','unitMeasureshopingcat'])->orderBy('id', 'Asc')
   
   ///  return   Product::latest('id')
        //  return   Branchpayout::latest('id')
-        // ->where('branch', $userbranch)
+      ->where('ucret', $userid)
         ->paginate(20);
       }
 
@@ -81,10 +77,13 @@ $product = $request['id'];
 $unitprice = \DB::table('products') ->where('id', '=', $product)->orderBy('id', 'Desc')->value('unitprice');
 $currentproductquantity = \DB::table('products') ->where('id', '=', $product)->orderBy('id', 'Desc')->value('qty');
 $unitcost = \DB::table('products') ->where('id', '=', $product)->value('unitcost');
+$unitmeasure = \DB::table('products') ->where('id', '=', $product)->value('unitmeasure');
 /// checking if the product is on the cart
 $productexistsoncart = \DB::table('shopingcats')->where('productcode', '=', $product)->where('ucret', '=', $userid)->count();
 if($productexistsoncart < 1)
 {
+  $countrecordsontheslip = \DB::table('shopingcats')->where('ucret', '=', $userid)->count();
+  $itemreceiptno = $countrecordsontheslip+1;
   $qty = $request['quantity'];
   $linevat = ($unitprice*0.18);
   $totalvat = $linevat*$qty;
@@ -94,7 +93,9 @@ if($productexistsoncart < 1)
       'productcode' => $request['id'],
       'quantity' => $request['quantity'],
       'datesold' => $datepaid,
+      'itemreceiptno' => $itemreceiptno,
       'branch' => $branch,
+      'unitmeasure' => $unitmeasure,
       'unitprice' => $unitprice,
       'unitcost' => $unitcost,
       'netsalewithoutvat' => ((($unitprice*( $request['quantity']))-($unitcost*( $request['quantity']))))-($totalvat),

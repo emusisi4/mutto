@@ -686,26 +686,22 @@ INCOME STATEMENT TRANSACTIONS
                  border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;">DATE</th>
            
             
-            
+             <th colspan="1"  style="font-size: 18px; text-align:left;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> SOURCE</th>
+              
 
-              <th colspan="1"  style="font-size: 18px; text-align:center;    
-               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> TYPE OF TRANSACTION ({{currencydetails}})</th>
+              <th colspan="1"  style="font-size: 18px; text-align:left;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> TYPE OF TRANSACTION </th>
               
-            <th colspan="1"  style="font-size: 18px; text-align:center;    
-               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> DESCRIPTION ({{currencydetails}})</th>
+            <th colspan="1"  style="font-size: 18px; text-align:left;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> DESCRIPTION</th>
               
-             <th colspan="1"  style="font-size: 18px; text-align:center;    
+             <th colspan="1"  style="font-size: 18px; text-align:left;    
                border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> AMOUNT ({{currencydetails}})</th>
 
-                  <th colspan="1"  style="font-size: 18px; text-align:center;    
-               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> CREATED  ({{currencydetails}})</th>
-
-  <th colspan="1"  style="font-size: 18px; text-align:center;    
-               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> TOTAL EXPENSES ({{currencydetails}})</th>
-
-       <th colspan="1"  style="font-size: 18px; text-align:center;    
-               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> NET PROFIT BEFORE OTHER TAXES ({{currencydetails}})</th>
-          
+        
+ 
+    
         </tr>
 
    
@@ -715,13 +711,22 @@ INCOME STATEMENT TRANSACTIONS
                                  <td>{{prodcates.dateoftransaction | myDate2 }}</td>
  
                                  <td>
-                                   <div v-if="prodcates.sourceoftransaction == 1" >  Company Sales</div>
-                                   <div v-if="prodcates.sourceoftransaction == 2" >  Purchases Sales</div>
+                                   <div v-if="prodcates.sourceoftransaction == 1" >  Sales</div>
+                                   <div v-if="prodcates.sourceoftransaction == 2" >  Purchases </div>
                                  
                                  </td>
-                                  <td><div class="musisialignright">  {{formatPrice(prodcates.totalcost)}} </div></td>
-                               <td><div class="musisialignright">  {{formatPrice(prodcates.grossprofitonsales)}} </div></td>
+                                  <td class="musisialign">
+                                <b> <div v-if="prodcates.sourceoftransaction == 1" style="color:green" >  Credit</div>
+                                   <div v-if="prodcates.sourceoftransaction == 2" style="color:maroon"  >  Debit</div>
+                                   </b>
+                                 
+                                 </td>
 
+                                   <td><div class="">  {{prodcates.descriptionoftransaction}} </div></td>
+
+                                 <td><div class="musisialignright"> 
+                                     {{formatPrice(prodcates.transactionamount)}} </div></td> 
+                             
                                
 
 

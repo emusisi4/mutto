@@ -594,12 +594,17 @@ text-align: center;
       <tr v-for="shobalrecs in shopingcartdetails.data" :key="shobalrecs.id">
          <td>
         
-        <span class="book-title"> {{shobalrecs.id}} </span>
+        <span class="book-title"> {{shobalrecs.itemreceiptno}} </span>
         
       </td>
       <td class="four">
         
       <span class="book-title"> <template v-if="shobalrecs.product_name">	{{shobalrecs.product_name.productname}}</template></span>
+       
+      </td>
+        <td class="four">
+        
+      <span class="book-title"> <template v-if="shobalrecs.unit_measureshopingcat">	{{shobalrecs.unit_measureshopingcat.shotcode}}</template></span>
        
       </td>
          <td>
@@ -622,15 +627,15 @@ text-align: center;
   </tbody>
   <tfoot>
     <tr class="text-offset">
-      <td colspan="4">Sub-total : </td>
+      <td colspan="5">Sub-total : </td>
       <td>{{currencydetails}}  {{formatPrice(carttotal)}}</td>
     </tr>
     <tr>
-      <td colspan="4">Tax : </td>
+      <td colspan="5">Tax : </td>
      <td>{{currencydetails}} {{formatPrice(0.18*carttotal)}}</td>
     </tr>
     <tr>
-      <td colspan="4">Total :</td>
+      <td colspan="5">Total :</td>
      <td>{{currencydetails}}  {{formatPrice(carttotal)}}</td>
     </tr>
   </tfoot>
@@ -765,16 +770,17 @@ text-align: center;
 <tr>
     <th>#</th>
 
-<th>ITEM</th>
-<th> PRICE</th>
-<th> QTY</th>
+<th class="musisialignleft" >Description</th>
+<th class="musisialignleft"> Unit</th>
+<th class="musisialignleft"> Price</th>
+<th class="musisialignleft"> Qty</th>
 
-<th>  TOTAL </th>
+<th class="musisialignleft">  Total </th>
 </tr>
   <tr v-for="salesprint in latestreceiptdetails.data" :key="salesprint.id">
                             <td>
         
-        <span > {{salesprint.id}} </span>
+        <span > {{salesprint.itemreceiptno}} </span>
         
       </td>
       
@@ -784,6 +790,8 @@ text-align: center;
       <span> <template v-if="salesprint.product_name">	{{salesprint.product_name.productname}}</template></span>
        
       </td>
+      
+        <td class="item-qty">   <span> <template v-if="salesprint.unitmeasure_productssold">	{{salesprint.unitmeasure_productssold.shotcode}}</template></span></span></td>
          <td class="item-pricetotal" >
           
         <span>{{formatPrice(salesprint.unitprice)}}</span>
@@ -796,13 +804,13 @@ text-align: center;
     
   
     <tr>
-      <td colspan="4">Total :</td>
+      <td colspan="5">Total :</td>
      <td>{{currencydetails}}   {{formatPrice(receipttotal)}}</td>
     </tr>
   </tfoot>
 </table>
 <div class="ticketdisclaimer"  > Goods once Sold are not returnable </div>
- <div class="ticketreceipttitle"  > Biuld the Best with Materials and tools from Us. </div>
+ <div class="ticketreceipttitle"  > Build the Best with Materials and tools from Us. </div>
         </div>
 
 

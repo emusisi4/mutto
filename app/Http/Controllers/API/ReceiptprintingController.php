@@ -36,10 +36,10 @@ class ReceiptprintingController extends Controller
             /// getting the latest Sale details for the user 
         $receiptno = \DB::table('salessummaries') ->where('ucret', '=', $userid)->orderBy('id', 'Desc')->value('invoiceno');
    
-        return    Productsale::with(['productName'])
+        return    Productsale::with(['productName','unitmeasureProductssold'])
        //->orderBy('datesold', 'DESC')
        ->where('invoiceno', $receiptno)
-       ->orderBy('id', 'DESC')
+       ->orderBy('id', 'Desc')
         ->paginate(100);
     
 

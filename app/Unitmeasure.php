@@ -23,6 +23,15 @@ class Unitmeasure extends Authenticatable
    
         return $this->hasMany(Product::class, 'unitmeasure', 'id'); 
     }
+    public function unitMeasureshopingcat(){
+   
+        return $this->hasMany(Shopingcat::class, 'unitmeasure', 'id'); 
+    }
+
+    public function unitmeasureProductssold(){
+   
+        return $this->hasMany(Productsale::class, 'unitmeasure', 'id'); 
+    }
     public function supp(){
         // creating a relationship between the students model 
         return $this->belongsTo(Product::class, 'supplier'); 

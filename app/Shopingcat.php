@@ -13,7 +13,7 @@ class Shopingcat extends Authenticatable
    
     protected $fillable = [
         'vatamount','linevat','productcode','quantity','unitcost','totalcostprice','lineprofit', 'datesold', 'status',
-        'ucret','branch','linetotal','unitprice','supplier','unitmeasure','invoiceno','netsalewithoutvat','netunitsalewithoutvat'
+        'ucret','branch','linetotal','unitprice','supplier','unitmeasure','invoiceno','netsalewithoutvat','netunitsalewithoutvat','itemreceiptno'
        
     ];
     public function productName(){
@@ -29,7 +29,7 @@ class Shopingcat extends Authenticatable
         // creating a relationship between the students model 
         return $this->belongsTo(Productcategory::class, 'category'); 
     }
-    public function unitMeasure(){
+    public function unitMeasureshopingcat(){
         
         return $this->belongsTo(Unitmeasure::class, 'unitmeasure'); 
     }

@@ -15,12 +15,16 @@ class Productsale extends Authenticatable
     protected $fillable = [
        'vatamount','linevat','netinvoiceincome', 'productcode','quantity','unitcost','totalcost','lineprofit',
         'datesold', 'status','ucret','branch','linetotal','unitprice','supplier','unitmeasure','invoiceno',
-        'netunitsalewithoutvat','netsalewithoutvat'
+        'netunitsalewithoutvat','netsalewithoutvat','itemreceiptno'
        
     ];
     public function productName(){
         // creating a relationship between the students model 
         return $this->belongsTo(Product::class, 'productcode'); 
+    }
+    public function unitmeasureProductssold(){
+        // creating a relationship between the students model 
+        return $this->belongsTo(Unitmeasure::class, 'unitmeasure'); 
     }
   
     
@@ -37,6 +41,11 @@ class Productsale extends Authenticatable
     public function productCategory(){
         // creating a relationship between the students model 
         return $this->belongsTo(Productcategory::class, 'category'); 
+    }
+    
+    public function unitMeasuresproductsales(){
+        
+        return $this->belongsTo(Unitmeasure::class, 'unitmeasure'); 
     }
     public function unitMeasure(){
         

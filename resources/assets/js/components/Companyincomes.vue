@@ -231,7 +231,7 @@
                          
                          
                     
-                       <td><button type="button"  v-if="((shobalrecs.status)) == 0" class="btn  bg-gradient-info btn-xs fas fa-eye" @click="confirmmycashrecievedbank(shobalrecs.id)"> Confirm </button>
+                       <td><button type="button"  v-if="((shobalrecs.status)) == 0" class="btn  bg-green btn-xs" @click="confirmmycashrecievedbank(shobalrecs.id)"> Confirm </button>
                           
                             <button type="button" v-if="((shobalrecs.status)) == 0"  class="btn  bg-gradient-secondary btn-xs fas fa-edit"  @click="editcashcredit(shobalrecs)">Edit</button>
                             <button type="button"  v-if="((shobalrecs.status)) == 0" class="btn  bg-gradient-danger btn-xs fas fa-trash-alt" @click="deleteincomerecieved(shobalrecs.id)"> DEl </button>
@@ -259,9 +259,9 @@
                                  <table  class="musisireporttable" width="100%" border="1">
 
 <tr>
-       <th>#</th>
-                      <th>Source Name</th>
-                      <th>Description</th>
+       <th style="text-align:left; padding-left:20px">#</th>
+                      <th style="text-align:left; padding-left:20px">Source Name</th>
+                      <th style="text-align:left; padding-left:20px">Description</th>
                  
                         
                         <th ></th>
@@ -276,65 +276,11 @@
   
           <tr v-for="prodcates in incomesourcerecords.data" :key="prodcates.id">
           
-       <td>{{prodcates.id }}</td>
-                                 <!-- <td>{{prodcates.transerdate | myDate2 }}</td>
-  -->
-
-
-
-
-  
-                  
-                      <td>
-   <div v-if="((prodcates.transfertype)) == 2">
-                                <span class="cell" style="color:green ;">  
-   
-                    <span style="font-size:1.0em;" center >  Credit </span></span>
-                              </div> 
-
-                               <div v-if="((prodcates.transfertype)) == 1">
-                                <span class="cell" style="color:maroon ;">  
-   
-                    <span style="font-size:1.0em;" center >  Debit </span></span>
-                              </div> 
-
-                      </td>
-                      <td class="musisialignright">{{formatPrice(prodcates.amount)}}</td>
-
-
- <td>{{(prodcates.accountinact)}}</td>
-    <td>{{(prodcates.destinatin)}}</td>
-<td>{{(prodcates.ucret)}}</td>
-<td>{{(prodcates.accountinact)}}</td>
-
-                                   <td>
-   <div  v-if="((prodcates.status)) == 1">
-                                <span class="cell" style="color:green ;">  
-   
-                    <span style="font-size:1.0em;" center >  Confirmed </span></span>
-                              </div> 
-
-                               <div v-if="((prodcates.status)) == '0'">
-                                <span class="cell" style="color:maroon ;">  
-   
-                    <span style="font-size:1.0em;" center >  Pending confirmation </span></span>
-                              </div> 
-
-                      </td>
-                                
-                               <td>
-                            <div  class="musisialignright" v-if="((prodcates.transfertype)) == '1'">
-      
-       <button type="button" v-if="((prodcates.status)) == '0'"   class="btn  bg-gradient-secondary btn-xs fas fa-edit"  @click="editexpensecategory(prodcates)">Edkkkkit</button>
-       <button type="button" v-if="((prodcates.status)) == '0'" class="btn  bg-gradient-danger btn-xs fas fa-trash-alt" @click="deleteexpensecategory(prodcates.id)"> DEl </button>
- </div>
-</td>
-                                
-                                
-                                
-                               
-                            
-                                 <!-- <td style="background-color:#eeeeee "><div class="musisialign"> {{formatPrice(prodcates.netinvoiceincome)}} </div></td>
+                                <td>{{prodcates.id }}</td>
+                                 <td>{{prodcates.incomesourcename }}</td>
+                                  <td>{{prodcates.description }}</td>
+                              
+                       <!-- <td style="background-color:#eeeeee "><div class="musisialign"> {{formatPrice(prodcates.netinvoiceincome)}} </div></td>
                                  -->
      
 </tr>
@@ -532,92 +478,106 @@
 
                     <div  class="modal-body">
               
-                      <div class="form-group row">
-
-                            <label class="col-sm-2 col-form-label">Source </label>
-                              <div class="col-sm-6">
-                            <select name ="incomesource" v-model="form.incomesource" id ="incomesource" v-on:click="loadDatarecords()" class="form-control" :class="{'is-invalid': form.errors.has('incomesource')}">
+               
+               
+               
+               
+                  <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Product Name</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                 <select name ="incomesource" v-model="form.incomesource" id ="incomesource" v-on:click="loadDatarecords()" class="form-control" :class="{'is-invalid': form.errors.has('incomesource')}">
 <option value=" ">  </option>
 <option v-for='data in incomesourceslist' v-bind:value='data.id'>{{ data.incomesourcename }}</option>
 
 </select>
             <has-error :form="form" field="incomesource"></has-error>
-                              </div>
-
-                        </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+               
+               
+               
+               
+               
+               
+                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Amount Recieved</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                  <input v-model="form.amount" type="number" name="amount"
+       class="form-control form-control-sm" :class="{ 'is-invalid': form.errors.has('amount') }">
+      <has-error :form="form" field="amount"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+               
+               
+               
+               
+               
+                      
+                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Date Recieved </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                           <input v-model="form.daterecieved" type="date" name="daterecieved"
+       class="form-control form-control-sm" :class="{ 'is-invalid': form.errors.has('daterecieved') }">
+      <has-error :form="form" field="daterecieved"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                  
                
                 
-                      
-               
-                    
-          
-
-                           <!-- <div class="form-group row">
-
-                            <label class="col-sm-2 col-form-label">Transaction </label>
-                              <div class="col-sm-6">
-                            <select name ="expense" v-model="form.expense" id ="expense"  class="form-control" :class="{'is-invalid': form.errors.has('expense')}">
-<option value=" ">  </option>
-<option v-for='data in transactiontypeslist' v-bind:value='data.id'>{{ data.transactiontypename }}</option>
-
-</select>
-            <has-error :form="form" field="expense"></has-error>
-                              </div>
-
-                        </div>
-                 -->
-                      
-               
-   <div class="form-group row">
-
-                            <label class="col-sm-2 col-form-label">Amount </label>
-                              <div class="col-sm-6">
-                              <input v-model="form.amount" type="number" name="amount"
-       class="form-control form-control-sm" :class="{ 'is-invalid': form.errors.has('amount') }">
-      <has-error :form="form" field="amount"></has-error>
-                              </div>
-
-                        </div>
-                        <div class="form-group row">
-
-                            <label class="col-sm-2 col-form-label">Date Recieved </label>
-                              <div class="col-sm-6">
-                              <input v-model="form.daterecieved" type="date" name="daterecieved"
-       class="form-control form-control-sm" :class="{ 'is-invalid': form.errors.has('daterecieved') }">
-      <has-error :form="form" field="daterecieved"></has-error>
-                              </div>
-
-                        </div>
-                
-                     
-                        <!--  -->
-                         <!-- <div class="form-group row">
-
-                            <label class="col-sm-2 col-form-label">Wallet </label>
-                              <div class="col-sm-6">
-                              <select name ="walletexpense" v-model="form.walletexpense" id ="walletexpense" v-on:click="loadDatarecords()" class="form-control" :class="{'is-invalid': form.errors.has('walletexpense')}">
+                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Wallet Credited </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                            <select name ="walletexpense" v-model="form.walletexpense" id ="walletexpense" v-on:click="loadDatarecords()" class="form-control" :class="{'is-invalid': form.errors.has('walletexpense')}">
                   <option value=" ">  </option>
                   <option v-for='data in walletlist' v-bind:value='data.id'>{{ data.id }} - {{ data.name }}</option>
 
                   </select>
-            <has-error :form="form" field="walletexpense"></has-error>
-                              </div>
-
-                        </div> -->
-                
-                 <div class="form-group row">
-
-                            <label class="col-sm-2 col-form-label">Description </label>
-                              <div class="col-sm-6">
-                                    <textarea v-model="form.description" name="description" rows="5" cols="30" class="form-control" :class="{ 'is-invalid': form.errors.has('description') }"></textarea>
+                       <has-error :form="form" field="walletexpense"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>       
+               
+   
+                         <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Description </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                              <textarea v-model="form.description" name="description" rows="5" cols="30" class="form-control" :class="{ 'is-invalid': form.errors.has('description') }"></textarea>
                  
                 <has-error :form="form" field="description"></has-error>
-     
-                              </div>
-
-                        </div>
-                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>       
+              
+              
+              
 
                 
                       
