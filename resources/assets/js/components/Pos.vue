@@ -584,6 +584,7 @@ text-align: center;
     <tr>
          <th class="tresed">#</th>
       <th class="tresed"> ITEM</th>
+        <th class="tresed"> UNIT</th>
        <th class="tresed">UNIT PRICE</th>
       <th class="tresed">QTY</th>
       <th class="tresed">TOTAL</th>
