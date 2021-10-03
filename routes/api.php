@@ -91,7 +91,7 @@ Route::get('totaldailypurchasespaymentsbalancerangereports', 'API\CompanyReports
 
 
 
-
+Route::get('incomestatementtransactionsrecords', 'API\CompanyReportsController@incomestatementreportrecords');
 
 
 

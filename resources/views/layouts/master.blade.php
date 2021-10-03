@@ -186,13 +186,19 @@ foreach ($allowedsubmenu as $rowallsub)
 
 }
 ?>
-  <div class="pull-right mx-auto">
-                                  <a  href="{{ route('logout') }}"
+
+<router-link to="/dashboard"> 
+                            <i class="material-icons"></i>
+                            <span>     <a  href="{{ route('logout') }}"
            onclick="event.preventDefault();
                          document.getElementById('logout-form').submit();" class="btn user-btn btn-default btn-flat">
                 Sign out</a>
 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
+            @csrf </span></router-link>
+                       
+                    </li>
+  <div class="pull-right mx-auto">
+                              
         </form>
                                 </div>
                 </ul>

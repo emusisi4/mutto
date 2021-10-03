@@ -341,16 +341,16 @@ pre {
                                     </a>
                                 </li>
                                 <li role="presentation">
-                                    <a href="#profile_with_icon_title" v-if="brandsComponentaccess > 0" @click="loadProductbrands()" data-toggle="tab">
+                                    <a href="#profile_with_icon_title" v-if="brandsComponentaccess > 0" @click="loadPurchaserecords()" data-toggle="tab">
                                         <i class="material-icons"></i> Income Statement Transactions
                                     </a>
                                 </li>
                                 <!-- v-if="unitsofmeasureComponentaccess > 0" -->
-                                <li role="presentation">
+                                <!-- <li role="presentation">
                                     <a href="#messages_with_icon_title"  @click="loadPurchaserecords()" data-toggle="tab">
                                         <i class="material-icons"></i> Purchases Details
                                     </a>
-                                </li>
+                                </li> -->
                                 <!-- <li role="presentation">
                                     <a href="#settings_with_icon_title" v-if="companyproductsComponentaccess > 0" @click="laodProductdetails()" data-toggle="tab">
                                         <i class="material-icons"></i> ITEMS / PRODUCTS
@@ -644,7 +644,7 @@ INCOME STATEMENT REPORT
                                   
         <div class="bethapa-reports-header">
    
-INCOME STATEMENT REPORT
+INCOME STATEMENT TRANSACTIONS
 </div>
 
 <!-- <div class="mysalessect">  -->
@@ -709,12 +709,16 @@ INCOME STATEMENT REPORT
         </tr>
 
    
-          <tr v-for="prodcates in incomestatementreportrecords.data" :key="prodcates.id">
+          <tr v-for="prodcates in incomestatementtransactionsrecords.data" :key="prodcates.id">
              <td>{{prodcates.id  }}</td>
  
-                                 <td>{{prodcates.datedone | myDate2 }}</td>
+                                 <td>{{prodcates.dateoftransaction | myDate2 }}</td>
  
-                                 <td><div class="musisialignright">  {{formatPrice(prodcates.totalsales)}} </div></td>
+                                 <td>
+                                   <div v-if="prodcates.sourceoftransaction == 1" >  Company Sales</div>
+                                   <div v-if="prodcates.sourceoftransaction == 2" >  Purchases Sales</div>
+                                 
+                                 </td>
                                   <td><div class="musisialignright">  {{formatPrice(prodcates.totalcost)}} </div></td>
                                <td><div class="musisialignright">  {{formatPrice(prodcates.grossprofitonsales)}} </div></td>
 
@@ -722,11 +726,11 @@ INCOME STATEMENT REPORT
 
 
 
-                                  <td><div class="musisialignright"> {{formatPrice(prodcates.otherincomes)}} </div></td> 
+                                  <!-- <td><div class="musisialignright"> {{formatPrice(prodcates.otherincomes)}} </div></td> 
                                   <td><div class="musisialignright">  {{formatPrice(prodcates.expenses)}} </div></td>
                                     <td><div class="musisialignright">  {{formatPrice(prodcates.netprofitbeforetaxes)}} </div></td>
                             
-                            
+                             -->
 
                                 
                                 
@@ -2535,6 +2539,7 @@ salessummaryComponentaccess:'',
           dailysalessummaryrecords:{},
 
            incomestatementreportrecords:{},
+           incomestatementtransactionsrecords:{},
            dailypurchasesreportdetailedrecords:{},
 
 
@@ -2816,6 +2821,7 @@ axios.get("api/totaldailypurchasespaymentsbalancerangereports").then(({ data }) 
                                 this.form.post('api/setdatestoviewdailyreport')
                                 .then(()=>{
 axios.get("api/incomestatementreportrecords").then(({ data }) => (this.incomestatementreportrecords = data));
+axios.get("api/incomestatementtransactionsrecords").then(({ data }) => (this.incomestatementtransactionsrecords = data));
 axios.get("api/totaldailydeliverieswithouttaxrangereports").then(({ data }) => (this.totaldailydeliverieswithouttaxrangereports = data));
 
 axios.get("api/totaldailypurchaseswithouttaxrangereports").then(({ data }) => (this.totaldailypurchaseswithouttaxrangereports = data));
@@ -3103,7 +3109,7 @@ loadPurchaseInvoicessummary(){
   
 
 loadPurchaserecords(){
-        axios.get("api/productpurchasesdetailrecords").then(({ data }) => (this.productpurchasesdetailrecords = data));
+        axios.get("api/incomestatementtransactionsrecords").then(({ data }) => (this.incomestatementtransactionsrecords = data));
       //  axios.get('/api/invoiceslist').then(function (response) { this.invoiceslist = response.data;}.bind(this));
       
 

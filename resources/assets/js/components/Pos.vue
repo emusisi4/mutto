@@ -465,8 +465,13 @@ text-align: center;
 
 
 
-     <div class="mysalessect"> 
-  <input type="text" placeholder="Enter Item Name " v-model="search" v-on:keyup="searchit" @keyup="searchit" class="formcont2">
+     <div class="mysalessect">
+                <select style="min-width:300px;" name ="iteminquestion" v-model="form.iteminquestion" id ="iteminquestion"  data-live-search="true"  v-on:change="tosubmitProductdetailfilter"  :class="{'is-invalid': form.errors.has('iteminquestion')}">
+                    <option value="900"> All  </option>
+                    <option v-for='data in productsavailableforsalelist' v-bind:value='data.id'>{{data.id}} - {{ data.productname }}</option>
+
+                    </select> 
+  <input type="text" placeholder="Enter Item Name " v-model="search" v-on:keyup="searchit" @keydown="searchit" @keypress="searchit" class="formcont2">
 
   </div>
 
@@ -976,7 +981,7 @@ carttotal:[],
                  qty:'',
                  newqty:'',
                  quantity :'',
-                 search:'',
+                
 
     ////
       shid:'',
@@ -1960,7 +1965,7 @@ if (result.isConfirmed) {
 
           Fire.$on('searching', ()=>{
             // let query = this.$parent.search;
-            let query = this.search;
+           let query = this.search;
           //   axios.get("api/productpriceslist").then(({ data }) => (this.productpriceslist = data));
  axios.get('api/findUser?q='+ query)
  .then((data)=> {

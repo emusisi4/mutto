@@ -15,7 +15,7 @@ use App\Dailypurchasesreport;
 use App\Purchasessummary;
 use App\Productsale;
 use App\Incomestatementsummary;
-
+use App\Incomestatementminirecord;
 class CompanyReportsController extends Controller
 {
    
@@ -107,6 +107,29 @@ class CompanyReportsController extends Controller
   
       
     }
+    
+
+    public function incomestatementtransactionsrecords()
+    {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+      
+      $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+      $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+   
+    //  return   Dailypurchasesreport::with(['branchName'])->orderBy('datedone', 'Asc')
+      return   Incomestatementminirecord::orderBy('dateoftransaction', 'Desc')
+      ->whereBetween('dateoftransaction', [$startdate, $enddate])
+      
+      ->paginate(90);
+ 
+  
+      
+    }
+
+
+
 
     public function incomestatementreportrecords()
     {

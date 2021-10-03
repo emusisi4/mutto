@@ -163,14 +163,14 @@ const app = new Vue({
     el: '#app',
     router,
     data:{
-      search: ''
+   ///  search: ''
       
     },
-    methods:{
-      searchit: _.debounce(() => {
-        Fire.$emit('searching');
-      },2000),
+    // methods:{
+    //   searchit: _.debounce(() => {
+    //     Fire.$emit('searching');
+    //   },2000),
 
       
-    },
+    // },
 });
