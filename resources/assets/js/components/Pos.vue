@@ -466,11 +466,7 @@ text-align: center;
 
 
      <div class="mysalessect">
-                <select style="min-width:300px;" name ="iteminquestion" v-model="form.iteminquestion" id ="iteminquestion"  data-live-search="true"  v-on:change="tosubmitProductdetailfilter"  :class="{'is-invalid': form.errors.has('iteminquestion')}">
-                    <option value="900"> All  </option>
-                    <option v-for='data in productsavailableforsalelist' v-bind:value='data.id'>{{data.id}} - {{ data.productname }}</option>
-
-                    </select> 
+             
   <input type="text" placeholder="Enter Item Name " v-model="search" v-on:keyup="searchit" @keydown="searchit" @keypress="searchit" class="formcont2">
 
   </div>
