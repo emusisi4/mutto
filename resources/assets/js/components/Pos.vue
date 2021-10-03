@@ -1992,7 +1992,7 @@ this.productsellingrecords = data.data;
             Fire.$on('AfterAction', () =>{
 // this.loadManinmens();
       });
-////setInterval(() =>this.loadvatvalues(),3000);
+setInterval(() =>this.loadvatvalues(),3000);
         }
         
     }
