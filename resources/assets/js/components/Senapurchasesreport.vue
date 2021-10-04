@@ -446,13 +446,13 @@ Daily Purchases Detailed Report : From - To -
     <th></th>
 
 <th></th>
-<th>  Cost without Tax ({{currencydetails}}) </th>
+<th>  Cost-Exclussive({{currencydetails}}) </th>
 <th>  Tax (VAT) ({{currencydetails}})</th>
 <th>  Total Cost ({{currencydetails}}) </th>
 
 <!-- <th> Status</th> -->
 
-<th>  Cost without Tax ({{currencydetails}}) </th>
+<th>  Cost-Exclussive ({{currencydetails}}) </th>
 <th>  Tax (VAT) ({{currencydetails}})</th>
 <th>  Total Cost ({{currencydetails}}) </th>
 <!-- <th> Status</th> -->
@@ -748,13 +748,13 @@ Purchases report Summary by Invoice : From - To -
 <th></th>
 <th> Invoice No.</th>
 <th> Supplier Name</th>
-<th>  Cost Without VAT ( {{currencydetails}} ) </th>
+<th> Cost-Exclussive ( {{currencydetails}} ) </th>
 <th>  VAT ({{currencydetails}})</th>
 <th>  Total Cost ( {{currencydetails}} ) </th>
 
 <!-- <th> Status</th> -->
 
-<th>  Cost Without VAT ( {{currencydetails}} ) </th>
+<th> Cost-Exclussive( {{currencydetails}} ) </th>
 <th>  VAT ({{currencydetails}})</th>
 <th>  Total Cost ( {{currencydetails}} ) </th>
 <!-- <th> Status</th> -->
@@ -1066,7 +1066,7 @@ Purchases report Summary by Invoice : From - To -
 <th> Invoice No.</th>
 <th> Supplier Name</th>
 
-<th>  C.P.U Without Vat ({{currencydetails}}) </th>
+<th>  Unit Cost-Exclussive ({{currencydetails}}) </th>
 <th>  Qty</th>
 <th> UNIT Vat </th>
 <th> Total VAT ({{currencydetails}})</th>
@@ -1074,7 +1074,7 @@ Purchases report Summary by Invoice : From - To -
 
 
 
-<th>  C.P.U Without Vat ({{currencydetails}}) </th>
+<th> Unit Cost-Exclussive ({{currencydetails}}) </th>
 <th>  Qty</th>
 <th> Unit Vat</th>
 <th> Total VAT ({{currencydetails}})</th>

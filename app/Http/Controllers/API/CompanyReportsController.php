@@ -245,11 +245,96 @@ if($supplier == '900')
       
   //  ->where('brand', $productbrand)
  //   ->where('del', 0)
-        ->paginate(90);
+        ->paginate(200);
  
   
       
     }
+    
+
+    public function salesdetailsgrossprofittotalrange()
+    {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+    
+      $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+      $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+    
+      $totalcashin = \DB::table('productsales')
+       
+      ->whereBetween('datesold', [$startdate, $enddate])
+      ->sum('lineprofit');
+        return $totalcashin;
+    
+    
+    }
+
+    public function salesdetailvatcollectedtotalrange()
+    {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+    
+      $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+      $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+    
+      $totalcashin = \DB::table('productsales')
+       
+      ->whereBetween('datesold', [$startdate, $enddate])
+      ->sum('vatamount');
+        return $totalcashin;
+    
+    
+    }
+
+
+    public function salesdetailsalesmadetotalrange()
+    {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+    
+      $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+      $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+    
+      $totalcashin = \DB::table('productsales')
+       
+      ->whereBetween('datesold', [$startdate, $enddate])
+      ->sum('linetotal');
+        return $totalcashin;
+    
+    
+    }
+    
+    public function salesdetailscostofthesalesmadetotalrange()
+    {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+    
+      $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+      $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+    
+      $totalcashin = \DB::table('productsales')
+       
+      ->whereBetween('datesold', [$startdate, $enddate])
+      ->sum('totalcost');
+        return $totalcashin;
+    
+    
+    }
+    
+
+
+
+
+
+
+
+
+
+
 
     
     public function salesdetailsreportdetailedrecords()
@@ -263,7 +348,7 @@ if($supplier == '900')
    
      return   Productsale::with(['productName','branchName'])->orderBy('datesold', 'Desc')->orderBy('invoiceno', 'Desc')
      // return   Purchase::orderBy('id', 'Desc')
-     // ->whereBetween('invoicedate', [$startdate, $enddate])
+    ->whereBetween('datesold', [$startdate, $enddate])
       
   //  ->where('brand', $productbrand)
  //   ->where('del', 0)

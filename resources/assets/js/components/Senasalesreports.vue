@@ -252,21 +252,21 @@ pre {
 
 
 
-           <div class="row clearfix">
- <div  class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="row clearfix">
+<!-- <div  class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box bg-indigo">
                         <div class="icon">
                             <i class="material-icons"></i>
                         </div>
                         <div class="content">
-                            <div class="text"><b>TOTAL SALES  </b></div>
+                            <div class="text"><b>GROSS SALES  </b></div>
                             <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20">
-                              <b>{{currencydetails}}  {{formatPrice(dailytotalsalesforselection)}}</b></div>
+                              <b>{{currencydetails}}  {{formatPrice(salesdetailsgrossprofittotalrange)}}</b></div>
                         </div>
                     </div>
-                </div>
+                </div> -->
              
- <div  class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+ <!-- <div  class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box bg-indigo">
                         <div class="icon">
                             <i class="material-icons"></i>
@@ -277,9 +277,9 @@ pre {
                               <b>{{currencydetails}}  {{formatPrice(dailyvatcollectedforselection)}}</b></div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
-               <div  class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+               <!-- <div  class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box bg-indigo">
                         <div class="icon">
                             <i class="material-icons"></i>
@@ -290,9 +290,9 @@ pre {
                               <b>{{currencydetails}}  {{formatPrice(dailytotalsalesforselection - dailyvatcollectedforselection)}}</b></div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
-       <div v-if="outputcomponentaccess > 0 " class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+       <!-- <div v-if="outputcomponentaccess > 0 " class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box bg-indigo">
                         <div class="icon">
                             <i class="material-icons"></i>
@@ -303,9 +303,9 @@ pre {
                             >   <b>{{currencydetails}}  {{formatPrice(outputvatamount) }}</b></div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
-                <div v-if="netvatvatcomponentcomponentaccess > 0" class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <!-- <div v-if="netvatvatcomponentcomponentaccess > 0" class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box bg-indigo">
                         <div class="icon">
                             <i class="material-icons"></i>
@@ -316,7 +316,7 @@ pre {
                              data-fresh-interval="20"><b>{{currencydetails}}</b></div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 </div>
   
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -984,8 +984,8 @@ Sales report summary : From - To -
               
           
               
-            <th colspan="3"  style="font-size: 18px; text-align:center;    
-               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> PROFIT WITHOUT VAT </th>
+            <!-- <th colspan="3"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> PROFIT WITHOUT VAT </th> -->
               
              
               
@@ -1006,7 +1006,7 @@ Sales report summary : From - To -
 <th>Unit VAT ( {{currencydetails}} ) </th>
 <th>Total VAT  ( {{currencydetails}} )</th>
 <th>Gross Profit ( {{currencydetails}} )</th>
-<th>Line Profit ( {{currencydetails}} ) </th>
+<!-- <th>Line Profit ( {{currencydetails}} ) </th> -->
 
 
 
@@ -1015,7 +1015,7 @@ Sales report summary : From - To -
 <tr>
           <tr v-for="prodcates in salesdetailsreportdetailedrecords.data" :key="prodcates.id">
                <td>{{prodcates.invoiceno}}</td>
-                                 <td>{{prodcates.invoicedate | myDate2 }}</td>
+                                 <td>{{prodcates.datesold | myDate2 }}</td>
  
                              
                           <td> <template v-if="prodcates.branch_name">	{{prodcates.branch_name.branchname}}</template></td>  
@@ -1045,10 +1045,10 @@ Sales report summary : From - To -
                                    <div class="musisialignright"> {{formatPrice(prodcates.vatamount)}} </div></td>
                                       <td >
                                    <div class="musisialignright"> {{formatPrice(prodcates.lineprofit)}} </div></td>
-                                    <td >
+                                    <!-- <td >
                                    
                                    <div class="musisialignright"> {{formatPrice(prodcates.netsalewithoutvat)}} </div></td>
-                                   
+                                    -->
                                 
                                 
                                   
@@ -1086,60 +1086,57 @@ Sales report summary : From - To -
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(totalsalesdailysalesreports)}} </div>
+<div class="musisialignright"></div>
 </th>
 
 
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailydeliverieswithouttaxrangereports)}} </div>
+<div class="musisialignright">  </div>
 </th>
 
 
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasesdeliveriesamountrangereports)}} </div>
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesdetailscostofthesalesmadetotalrange)}} </div>
 </th>
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasesdeliveriesvatsrangereports)}} </div>
-</th>
-
-<th style="font-size: 18px; text-align:center;    
-               border-top: 4px solid rgb(124 102 102);    
-                background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasespaymentsamountrangereports)}} </div>
+<div class="musisialignright">  </div>
 </th>
 
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasespaymentsbalancerangereports)}} </div>
+<div class="musisialignright">  </div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesdetailsalesmadetotalrange)}} </div>
 </th>
     
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasespaymentsbalancerangereports)}} </div>
+<div class="musisialignright"></div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesdetailvatcollectedtotalrange)}} </div>
 </th>
     <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasespaymentsbalancerangereports)}} </div>
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesdetailsgrossprofittotalrange)}} </div>
 </th>
-    <th style="font-size: 18px; text-align:center;    
-               border-top: 4px solid rgb(124 102 102);    
-                background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasespaymentsbalancerangereports)}} </div>
-</th>
-    <th style="font-size: 18px; text-align:center;    
-               border-top: 4px solid rgb(124 102 102);    
-                background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasespaymentsbalancerangereports)}} </div>
-</th>
+  
     
 </tr>
 
@@ -2970,6 +2967,15 @@ salessummaryComponentaccess:'',
           salesdetailsreportdetailedrecords:{},
           dailysalessummaryrecords:{},
           totalsalesdailysalesreports:{},
+
+          salesdetailscostofthesalesmadetotalrange:{},
+salesdetailsalesmadetotalrange:{},
+salesdetailvatcollectedtotalrange:{},
+salesdetailsgrossprofittotalrange:{},
+
+
+
+
           totalvatdailysalesreports:{},
 totalnetinvoicedailysalesreports:{},
           activeinvoicetoupdaterecords:{},
@@ -3199,6 +3205,8 @@ axios.get("api/gettheinvoicetotalwithoutvat").then(({ data }) => (this.gettheinv
                                 this.loading = true;
                                 this.form.post('api/setdatestoviewdailyreport')
                                 .then(()=>{
+
+axios.get("api/salesdetailsreportdetailedrecords").then(({ data }) => (this.salesdetailsreportdetailedrecords = data));
 axios.get("api/dailysalessummaryrecords").then(({ data }) => (this.dailysalessummaryrecords = data));
 axios.get('/api/dailyvatcollectedforselection').then(function (response) { this.dailyvatcollectedforselection = response.data;}.bind(this));
 axios.get('/api/dailytotalsalesforselection').then(function (response) { this.dailytotalsalesforselection = response.data;}.bind(this));
@@ -3408,6 +3416,13 @@ axios.get("api/salessummaryComponentaccess").then(({ data }) => (this.salessumma
         axios.get('/api/productbrandslist').then(function (response) { this.productbrandslist = response.data;}.bind(this));
         //  axios.get('/api/branchDetails').then(function (response) { this.brancheslist = response.data;}.bind(this));
 
+         axios.get("api/salesdetailscostofthesalesmadetotalrange").then(({ data }) => (this.salesdetailscostofthesalesmadetotalrange = data));
+          axios.get("api/salesdetailsalesmadetotalrange").then(({ data }) => (this.salesdetailsalesmadetotalrange = data));
+           axios.get("api/salesdetailvatcollectedtotalrange").then(({ data }) => (this.salesdetailvatcollectedtotalrange = data));
+            axios.get("api/salesdetailsgrossprofittotalrange").then(({ data }) => (this.salesdetailsgrossprofittotalrange = data));
+
+
+
   },
 // ----------------------------------------------------------------------------------------
 
@@ -3473,6 +3488,8 @@ axios.get("api/salessummaryComponentaccess").then(({ data }) => (this.salessumma
    axios.get("api/totalnetinvoicedailysalesreports").then(({ data }) => (this.totalnetinvoicedailysalesreports = data));
       axios.get("api/totalvatdailysalesreports").then(({ data }) => (this.totalvatdailysalesreports = data));
        axios.get("api/totalsalesdailysalesreports").then(({ data }) => (this.totalsalesdailysalesreports = data));
+
+       
        axios.get("api/salesreportsummaryrecords").then(({ data }) => (this.salesreportsummaryrecords = data));
         axios.get("api/dailysalessummaryrecords").then(({ data }) => (this.dailysalessummaryrecords = data));
          axios.get("api/salesdetailsreportdetailedrecords").then(({ data }) => (this.salesdetailsreportdetailedrecords = data));

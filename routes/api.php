@@ -54,6 +54,17 @@ Route::apiResources(['productdetailsrecords' => 'API\CompanyproductsController']
 Route::get('salesreportsummaryrecords', 'API\CompanyReportsController@dailysalesreports');
 Route::get('salesdetailsreportdetailedrecords', 'API\CompanyReportsController@salesdetailsreportdetailedrecords');
 
+Route::get('salesdetailscostofthesalesmadetotalrange', 'API\CompanyReportsController@salesdetailscostofthesalesmadetotalrange');
+Route::get('salesdetailsalesmadetotalrange', 'API\CompanyReportsController@salesdetailsalesmadetotalrange');
+Route::get('salesdetailvatcollectedtotalrange', 'API\CompanyReportsController@salesdetailvatcollectedtotalrange');
+Route::get('salesdetailsgrossprofittotalrange', 'API\CompanyReportsController@salesdetailsgrossprofittotalrange');
+
+
+
+
+
+
+
 Route::get('dailysalessummaryrecords', 'API\CompanyReportsController@dailysalessummaryrecords');
 
 
