@@ -936,7 +936,7 @@ Sales report summary : Rangingin from  {{salesreportsatartingdate}} to {{salesre
 
   <div class="bethapa-reports-header">
             Product Sales details  : Rangingin from  {{salesreportsatartingdate}} to {{salesreportendingdate}}
-                      <button type="button" v-if="allowedtoaddbranch > 0 " class="add-newm" @click="newproductbrandModal" >Add New </button> 
+                   
                      </div>
      <div class="mysalessect2"> 
  <form @submit.prevent="savedatestoVieedailyreport()">
@@ -3244,6 +3244,23 @@ axios.get("api/gettheinvoicetotalwithoutvat").then(({ data }) => (this.gettheinv
                                 this.form.post('api/setdatestoviewdailyreport')
                                 .then(()=>{
 
+
+//////////////////
+ axios.get("api/salesdetailscostofthesalesmadetotalrange").then(({ data }) => (this.salesdetailscostofthesalesmadetotalrange = data));
+          axios.get("api/salesdetailsalesmadetotalrange").then(({ data }) => (this.salesdetailsalesmadetotalrange = data));
+           axios.get("api/salesdetailvatcollectedtotalrange").then(({ data }) => (this.salesdetailvatcollectedtotalrange = data));
+            axios.get("api/salesdetailsgrossprofittotalrange").then(({ data }) => (this.salesdetailsgrossprofittotalrange = data));
+/////
+axios.get("api/salesreportsatartingdate").then(({ data }) => (this.salesreportsatartingdate = data));
+        axios.get("api/salesreportendingdate").then(({ data }) => (this.salesreportendingdate = data));
+        axios.get("api/salesreportdetailstotalsales").then(({ data }) => (this.salesreportdetailstotalsales = data));
+          axios.get("api/salesreportdetailstotalcost").then(({ data }) => (this.salesreportdetailstotalcost = data));
+        axios.get("api/salesreportdetailstotalprofit").then(({ data }) => (this.salesreportdetailstotalprofit = data));
+        axios.get("api/salesreportdetailstotalvat").then(({ data }) => (this.salesreportdetailstotalvat = data));
+          axios.get("api/salesreportdetailsgrosssales").then(({ data }) => (this.salesreportdetailsgrosssales = data));
+        axios.get("api/salesreportdetailslineprofit").then(({ data }) => (this.salesreportdetailslineprofit = data));
+       axios.get("api/productbrandsrecords").then(({ data }) => (this.productbrandsrecords = data));
+    /////
 axios.get("api/salesdetailsreportdetailedrecords").then(({ data }) => (this.salesdetailsreportdetailedrecords = data));
 axios.get("api/dailysalessummaryrecords").then(({ data }) => (this.dailysalessummaryrecords = data));
 axios.get('/api/dailyvatcollectedforselection').then(function (response) { this.dailyvatcollectedforselection = response.data;}.bind(this));
