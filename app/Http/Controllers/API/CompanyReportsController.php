@@ -346,7 +346,7 @@ if($supplier == '900')
       $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
       $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
    
-     return   Productsale::with(['productName','branchName'])->orderBy('datesold', 'Desc')->orderBy('invoiceno', 'Desc')
+     return   Productsale::with(['productName','branchName','productSaleuser'])->orderBy('datesold', 'Desc')->orderBy('invoiceno', 'Desc')
      // return   Purchase::orderBy('id', 'Desc')
     ->whereBetween('datesold', [$startdate, $enddate])
       

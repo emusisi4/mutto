@@ -433,6 +433,8 @@ Sales report summary : From - To -
               <th colspan="1"  style="font-size: 18px; text-align:center;   
                 border-bottom: 4px solid rgb(124 102 102); 
                   background-color: rgb(29 31 34 / 37%); color: #131378;"> BRANCH</th>
+
+                  
         
               <th colspan="3"  style="font-size: 18px; text-align:center;    
                border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> TOTALS WITH VAT-IN INCLUSSIVE </th>
@@ -972,9 +974,15 @@ Sales report summary : From - To -
                 border-bottom: 4px solid rgb(124 102 102); 
                   background-color: rgb(29 31 34 / 37%); color: #131378;"> BRANCH</th>
 
+
+<th colspan="1"  style="font-size: 18px; text-align:center;   
+                border-bottom: 4px solid rgb(124 102 102); 
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> CASHIER</th>
+
+
                      <th colspan="1"  style="font-size: 18px; text-align:center;   
                 border-bottom: 4px solid rgb(124 102 102); 
-                  background-color: rgb(29 31 34 / 37%); color: #131378;"> Item Name</th>
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> ITEM</th>
         
               <th colspan="3"  style="font-size: 18px; text-align:center;    
                border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> COST SETTINGS </th>
@@ -991,6 +999,7 @@ Sales report summary : From - To -
               
         </tr>
 <tr>
+<th></th>
 <th></th>
 <th></th>
 <th></th>
@@ -1019,11 +1028,12 @@ Sales report summary : From - To -
  
                              
                           <td> <template v-if="prodcates.branch_name">	{{prodcates.branch_name.branchname}}</template></td>  
-                               <td> <template v-if="prodcates.product_name">	{{prodcates.product_name.productname}}</template></td>  
+                          <td> <template v-if="prodcates.product_saleuser">	{{prodcates.product_saleuser.name}}</template></td>  
+                          <td> <template v-if="prodcates.product_name">	{{prodcates.product_name.productname}}</template></td>  
 
-                                  <td><div class="musisialignright"> {{formatPrice(prodcates.unitcost)}} </div></td>
-                                  <td><div class="musisialign"> {{formatPrice(prodcates.quantity)}} </div></td>
-                                  <td><div class="musisialignright"> {{formatPrice(prodcates.totalcost)}} </div></td>
+                          <td><div class="musisialignright"> {{formatPrice(prodcates.unitcost)}} </div></td>
+                          <td><div class="musisialign"> {{formatPrice(prodcates.quantity)}} </div></td>
+                          <td><div class="musisialignright"> {{formatPrice(prodcates.totalcost)}} </div></td>
                               
                               
                               

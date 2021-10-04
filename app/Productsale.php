@@ -27,7 +27,11 @@ class Productsale extends Authenticatable
         return $this->belongsTo(Unitmeasure::class, 'unitmeasure'); 
     }
   
-    
+    public function productSaleuser(){
+        // creating a relationship between the students model 
+        return $this->belongsTo(User::class, 'ucret'); 
+    }
+
     public function branchName(){
         // creating a relationship between the students model 
         return $this->belongsTo(Branch::class, 'branch'); 

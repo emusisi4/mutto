@@ -36,6 +36,10 @@ class User extends Authenticatable
 
 
 
+    public function productSaleuser(){
+        // creating a relationship between the students model 
+        return $this->hasMany(Productsale::class, 'ucret', 'id'); 
+    }
     public function usernameBalance(){
         // creating a relationship between the students model 
         return $this->hasMany(Userbalance::class, 'username', 'id'); 
