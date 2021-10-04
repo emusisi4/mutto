@@ -208,10 +208,142 @@ if($supplier == '900')
 
 
 
-    // salesreportsatartingdate
-    // salesreportendingdate
+
+    public function totaldailysalesvatinclusiverangereports()
+    {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
     
-   
+      $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+      $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+    
+      $totalcashin = \DB::table('dailysummaryreports')
+       
+      ->whereBetween('datedone', [$startdate, $enddate])
+      ->sum('invoiceamount');
+        return $totalcashin;
+    
+    
+    }
+
+
+
+
+    public function totaldailytotalvatrangereports()
+    {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+    
+      $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+      $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+    
+      $totalcashin = \DB::table('dailysummaryreports')
+       
+      ->whereBetween('datedone', [$startdate, $enddate])
+      ->sum('vatamount');
+        return $totalcashin;
+    
+    
+    }
+
+
+
+
+    public function totaldailytotalcostrangereports()
+    {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+    
+      $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+      $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+    
+      $totalcashin = \DB::table('dailysummaryreports')
+       
+      ->whereBetween('datedone', [$startdate, $enddate])
+      ->sum('totalcost');
+        return $totalcashin;
+    
+    
+    }
+
+
+    public function totaldailygrossprofitrangereports()
+    {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+    
+      $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+      $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+    
+      $totalcashin = \DB::table('dailysummaryreports')
+       
+      ->whereBetween('datedone', [$startdate, $enddate])
+      ->sum('lineprofit');
+        return $totalcashin;
+    
+    
+    }
+
+
+    public function totaldailysaleswithouttaxgrossrangereports()
+    {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+    
+      $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+      $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+    
+      $totalcashin = \DB::table('dailysummaryreports')
+       
+      ->whereBetween('datedone', [$startdate, $enddate])
+      ->sum('netinvoiceincome');
+        return $totalcashin;
+    
+    
+    }
+
+
+    public function totaldailylineprofitrangereports()
+    {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+    
+      $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+      $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+    
+      $totalcashin = \DB::table('dailysummaryreports')
+       
+      ->whereBetween('datedone', [$startdate, $enddate])
+      ->sum('netsalewithoutvat');
+        return $totalcashin;
+    
+    
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function salesreportendingdate()
     {
       $userid =  auth('api')->user()->id;

@@ -82,6 +82,16 @@ Route::get('salesreportsatartingdate', 'API\CompanyReportsController@salesreport
 
 
 
+Route::get('totaldailylineprofitrangereports', 'API\CompanyReportsController@totaldailylineprofitrangereports');
+Route::get('totaldailysaleswithouttaxgrossrangereports', 'API\CompanyReportsController@totaldailysaleswithouttaxgrossrangereports');
+Route::get('totaldailysalesvatinclusiverangereports', 'API\CompanyReportsController@totaldailysalesvatinclusiverangereports');
+Route::get('totaldailytotalcostrangereports', 'API\CompanyReportsController@totaldailytotalcostrangereports');
+Route::get('totaldailygrossprofitrangereports', 'API\CompanyReportsController@totaldailygrossprofitrangereports');
+Route::get('totaldailytotalvatrangereports', 'API\CompanyReportsController@totaldailytotalvatrangereports');
+
+
+
+
 
 
 

@@ -452,7 +452,7 @@ Sales report summary : Rangingin from  {{salesreportsatartingdate}} to {{salesre
           
               
             <th colspan="3"  style="font-size: 18px; text-align:center;    
-               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> TOTALS WITHOUT VAT </th>
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> TOTALS EXCLUSIVE </th>
               
              <th colspan="1"  style="font-size: 18px; text-align:center;    
                border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;">  </th>
@@ -532,45 +532,45 @@ Sales report summary : Rangingin from  {{salesreportsatartingdate}} to {{salesre
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasesordersrangereports)}} </div>
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailysalesvatinclusiverangereports)}} </div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailytotalcostrangereports)}} </div>
 </th>
 
 
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasesvatsrangereports)}} </div>
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailygrossprofitrangereports)}} </div>
 </th>
+
 
 
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailydeliverieswithouttaxrangereports)}} </div>
-</th>
-
-
-<th style="font-size: 18px; text-align:center;    
-               border-top: 4px solid rgb(124 102 102);    
-                background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasesdeliveriesamountrangereports)}} </div>
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailytotalvatrangereports)}} </div>
 </th>
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasesdeliveriesvatsrangereports)}} </div>
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailysaleswithouttaxgrossrangereports)}} </div>
 </th>
 
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasespaymentsamountrangereports)}} </div>
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailytotalcostrangereports)}} </div>
 </th>
 
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasespaymentsbalancerangereports)}} </div>
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailylineprofitrangereports)}} </div>
 </th>
     
 
@@ -941,7 +941,7 @@ Sales report summary : Rangingin from  {{salesreportsatartingdate}} to {{salesre
      <div class="mysalessect2"> 
  <form @submit.prevent="savedatestoVieedailyreport()">
                  
-                      <div class="form-group">
+                      <div class="form-group">w
 
                                         <label>Start Date</label>
   <input v-model="form.startdate" type="date" name="startdate" id="startdate" v-on:change="tosubmitProductcategoryfilter" >
@@ -2799,7 +2799,7 @@ Sales report summary : Rangingin from  {{salesreportsatartingdate}} to {{salesre
                                     </div>
                                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                         <div class="form-group">
-                                            <div class="form-line">
+                                            Product Sales details<div class="form-line">
                                                 <select style="width:20px" name ="vatinclussive"  v-model="form.vatinclussive" 
                                             id ="vatinclussive"  class="orm-control show-tick"
                                              data-live-search="true"  
@@ -2993,6 +2993,13 @@ salessummaryComponentaccess:'',
 salesdetailsalesmadetotalrange:{},
 salesdetailvatcollectedtotalrange:{},
 salesdetailsgrossprofittotalrange:{},
+
+totaldailysalesvatinclusiverangereports:{},
+totaldailytotalcostrangereports:{},
+totaldailygrossprofitrangereports:{},
+totaldailytotalvatrangereports:{},
+totaldailysaleswithouttaxgrossrangereports:{},
+totaldailylineprofitrangereports:{},
 
 
 salesreportsatartingdate:{},
@@ -3242,7 +3249,13 @@ axios.get("api/dailysalessummaryrecords").then(({ data }) => (this.dailysalessum
 axios.get('/api/dailyvatcollectedforselection').then(function (response) { this.dailyvatcollectedforselection = response.data;}.bind(this));
 axios.get('/api/dailytotalsalesforselection').then(function (response) { this.dailytotalsalesforselection = response.data;}.bind(this));
 axios.get('/api/salesreportsummaryrecords').then(function (response) { this.salesreportsummaryrecords = response.data;}.bind(this));
-
+//////////////////////
+ axios.get("api/totaldailysalesvatinclusiverangereports").then(({ data }) => (this.totaldailysalesvatinclusiverangereports = data));
+        axios.get("api/totaldailytotalcostrangereports").then(({ data }) => (this.totaldailytotalcostrangereports = data));
+        axios.get("api/totaldailygrossprofitrangereports").then(({ data }) => (this.totaldailygrossprofitrangereports = data));
+          axios.get("api/totaldailytotalvatrangereports").then(({ data }) => (this.totaldailytotalvatrangereports = data));
+        axios.get("api/totaldailysaleswithouttaxgrossrangereports").then(({ data }) => (this.totaldailysaleswithouttaxgrossrangereports = data));
+        axios.get("api/totaldailylineprofitrangereports").then(({ data }) => (this.totaldailylineprofitrangereports = data));
 ///////////////
 
   axios.get("api/salesreportsatartingdate").then(({ data }) => (this.salesreportsatartingdate = data));
@@ -3568,10 +3581,16 @@ axios.get("api/salessummaryComponentaccess").then(({ data }) => (this.salessumma
 
   },
   loadDailysalesreportdetails(){
-     
-                             
 
+    
+    axios.get("api/totaldailysalesvatinclusiverangereports").then(({ data }) => (this.totaldailysalesvatinclusiverangereports = data));
+        axios.get("api/totaldailytotalcostrangereports").then(({ data }) => (this.totaldailytotalcostrangereports = data));
+        axios.get("api/totaldailygrossprofitrangereports").then(({ data }) => (this.totaldailygrossprofitrangereports = data));
+          axios.get("api/totaldailytotalvatrangereports").then(({ data }) => (this.totaldailytotalvatrangereports = data));
+        axios.get("api/totaldailysaleswithouttaxgrossrangereports").then(({ data }) => (this.totaldailysaleswithouttaxgrossrangereports = data));
+        axios.get("api/totaldailylineprofitrangereports").then(({ data }) => (this.totaldailylineprofitrangereports = data));
 
+////////////////////
 
   axios.get("api/salesreportsatartingdate").then(({ data }) => (this.salesreportsatartingdate = data));
         axios.get("api/salesreportendingdate").then(({ data }) => (this.salesreportendingdate = data));
