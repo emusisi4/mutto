@@ -208,9 +208,149 @@ if($supplier == '900')
 
 
 
+    // salesreportsatartingdate
+    // salesreportendingdate
+    
+   
+    public function salesreportendingdate()
+    {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+      
+      $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+      $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+   
+      return   $enddate;
+ 
+  
+      
+    }
+    public function salesreportsatartingdate()
+    {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+      
+      $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+      $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+   
+      return   $startdate;
+ 
+  
+      
+    }
+    
+    public function salesreportdetailsgrosssales()
+    {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+    
+      $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+      $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+    
+      $totalcashin = \DB::table('salessummaries')
+       
+      ->whereBetween('invoicedate', [$startdate, $enddate])
+      ->sum('netinvoiceincome');
+        return $totalcashin;
+    
+    
+    }
+    public function salesreportdetailstotalvat()
+    {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+    
+      $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+      $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+    
+      $totalcashin = \DB::table('salessummaries')
+       
+      ->whereBetween('invoicedate', [$startdate, $enddate])
+      ->sum('vatamount');
+        return $totalcashin;
+    
+    
+    }
 
 
+    public function salesreportdetailstotalprofit()
+    {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+    
+      $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+      $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+    
+      $totalcashin = \DB::table('salessummaries')
+       
+      ->whereBetween('invoicedate', [$startdate, $enddate])
+      ->sum('lineprofit');
+        return $totalcashin;
+    
+    
+    }
 
+
+    public function salesreportdetailstotalsales()
+    {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+    
+      $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+      $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+    
+      $totalcashin = \DB::table('salessummaries')
+       
+      ->whereBetween('invoicedate', [$startdate, $enddate])
+      ->sum('invoiceamount');
+        return $totalcashin;
+    
+    
+    }
+    
+
+
+    public function salesreportdetailstotalcost()
+    {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+    
+      $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+      $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+    
+      $totalcashin = \DB::table('salessummaries')
+       
+      ->whereBetween('invoicedate', [$startdate, $enddate])
+      ->sum('totalcost');
+        return $totalcashin;
+    
+    
+    }
+
+    public function salesreportdetailslineprofit()
+    {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+    
+      $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+      $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+    
+      $totalcashin = \DB::table('salessummaries')
+       
+      ->whereBetween('invoicedate', [$startdate, $enddate])
+      ->sum('netsalewithoutvat');
+        return $totalcashin;
+    
+    
+    }
 
 
 

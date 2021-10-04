@@ -64,6 +64,38 @@ Route::get('salesdetailsgrossprofittotalrange', 'API\CompanyReportsController@sa
 
 
 
+Route::get('salesreportdetailslineprofit', 'API\CompanyReportsController@salesreportdetailslineprofit');
+Route::get('salesreportdetailsgrosssales', 'API\CompanyReportsController@salesreportdetailsgrosssales');
+Route::get('salesreportdetailstotalvat', 'API\CompanyReportsController@salesreportdetailstotalvat');
+Route::get('salesreportdetailstotalprofit', 'API\CompanyReportsController@salesreportdetailstotalprofit');
+Route::get('salesreportdetailstotalcost', 'API\CompanyReportsController@salesreportdetailstotalcost');
+Route::get('salesreportdetailstotalsales', 'API\CompanyReportsController@salesreportdetailstotalsales');
+Route::get('salesreportendingdate', 'API\CompanyReportsController@salesreportendingdate');
+Route::get('salesreportsatartingdate', 'API\CompanyReportsController@salesreportsatartingdate');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Route::get('dailysalessummaryrecords', 'API\CompanyReportsController@dailysalessummaryrecords');
 

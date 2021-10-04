@@ -336,6 +336,13 @@ pre {
                                         <i class="material-icons"></i> Daily Sales Report
                                     </a>
                                 </li>
+                               
+                              
+
+
+
+
+
                                 <!-- v-if="brandsComponentaccess > 0" -->
                                 <li role="presentation">
                                     <a href="#profile_with_icon_title"  @click="loadSalesreportsummary()" data-toggle="tab">
@@ -389,7 +396,7 @@ pre {
 
  <div class="bethapa-reports-header"  >
    
-Sales report summary : From - To - 
+Sales report summary : Rangingin from  {{salesreportsatartingdate}} to {{salesreportendingdate}}
 </div>
 
 <!-- <div class="mysalessect">  -->
@@ -673,8 +680,8 @@ Sales report summary : From - To -
                                 <div role="tabpanel" class="tab-pane fade" id="profile_with_icon_title" v-if="brandsComponentaccess > 0">
                                   
                               <div class="bethapa-reports-header">
-            Sales Report Details 
-                      <button type="button" v-if="allowedtoaddbranch > 0 " class="add-newm" @click="newproductbrandModal" >Add New </button> 
+            Sales Report by Receipts Summary  : Rangingin from  {{salesreportsatartingdate}} to {{salesreportendingdate}}
+      
                      </div>
      <div class="mysalessect2"> 
  <form @submit.prevent="savedatestoVieedailyreport()">
@@ -796,45 +803,45 @@ Sales report summary : From - To -
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(totalsalesdailysalesreports)}} </div>
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesreportdetailstotalsales)}} </div>
 </th>
 
 
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasesvatsrangereports)}} </div>
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesreportdetailstotalcost)}} </div>
 </th>
 
 
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailydeliverieswithouttaxrangereports)}} </div>
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesreportdetailstotalprofit)}} </div>
 </th>
 
 
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasesdeliveriesamountrangereports)}} </div>
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesreportdetailstotalvat)}} </div>
 </th>
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasesdeliveriesvatsrangereports)}} </div>
-</th>
-
-<th style="font-size: 18px; text-align:center;    
-               border-top: 4px solid rgb(124 102 102);    
-                background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasespaymentsamountrangereports)}} </div>
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesreportdetailsgrosssales)}} </div>
 </th>
 
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailypurchasespaymentsbalancerangereports)}} </div>
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesreportdetailstotalcost)}} </div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesreportdetailslineprofit)}} </div>
 </th>
     
 
@@ -928,7 +935,7 @@ Sales report summary : From - To -
 
 
   <div class="bethapa-reports-header">
-            Product Sales details  
+            Product Sales details  : Rangingin from  {{salesreportsatartingdate}} to {{salesreportendingdate}}
                       <button type="button" v-if="allowedtoaddbranch > 0 " class="add-newm" @click="newproductbrandModal" >Add New </button> 
                      </div>
      <div class="mysalessect2"> 
@@ -2988,6 +2995,16 @@ salesdetailvatcollectedtotalrange:{},
 salesdetailsgrossprofittotalrange:{},
 
 
+salesreportsatartingdate:{},
+salesreportendingdate :{},
+
+salesreportdetailstotalsales:{},
+salesreportdetailstotalcost:{},
+salesreportdetailstotalprofit:{},
+salesreportdetailstotalvat:{},
+
+salesreportdetailsgrosssales:{},
+salesreportdetailslineprofit:{},
 
 
           totalvatdailysalesreports:{},
@@ -3226,6 +3243,17 @@ axios.get('/api/dailyvatcollectedforselection').then(function (response) { this.
 axios.get('/api/dailytotalsalesforselection').then(function (response) { this.dailytotalsalesforselection = response.data;}.bind(this));
 axios.get('/api/salesreportsummaryrecords').then(function (response) { this.salesreportsummaryrecords = response.data;}.bind(this));
 
+///////////////
+
+  axios.get("api/salesreportsatartingdate").then(({ data }) => (this.salesreportsatartingdate = data));
+        axios.get("api/salesreportendingdate").then(({ data }) => (this.salesreportendingdate = data));
+        axios.get("api/salesreportdetailstotalsales").then(({ data }) => (this.salesreportdetailstotalsales = data));
+          axios.get("api/salesreportdetailstotalcost").then(({ data }) => (this.salesreportdetailstotalcost = data));
+        axios.get("api/salesreportdetailstotalprofit").then(({ data }) => (this.salesreportdetailstotalprofit = data));
+        axios.get("api/salesreportdetailstotalvat").then(({ data }) => (this.salesreportdetailstotalvat = data));
+          axios.get("api/salesreportdetailsgrosssales").then(({ data }) => (this.salesreportdetailsgrosssales = data));
+        axios.get("api/salesreportdetailslineprofit").then(({ data }) => (this.salesreportdetailslineprofit = data));
+       axios.get("api/productbrandsrecords").then(({ data }) => (this.productbrandsrecords = data));
 //  axios.get("api/fishcollections").then(({ data }) => (this.fishcollectionrecords = data));
 //axios.get("api/makeexpenseofficeuser").then(({ data }) => (this.officemadeexpensesrecords = data));
                                 // Toast.fire({
@@ -3418,6 +3446,35 @@ axios.get("api/salessummaryComponentaccess").then(({ data }) => (this.salessumma
 
   },
     loadSalesdetailsreportdetailed(){
+
+               
+
+
+
+  axios.get("api/salesreportsatartingdate").then(({ data }) => (this.salesreportsatartingdate = data));
+        axios.get("api/salesreportendingdate").then(({ data }) => (this.salesreportendingdate = data));
+        axios.get("api/salesreportdetailstotalsales").then(({ data }) => (this.salesreportdetailstotalsales = data));
+          axios.get("api/salesreportdetailstotalcost").then(({ data }) => (this.salesreportdetailstotalcost = data));
+        axios.get("api/salesreportdetailstotalprofit").then(({ data }) => (this.salesreportdetailstotalprofit = data));
+        axios.get("api/salesreportdetailstotalvat").then(({ data }) => (this.salesreportdetailstotalvat = data));
+          axios.get("api/salesreportdetailsgrosssales").then(({ data }) => (this.salesreportdetailsgrosssales = data));
+        axios.get("api/salesreportdetailslineprofit").then(({ data }) => (this.salesreportdetailslineprofit = data));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         axios.get("api/salesdetailsreportdetailedrecords").then(({ data }) => (this.salesdetailsreportdetailedrecords = data));
         axios.get("api/generalProductscomponentAccess").then(({ data }) => (this.generalProductscomponentAccess = data));
         axios.get("api/branchesccessSettings").then(({ data }) => (this.branchesccessSettings = data));
@@ -3476,6 +3533,19 @@ loadactiveProductsonSale(){
 
 ////------------------------------------------------------------------------------------------------------------------
   loadSalesreportsummary(){
+
+                     
+
+
+
+  axios.get("api/salesreportsatartingdate").then(({ data }) => (this.salesreportsatartingdate = data));
+        axios.get("api/salesreportendingdate").then(({ data }) => (this.salesreportendingdate = data));
+        axios.get("api/salesreportdetailstotalsales").then(({ data }) => (this.salesreportdetailstotalsales = data));
+          axios.get("api/salesreportdetailstotalcost").then(({ data }) => (this.salesreportdetailstotalcost = data));
+        axios.get("api/salesreportdetailstotalprofit").then(({ data }) => (this.salesreportdetailstotalprofit = data));
+        axios.get("api/salesreportdetailstotalvat").then(({ data }) => (this.salesreportdetailstotalvat = data));
+          axios.get("api/salesreportdetailsgrosssales").then(({ data }) => (this.salesreportdetailsgrosssales = data));
+        axios.get("api/salesreportdetailslineprofit").then(({ data }) => (this.salesreportdetailslineprofit = data));
        axios.get("api/productbrandsrecords").then(({ data }) => (this.productbrandsrecords = data));
      
         axios.get("api/generalProductscomponentAccess").then(({ data }) => (this.generalProductscomponentAccess = data));
@@ -3499,9 +3569,31 @@ axios.get("api/salessummaryComponentaccess").then(({ data }) => (this.salessumma
   },
   loadDailysalesreportdetails(){
      
-   axios.get("api/totalnetinvoicedailysalesreports").then(({ data }) => (this.totalnetinvoicedailysalesreports = data));
-      axios.get("api/totalvatdailysalesreports").then(({ data }) => (this.totalvatdailysalesreports = data));
-       axios.get("api/totalsalesdailysalesreports").then(({ data }) => (this.totalsalesdailysalesreports = data));
+                             
+
+
+
+  axios.get("api/salesreportsatartingdate").then(({ data }) => (this.salesreportsatartingdate = data));
+        axios.get("api/salesreportendingdate").then(({ data }) => (this.salesreportendingdate = data));
+        axios.get("api/salesreportdetailstotalsales").then(({ data }) => (this.salesreportdetailstotalsales = data));
+          axios.get("api/salesreportdetailstotalcost").then(({ data }) => (this.salesreportdetailstotalcost = data));
+        axios.get("api/salesreportdetailstotalprofit").then(({ data }) => (this.salesreportdetailstotalprofit = data));
+        axios.get("api/salesreportdetailstotalvat").then(({ data }) => (this.salesreportdetailstotalvat = data));
+          axios.get("api/salesreportdetailsgrosssales").then(({ data }) => (this.salesreportdetailsgrosssales = data));
+        axios.get("api/salesreportdetailslineprofit").then(({ data }) => (this.salesreportdetailslineprofit = data));
+
+
+
+
+              
+
+
+///////////////////
+
+
+        axios.get("api/totalnetinvoicedailysalesreports").then(({ data }) => (this.totalnetinvoicedailysalesreports = data));
+        axios.get("api/totalvatdailysalesreports").then(({ data }) => (this.totalvatdailysalesreports = data));
+        axios.get("api/totalsalesdailysalesreports").then(({ data }) => (this.totalsalesdailysalesreports = data));
 
        
        axios.get("api/salesreportsummaryrecords").then(({ data }) => (this.salesreportsummaryrecords = data));
