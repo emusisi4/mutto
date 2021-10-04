@@ -1072,7 +1072,11 @@ Sales report summary : From - To -
                 background-color: rgb(211 211 211); color: #131378;" >
 <div class="musisialignright">  </div>
 </th>
-
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
