@@ -28,7 +28,7 @@
 <body class="login-page">
     <div class="login-box">
         <div class="logo">
-            <a href="javascript:void(0);"><b>SSENNAH HMS</b></a>
+            <a href="javascript:void(0);"><b>HARDWARE POS</b></a>
             
         </div>
         <div class="card">
