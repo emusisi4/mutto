@@ -30,7 +30,7 @@ Route::get('existanceofitemsoncart', 'APIController@existanceofitemsoncart');
 
 
 Route::get('getcattotal', 'APIController@Carttotal');
-
+Route::get('salesreturnsrecords', 'API\ProductreturnsController@salesreturnsrecords');
 
 Route::get('receipttotal', 'API\ReceiptprintingController@receipttotal');
 Route::get('receiptcashier', 'API\ReceiptprintingController@receiptcashier');
@@ -192,7 +192,7 @@ Route::apiResources(['productpurchasesdetailrecords' => 'API\PurchasesrecordsCon
 Route::apiResources(['productpriceslist' => 'API\ProductpricesController']);
 Route::get('findUser', 'API\CompanyproductsController@search');
 Route::get('findtheProdctinlist', 'API\CompanyproductsController@searchproductinproductlist');
-
+Route::get('returnreceiptdetails', 'API\ReturnsalesitemsController@returnreceiptdetails');
 
 
 Route::get('findExpensefromexpenseslist', 'API\ExpensesController@findExpensefromexpenseslist');
@@ -200,6 +200,9 @@ Route::get('findExpensefromexpenseslist', 'API\ExpensesController@findExpensefro
 Route::apiResources(['productcategoryFiltertoview' => 'API\ProductrecordsFilterController']);
 Route::apiResources(['productdetailsFiltertoview' => 'API\ProductdetailsFilterController']);
 Route::apiResources(['setdatestoviewdailyreport' => 'API\ReportstoviewController']);
+
+Route::apiResources(['setthereceiptintoreturnitems' => 'API\ReturnsalesitemsController']);
+
 /// end of filters
 
 Route::get('productsavailableforsalelist', 'APIController@productsavailableforsalelist');

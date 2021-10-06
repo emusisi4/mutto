@@ -13,8 +13,9 @@ class Product extends Authenticatable
 
    
     protected $fillable = [
-        'productcode','brand', 'productname', 'qty','ucret','rol','description','category',
-        'suppname','unitname','unitmeasure','invoicelockstatus'
+      
+
+        'productname', 'uracode', 'category', 'unitmeasure', 'rol', 'qty', 'ucret', 'brand', 'description', 'unitcost', 'unitprice', 'del','salesturnover'
        
     ];
     

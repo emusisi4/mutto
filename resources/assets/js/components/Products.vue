@@ -3687,7 +3687,7 @@ axios.get("api/gettheinvoicetotalwithoutvat").then(({ data }) => (this.gettheinv
 this.form.put('api/productdetailsrecords/'+this.form.id)
   .then(()=> {
     // on success
-   $('#unitofmeasureModal').modal('hide');
+   $('#pruductdetailModal').modal('hide');
     Swal.fire(
         'Update!',
         'Record has been updated.',

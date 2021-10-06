@@ -123,6 +123,8 @@ let routes = [
 { path: '/creditanddebotreports', component: require('./components/Debitandcredirreports.vue')},
 { path: '/fishcodeperformance', component: require('./components/Fishcodeperformance.vue')},
  { path: '/companypayments', component: require('./components/Companypayments.vue')},
+ { path: '/productsreturnsdeston', component: require('./components/Salesandpurcasesreturns.vue')},
+ 
   ]
   const router = new VueRouter({
     mode: 'history',

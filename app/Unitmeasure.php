@@ -23,6 +23,16 @@ class Unitmeasure extends Authenticatable
    
         return $this->hasMany(Product::class, 'unitmeasure', 'id'); 
     }
+    public function unitName(){
+   
+        return $this->hasMany(Salesreturn::class, 'unitofsalemeasure', 'id'); 
+    }
+
+    public function unitNamereturned(){
+   
+        return $this->hasMany(Salesreturn::class, 'unitreturned', 'id'); 
+    }
+
     public function unitMeasureshopingcat(){
    
         return $this->hasMany(Shopingcat::class, 'unitmeasure', 'id'); 
@@ -37,9 +47,14 @@ class Unitmeasure extends Authenticatable
         return $this->belongsTo(Product::class, 'supplier'); 
     }
 
-
+    
     
     protected $hidden = [
       //  'hid', 'id',
     ];
+  
+    
 }
+
+
+

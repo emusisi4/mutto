@@ -371,7 +371,7 @@ text-align: center;
                         </div>
                         <div class="content">
                             <div class="text"><b>JOGO SHOP BALANCE </b></div>
-                            <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20">
+                            <div class="number count-to">
                               <b>{{currencydetails}}  {{formatPrice(shopcashbalance)}}</b></div>
                         </div>
                     </div>
@@ -441,8 +441,7 @@ text-align: center;
                 </div>
 </div>
  <section >
-
-   
+ 
         <div class="">
             
             <div class="row clearfix">
@@ -451,7 +450,7 @@ text-align: center;
                     <div class="card">
                         <div class="header">
                             <h2>
-                          COMPANY ITEMS AND PRICE LIST
+                          COMPANY ITEMS AND PRICE LIST  
                             
                             </h2>
                         
@@ -566,15 +565,22 @@ text-align: center;
                         <div class="header">
                             <h2>
                                 RECEIPT DETAILS
-                               <!-- <button type="button" class="btn btn-default waves-effect m-r-20" data-toggle="modal" data-target="#receiptrintModal">MODAL - DEFAULT SIZE</button> -->
+                               <!-- <button type="button" class="btn btn-default waves-effect m-r-20" data-toggle="modal" data-target="#receiptrintModal">MODAL - DEFAULT SIZE</button>
+                            -->
+
+                            
+                            <div class="mysalessect" > 
+                           <!-- <button  class="btn bg-black waves-effect waves-light" data-toggle="modal" data-target="#productreturnsModal"> Sales Return </button>  -->
+
+                    </div>
                             </h2>
-                          
-                        </div>
+                         
                         <div class="body">
                            <!-- <div class="mysalessect">               -->
                              <div >  
 
                            </div>
+                           
                         <div class="mysalessect" >
                            <button     @click.prevent="printreceipt" @mouseover="loadlatestReceiptdetails" target="_blank" class="btn bg-brown btn-xs waves-effect"> Print Last Sale recept </button> 
 
@@ -641,12 +647,114 @@ text-align: center;
     </tr>
   </tfoot>
 </table>
+ 
 <!-- <button type="button" class="btn btn-danger btn-xs" @click="emptymycart" >Empty Cart </button>   -->
 
 <button v-if="existanceofitemsoncart > 0" type="button" class="btn btn-success btn-xs float-right" @click="completesale" >Complete  </button>
                             
                         </div>
+                        
                     </div>
+                    <div class="mysalessect2"> 
+            
+                         
+
+   <div class="panel panel-primary">
+                                            <div class="panel-heading" role="tab" id="headingTwo_1">
+                                                <h4 class="panel-title">
+                                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion_1" href="#collapseTwo_1" aria-expanded="false" aria-controls="collapseTwo_1">
+                                                       Sales Returns 
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseTwo_1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo_1" aria-expanded="false">
+                                                <div class="panel-body">
+                                                  <div class="ticket" id="ioioioioi">
+
+
+    <div class="mysalessect"> 
+ <form @submit.prevent="savereceipttogetproductreturnitems()">
+                 
+                      
+                           
+  <input v-model="form.receiptid" type="text" name="receiptid" id="receiptid" >
+<button type="submit" id="submit" name= "submit"  class="btn btn-primary btn-sm">Search</button>         
+
+         
+      
+
+                </form>
+                  </div> 
+<table style="width:100%">
+  <thead>
+    <tr>
+         <th class="tresed">#</th>
+      <th class="tresed"> ITEM</th>
+        <th class="tresed"> UNIT</th>
+       <th class="tresed">UNIT PRICE</th>
+      <th class="tresed">QTY</th>
+      <th class="tresed">TOTAL</th>
+      <th class="tresed"></th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr v-for="shobalrecs in returnreceiptdetails.data" :key="shobalrecs.id">
+         <td>
+        
+        <span class="book-title"> {{shobalrecs.itemreceiptno}} </span>
+        
+      </td>
+      <td class="four">
+        
+      <span class="book-title"> <template v-if="shobalrecs.product_name">	{{shobalrecs.product_name.productname}}</template></span>
+       
+      </td>
+        <td class="four">
+        
+      <span class="book-title"> <template v-if="shobalrecs.unit_measureshopingcat">	{{shobalrecs.unit_measureshopingcat.shotcode}}</template></span>
+       
+      </td>
+         <td>
+          
+        <span class="book-title">{{formatPrice(shobalrecs.unitprice)}}</span>
+        
+      </td>
+      <td>   <span class="book-title">{{shobalrecs.quantity}}</span></td>
+        <td> <span class="item-price"> {{currencydetails}}  {{formatPrice(shobalrecs.linetotal)}}</span></td>
+           <td> <span class="item-price">
+                               
+              <button type="button"   class="btn bg-brown btn-xs waves-effect"  @click="returnthisitem(shobalrecs)">Return This item to store</button>     
+           
+                </span></td>
+    
+    
+    </tr>
+   
+  
+  </tbody>
+  <tfoot>
+    <!-- <tr class="text-offset">
+      <td colspan="5">Sub-total : </td>
+      <td>{{currencydetails}}  {{formatPrice(carttotal)}}</td>
+    </tr> -->
+    <!-- <tr>
+      <td colspan="5">Tax : </td>
+     <td>{{currencydetails}} {{formatPrice(0.18*carttotal)}}</td>
+    </tr> -->
+    <tr>
+      <td colspan="5">Total :</td>
+     <td>{{currencydetails}}  {{formatPrice(carttotal)}}</td>
+    </tr>
+  </tfoot>
+</table>       
+
+        </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                         </div>
+                        </div>
                 </div>
 
 
@@ -721,6 +829,178 @@ text-align: center;
                         <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Cancel</button >
                         </div>
                  </form>
+                       </div>
+                          </div>
+                </div>
+
+
+
+
+
+<!-- uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu -->
+ <div class="modal fade" id="returndetailsssModal">
+         <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3  v-show="!editmode"    class="modal-title">
+                    <img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Return Details</h3> 
+                <h4  v-show="editmode" class="modal-title" >
+                  <img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Return the Iccctem</h4> 
+                        </div>
+
+
+                  <form  @submit.prevent="editmode ? createNewrecord():createNewrecord()">
+ <div class="bethapa-table-header">Sales Details</div>
+
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Item Number</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                  <input v-model="form.itemreceiptno" readonly id="itemreceiptno" type="text" name="itemreceiptno"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('itemreceiptno') }">
+
+
+                    <has-error :form="form" field="productname"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+       <input v-model="form.productcode" style="display:none"  readonly id="productname" type="text" name="productname"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('productname') }">
+                               <input v-model="form.id" type="hidden" name="productcode"> 
+                                 <input v-model="form.qty" type="hidden" name="productcode"> 
+                               <input v-model="form.newqty" type="hidden" name="productcode"> 
+
+
+
+                               
+                                
+    <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Quantity Sold</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                  <input v-model="form.quantity" type="number" @keypress="updatecurrentsalestatus" @keyup="updatecurrentsalestatus" name="quantity"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('quantity') }">
+                    <has-error :form="form" field="quantity"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                              
+  <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Quantity Returned</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                  <input v-model="form.quantityreturned" type="number" @keypress="updatecurrentsalestatus" @keyup="updatecurrentsalestatus" name="quantity"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('quantity') }">
+                    <has-error :form="form" field="quantity"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                  <div  class="modal-footer">
+                    <button  v-show="!editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
+                      <button  v-if="this.form.newqty >= 0"  type="submit" class="btn btn-success btn-sm" >Add</button>
+                        <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Cancel</button >
+                        </div>
+                 </form>
+                       </div>
+                          </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn -->
+   <div class="modal fade" id="productreturnsModal">
+         <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3  v-show="!editmode"    class="modal-title">
+                              <img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Product Returns</h3> 
+                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;"> </h4> 
+                        </div>
+             
+     <div id="invoiceS">
+     <div class="">
+  
+
+<div>
+
+
+ <!-- <a href="" @click.prevent="printme" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a> -->
+
+   
+
+      <!-- SOURCE -->
+   
+    <!-- OUTPUT -->
+    <!-- <button @click="print">iuuu</button> -->s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+</div>
+
+</div>
+  
+  </div><!--End Invoice-->
+
+ 
+
+   
+
+                  <div  class="modal-footer">
+                     <!-- <a href="" class="btn btn-primary btn-sm" @click.prevent="printreceipt" target="_blank" ><i class="fas fa-print"></i> Print Receipt</a> -->
+                    <button   type="submit"  @click.prevent="printreceipt" target="_blank" class="btn btn-primary btn-sm">Print Receipt</button> 
+                    
+                        <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Close</button >
+                        </div>
+               
                        </div>
                           </div>
                 </div>
@@ -953,6 +1233,7 @@ carttotal:[],
           
           productsavailableforsalelist:{},
           shopingcartdetails:{},
+          returnreceiptdetails:{},
           receipttotal : {}, 
     receiptcashier :{},
     getreceiptdate:{},
@@ -986,8 +1267,10 @@ carttotal:[],
                  qty:'',
                  newqty:'',
                  quantity :'',
+                 itemreceiptno:'',
+                 productcode:'',
                 
-
+receiptid:'',
     ////
       shid:'',
       sysname:'',
@@ -1015,6 +1298,59 @@ methods:{
   //     // Pass the element id here
   //     this.$htmlToPaper('print');
   //   },
+
+
+savereceipttogetproductreturnitems(){
+
+                                this.loading = true;
+                                this.form.post('api/setthereceiptintoreturnitems')
+                                .then(()=>{
+
+
+//////////////////
+ axios.get("api/returnreceiptdetails").then(({ data }) => (this.returnreceiptdetails = data));
+        
+
+//////////////////////
+
+//  axios.get("api/fishcollections").then(({ data }) => (this.fishcollectionrecords = data));
+//axios.get("api/makeexpenseofficeuser").then(({ data }) => (this.officemadeexpensesrecords = data));
+                                // Toast.fire({
+                                // icon: 'success',
+                                // title: 'Record Added Successfully'
+                                // });
+
+                                                              this.loading = false;
+
+                                  this.form.clear();
+        this.form.reset();
+                                })
+                                .catch(()=>{
+
+                                })
+
+}, 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   printreceipt() {
      const prtHtml = document.getElementById('print').innerHTML;
@@ -1235,6 +1571,13 @@ loadComponentfeatures(){
             },
   
   
+    returnthisitem(productsellingrecords){
+                this.editmode = true;
+                 this.form.clear();
+        this.form.reset();
+        this.form.fill(productsellingrecords);
+$('#returndetailsssModal').modal('show');
+            },
   editProductdetails(productsellingrecords){
                 this.editmode = true;
                  this.form.clear();
@@ -1337,6 +1680,9 @@ if (result.isConfirmed) {
        axios.get("api/existanceofitemsoncart").then(({ data }) => (this.existanceofitemsoncart = data)); 
      axios.get("api/shopingcartdetails").then(({ data }) => (this.shopingcartdetails = data));
       axios.get("api/getcattotal").then(({ data }) => (this. carttotal = data));
+       axios.get("api/shopcashbalance").then(({ data }) => (this. shopcashbalance = data));
+     
+     //  axios.get('api/shopcashbalance').then(function (response) { this.shopcashbalance = response.data;}.bind(this));
      //  $('#receiptrintModal').modal('show');
   
   }).catch(()=>{
