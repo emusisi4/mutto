@@ -90,9 +90,9 @@ class CompanyproductsController extends Controller
 
        $this->validate($request,[
       'productname'   => 'required  |max:191',
-      'brand'   => 'required',
+     // 'brand'   => 'required',
       'unitmeasure'   => 'required',
-      'brand'   => 'required', 
+     // 'brand'   => 'required', 
       'category'   => 'required'
     //   'unitname'   => 'sometimes |min:0'
      ]);
@@ -110,8 +110,12 @@ $productcode  = \DB::table('products')->orderBy('id', 'Desc')->limit(1)->value('
       'productname' => $request['productname'],
       'rol' => $request['rol'],
       'category' => $request['category'],
-      'brand' => $request['brand'],
+      // 'brand' => $request['brand'],
       'description' => $request['description'],
+      'unitcost' => $request['unitcost'],
+      'unitprice' => $request['unitprice'],
+      'qty' => $request['qty'],
+
       'unitmeasure' =>$request['unitmeasure'],
       'ucret' => $userid,
     

@@ -1126,7 +1126,7 @@ pre {
                                     </div>
                                 </div>
 
-                                  <div class="row clearfix">
+                                  <!-- <div class="row clearfix">
                                     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
                                         <label for="email_address_2">Description</label>
                                     </div>
@@ -1139,7 +1139,7 @@ pre {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div class="row clearfix">
                                     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -1159,7 +1159,7 @@ pre {
                                     </div>
                                 </div>
 
-                                   <div class="row clearfix">
+                                   <!-- <div class="row clearfix">
                                     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
                                         <label for="email_address_2">Brand</label>
                                     </div>
@@ -1175,7 +1175,7 @@ pre {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
 
 
 
