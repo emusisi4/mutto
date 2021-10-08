@@ -21,8 +21,15 @@ Route::apiResources(['machines' => 'API\MachinesController']);
 Route::apiResources(['newfishcurrentcodes' => 'API\CurrentmacinecodesController']); 
 
 // Sena Hardware Start
+Route::apiResources(['customerdetailsrecords' => 'API\CustomersController']);
+
+Route::apiResources(['addnewcustomerrecord' => 'API\CustomersController']);
 Route::apiResources(['products' => 'API\ExpensesController']);
 Route::apiResources(['inserintocart' => 'API\InserintocartController']);
+
+Route::apiResources(['insertintoproformacart' => 'API\insertintoproformacartController']);
+
+Route::apiResources(['creditsalescartdetails' => 'API\insertintoproformacartController']);
 Route::apiResources(['productcategoriesrecords' => 'API\ProductcategoriesController']);
 Route::apiResources(['shopingcartdetails' => 'API\InserintocartController']);
 Route::get('getordertotal', 'APIController@Ordertotal');
@@ -42,7 +49,7 @@ Route::get('getreceiptno', 'API\ReceiptprintingController@getreceiptno');
 
 
 
-
+Route::apiResources(['confirmsaleoncredit' => 'API\ConfirmcreditsaleController']);
 
 Route::apiResources(['makesalepur' => 'API\ConfirmpositemsController']);
 Route::apiResources(['appenditemtotheinvoice' => 'API\AppenditemstoinvoiceController']);
@@ -191,6 +198,8 @@ Route::apiResources(['purchaseincoicesummaryrecords' => 'API\Purchasessumaryreco
 Route::apiResources(['productpurchasesdetailrecords' => 'API\PurchasesrecordsController']);
 Route::apiResources(['productpriceslist' => 'API\ProductpricesController']);
 Route::get('findUser', 'API\CompanyproductsController@search');
+
+
 Route::get('findtheProdctinlist', 'API\CompanyproductsController@searchproductinproductlist');
 Route::get('returnreceiptdetails', 'API\ReturnsalesitemsController@returnreceiptdetails');
 
@@ -278,6 +287,8 @@ Route::get('getFloatcodes', 'APIController@getFloatcodes');
 
 Route::get('invoiceslist', 'APIController@invoiceslist');
 Route::get('supplierslist', 'APIController@supplierslist');
+Route::get('customerslist', 'APIController@customerslist');
+
 Route::get('getRoles', 'APIController@getRoles');
 Route::get('userslist', 'APIController@userslist');
 Route::get('getBranches', 'APIController@getBranches');
@@ -328,7 +339,7 @@ Route::apiResources(['roletoaddmainmenu' => 'API\RoletoaddmainmenuController']);
 Route::apiResources(['expensecategories' => 'API\ExpensecategoriesController']);
 Route::apiResources(['cashtransferrecords' => 'API\CashtransfersConroller']);
 
-Route::apiResources(['incomesourcerecords' => 'API\IncomesourcesController']);
+Route::apiResources(['incomesourcerecords' => 'API\MyincomsourcesController']);
 Route::apiResources(['latestreceiptdetails' => 'API\ReceiptprintingController']);
 
 
@@ -460,6 +471,30 @@ Route::get('companyproductsComponentaccess', 'APIController@companyproductsCompo
 Route::get('purchasesComponentaccess', 'APIController@purchasesComponentaccess');
 Route::get('purchaserecordsComponentaccess', 'APIController@purchaserecordsComponentaccess');
 Route::get('salessummaryComponentaccess', 'APIController@salessummaryComponentaccess');
+
+
+
+Route::apiResources(['generatenewcreditsale' => 'API\SalesoncreditController']);
+
+
+        
+
+
+
+         Route::get('gettheinvoiceinactiondate', 'APIController@gettheinvoiceinactiondate');
+         Route::get('customercontact', 'APIController@customercontact');
+         Route::get('customeraddress', 'APIController@customeraddress');
+         Route::get('salesorderdateinaction', 'APIController@salesorderdateinaction');
+         Route::get('customerordernoinaction', 'APIController@customerordernoinaction');
+         Route::get('creditcustomerinaction', 'APIController@creditcustomerinaction');
+
+
+
+
+
+
+
+
 
 
 
@@ -708,6 +743,8 @@ Route::get('getaddnewcashcollection', 'APIController@getaddnewcashcollection');
 Route::get('getaddnewcashcollection', 'APIController@getaddnewcashcollection');
 
 Route::apiResources(['registernewincome' => 'API\BankstatementsConroller']);
+
+Route::apiResources(['registernewincomesource' => 'API\MyincomsourcesController']);
 Route::apiResources(['makecashtransferfromaccountto' => 'API\CashtransfersConroller']);
 
 Route::apiResources(['makeexpenseofficeuser' => 'API\MadeexpensesofficeConroller']);

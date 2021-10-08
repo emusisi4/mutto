@@ -11,16 +11,10 @@ class Customer extends Authenticatable
     use HasApiTokens, Notifiable;
 
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-
+    
    
     protected $fillable = [
-        'customername', 'contact','residence','location','company','companycontact','companycontactperson','ucret'
-       
+    'customername', 'contact', 'location', 'del',  'ucret', 'bal', 'status', 'description'       
     ];
     
 

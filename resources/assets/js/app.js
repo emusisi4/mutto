@@ -93,6 +93,10 @@ let routes = [
 { path: '/senasewpurcrept', component: require('./components/Senapurchasesreport.vue')},
 { path: '/senarevrepoz', component: require('./components/Revenuereports.vue')},
 { path: '/incomedesstatementodocs', component: require('./components/Incomestatement.vue')},
+{ path: '/companycontacts', component: require('./components/Contacts.vue')},
+{ path: '/customercreditsales', component: require('./components/Customercreditpos.vue')},
+
+
 /// SENA HARD WARE END
 
 

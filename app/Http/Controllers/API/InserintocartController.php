@@ -85,7 +85,7 @@ if($productexistsoncart < 1)
   $countrecordsontheslip = \DB::table('shopingcats')->where('ucret', '=', $userid)->count();
   $itemreceiptno = $countrecordsontheslip+1;
   $qty = $request['quantity'];
-  $linevat = ($unitprice*0.18);
+  $linevat = (($unitprice*0.18)/1.18);
   $totalvat = $linevat*$qty;
         Shopingcat::Create([
     
@@ -132,7 +132,7 @@ $newqtt = $currentproductquantity-$zqty;
 
 
 $qty = $newquantity;
-$linevat = ($unitprice*0.18);
+$linevat = (($unitprice*0.18)/1.18);
 $totalvat = $linevat*$qty;
 
 

@@ -51,6 +51,7 @@ class BankstatementsConroller extends Controller
         'incomesource'   => 'required',
         'description'   => 'required',
         'amount'  => 'required',
+        'recievingwallet'  => 'required',
         'daterecieved'  => 'required',
      ]);
 
@@ -72,6 +73,7 @@ class BankstatementsConroller extends Controller
       'incomesource' => $request['incomesource'],
   
       'description' => $request['description'],
+      'recievingwallet' => $request['recievingwallet'],
       'amount' => $request['amount'],
       'daterecieved' => $request['daterecieved'],
       'ucret' => $userid,
@@ -119,6 +121,8 @@ $user->update($request->all());
 
         $user = Companyincome::findOrFail($id);
         $addingamounton = \DB::table('companyincomes')->where('id', $id)->value('amount');
+        $walletinaction = \DB::table('companyincomes')->where('id', $id)->value('recievingwallet');
+
         $currentwalletbalanceforbank = \DB::table('expensewalets')->where('id', 4)->value('bal');
         $newwalletamount = $addingamounton+$currentwalletbalanceforbank;
 

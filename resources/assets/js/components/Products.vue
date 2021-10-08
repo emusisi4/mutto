@@ -4485,7 +4485,7 @@ this.productstoaddtoinvoicerecords = data.data;
             Fire.$on('AfterAction', () =>{
 this.loadProductcategories();
       });
-  setInterval(() =>this.loadvatvalues(),3000);
+ // setInterval(() =>this.loadvatvalues(),3000);
         }
     }
 </script>

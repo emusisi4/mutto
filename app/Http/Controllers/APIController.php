@@ -47,6 +47,8 @@ use App\Unitmeasure;
 use App\Supplier;
 use App\Purchasessummary;
 use App\Product;
+
+use App\Customer;
 class APIController extends Controller
 
 {
@@ -66,20 +68,76 @@ class APIController extends Controller
 
 
 
+    
+    public function     customercontact()
+    {
+        $userid =  auth('api')->user()->id;
+        $userbranch =  auth('api')->user()->branch;
+        $userrole =  auth('api')->user()->type;
+        $cinact =    \DB::table('custinactionsprofs')->where('ucret', '=', $userid)->value('customername');
+
+        $customerorderno =    \DB::table('customers')->where('id', '=', $cinact)->value('contact');
+       
+               return response()->json($customerorderno);
+  }
+    
+    
+    
+    public function     customeraddress()
+    {
+        $userid =  auth('api')->user()->id;
+        $userbranch =  auth('api')->user()->branch;
+        $userrole =  auth('api')->user()->type;
+        $cinact =    \DB::table('custinactionsprofs')->where('ucret', '=', $userid)->value('customername');
+
+        $customerorderno =    \DB::table('customers')->where('id', '=', $cinact)->value('location');
+       
+               return response()->json($customerorderno);
+  }
+    
+    public function     customerordernoinaction()
+    {
+        $userid =  auth('api')->user()->id;
+        $userbranch =  auth('api')->user()->branch;
+        $userrole =  auth('api')->user()->type;
+        $customerorderno =    \DB::table('custinactionsprofs')->where('ucret', '=', $userid)->value('customerorderno');
+
+      //  $customerorderno =    \DB::table('customers')->where('id', '=', $cinact)->value('customerorderno');
+       
+               return response()->json($customerorderno);
+  }
+
+
+    public function     creditcustomerinaction()
+    {
+        $userid =  auth('api')->user()->id;
+        $userbranch =  auth('api')->user()->branch;
+        $userrole =  auth('api')->user()->type;
+        $cinact =    \DB::table('custinactionsprofs')->where('ucret', '=', $userid)->value('customername');
+
+        $customername =    \DB::table('customers')->where('id', '=', $cinact)->value('customername');
+       
+               return response()->json($customername);
+  }
+
+
+
+    public function     gettheinvoiceinactiondate()
+    {
+        $userid =  auth('api')->user()->id;
+        $userbranch =  auth('api')->user()->branch;
+        $userrole =  auth('api')->user()->type;
+        $invoiceno =    \DB::table('custinactionsprofs')->where('ucret', '=', $userid)->value('invoicesalesdate');
+       
+               return response()->json($invoiceno);
+  }
 
 
 
 
 
 
-
-
-
-
-
-
-
-
+////////////////////
     public function     getthinvoicedocumentno()
     {
         $userid =  auth('api')->user()->id;
@@ -1036,6 +1094,19 @@ $data = Purchasessummary::latest('id')
 ->get();
         return response()->json($data);
     }
+    
+
+
+    public function customerslist()
+    {
+     
+$data = Customer::latest('id')
+->where('status', 1)
+->get();
+        return response()->json($data);
+    }
+
+
     public function supplierslist()
     {
      

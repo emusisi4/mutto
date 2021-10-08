@@ -12,11 +12,7 @@ use App\Customer;
 
 class CustomersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function __construct()
     {
        $this->middleware('auth:api');
@@ -40,27 +36,11 @@ class CustomersController extends Controller
       }
 
 
-     // if($userrole == '100')
-      {
-      
-      
-     // return   Product::with(['userbalancingBranch','branchinBalance'])->latest('id')
-      
-      // return   Product::latest('id')
-       //  return   Branchpayout::latest('id')
-    //     ->where('del', 0)
-     //   ->paginate(20);
-      
-    }
+    
       
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function store(Request $request)
     {
         //
@@ -70,6 +50,8 @@ class CustomersController extends Controller
 
        $this->validate($request,[
        'customername'   => 'required  |max:191',
+       'description'   => 'required  |max:225',
+       'location' => 'required',
        'contact'   => 'required'
        // 'dorder'   => 'sometimes |min:0'
      ]);
@@ -78,27 +60,23 @@ class CustomersController extends Controller
   $datepaid = date('Y-m-d');
 //  $inpbranch = $request['branchnametobalance'];
 
-$dateinq =  $request['datedone'];
 
 
        return Customer::Create([
     
 
       'customername' => $request['customername'],
-     'residence'=> $request['residence'],
+     'location'=> $request['location'],
       'contact' => $request['contact'],
-     
+      'description' => $request['description'],
+      'bal' => $request['balance'],
       'ucret' => $userid,
     
   ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
+    
     public function show($id)
     {
         //

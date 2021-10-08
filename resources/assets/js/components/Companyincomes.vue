@@ -251,10 +251,10 @@
                                 <div role="tabpanel" class="tab-pane" id="messages">
                                    <div class="bethapa-table-header"></div>
                  <div class="bethapa-table-header">
-                      Other Income Sources {{currencydetails}} To {{currencydetails}}
+                      Other Income Sources 
                       
                       <!-- -->
-                      <button type="button" class="add-newm" @click="makethetransfer" >Transfer Cash</button>
+                      <button type="button" class="add-newm" @click="addnewincomesource" >Add Income Source</button>
                      </div>                     
                                  <table  class="musisireporttable" width="100%" border="1">
 
@@ -460,7 +460,7 @@
         <div class="modal-dialog modal-dialog-top modal-lg">
         <div  class="modal-content">
             <div  class="modal-header">
-                <h4  v-show="!editmode"    class="modal-title">INCOME REGISTRATION</h4> 
+                   <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">ADD NEW RECORD</h3> 
                 <h4  v-show="editmode" class="modal-title" >UPDATE RECORD</h4> 
                 <button  type="button" data-dismiss="modal" aria-label="Close" class="close"><span  aria-hidden="true">×</span></button></div> 
                 
@@ -489,7 +489,7 @@
                                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                 <select name ="incomesource" v-model="form.incomesource" id ="incomesource" v-on:click="loadDatarecords()" class="form-control" :class="{'is-invalid': form.errors.has('incomesource')}">
+                                                 <select name ="incomesource" v-model="form.incomesource" id ="incomesource" class="form-control" :class="{'is-invalid': form.errors.has('incomesource')}">
 <option value=" ">  </option>
 <option v-for='data in incomesourceslist' v-bind:value='data.id'>{{ data.incomesourcename }}</option>
 
@@ -549,12 +549,12 @@
                                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                         <div class="form-group">
                                             <div class="form-line">
-                                            <select name ="walletexpense" v-model="form.walletexpense" id ="walletexpense" v-on:click="loadDatarecords()" class="form-control" :class="{'is-invalid': form.errors.has('walletexpense')}">
+                                            <select name ="recievingwallet" v-model="form.recievingwallet" id ="recievingwallet" v-on:click="loadDatarecords()" class="form-control" :class="{'is-invalid': form.errors.has('recievingwallet')}">
                   <option value=" ">  </option>
                   <option v-for='data in walletlist' v-bind:value='data.id'>{{ data.id }} - {{ data.name }}</option>
 
                   </select>
-                       <has-error :form="form" field="walletexpense"></has-error>
+                       <has-error :form="form" field="recievingwallet"></has-error>
                                             </div>
                                         </div>
                                     </div>
@@ -603,6 +603,91 @@
               
               
                   </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="addnewincomesource">
+         <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">ADD NEW RECORD</h3> 
+                <h4  v-show="editmode" class="modal-title" >UPDATE RECORD</h4> 
+                        </div>
+                 <form class="form-horizontal" @submit.prevent="editmode ? updadeexpenseforofficeuse():createNewincomesourcename()"> 
+                
+
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Source Name</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                  <input v-model="form.incomesourcename" type="text" name="incomesourcename"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('incomesourcename') }">
+                    <has-error :form="form" field="incomesourcename"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="password_2">Description</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+
+
+
+
+
+
+                                                <textarea v-model="form.description" type="text" name="description"
+                      class="form-control no-resize" :class="{ 'is-invalid': form.errors.has('description') }"></textarea>
+                    <has-error :form="form" field="description"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                              
+                               
+
+                                       
+                                
+
+
+                  <div  class="modal-footer">
+                    <button  v-show="!editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
+                      <button v-show="editmode" type="submit" class="btn btn-success btn-sm" >Update</button>
+                        <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Close</button >
+                        </div>
+                 </form>
+                       </div>
+                          </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <div class="modal fade" id="makecashtransferstart">
@@ -1420,6 +1505,7 @@ expenseslist:{},
                  expensecategory : '',
                  walletexpense:'',
    expensetypes : '',
+   incomesource:'',
                 email:'',
                 rolename:'',
                 type:'',
@@ -1924,6 +2010,14 @@ newCashcollection(){
             
  
  
+addnewincomesource(){
+        this.editmode = false;
+        this.form.clear();
+        this.form.reset();
+     
+     $('#addnewincomesource').modal('show');
+            },
+
 
 
 makethetransfer(){
@@ -2184,7 +2278,7 @@ if (result.isConfirmed) {
 
   confirmmycashrecievedbank(id){
    Swal.fire({
-  title: 'Bank Cashin Confirmation',
+  title: 'Cashin Confirmation',
   text: "You won't be able to revert this!",
   icon: 'warning',
   showCancelButton: true,
@@ -2830,6 +2924,35 @@ axios.get("api/cashtransferrecords").then(({ data }) => (this.cashtransferrecord
 
 }, 
 
+   createNewincomesourcename(){
+
+                          //   this.loading = true,
+                                this.form.post('api/registernewincomesource')
+                                .then(()=>{
+
+
+                                // Fire.$emit('AfterAction');
+
+axios.get("api/incomesourcerecords").then(({ data }) => (this.incomesourcerecords = data));
+   
+                               // $('#addNew').modal('hide');
+
+                                Toast.fire({
+                                icon: 'success',
+                                title: 'Record Added Successfully'
+                                });
+
+                             //  this.loading = false;
+                                  this.form.clear();
+        this.form.reset();
+                                })
+                                .catch(()=>{
+
+                                })
+
+
+       }, 
+
      createNewincomerecord(){
 
                           //   this.loading = true,
@@ -2839,6 +2962,7 @@ axios.get("api/cashtransferrecords").then(({ data }) => (this.cashtransferrecord
 
                                 // Fire.$emit('AfterAction');
 
+  axios.get("api/theincomedetails").then(({ data }) => (this.companyincomerecords = data));
                                // $('#addNew').modal('hide');
 
                                 Toast.fire({
