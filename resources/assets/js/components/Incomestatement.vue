@@ -713,11 +713,13 @@ INCOME STATEMENT TRANSACTIONS
                                  <td>
                                    <div v-if="prodcates.sourceoftransaction == 1" >  Sales</div>
                                    <div v-if="prodcates.sourceoftransaction == 2" >  Purchases </div>
+                                   <div v-if="prodcates.sourceoftransaction == 3" >  Other Incomes </div>
+                                     <div v-if="prodcates.sourceoftransaction == 4" >  Expenses </div>
                                  
                                  </td>
                                   <td class="musisialign">
-                                <b> <div v-if="prodcates.sourceoftransaction == 1" style="color:green" >  Credit</div>
-                                   <div v-if="prodcates.sourceoftransaction == 2" style="color:maroon"  >  Debit</div>
+                                <b> <div v-if="prodcates.typeoftransaction == 1" style="color:green" >  Credit</div>
+                                   <div v-if="prodcates.typeoftransaction == 2" style="color:maroon"  >  Debit</div>
                                    </b>
                                  
                                  </td>

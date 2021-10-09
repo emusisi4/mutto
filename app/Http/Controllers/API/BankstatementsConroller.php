@@ -13,7 +13,9 @@ use App\Expensescategory;
 use App\Madeexpense;
 use App\Companyincome;
 use App\Accounttransaction;
+use App\Incomestatementminirecord;
 use Illuminate\Support\Str;
+use Faker\Factory as Faker;
 class BankstatementsConroller extends Controller
 {
    
@@ -62,16 +64,16 @@ class BankstatementsConroller extends Controller
      $monthmade = date('m', strtotime($dateinact));
 
 
+     $generalnum1 = random_int(100, 999);
+     $generalnum2 = random_int(100, 999);
 
-
-
-
+$reference = $generalnum1.$generalnum2;
 
 
      ////////////////////
        return Companyincome::Create([
       'incomesource' => $request['incomesource'],
-  
+       'incomereference' => $reference,
       'description' => $request['description'],
       'recievingwallet' => $request['recievingwallet'],
       'amount' => $request['amount'],
@@ -122,13 +124,13 @@ $user->update($request->all());
         $user = Companyincome::findOrFail($id);
         $addingamounton = \DB::table('companyincomes')->where('id', $id)->value('amount');
         $walletinaction = \DB::table('companyincomes')->where('id', $id)->value('recievingwallet');
-
-        $currentwalletbalanceforbank = \DB::table('expensewalets')->where('id', 4)->value('bal');
+        $transactionrefrence = \DB::table('companyincomes')->where('id', $id)->value('incomereference');
+        $currentwalletbalanceforbank = \DB::table('expensewalets')->where('id', $walletinaction)->value('bal');
         $newwalletamount = $addingamounton+$currentwalletbalanceforbank;
 
        // $user->delete();
 /// Updating the balance
-$result = \DB::table('expensewalets')->where('id', 4)->update(['bal' =>  $newwalletamount]);
+$result = \DB::table('expensewalets')->where('id', $walletinaction)->update(['bal' =>  $newwalletamount]);
 $result2 = \DB::table('companyincomes')->where('id', $id)->update(['status' =>  1]);
 /// creating the transaction logs
 ///id, incomesource, daterecieved, amount, ucret, status, created_at, updated_at, approvedat, approvedby, description, yearmade, monthmade
@@ -139,12 +141,14 @@ $monthmade = \DB::table('companyincomes')->where('id', $id)->value('monthmade');
 /// id, transactiondate, transactiontype, amount, ucret, walletinaction, accountresult, created_at, updated_at
 $userid =  auth('api')->user()->id;
 $transactionno = Str::random(40);
+
+
 Accounttransaction::Create([
     'transactiondate' => $datedone,
 
     'transactiontype' => 2,
     'amount' => $addingamounton,
-    'walletinaction' => 4,
+    'walletinaction' => $walletinaction,
     'accountresult'=> $newwalletamount,
     'ucret' => $userid,
     'description' => 'Company Cashi in',
@@ -154,5 +158,73 @@ Accounttransaction::Create([
   
 ]);
 
+$ggetrsummaryincome = \DB::table('incomestatementsummaries')->where('statementdate', '=', $datedone)->count();
+if($ggetrsummaryincome > 0)
+{
+  //// getting the expenses, and other incomes
+  /// expenses 
+  $incomestatementexpenses = \DB::table('madeexpenses')->where('datemade', '=', $datedone)->where('approvalstate', '=', 1)->sum('amount');
+  $incomestatementotherincomes = \DB::table('companyincomes')->where('daterecieved', '=', $datedone)->where('status', '=', 1)->sum('amount');
+
+$incomestatementtotalsales = \DB::table('dailysummaryreports')->where('datedone', '=', $datedone)->sum('netinvoiceincome');
+$incomestatementtotalcost = \DB::table('dailysummaryreports')->where('datedone', '=', $datedone)->sum('totalcost');
+$incomestatementgrossprofit = \DB::table('dailysummaryreports')->where('datedone', '=', $datedone)->sum('netsalewithoutvat');
+
+  DB::table('incomestatementsummaries')
+->where('statementdate', $datedone)
+->update([
+'totalsales' => $incomestatementtotalsales,
+'totalcost' => $incomestatementtotalcost,
+'otherincomes'=> $incomestatementotherincomes,
+'expenses'=> $incomestatementexpenses,
+'grossprofitonsales' => $incomestatementtotalsales-$incomestatementtotalcost,
+'netprofitbeforetaxes' => $incomestatementtotalsales-$incomestatementtotalcost+$incomestatementotherincomes-$incomestatementexpenses
+]);
 }
+//////////////
+if($ggetrsummaryincome < 1)
+{
+    $incomestatementexpenses = \DB::table('madeexpenses')->where('datemade', '=', $datedone)->where('approvalstate', '=', 1)->sum('amount');
+    $incomestatementotherincomes = \DB::table('companyincomes')->where('daterecieved', '=', $datedone)->where('status', '=', 1)->sum('amount');
+  
+  $incomestatementtotalsales = \DB::table('dailysummaryreports')->where('datedone', '=', $datedone)->sum('netinvoiceincome');
+  $incomestatementtotalcost = \DB::table('dailysummaryreports')->where('datedone', '=', $datedone)->sum('totalcost');
+  $incomestatementgrossprofit = \DB::table('dailysummaryreports')->where('datedone', '=', $datedone)->sum('netsalewithoutvat');
+Incomestatementsummary::Create([
+   
+  'statementdate' => $datedone,
+
+ 'totalcost' => $incomestatementtotalcost,
+  'totalsales' =>$incomestatementtotalsales,  
+  'otherincomes'=> $incomestatementotherincomes,
+  'expenses'=> $incomestatementexpenses,
+
+  'grossprofitonsales' => $incomestatementtotalsales-$incomestatementtotalcost,
+'netprofitbeforetaxes' => $incomestatementtotalsales-$incomestatementtotalcost+$incomestatementotherincomes-$incomestatementexpenses,
+    
+  
+   
+
+
+            'ucret' => $userid,
+          
+        ]);
+}
+Incomestatementminirecord::Create([
+   
+    'incomerefrenceid' => $transactionrefrence,
+    // 'branch' => $user->branch,
+    'dateoftransaction' => $datedone,  
+    'sourceoftransaction' => 3,
+    'typeoftransaction'=> 1,
+    'descriptionoftransaction'=> 'Income Recieved',
+     'transactionamount' => ($addingamounton),   
+    'incomesourcedescription' =>  'Money from other sources',   
+      'ucret' => $userid,
+            
+          ]);
+
+}
+
+//// INCOME STATEMENT
 }

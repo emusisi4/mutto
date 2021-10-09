@@ -14,7 +14,7 @@ class Companyincome extends Authenticatable
 
     protected $fillable = ['branch',
         'incomesource', 'daterecieved', 'amount','ucret',
-        'status','approvedat','approvedby','description','monthmade','yearmade','transactionno','recievingwallet'
+        'status','approvedat','approvedby','description','monthmade','yearmade','transactionno','recievingwallet','incomereference'
     ];
 
 

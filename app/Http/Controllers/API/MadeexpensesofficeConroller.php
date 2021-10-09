@@ -17,6 +17,7 @@ use App\Expmonthlyexpensesreportbycategory;
 use App\Expmonthlyexpensesreportbywallet;
 use App\Expdailyreport;
 use App\Expmonthlyexpensesreportbytype;
+use App\Incomestatementminirecord;
 class MadeexpensesofficeConroller extends Controller
 {
     public function __construct()
@@ -107,6 +108,10 @@ class MadeexpensesofficeConroller extends Controller
 
   
      
+     $generalnum1 = random_int(100, 999);
+     $generalnum2 = random_int(100, 999);
+
+$reference = $generalnum1.$generalnum2;
   //       $dats = $id;
   $exp = $request['expense'];
   $expcat = DB::table('expenses')->where('expenseno', $exp )->value('expensecategory');
@@ -127,6 +132,7 @@ class MadeexpensesofficeConroller extends Controller
       'exptype' => $exptyo,
       'yearmade' => $yearmade,
       'monthmade' => $monthmade,
+      'incomerefrenceid'=> $reference,
       'ucret' => $userid,
     
   ]);
@@ -501,32 +507,98 @@ Expdailyreport::Create([
   // // 'walletname'    => $walletofexpense,
   // 'yearname'     => $yearmade,
 ]);
+/////////////////////////////////////////////////////////////////////////
+$transactionrefrence = \DB::table('madeexpenses')->where('id', $id)->value('incomerefrenceid');
+
+$ggetrsummaryincome = \DB::table('incomestatementsummaries')->where('statementdate', '=', $datemade)->count();
+if($ggetrsummaryincome > 0)
+{
+  //// getting the expenses, and other incomes
+  /// expenses 
+  $incomestatementexpenses = \DB::table('madeexpenses')->where('datemade', '=', $datemade)->where('approvalstate', '=', 1)->sum('amount');
+  $incomestatementotherincomes = \DB::table('companyincomes')->where('daterecieved', '=', $datemade)->where('status', '=', 1)->sum('amount');
+
+$incomestatementtotalsales = \DB::table('dailysummaryreports')->where('datedone', '=', $datemade)->sum('netinvoiceincome');
+$incomestatementtotalcost = \DB::table('dailysummaryreports')->where('datedone', '=', $datemade)->sum('totalcost');
+$incomestatementgrossprofit = \DB::table('dailysummaryreports')->where('datedone', '=', $datemade)->sum('netsalewithoutvat');
+
+  DB::table('incomestatementsummaries')
+->where('statementdate', $datemade)
+->update([
+'totalsales' => $incomestatementtotalsales,
+'totalcost' => $incomestatementtotalcost,
+'otherincomes'=> $incomestatementotherincomes,
+'expenses'=> $incomestatementexpenses,
+'grossprofitonsales' => $incomestatementtotalsales-$incomestatementtotalcost,
+'netprofitbeforetaxes' => $incomestatementtotalsales-$incomestatementtotalcost+$incomestatementotherincomes-$incomestatementexpenses
+]);
+}
+//////////////
+if($ggetrsummaryincome < 1)
+{
+    $incomestatementexpenses = \DB::table('madeexpenses')->where('datemade', '=', $datemade)->where('approvalstate', '=', 1)->sum('amount');
+    $incomestatementotherincomes = \DB::table('companyincomes')->where('daterecieved', '=', $datemade)->where('status', '=', 1)->sum('amount');
+  
+  $incomestatementtotalsales = \DB::table('dailysummaryreports')->where('datedone', '=', $datemade)->sum('netinvoiceincome');
+  $incomestatementtotalcost = \DB::table('dailysummaryreports')->where('datedone', '=', $datemade)->sum('totalcost');
+  $incomestatementgrossprofit = \DB::table('dailysummaryreports')->where('datedone', '=', $datemade)->sum('netsalewithoutvat');
+Incomestatementsummary::Create([
+   
+  'statementdate' => $datedone,
+
+ 'totalcost' => $incomestatementtotalcost,
+  'totalsales' =>$incomestatementtotalsales,  
+  'otherincomes'=> $incomestatementotherincomes,
+  'expenses'=> $incomestatementexpenses,
+
+  'grossprofitonsales' => $incomestatementtotalsales-$incomestatementtotalcost,
+'netprofitbeforetaxes' => $incomestatementtotalsales-$incomestatementtotalcost+$incomestatementotherincomes-$incomestatementexpenses,
+    
+  
+   
+
+
+            'ucret' => $userid,
+          
+        ]);
+}
+Incomestatementminirecord::Create([
+   
+    'incomerefrenceid' => $transactionrefrence,
+    // 'branch' => $user->branch,
+    'dateoftransaction' => $datemade,  
+    'sourceoftransaction' => 4,
+    'typeoftransaction'=> 2,
+    'descriptionoftransaction'=> 'Expense Made',
+     'transactionamount' => ($transamount),   
+    'incomesourcedescription' =>  'Expense made by the company',   
+      'ucret' => $userid,
+            
+          ]);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
    }/// closing if there is enough balance 
 }     ///// closing its not 0
    
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      //   $user = Madeexpense::findOrFail($id);
-      //   $user->delete();
-      //  // return['message' => 'user deleted'];
-
-
-
-    }
+    
 }

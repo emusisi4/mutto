@@ -305,7 +305,8 @@ pre {
 
                               
                              <td><div class="musisialignright">   
-                                    <button type="button"  @click="paypurchaseInvoice(prodcates)" class="btn bg-brown waves-effect btn-sm">View Details</button>
+                                    <button type="button"  @click="paypurchaseInvoice(prodcates)" 
+                                    class="btn bg-brown waves-effect btn-sm">View Details</button>
                              </div></td>
                                  <!-- <td style="background-color:#eeeeee "><div class="musisialign"> {{formatPrice(prodcates.netinvoiceincome)}} </div></td>
                                  -->
@@ -646,7 +647,8 @@ pre {
                           <td> 
                                 <!-- div  >       -->
         <div >                         
-       <button v-show="offcmadeexp.approvalstate < 1" type="button"  class="btn bg-green btn-xs waves-effect"  @click="confirmexpense(offcmadeexp.id)"> Confirm  </button>
+       <button v-show="offcmadeexp.approvalstate < 1" type="button"  class="btn bg-green btn-xs waves-effect" 
+        @click="confirmexpense(offcmadeexp.id)"> Confirm  </button>
       <button type="button" v-if="offcmadeexp.approvalstate < 1" class="btn bg-brown btn-xs waves-effect"  @click="editOfficemadeexpense(offcmadeexp)">Edit Expense</button>
          <button type="button" v-if="offcmadeexp.approvalstate < 1"  class="btn bg-deep-orange btn-xs waves-effect" @click="deletemadeexpense(offcmadeexp.id)"> Cancel </button>
        </div>

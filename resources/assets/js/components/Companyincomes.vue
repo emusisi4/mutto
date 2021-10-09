@@ -208,7 +208,7 @@
                       <td>   <template v-if="shobalrecs.company_incomesourcenames">	{{shobalrecs.company_incomesourcenames.incomesourcename}}</template></td>
                     
                   
-                                 <td>{{formatPrice(shobalrecs.amount)}}</td>
+                                 <td class="musisiallignright">{{formatPrice(shobalrecs.amount)}}</td>
                             
                                <td>{{(shobalrecs.description)}}</td>
                    
@@ -231,7 +231,7 @@
                          
                          
                     
-                       <td><button type="button"  v-if="((shobalrecs.status)) == 0" class="btn  bg-green btn-xs" @click="confirmmycashrecievedbank(shobalrecs.id)"> Confirm </button>
+                       <td><button type="button"  v-if="((shobalrecs.status)) == 0" class="btn  bg-green btn-xs" @click="confirmmycashrecievedbank(shobalrecs.id)"> Confirm Income</button>
                           
                             <button type="button" v-if="((shobalrecs.status)) == 0"  class="btn  bg-gradient-secondary btn-xs fas fa-edit"  @click="editcashcredit(shobalrecs)">Edit</button>
                             <button type="button"  v-if="((shobalrecs.status)) == 0" class="btn  bg-gradient-danger btn-xs fas fa-trash-alt" @click="deleteincomerecieved(shobalrecs.id)"> DEl </button>
