@@ -178,7 +178,7 @@ $invoiceno = $inv.$dto;
              'branch' => $user->branch, 
              'linetotal' => $user->linetotal,
              'unitcost' => $user->unitcost,
-            'totalcost' => $user->totalcostprice,
+            'totalcostprice' => $user->totalcostprice,
              'lineprofit' => $user->lineprofit,
              'netsalewithoutvat' => $user->netsalewithoutvat,
              'netunitsalewithoutvat'=> $user->netunitsalewithoutvat,
@@ -432,18 +432,7 @@ Customerstatement::Create([
 $checkingforinvoiceno = \DB::table('creditsalesdetails')->where('invoicedate', '=', $ddddtt)->count();
 $vari = $checkingforinvoiceno+1;
 $invoicemmnno = $dto.$vari;
-Creditsalessummarry::Create([
-   
-    'customername' => $customerinquestion,
-   'invoiceno' => $invoicemmnno,
-    'invoicedate' =>$invoicedatetaken,  
-   
-    'invoiceamount'=> $totallineforinvoice,
-  
-     
-              'ucret' => $userid,
-            
-          ]);
+
           //// Updating customer balance
           DB::table('customers')
 ->where('id', $customerinquestion)
@@ -452,14 +441,30 @@ Creditsalessummarry::Create([
 ]);
 //////////////////////////////////////////////////////////////////////
 
+Creditsalessummarry::Create([
+   
+  'customername' => $customerinquestion,
+ 'invoiceno' => $invoiceno,
+  'invoicedate' =>$ddddtt,  
+ 
+  'invoiceamount'=> $totallineforinvoice,
 
+   
+            'ucret' => $userid,
+          
+        ]);
 
 //////
+
+DB::table('customerstatements')->where('customername', NULL)->delete();
+DB::table('creditsalessummarries')->where('customername', NULL)->delete();
+DB::table('custinactionsprofs')->where('ucret', $userid)->delete();
  DB::delete('delete from creditsalescarts where ucret = ?',[$userid]);
    
    
   
     }
+  
 ///////////////////////////////////////////////////////////////////////
 
   }

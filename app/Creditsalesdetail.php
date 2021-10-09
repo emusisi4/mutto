@@ -12,8 +12,11 @@ class Creditsalesdetail extends Authenticatable
 
    
     protected $fillable = [
-        'productcode', 'unitprice', 'unitcost', 'quantity', 'datesold', 'ucret', 'branch', 'linetotal', 'totalcostprice', 'lineprofit', 'vatamount',
-         'linevat', 'netunitsalewithoutvat', 'netsalewithoutvat', 'unitmeasure', 'itemreceiptno', 'customername', 'invoiceno'
+        'productcode', 'unitprice', 'unitcost', 'quantity', 
+        'datesold', 'ucret', 'branch', 'linetotal', 
+        'totalcostprice', 'lineprofit', 'vatamount',
+         'linevat', 'netunitsalewithoutvat', 'netsalewithoutvat', 
+         'unitmeasure', 'itemreceiptno', 'customername', 'invoiceno'
        
     ];
     public function productName(){

@@ -12,11 +12,12 @@ use App\Branch;
 use App\Product;
 use App\Shopingcat;
 use App\Productsale;
-use App\ Creditsalescart;
+use App\ productstock;
 
-class insertintoproformacartController extends Controller
+class ReceiptcreditsalesController extends Controller
 {
-    
+   
+  
     public function __construct()
     {
        $this->middleware('auth:api');
@@ -29,34 +30,65 @@ class insertintoproformacartController extends Controller
       $userbranch =  auth('api')->user()->branch;
       $userrole =  auth('api')->user()->type;
 
-    //  if($userrole == '101')
-      {
-    //  return   Product::wvith(['userbalancingBranch','branchinBalance'])->latest('id')
-  //  return   Shopingcat::with(['brandName','productCategory','productSupplier','unitMeasure'])->latest('id')
-  return   Creditsalescart::with(['productName','unitMeasureshopingcat'])->orderBy('id', 'Asc')
+            /// getting the latest Sale details for the user 
+        $receiptno = \DB::table('salessummaries') ->where('ucret', '=', $userid)->orderBy('id', 'Desc')->value('invoiceno');
+   
+        return    Productsale::with(['productName','unitmeasureProductssold'])
+       //->orderBy('datesold', 'DESC')
+       ->where('invoiceno', $receiptno)
+       ->orderBy('id', 'Desc')
+        ->paginate(100);
+    
+
+
+      
+    }
+    
+    public function getreceiptno()
+    {
+        $userid =  auth('api')->user()->id;
+        $userbranch =  auth('api')->user()->branch;
+        $userrole =  auth('api')->user()->type;
+       
+        $receiptno = \DB::table('creditsalessummarries') ->where('ucret', '=', $userid)->orderBy('id', 'Desc')->value('invoiceno');
+
+               return response()->json($receiptno);
+  }
   
-  ///  return   Product::latest('id')
-       //  return   Branchpayout::latest('id')
-      ->where('ucret', $userid)
-        ->paginate(20);
-      }
+  public function getreceiptdate()
+  
+  {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+     
+      $receiptdate = \DB::table('creditsalessummarries') ->where('ucret', '=', $userid)->orderBy('id', 'Desc')->value('invoicedate');
+
+             return response()->json($receiptdate);
+}
+public function receiptcashier()
+{
+    
+    $userid =  auth('api')->user()->id;
+    $userbranch =  auth('api')->user()->branch;
+    $userrole =  auth('api')->user()->type;
+   
+    $reuser = \DB::table('creditsalessummarries') ->where('ucret', '=', $userid)->orderBy('id', 'Desc')->value('ucret');
+    $cashiername = \DB::table('users') ->where('id', '=', $reuser)->orderBy('id', 'Desc')->value('name');
+           return response()->json($cashiername);
+}
 
 
-     // if($userrole == '100')
-      {
-      
-      
-     // return   Product::with(['userbalancingBranch','branchinBalance'])->latest('id')
-      
-      // return   Product::latest('id')
-       //  return   Branchpayout::latest('id')
-    //     ->where('del', 0)
-     //   ->paginate(20);
-      
-    }
-      
-    }
-
+public function receipttotal()
+{
+    $userid =  auth('api')->user()->id;
+    $userbranch =  auth('api')->user()->branch;
+    $userrole =  auth('api')->user()->type;
+   
+    $ttonrece = \DB::table('creditsalessummarries') ->where('ucret', '=', $userid)->orderBy('id', 'Desc')->value('invoiceno');
+    $totalonreceipt =    \DB::table('productsales')->where('invoiceno', '=', $ttonrece)->sum('linetotal');
+           return response()->json($totalonreceipt);
+}
    
     public function store(Request $request)
     {
@@ -77,27 +109,20 @@ $product = $request['id'];
 $unitprice = \DB::table('products') ->where('id', '=', $product)->orderBy('id', 'Desc')->value('unitprice');
 $currentproductquantity = \DB::table('products') ->where('id', '=', $product)->orderBy('id', 'Desc')->value('qty');
 $unitcost = \DB::table('products') ->where('id', '=', $product)->value('unitcost');
-$unitmeasure = \DB::table('products') ->where('id', '=', $product)->value('unitmeasure');
 /// checking if the product is on the cart
-$productexistsoncart = \DB::table('creditsalescarts')->where('productcode', '=', $product)->where('ucret', '=', $userid)->count();
-$currentcustomer = \DB::table('custinactionsprofs')->where('ucret', '=', $userid)->value('customername');
+$productexistsoncart = \DB::table('shopingcats')->where('productcode', '=', $product)->where('ucret', '=', $userid)->count();
 if($productexistsoncart < 1)
 {
-
-  $countrecordsontheslip = \DB::table('creditsalescarts')->where('ucret', '=', $userid)->count();
-  $itemreceiptno = $countrecordsontheslip+1;
   $qty = $request['quantity'];
-  $linevat = (($unitprice*0.18)/1.18);
+  $linevat = ($unitprice*0.18);
   $totalvat = $linevat*$qty;
-  Creditsalescart::Create([
+        Shopingcat::Create([
     
-      'customername' => $currentcustomer,
+
       'productcode' => $request['id'],
       'quantity' => $request['quantity'],
       'datesold' => $datepaid,
-      'itemreceiptno' => $itemreceiptno,
       'branch' => $branch,
-      'unitmeasure' => $unitmeasure,
       'unitprice' => $unitprice,
       'unitcost' => $unitcost,
       'netsalewithoutvat' => ((($unitprice*( $request['quantity']))-($unitcost*( $request['quantity']))))-($totalvat),
@@ -123,9 +148,9 @@ if($productexistsoncart < 1)
 
         if($productexistsoncart > 0)
 {
-  $currentquantity = \DB::table('creditsalescarts') ->where('productcode', '=', $product)->where('ucret', '=', $userid)->value('quantity');
-  $cp = \DB::table('creditsalescarts') ->where('productcode', '=', $product)->where('ucret', '=', $userid)->value('unitcost');
-  $sp = \DB::table('creditsalescarts') ->where('productcode', '=', $product)->where('ucret', '=', $userid)->value('unitprice');
+  $currentquantity = \DB::table('shopingcats') ->where('productcode', '=', $product)->where('ucret', '=', $userid)->value('quantity');
+  $cp = \DB::table('shopingcats') ->where('productcode', '=', $product)->where('ucret', '=', $userid)->value('unitcost');
+  $sp = \DB::table('shopingcats') ->where('productcode', '=', $product)->where('ucret', '=', $userid)->value('unitprice');
  
 $newquantity = $request['quantity']+$currentquantity;
 $currentproductquantity = \DB::table('products') ->where('id', '=', $product)->orderBy('id', 'Desc')->value('qty');
@@ -134,11 +159,11 @@ $newqtt = $currentproductquantity-$zqty;
 
 
 $qty = $newquantity;
-$linevat = (($unitprice*0.18)/1.18);
+$linevat = ($unitprice*0.18);
 $totalvat = $linevat*$qty;
 
 
-$result = DB::table('creditsalescarts')
+$result = DB::table('shopingcats')
     ->where('productcode', $product)
     ->update([
       'quantity' => $newquantity,
@@ -215,11 +240,11 @@ $this->validate($request,[
         //
      //   $this->authorize('isAdmin'); 
 /// Gettint the product in Question
-$user = Creditsalescart::findOrfail($id);
+$user = Shopingcat::findOrfail($id);
 $userid =  auth('api')->user()->id;
 $branch =  auth('api')->user()->branch;
-$product = \DB::table('creditsalescarts') ->where('id', '=', $id)->where('ucret', '=', $userid)->value('productcode');
-$soldqty = \DB::table('creditsalescarts') ->where('id', '=', $id)->where('ucret', '=', $userid)->value('quantity');
+$product = \DB::table('shopingcats') ->where('id', '=', $id)->where('ucret', '=', $userid)->value('productcode');
+$soldqty = \DB::table('shopingcats') ->where('id', '=', $id)->where('ucret', '=', $userid)->value('quantity');
 $currentpq = \DB::table('products') ->where('id', '=', $product)->value('qty');
 $newqtytoupdate = $currentpq+$soldqty;
 $result = DB::table('products')
@@ -228,7 +253,7 @@ $result = DB::table('products')
         'qty' => $newqtytoupdate,
        
       ]);
-        $user = Creditsalescart::findOrFail($id);
+        $user = Shopingcat::findOrFail($id);
         $user->delete();
     
     }

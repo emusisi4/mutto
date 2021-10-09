@@ -1,5 +1,30 @@
 <style scoped>
+footer {
+  font-size: 30px;
+  color: black;
+  text-align: center;
+}
 
+@page {
+  size: A4;
+  margin: 11mm 17mm 17mm 17mm;
+}
+
+@media print {
+  footer {
+    position: fixed;
+    bottom: 0;
+  }
+
+  .content-block, p {
+    page-break-inside: avoid;
+  }
+
+  html, body {
+    width: 210mm;
+    height: 297mm;
+  }
+}
 .tresed {
    border:none;
 border-top:2px dotted black;
@@ -543,7 +568,7 @@ text-align: center;
                                   
                              <td><div class="musisialignright">   
                                    
-                             <button type="button" v-if="prodcates.unitprice > 0 &&  prodcates.qty > 0  "  class="btn bg-brown waves-effect btn-sm float-right" @click="editProductdetails(prodcates)" >Sell Out  </button>
+                             <button type="button" v-if="prodcates.unitprice > 0 &&  prodcates.qty > 0 && existsausercreditcustomer > 0  "  class="btn bg-brown waves-effect btn-sm float-right" @click="editProductdetails(prodcates)" >Sell Out  </button>
                              
                              </div></td>
                                  <!-- <td style="background-color:#eeeeee "><div class="musisialign"> {{formatPrice(prodcates.netinvoiceincome)}} </div></td>
@@ -625,10 +650,10 @@ text-align: center;
                             
                             <ul class="list-unstyled text-right">
                                <!-- <div class="invoice-logo"><img width="100" src="images/invoice.png" alt="Invoice logo"></div> -->
-                                <li><b>Invoice Number :  </b></li>
-                                <li>Customer Order No. :{{customerordernoinaction}} </li>
+                                <!-- <li><b>Invoice Number : {{creditinvoicenumbertoprint}} </b></li> -->
+                                <!-- <li>Customer Order No. :{{customerordernoinaction}} </li> -->
 
-                                <li>Order Date : {{gettheinvoiceinactiondate}}</li>
+                                <!-- <li>Order Date : {{gettheinvoiceinactiondate}}</li> -->
                                
                             </ul>
                         </div>
@@ -638,22 +663,20 @@ text-align: center;
                             <div class="well">
                                 <ul class="list-unstyled mb0">
 
-  <b>SSENNAH GENERAL HARDWARE </b><br>
+  <!-- <b>SSENNAH GENERAL HARDWARE </b><br>
 
   Misindye Jjogo  -  Bukeerere Road<br>
-  P.O Box <br>
-  KAMPALA - Uganda<br>
-Tin Number : 1019044346<br>
+  Tin Number : 1019044346<br>
 Contact : 0702941704 / 0392941704 
-<div class="bethapa-table-header"></div>
+<div class="bethapa-table-header"></div> -->
 
-<b>CUSTOMER DETAILS </b>
+<!-- <b>CUSTOMER DETAILS </b> -->
  
 <!-- <div class="bethapa-table-header"></div> -->
-                                   <li><strong>Name : </strong> {{creditcustomerinaction}}</li>
+                                   <!-- <li><strong>Name : </strong> {{creditcustomerinaction}}</li>
                                     <li><strong>Address : </strong>{{customeraddress}}</li>
                                      <li><strong>Contact :</strong> {{customercontact}}</li>
-                                   <li><strong>Sales Mode : </strong> <b>Obtained on Credit</b></li>
+                                   <li><strong>Sales Mode : </strong> <b>Obtained on Credit</b></li> -->
  <table style="width:100%">
   <thead>
     <tr>
@@ -777,26 +800,25 @@ Contact : 0702941704 / 0392941704
 <div class="ticket" id="print">
  <div class="ticketreceipttitle"  > PROFORMER INVOICE </div>
  <hr>
-      <div class="proformarinvoicedatedetails"  > Invoice Number : </div>
-          <div class="proformarinvoicedatedetails"  > Customer Order No. : </div>
-           <div class="proformarinvoicedatedetails"  > Order Date : </div>
+      <div class="proformarinvoicedatedetails"  > Invoice Number : {{creditinvoicenumbertoprint}}</div>
+          <!-- <div class="proformarinvoicedatedetails"  > Customer Order No. : </div> -->
+           <div class="proformarinvoicedatedetails"  > Order Date : {{getreceiptdate}}</div>
            
 
 
         <div class="proformarinvoicecompanydetails"  ><b> SSENNAH HARDWARE</b> </div>
           <div class="proformarinvoicecompanydetails"  > Misindye Jjoggo - Bukeerere Road  </div>
-           <div class="proformarinvoicecompanydetails"  >P.O Box </div>
-            <div class="proformarinvoicecompanydetails"  > KAMPALA - Uganda </div>
+       
             <div class="proformarinvoicecompanydetails"  > Tin Number : 1019044346 </div>
             <div class="proformarinvoicecompanydetails"  > Contact : 0702941704 / 0392941704 </div>
 <hr>
 
 <b>CUSTOMER DETAILS </b>
 
-
- <div class="proformarinvoicecompanydetails"  > Name {{creditcustomerinaction}} </div>
+<!-- axios.get("api/creditinvoicecustomername").then(({ data }) => (this.creditinvoicecustomername = data)); -->
+ <div class="proformarinvoicecompanydetails"  > Name {{creditinvoicecustomername}} </div>
           <div class="proformarinvoicecompanydetails"  > Address : {{customeraddress}}</div>
-           <div class="proformarinvoicecompanydetails"  >Contact : {{customercontact}} </div>
+           <div class="proformarinvoicecompanydetails"  >Contact : {{customerinvoicecontact}} </div>
             <div class="proformarinvoicecompanydetails"  > Sales Mode : <b>CREDIT</b> </div>
             
 
@@ -830,14 +852,15 @@ Contact : 0702941704 / 0392941704
       <span> <template v-if="salesprint.product_name">	{{salesprint.product_name.productname}}</template></span>
        
       </td>
-      
-        <td class="item-qty">   <span> <template v-if="salesprint.unitmeasure_productssold">	{{salesprint.unitmeasure_productssold.shotcode}}</template></span></span></td>
-         <td class="item-pricetotal" >
+        <td class="item-qty">   <span>{{salesprint.quantity}}</span></td>
+            <td class="item-pricetotal" >
           
         <span>{{formatPrice(salesprint.unitprice)}}</span>
         
       </td>
-      <td class="item-qty">   <span>{{salesprint.quantity}}</span></td>
+        <td class="item-qty">   <span> <template v-if="salesprint.unitmeasure_productssold">	{{salesprint.unitmeasure_productssold.shotcode}}</template></span></span></td>
+     
+    
         <td class="item-pricetotal"> <span> {{formatPrice(salesprint.linetotal)}}</span></td>
                         </tr>
             <tfoot>
@@ -851,7 +874,7 @@ Contact : 0702941704 / 0392941704
 </table>
  <div class="proformarinvoicedatedetails"  > Authorised Company Signtory </div>
 <!-- <div class="ticketdisclaimer"  > Goods once Sold are not returnable </div> -->
- <div class="ticketreceipttitle"  > Build the Best with Materials and tools from Us. </div>
+<footer>  Build the Best with Materials and tools from Us. </footer>
        
        
        
@@ -1222,7 +1245,7 @@ Contact : 0702941704 / 0392941704
                               <img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Proforma Customer Details</h3> 
                 <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;"> </h4> 
                         </div>
-     <form class="form-horizontal" @submit.prevent="editmode ? updateproductCategory():createProformainvoice()">         
+     <form class="form-horizontal" @submit.prevent="editmode ? createProformainvoice():createProformainvoice()">         
      <div id="invoiceS">
      <div class="">
 
@@ -1329,7 +1352,8 @@ Contact : 0702941704 / 0392941704
 
                   <div  class="modal-footer">
                     <button  v-show="!editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
-                      <button v-show="editmode" type="submit" class="btn btn-success btn-sm" >Update</button>
+                     <button  v-show="editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
+                   
                         <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Close</button >
      </div>
      </form>
@@ -1418,16 +1442,20 @@ currencydetails:[],
             productbrandslist:[],
 carttotal:[],
  gettheinvoiceinactiondate:{},
+ creditinvoicenumbertoprint:{},
          customercontact:{},
          customeraddress:{},
+         creditinvoicecustomername:{},
          salesorderdateinaction:{},
          customerordernoinaction:{},
          creditcustomerinaction:{},
-         gettheinvoiceinactiondate:{},
+      
             ///////////////////////////////////
           brancheslist: null,
          // accessusercoponent : null,
          generalPointofsalecomponentaccess:'',
+         existsausercreditcustomer:'',
+         existanceofcreditcustomer:'',
          branchwalletcomponentaccess:'',
          mainmenuaccessComponent:'',
          submenuaccessComponent : '',
@@ -1516,8 +1544,12 @@ methods:{
 
         
     $('#productreturnsModal').modal('hide');
+    
+     axios.get("api/existsausercreditcustomer").then(({ data }) => (this.existsausercreditcustomer = data));
    axios.get("api/gettheinvoiceinactiondate").then(({ data }) => (this.gettheinvoiceinactiondate = data));
    axios.get("api/creditcustomerinaction").then(({ data }) => (this.creditcustomerinaction = data));
+   
+    
    axios.get("api/customerordernoinaction").then(({ data }) => (this.customerordernoinaction = data));
    axios.get("api/salesorderdateinaction").then(({ data }) => (this.salesorderdateinaction = data));
  
@@ -1529,6 +1561,7 @@ methods:{
   title: 'Record added successfully'
 });
         this.$Progress.finish();
+          axios.get("api/existsausercreditcustomer").then(({ data }) => (this.existsausercreditcustomer = data));         
 
         })
         .catch(()=>{
@@ -1658,7 +1691,13 @@ WinPrint.close();
 
   loadlatestReceiptdetails(){
       axios.get('api/latestreceiptdetails').then(function (response) { this.latestreceiptdetails = response.data;}.bind(this));
-
+      
+       axios.get('api/creditinvoicenumbertoprint').then(function (response) { this.creditinvoicenumbertoprint = response.data;}.bind(this));
+         axios.get('api/gettheinvoiceinactiondate').then(function (response) { this.gettheinvoiceinactiondate = response.data;}.bind(this));
+      axios.get("api/creditinvoicecustomername").then(({ data }) => (this.creditinvoicecustomername = data));
+       axios.get("api/customeraddress").then(({ data }) => (this.customeraddress = data));
+      axios.get("api/customerinvoicecontact").then(({ data }) => (this.customerinvoicecontact = data));
+ axios.get('api/latestcreditsalesreceipt').then(function (response) { this.latestcreditsalesreceipt = response.data;}.bind(this));
 axios.get('/api/receipttotal').then(function (response) { this.receipttotal = response.data;}.bind(this));
   axios.get('/api/receiptcashier').then(function (response) { this.receiptcashier = response.data;}.bind(this));
   axios.get('/api/getreceiptdate').then(function (response) { this.getreceiptdate = response.data;}.bind(this));
@@ -1913,7 +1952,7 @@ if (result.isConfirmed) {
                           'Your Record has been deleted.',
                           'success'
                         )
-                  
+          axios.get("api/existsausercreditcustomer").then(({ data }) => (this.existsausercreditcustomer = data));         
        axios.get("api/existanceofitemsoncart").then(({ data }) => (this.existanceofitemsoncart = data)); 
      axios.get("api/creditsalescartdetails").then(({ data }) => (this.creditsalescartdetails = data));
       axios.get("api/getcattotal").then(({ data }) => (this. carttotal = data));
@@ -2266,7 +2305,7 @@ if (result.isConfirmed) {
      axios.get("api/generalPointofsalecomponentaccess").then(({ data }) => (this.generalPointofsalecomponentaccess = data));
      axios.get("api/mainmenuaccessComponent").then(({ data }) => (this.mainmenuaccessComponent = data));
      axios.get("api/submenuaccessComponent").then(({ data }) => (this.submenuaccessComponent = data));
-
+  axios.get("api/existanceofcreditcustomer").then(({ data }) => (this.existanceofcreditcustomer = data));
 
   },
 
@@ -2546,12 +2585,17 @@ if (result.isConfirmed) {
                  
          
 },// end of methods
-
-
-///////////////////////////////////////////////////
+CreditCustin()
+{
+   axios.get("api/existanceofcreditcustomer").then(({ data }) => (this.existanceofcreditcustomer = data));
+},
+////////////////////////////////////////////////Fmouse///
         created() {
+// 
 
-
+// 
+ axios.get("api/existsausercreditcustomer").then(({ data }) => (this.existsausercreditcustomer = data));
+ axios.get("api/existanceofcreditcustomer").then(({ data }) => (this.existanceofcreditcustomer = data));
  axios.get("api/gettheinvoiceinactiondate").then(({ data }) => (this.gettheinvoiceinactiondate = data));
    axios.get("api/creditcustomerinaction").then(({ data }) => (this.creditcustomerinaction = data));
    axios.get("api/customerordernoinaction").then(({ data }) => (this.customerordernoinaction = data));

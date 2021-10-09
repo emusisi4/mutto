@@ -69,31 +69,20 @@ class APIController extends Controller
 
 
     
-    public function     customercontact()
-    {
-        $userid =  auth('api')->user()->id;
-        $userbranch =  auth('api')->user()->branch;
-        $userrole =  auth('api')->user()->type;
-        $cinact =    \DB::table('custinactionsprofs')->where('ucret', '=', $userid)->value('customername');
+  //   public function     customercontact()
+  //   {
+  //       $userid =  auth('api')->user()->id;
+  //       $userbranch =  auth('api')->user()->branch;
+  //       $userrole =  auth('api')->user()->type;
+  //       $cinact =    \DB::table('custinactionsprofs')->where('ucret', '=', $userid)->value('customername');
 
-        $customerorderno =    \DB::table('customers')->where('id', '=', $cinact)->value('contact');
+  //       $customerorderno =    \DB::table('customers')->where('id', '=', $cinact)->value('contact');
        
-               return response()->json($customerorderno);
-  }
+  //              return response()->json($customerorderno);
+  // }
     
     
     
-    public function     customeraddress()
-    {
-        $userid =  auth('api')->user()->id;
-        $userbranch =  auth('api')->user()->branch;
-        $userrole =  auth('api')->user()->type;
-        $cinact =    \DB::table('custinactionsprofs')->where('ucret', '=', $userid)->value('customername');
-
-        $customerorderno =    \DB::table('customers')->where('id', '=', $cinact)->value('location');
-       
-               return response()->json($customerorderno);
-  }
     
     public function     customerordernoinaction()
     {
@@ -119,18 +108,69 @@ class APIController extends Controller
        
                return response()->json($customername);
   }
+  
+  public function gettheinvoiceinactiondate()
+  {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+      $cname =    \DB::table('creditsalessummarries')->where('ucret', '=', $userid)->orderBy('id', 'Desc')->value('invoicedate');
+    //  $customername =    \DB::table('customers')->where('id', '=', $cname)->value('customername');
+           
+      return response()->json($cname);
+}
+  public function creditinvoicenumbertoprint()
+  {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+      $cname =    \DB::table('creditsalessummarries')->where('ucret', '=', $userid)->orderBy('id', 'Desc')->value('invoiceno');
+    //  $customername =    \DB::table('customers')->where('id', '=', $cname)->value('customername');
+           
+      return response()->json($cname);
+}
 
+public function customerinvoicecontact()
+  {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+      $cname =    \DB::table('creditsalessummarries')->where('ucret', '=', $userid)->orderBy('id', 'Desc')->value('customername');
+      $customername =    \DB::table('customers')->where('id', '=', $cname)->value('contact');
+           
+      return response()->json($customername);
+}
 
+  public function     creditinvoicecustomername()
+  {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+      $cname =    \DB::table('creditsalessummarries')->where('ucret', '=', $userid)->orderBy('id', 'Desc')->value('customername');
+      $customername =    \DB::table('customers')->where('id', '=', $cname)->value('customername');
+           
+      return response()->json($customername);
+}
 
-    public function     gettheinvoiceinactiondate()
-    {
-        $userid =  auth('api')->user()->id;
-        $userbranch =  auth('api')->user()->branch;
-        $userrole =  auth('api')->user()->type;
-        $invoiceno =    \DB::table('custinactionsprofs')->where('ucret', '=', $userid)->value('invoicesalesdate');
-       
-               return response()->json($invoiceno);
-  }
+public function customercontact()
+  {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+      $cname =    \DB::table('creditsalessummarries')->where('ucret', '=', $userid)->orderBy('id', 'Desc')->value('customername');
+      $customername =    \DB::table('customers')->where('id', '=', $cname)->value('location');
+             return response()->json($customername);
+}
+public function customeraddress()
+  {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+      $cname =    \DB::table('creditsalessummarries')->where('ucret', '=', $userid)->orderBy('id', 'Desc')->value('customername');
+      $customername =    \DB::table('customers')->where('id', '=', $cname)->value('location');
+             return response()->json($customername);
+}
+   
 
 
 
@@ -2949,6 +2989,20 @@ $comp ='generalexpensescomponent';
    
 }
 
+public function existsausercreditcustomer()
+{
+  $userid =  auth('api')->user()->id;
+  $userbranch =  auth('api')->user()->branch;
+  $userrole =  auth('api')->user()->type;
+  $assignedrole =  auth('api')->user()->mmaderole;
+
+ $roleisallowedtoaccess = \DB::table('custinactionsprofs')
+    ->where('ucret', '=', $userid)
+    ->count();
+
+    return $roleisallowedtoaccess;
+   
+}
 public function gencomponentaccessCahtransactions()
 {
   $userid =  auth('api')->user()->id;

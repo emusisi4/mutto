@@ -342,6 +342,7 @@ Route::apiResources(['cashtransferrecords' => 'API\CashtransfersConroller']);
 Route::apiResources(['incomesourcerecords' => 'API\MyincomsourcesController']);
 Route::apiResources(['latestreceiptdetails' => 'API\ReceiptprintingController']);
 
+Route::apiResources(['latestcreditsalesreceipt' => 'API\ReceiptcreditsalesController']);
 
 Route::apiResources(['expensetypes' => 'API\ExpensetypesController']);
 Route::apiResources(['expenses' => 'API\ExpensesController']);
@@ -479,8 +480,9 @@ Route::apiResources(['generatenewcreditsale' => 'API\SalesoncreditController']);
 
         
 
-
-
+Route::get('customerinvoicecontact', 'APIController@customerinvoicecontact');
+Route::get('creditinvoicenumbertoprint', 'APIController@creditinvoicenumbertoprint');
+Route::get('creditinvoicecustomername', 'APIController@creditinvoicecustomername');
          Route::get('gettheinvoiceinactiondate', 'APIController@gettheinvoiceinactiondate');
          Route::get('customercontact', 'APIController@customercontact');
          Route::get('customeraddress', 'APIController@customeraddress');
@@ -504,6 +506,8 @@ Route::apiResources(['generatenewcreditsale' => 'API\SalesoncreditController']);
 
 Route::get('generalProductscomponentAccess', 'APIController@generalProductscomponentAccess');
 Route::get('gencomponentaccessCahtransactions', 'APIController@gencomponentaccessCahtransactions');
+
+Route::get('existsausercreditcustomer', 'APIController@existsausercreditcustomer');
 
 Route::get('gencomponentaccessCompanyincomes', 'APIController@gencomponentaccessCompanyincomes');
 Route::get('gencomponentaccessExpenses', 'APIController@gencomponentaccessExpenses');
