@@ -456,6 +456,15 @@ Creditsalessummarry::Create([
 
 //////
 
+DB::table('products')
+//->where('statementdate', $ddddtt)
+->update([
+'discountstatus' => 0,
+'discountedprice' => 0
+
+]);
+
+
 DB::table('customerstatements')->where('customername', NULL)->delete();
 DB::table('creditsalessummarries')->where('customername', NULL)->delete();
 DB::table('custinactionsprofs')->where('ucret', $userid)->delete();

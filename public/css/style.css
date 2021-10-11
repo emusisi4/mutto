@@ -2954,9 +2954,14 @@ section.content {
       color: #555; }
   .card .header {
     color: #555;
-    padding: 20px;
+    padding: 10px;
     position: relative;
-    border-bottom: 1px solid rgba(204, 204, 204, 0.35); }
+    border-bottom: 9px solid rgb(144 74 45);
+    /* background: #3095b7; */
+    text-align: center;
+   
+    /* margin-top: -69px; */
+  }
     .card .header .header-dropdown {
       position: absolute;
       top: 20px;
@@ -2977,9 +2982,9 @@ section.content {
           color: #000; }
     .card .header h2 {
       margin: 0;
-      font-size: 25px;
+      font-size: 35px;
       font-weight: bold;
-     
+      font-family: emoji;
       color: #111; }
       .card .header h2 small {
         display: block;
@@ -4175,12 +4180,12 @@ section.content {
 
 
     .nav-tabs > li > a {
-    border: none !important;
-    color: #393f81 !important;
-    font-size: 24px;
-    font-weight: bold;
-    border-radius: 20px;
-    background: padding-box;
+      border: none !important;
+      color: #904a2d !important;
+      font-size: 21px;
+      font-weight: bold;
+      border-radius: 20px;
+      background: padding-box;
    }
       .nav-tabs > li > a:hover, .nav-tabs > li > a:active, .nav-tabs > li > a:focus {
         background-color: transparent !important; }

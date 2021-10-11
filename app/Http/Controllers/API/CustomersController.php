@@ -9,7 +9,7 @@ use App\Mainmenucomponent;
 use App\Submheader;
 use App\Branch;
 use App\Customer;
-
+use App\Customersreporttoview;
 class CustomersController extends Controller
 {
    
@@ -74,21 +74,75 @@ class CustomersController extends Controller
     
   ]);
     }
-
+//     public function customerstamento(){
    
+//       $userid =  auth('api')->user()->id;
+//       $userbranch =  auth('api')->user()->branch;
+//       $userrole =  auth('api')->user()->type;
+//       $existanceinthetable = \DB::table('customersreporttoviews')->where('ucret', '=', $userid)->count();
+     
+     
+     
+//       if($existanceinthetable < 1 )
+//       { Customersreporttoview::Create([
+//         //  'branch', 'ucret','startdate','enddate',
+//           //    'productcode' => $request['productcode'],
+//               'customername' => $request['customername'],
+//               // 'enddate' => $request['enddate'],
+//               // 'supplier' => $request['suppliername'],
+//               'ucret' => $userid,
+            
+//           ]);
+// }
+// if($existanceinthetable > 0 )
+// { 
+//   Customersreporttoview::Create([
+//   //  'branch', 'ucret','startdate','enddate',
+//     //    'productcode' => $request['productcode'],
+//         'startdate' => $request['startdate'],
+//         'enddate' => $request['enddate'],
+//         'supplier' => $request['suppliername'],
+//         'ucret' => $userid,
+      
+//     ]);
+// }
+// }
     
+    public function customerstamento(){
+   
+        $userid =  auth('api')->user()->id;
+        $userbranch =  auth('api')->user()->branch;
+        $userrole =  auth('api')->user()->type;
+        $existanceinthetable = \DB::table('customersreporttoviews')->where('ucret', '=', $userid)->count();
+       
+       
+       
+        if($existanceinthetable < 1 )
+        { Customersreporttoview::Create([
+          //  'branch', 'ucret','startdate','enddate',
+            //    'productcode' => $request['productcode'],
+                'customername' => $request['customername'],
+                // 'enddate' => $request['enddate'],
+                // 'supplier' => $request['suppliername'],
+                'ucret' => $userid,
+              
+            ]);
+}
+if($existanceinthetable > 0 )
+{ 
+  $result = DB::table('customersreporttoviews')
+  ->where('ucret', $userid)
+  ->update([
+    'customername' => $request['customername']
+  ]);
+}
+}
     public function show($id)
     {
         //
     }
-   
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+  
+    
     public function update(Request $request, $id)
     {
         //

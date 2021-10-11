@@ -11,13 +11,8 @@ class Expensereporttoview extends Authenticatable
     use HasApiTokens, Notifiable;
 
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
-        'branch', 'startdate', 'enddate', 'ucret','reporttype',
+        'branch', 'startdate', 'enddate', 'ucret','category','wallet'
     ];
     
 

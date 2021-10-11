@@ -334,34 +334,34 @@ pre {
                                
                                 <li role="presentation" class="active" v-if="categoriesComponentaccess > 0">
                                     <a href="#home_with_icon_title" @click="loadProductcategories()" data-toggle="tab">
-                                        <i class="material-icons"></i> CATEGORIES
+                                        <i class="material-icons"></i> Categories
                                     </a>
                                 </li>
-                                <li role="presentation">
+                                <!-- <li role="presentation">
                                     <a href="#profile_with_icon_title" v-if="brandsComponentaccess > 0" @click="loadProductbrands()" data-toggle="tab">
                                         <i class="material-icons"></i> BRANDS
                                     </a>
-                                </li>
+                                </li> -->
                                 <li role="presentation">
                                     <a href="#messages_with_icon_title" v-if="unitsofmeasureComponentaccess > 0" @click="loadUnitofmeasure()" data-toggle="tab">
-                                        <i class="material-icons"></i> UNIT OF MEASURE
+                                        <i class="material-icons"></i> Unit Measures
                                     </a>
                                 </li>
                                 <li role="presentation">
                                     <a href="#settings_with_icon_title" v-if="companyproductsComponentaccess > 0" @click="laodProductdetails()" data-toggle="tab">
-                                        <i class="material-icons"></i> ITEMS / PRODUCTS
+                                        <i class="material-icons"></i> Items / Products
                                     </a>
                                 </li>
 
                                     <li role="presentation">
                                     <a href="#one_with_icon_title" v-if="purchasesComponentaccess > 0" @click="loadPurchaseInvoicessummary()" data-toggle="tab">
-                                        <i class="material-icons"></i> PURCHASES
+                                        <i class="material-icons"></i> Purchases
                                     </a>
                                 </li>
                                     
                                     <li role="presentation">
                                     <a href="#two_with_icon_title" v-if="purchaserecordsComponentaccess > 0" @click="loadPurchaserecords()" data-toggle="tab">
-                                        <i class="material-icons"></i> PURCHASES RECORDS
+                                        <i class="material-icons"></i> Purchase Details
                                     </a>
                                 </li>
                                  <li role="presentation">
@@ -985,7 +985,7 @@ pre {
 
                  
 
-                <th colspan="2"  style="font-size: 18px; text-align:center;    
+                <th colspan="3"  style="font-size: 18px; text-align:center;    
                border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> PRICE SETTINGS</th>
 
               <th colspan="2"  style="font-size: 18px; text-align:center;    
@@ -1010,9 +1010,9 @@ pre {
 
 <th>  Cost Price ( {{currencydetails}} ) </th>
 <th>  Selling Price ({{currencydetails}})</th>
-
+<th>  Discount ({{currencydetails}})</th>
 <th>  Line Profit ( {{currencydetails}} ) </th>
-<th>  Status</th>
+<th>  Disc. Status</th>
 <th> </th>
 </tr>
 <!--  -->
@@ -1030,11 +1030,22 @@ pre {
 
                    <td><div class="musisialignright">  {{formatPrice(prodcates.unitcost)}} </div></td>
                 <td><div class="musisialignright">  {{formatPrice(prodcates.unitprice)}} </div></td>
-
+                <td><div class="musisialignright">  {{formatPrice(prodcates.discountedprice)}} </div></td>
 
 
                  <td><div class="musisialignright">  {{formatPrice(prodcates.unitprice - prodcates.unitcost)}} </div></td>
-                <td><div class="musisialignright">  {{formatPrice()}} </div></td>
+                <td>
+                  <div class="switch" v-if="prodcates.discountstatus == '1' " >
+                    <!-- @click="activatediscountedprice" -->
+                                    <label><input type="checkbox"  disabled checked=""><span class="lever"></span><b>ON</b></label>
+                                </div> 
+  <div class="switch"  v-if="prodcates.discountstatus == '0' ">
+                                    <label><input type="checkbox"  disabled ><span class="lever"></span>Off</label>
+                                </div> 
+                             
+                 
+                 
+                </td>
                         
                               
                                   
@@ -1158,24 +1169,9 @@ pre {
                                         </div>
                                     </div>
                                 </div>
+                                
 
-                                   <!-- <div class="row clearfix">
-                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="email_address_2">Brand</label>
-                                    </div>
-                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                     <select name ="brand" v-model="form.brand" id ="brand" class="form-control-sm show-tick" data-live-search="true"  :class="{'is-invalid': form.errors.has('brand')}">
-                    <option value="">   </option>
-                    <option v-for='data in productbrandslist' v-bind:value='data.id'>{{ data.brandname }}</option>
-
-                    </select>
-                    <has-error :form="form" field="category"></has-error>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> -->
+                                  
 
 
 
@@ -1261,8 +1257,42 @@ pre {
                                         </div>
                                     </div>
                                 </div>
+ <div v-show="editmode" class ="bethapa-table-sectionheader">Price Alteration Settings (Discount / Increment)</div>   
+                                 <div v-show="editmode" class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Discount Status</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                     <select name ="discountstatus" v-model="form.discountstatus" id ="discountstatus" class="form-control-sm show-tick" data-live-search="true"  :class="{'is-invalid': form.errors.has('category')}">
+                    
+                    <option></option>
+                      <option value="0"> No Discount</option>
+                        <option value="1"> Activate Discount</option>
 
+                    </select>
+                    <has-error :form="form" field="discountstatus"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 
+
+                                 <div class="row clearfix" v-show="editmode">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Discounted Amount</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                               <input v-model="form.discountedprice" type="number" name="discountedprice"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('discountedprice') }">
+                    <has-error :form="form" field="discountedprice"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
    
                               
 
@@ -2889,6 +2919,56 @@ companycontactperson:'',
 
 methods:{
 
+
+
+       activatediscountedprice(id){
+   Swal.fire({
+  title: 'Activate Discount',
+  text: "You are setting the selling price to be the dicounted or Increased Price",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes'
+}).then((result) => {
+
+/// send request ti
+if (result.isConfirmed) {
+   this.form.post('api/confirmthediscounted').then(()=>{
+
+  
+                        Swal.fire(
+                          'Confirmed!',
+                          'Activated',
+                          'success'
+                        )
+                  
+       axios.get("api/existanceofitemsoncart").then(({ data }) => (this.existanceofitemsoncart = data)); 
+     axios.get("api/shopingcartdetails").then(({ data }) => (this.shopingcartdetails = data));
+      axios.get("api/getcattotal").then(({ data }) => (this. carttotal = data));
+       axios.get("api/shopcashbalance").then(({ data }) => (this. shopcashbalance = data));
+     
+     //  axios.get('api/shopcashbalance').then(function (response) { this.shopcashbalance = response.data;}.bind(this));
+     //  $('#receiptrintModal').modal('show');
+  
+  }).catch(()=>{
+     Swal.fire({  
+         icon: 'error',
+        title: 'Failed',
+       text: "Transaction was Not successfull. Contact the Administrator for More Assistance",});
+
+  });
+
+
+}                  
+
+
+
+})
+
+            },     
+          
+          
    searchit: _.debounce(() => {
         Fire.$emit('searching');
       },1000),

@@ -74,7 +74,16 @@ class InserintocartController extends Controller
   
 /// getting the Unit Price
 $product = $request['id'];
+$discountedstatus = \DB::table('products') ->where('id', '=', $product)->orderBy('id', 'Desc')->value('discountstatus');
+
+if($discountedstatus < 1)
+{
 $unitprice = \DB::table('products') ->where('id', '=', $product)->orderBy('id', 'Desc')->value('unitprice');
+}
+if($discountedstatus > 0)
+{
+$unitprice = \DB::table('products') ->where('id', '=', $product)->orderBy('id', 'Desc')->value('discountedprice');
+}
 $currentproductquantity = \DB::table('products') ->where('id', '=', $product)->orderBy('id', 'Desc')->value('qty');
 $unitcost = \DB::table('products') ->where('id', '=', $product)->value('unitcost');
 $unitmeasure = \DB::table('products') ->where('id', '=', $product)->value('unitmeasure');

@@ -458,7 +458,7 @@ INCOME STATEMENT REPORT
           <tr v-for="prodcates in incomestatementreportrecords.data" :key="prodcates.id">
              <td>{{prodcates.id  }}</td>
  
-                                 <td>{{prodcates.datedone | myDate2 }}</td>
+                                 <td>{{prodcates.statementdate | myDate2 }}</td>
  
                                  <td><div class="musisialignright">  {{formatPrice(prodcates.totalsales)}} </div></td>
                                   <td><div class="musisialignright">  {{formatPrice(prodcates.totalcost)}} </div></td>

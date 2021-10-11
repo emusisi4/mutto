@@ -38,17 +38,18 @@ class DailyexpensesreportsummaryController extends Controller
         $userrole =  auth('api')->user()->type;
       //  id, startdate, enddate, branch, monthname, yearname, walletname, categoryname, typename, ucret, created_at, updated_at, sortby
       //  $reporttype = \DB::table('expensesreporttoviewdetails')->where('ucret', '=', $userid)->value('reporttype');
-        $monthtodisplay = \DB::table('expensesreporttoviewdetails')->where('ucret', '=', $userid)->value('monthname');
-        $yeartodisplay = \DB::table('expensesreporttoviewdetails')->where('ucret', '=', $userid)->value('yearname');
-        $branch = \DB::table('expensesreporttoviewdetails')->where('ucret', '=', $userid)->value('branch');
-        $startdat = \DB::table('expensesreporttoviewdetails')->where('ucret', '=', $userid)->value('startdate');
-        $enddate = \DB::table('expensesreporttoviewdetails')->where('ucret', '=', $userid)->value('enddate');
+     //   $monthtodisplay = \DB::table('expensesreporttoviewdetails')->where('ucret', '=', $userid)->value('monthname');
+       // $yeartodisplay = \DB::table('expensesreporttoviewdetails')->where('ucret', '=', $userid)->value('yearname');
+       // $branch = \DB::table('expensesreporttoviewdetails')->where('ucret', '=', $userid)->value('branch');
+        $startdat = \DB::table('expensereporttoviews')->where('ucret', '=', $userid)->value('startdate');
+        $enddate = \DB::table('expensereporttoviews')->where('ucret', '=', $userid)->value('enddate');
 
       
        // return   Expdailyreport::with(['branchnameDailycodes','expenseName'])->orderby('amount', 'Desc')
         return   Expdailyreport::orderby('datedone', 'Desc')
         ->whereBetween('datedone', [$startdat, $enddate])
-      
+     //   ->whereBetween('datedone', [$startdat, $enddate])
+
             ->paginate(35);
 
       

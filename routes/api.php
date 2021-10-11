@@ -23,6 +23,7 @@ Route::apiResources(['newfishcurrentcodes' => 'API\CurrentmacinecodesController'
 // Sena Hardware Start
 Route::apiResources(['customerdetailsrecords' => 'API\CustomersController']);
 
+Route::get('customerstamento', 'API\CustomersController@customerstamento');
 Route::apiResources(['addnewcustomerrecord' => 'API\CustomersController']);
 Route::apiResources(['products' => 'API\ExpensesController']);
 Route::apiResources(['inserintocart' => 'API\InserintocartController']);
@@ -51,6 +52,7 @@ Route::get('getreceiptno', 'API\ReceiptprintingController@getreceiptno');
 
 Route::apiResources(['confirmsaleoncredit' => 'API\ConfirmcreditsaleController']);
 
+Route::apiResources(['confirmthediscounted' => 'API\ChangediscountsettingsController']);
 Route::apiResources(['makesalepur' => 'API\ConfirmpositemsController']);
 Route::apiResources(['appenditemtotheinvoice' => 'API\AppenditemstoinvoiceController']);
 Route::apiResources(['newinvoicegeneration' => 'API\NewinvoicegenerationController']);
@@ -92,6 +94,9 @@ Route::get('salesreportsatartingdate', 'API\CompanyReportsController@salesreport
 Route::get('totaldailylineprofitrangereports', 'API\CompanyReportsController@totaldailylineprofitrangereports');
 Route::get('totaldailysaleswithouttaxgrossrangereports', 'API\CompanyReportsController@totaldailysaleswithouttaxgrossrangereports');
 Route::get('totaldailysalesvatinclusiverangereports', 'API\CompanyReportsController@totaldailysalesvatinclusiverangereports');
+Route::get('totalexpensesinselectionfilters', 'API\CompanyReportsController@totalexpensesinselectionfilters');
+
+Route::get('totalexpensesinselectiond', 'API\CompanyReportsController@totalexpensesinselectiond');
 Route::get('totaldailytotalcostrangereports', 'API\CompanyReportsController@totaldailytotalcostrangereports');
 Route::get('totaldailygrossprofitrangereports', 'API\CompanyReportsController@totaldailygrossprofitrangereports');
 Route::get('totaldailytotalvatrangereports', 'API\CompanyReportsController@totaldailytotalvatrangereports');
@@ -209,6 +214,15 @@ Route::get('findExpensefromexpenseslist', 'API\ExpensesController@findExpensefro
 Route::apiResources(['productcategoryFiltertoview' => 'API\ProductrecordsFilterController']);
 Route::apiResources(['productdetailsFiltertoview' => 'API\ProductdetailsFilterController']);
 Route::apiResources(['setdatestoviewdailyreport' => 'API\ReportstoviewController']);
+
+Route::apiResources(['saveexpensereportdetailstoView' => 'API\ExpensereportstoviewController']);
+
+
+
+
+
+
+
 
 Route::apiResources(['setthereceiptintoreturnitems' => 'API\ReturnsalesitemsController']);
 

@@ -306,8 +306,46 @@ if($supplier == '900')
     
     
     }
-
-
+    public function totalexpensesinselectionfilters()
+    {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+    
+      $startdate = \DB::table('expensereporttoviews')->where('ucret', $userid )->value('startdate');
+      $enddate = \DB::table('expensereporttoviews')->where('ucret', $userid )->value('enddate');
+      $branch = \DB::table('expensereporttoviews')->where('ucret', $userid )->value('branch');
+      $wallet = \DB::table('expensereporttoviews')->where('ucret', $userid )->value('wallet');
+      $category = \DB::table('expensereporttoviews')->where('ucret', $userid )->value('category');
+      $totalcashin = \DB::table('madeexpenses')
+       
+      ->whereBetween('datedone', [$startdate, $enddate])
+      ->where('approvalstate', 1)
+      ->sum('amount');
+        return $totalcashin;
+    
+    
+    }
+    public function totalexpensesinselectiond()
+    {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+    
+      $startdate = \DB::table('expensereporttoviews')->where('ucret', $userid )->value('startdate');
+      $enddate = \DB::table('expensereporttoviews')->where('ucret', $userid )->value('enddate');
+      $branch = \DB::table('expensereporttoviews')->where('ucret', $userid )->value('branch');
+      $wallet = \DB::table('expensereporttoviews')->where('ucret', $userid )->value('wallet');
+      $category = \DB::table('expensereporttoviews')->where('ucret', $userid )->value('category');
+      $totalcashin = \DB::table('madeexpenses')
+       
+      ->whereBetween('datemade', [$startdate, $enddate])
+      ->where('approvalstate', 1)
+      ->sum('amount');
+        return $totalcashin;
+    
+    
+    }
     public function totaldailylineprofitrangereports()
     {
       $userid =  auth('api')->user()->id;

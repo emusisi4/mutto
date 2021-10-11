@@ -361,8 +361,15 @@ Incomestatementsummary::Create([
           
         ]);
 }
+//// Resetting the discounts
 
+DB::table('products')
+//->where('statementdate', $ddddtt)
+->update([
+'discountstatus' => 0,
+'discountedprice' => 0
 
+]);
 
 //////
  DB::delete('delete from shopingcats where ucret = ?',[$userid]);

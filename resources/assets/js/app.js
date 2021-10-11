@@ -112,7 +112,7 @@ let routes = [
 
 { path: '/hrmsettintings', component: require('./components/Hrsettings.vue') },
 { path: '/settings', component: require('./components/Settings.vue') },
-{ path: '/example', component: require('./components/ExampleComponent.vue') },
+// { path: '/example', component: require('./components/ExampleComponent.vue') },
 { path: '/hrms', component: require('./components/HumanresourcemainComponent.vue') },
 { path: '/expenses', component: require('./components/Expensescomponent.vue') },
 { path: '/fishmanagement', component: require('./components/Fishcodessetting.vue') },
@@ -128,6 +128,7 @@ let routes = [
 { path: '/fishcodeperformance', component: require('./components/Fishcodeperformance.vue')},
  { path: '/companypayments', component: require('./components/Companypayments.vue')},
  { path: '/productsreturnsdeston', component: require('./components/Salesandpurcasesreturns.vue')},
+ { path: '/exprepssena', component: require('./components/Senaexpensesreport.vue')},
  
   ]
   const router = new VueRouter({
@@ -163,7 +164,7 @@ Vue.filter('firstletterCapital', function(text){
     return value;
   });
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+
 
 const app = new Vue({
     el: '#app',

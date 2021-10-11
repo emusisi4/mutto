@@ -573,32 +573,33 @@ text-align: center;
                 </div>
                 <!-- #END# Basic Examples -->
                 <!-- Badges -->
-                <div class="col-lg-6 col-md-6 col-sm-4 col-xs-4">
+
+
+
+
+  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
                             <h2>
-                                RECEIPT DETAILS
-                               <!-- <button type="button" class="btn btn-default waves-effect m-r-20" data-toggle="modal" data-target="#receiptrintModal">MODAL - DEFAULT SIZE</button>
-                            -->
-
-                            
-                            <div class="mysalessect" > 
-                           <!-- <button  class="btn bg-black waves-effect waves-light" data-toggle="modal" data-target="#productreturnsModal"> Sales Return </button>  -->
-
-                    </div>
-                            </h2>
-                         
-                        <div class="body">
-                           <!-- <div class="mysalessect">               -->
-                             <div >  
-
-                           </div>
-                           
-                        <div class="mysalessect" >
+                         RECEIPT DETAILS
+   <div class="mysalessect" >
                            <button     @click.prevent="printreceipt" @mouseover="loadlatestReceiptdetails" target="_blank" class="btn bg-brown btn-xs waves-effect"> Print Last Sale recept </button> 
-
+<button v-if="existanceofitemsoncart > 0" type="button" class="btn btn-success btn-xs float-right" @click="completesale" >Complete  </button>
                     </div>
- <table style="width:100%">
+                            
+                            </h2>
+                        
+                        </div>
+                        <div class="body">
+                          <!-- <div class="mysalessect"> 
+                    <input type="search" placeholder="Search" aria-label="Search">
+                          </div> -->
+
+
+
+
+
+   <table style="width:100%">
   <thead>
     <tr>
          <th class="tresed">#</th>
@@ -663,12 +664,29 @@ text-align: center;
  
 <!-- <button type="button" class="btn btn-danger btn-xs" @click="emptymycart" >Empty Cart </button>   -->
 
-<button v-if="existanceofitemsoncart > 0" type="button" class="btn btn-success btn-xs float-right" @click="completesale" >Complete  </button>
-                            
+
+
+
+                    
+  
+                   
                         </div>
-                        
                     </div>
-                    <div class="mysalessect2"> 
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="mysalessect2"> 
             
                          
 
@@ -767,8 +785,13 @@ text-align: center;
                                             </div>
                                         </div>
                                          </div>
-                        </div>
-                </div>
+
+
+
+
+
+
+             
 
 
                 
