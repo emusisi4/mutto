@@ -403,29 +403,37 @@ Customer Statement Report  : From  {{salesreportsatartingdate}} to {{salesreport
     <div> 
 
       
-          <!-- <div class="mysalessect">  -->
-           <div class="mysalessect2"> 
- <form @submit.prevent="savedatestoVieedailyreport()">
+           <div class="mysalessect"> 
+                <form @submit.prevent="savecustomerstatementFilter()">
                  
                       <div class="form-group">
-
+       
                                         <label>Start Date</label>
-  <input v-model="form.startdate" type="date" name="startdate" id="startdate" v-on:change="tosubmitProductcategoryfilter" >
+  <input v-model="form.startdate" type="date" name="startdate" id="startdate" v-on:change="tosubmitProductdetailfilter" >
 
       <label>End Date</label>
-  <input v-model="form.enddate" type="date" name="enddate" id="enddate" v-on:change="tosubmitProductcategoryfilter" > 
+  <input v-model="form.enddate" type="date" name="enddate" id="enddate" v-on:change="tosubmitProductdetailfilter" > 
+<label><b>Customer : </b></label>
+                    <select style="min-width:300px;" name ="customername" v-model="form.customername" id ="customername"  data-live-search="true"  v-on:change="tosubmitProductdetailfilter"  :class="{'is-invalid': form.errors.has('customername')}">
+                    <option>   </option>
+                    <option v-for='data in customerslist' v-bind:value='data.id'>{{ data.customername }}</option>
+
+                    </select>
+                                <has-error :form="form" field="customername"></has-error>         
                               
-             <button type="submit" style="display:none" id="submit" hidden="hidden" name= "submit" ref="buttontosubmitProductcategoryFilter" class="btn btn-primary btn-sm">Saveit</button>         
+             <button type="submit" style="display:none" id="submit" hidden="hidden" name= "submit" ref="buttontosubmitProductdetailFilter" class="btn btn-primary btn-sm">Saveit</button>         
 
                                 
             
        
                    
           </div>
-      
+   
 
                 </form>
-                  </div> 
+ 
+           </div>
+        
                
 </div>
      
@@ -570,7 +578,8 @@ Customer Statement Report  : From  {{salesreportsatartingdate}} to {{salesreport
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailygrossprofitrangereports)}} </div>
+                <!-- {{currencydetails}} {{formatPrice(totaldailygrossprofitrangereports)}} -->
+<div class="musisialignright">  </div>
 </th>
 
 
@@ -578,18 +587,21 @@ Customer Statement Report  : From  {{salesreportsatartingdate}} to {{salesreport
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailytotalvatrangereports)}} </div>
+                <!--  {{currencydetails}} {{formatPrice(totaldailytotalvatrangereports)}} -->
+<div class="musisialignright"> </div>
 </th>
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailysaleswithouttaxgrossrangereports)}} </div>
+                <!-- {{currencydetails}} {{formatPrice(totaldailysaleswithouttaxgrossrangereports)}} -->
+<div class="musisialignright">  </div>
 </th>
 
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldailytotalcostrangereports)}} </div>
+                <!--  {{currencydetails}} {{formatPrice(totaldailytotalcostrangereports)}} -->
+<div class="musisialignright"> </div>
 </th>
 
 
@@ -1290,61 +1302,7 @@ Customer Statement Report  : From  {{salesreportsatartingdate}} to {{salesreport
                       <button type="button"  class="add-newm" @click="newproductModal" >Add New </button> 
                      </div>
 
-    <form @submit.prevent="saveproductdetailsFilter()">
-                 
-                      <div class="form-group">
-       
-<label><b>CATEGORY : </b></label>
-                    <select style="min-width:300px;" name ="iteminquestion" v-model="form.iteminquestion" id ="iteminquestion"  data-live-search="true"  v-on:change="tosubmitProductdetailfilter"  :class="{'is-invalid': form.errors.has('iteminquestion')}">
-                    <option value="900"> All  </option>
-                    <option v-for='data in productcategorieslist' v-bind:value='data.id'>{{ data.catname }}</option>
-
-                    </select>
-                                <has-error :form="form" field="iteminquestion"></has-error>         
-                   
-  <!-- <label>BRAND :</label>
-                    <select style="min-width:300px;" name ="brandname" v-model="form.brandname" id ="brandname"  class="show-tick" data-live-search="true" v-on:change="tosubmitProductdetailfilter"   :class="{'is-invalid': form.errors.has('brandname')}">
-                    <option value="900"> All  </option>
-                     <option v-for='data in productbrandslist' v-bind:value='data.id'>{{ data.brandname }}</option>
-
-                    </select>
-                    
-
-                                <has-error :form="form" field="brandname"></has-error> -->
-
-
-<label>Records Per page :</label>
-                    <select name ="displaynumber" v-model="form.displaynumber" id ="displaynumber" class="show-tick"   v-on:change="tosubmitProductdetailfilter"  :class="{'is-invalid': form.errors.has('expensename')}">
-                    
-                    
-                      <option value="5"> 5  </option>
-                      <option value="10"> 10  </option>
-                       <option value="20"> 20  </option>
-                      <option value="30"> 30  </option>
-                    
-                      <option value="50"> 50  </option>
-                       <option value="100"> 100  </option>
-                      <option value="150"> 150  </option>
-                       <option value="200"> 200  </option>
-                      <option value="300"> 300  </option>
-                    <option value="900"> All  </option>
-                  
-                    </select>
-                                <has-error :form="form" field="displaynumber"></has-error>
-
-
-                           
-             <button type="submit" style="display:none" id="submit" hidden="hidden" name= "submit" ref="buttontosubmitProductdetailFilter" class="btn btn-primary btn-sm">Saveit</button>         
-
-                                
-            
-       
-                   
-          </div>
-      
-
-                </form>
-              <div class="bethapa-table-header"></div>
+           <div class="bethapa-table-header"></div>
    <div class="mysalessect"> 
   <input type="text" placeholder="Enter Item Name " v-model="search" v-on:keyup="searchit" @keyup="searchit" class="formcont2">
 
@@ -2343,25 +2301,6 @@ Customer Statement Report  : From  {{salesreportsatartingdate}} to {{salesreport
     <form @submit.prevent="saveinvoiceInaction()">
                  
                       <div class="form-group">
-<!--                 
-                   
-  <label>Branch :</label>
-                    <select name ="branchname" v-model="form.branchname" id ="branchname"  class="form-control-sm show-tick" data-live-search="true" v-on:change="tosubmitProductcategoryfilter"   :class="{'is-invalid': form.errors.has('branchname')}">
-                    <option value="900"> All  </option>
-                    <option v-for='data in mybrancheslist' v-bind:value='data.branchno'>{{ data.branchname }}</option>
-
-                    </select>
-                    
-
-                                <has-error :form="form" field="branchname"></has-error> -->
-<!-- 
-<label>CATEGORY :</label>
-                    <select name ="iteminquestion" v-model="form.iteminquestion" id ="iteminquestion" class="form-control-sm show-tick" data-live-search="true"  v-on:change="tosubmitProductcategoryfilter"  :class="{'is-invalid': form.errors.has('iteminquestion')}">
-                    <option value="900"> All  </option>
-                    <option v-for='data in productcategorieslist' v-bind:value='data.id'>{{ data.catname }}</option>
-
-                    </select>
-                                <has-error :form="form" field="iteminquestion"></has-error> -->
 
 <label>Select the invoice :</label>
                    <select name ="invoiceinaction"  v-model="form.invoiceinaction" id ="invoiceinaction"  class="show-tick" data-live-search="true" v-on:change="tosubmitInvoivenumbertoview"  :class="{'is-invalid': form.errors.has('invoiceinaction')}">
@@ -2985,6 +2924,7 @@ productsandpriceslist:[],
             ///////////////////////////////////
           brancheslist: [],
           productcategorieslist:[],
+          customerslist:[],
           productbrandslist:[],
         unitmeasurelist:[],
          ///// Access authorities
@@ -3183,6 +3123,53 @@ updateunitcost(event) {
         this.form.invoicebalance = (this.form.finalcost)-(this.form.amountpaid)-(this.form.amountbeingpaid)
       },
 
+
+
+
+savecustomerstatementFilter(){
+
+                                this.loading = true;
+                                this.form.post('api/customerstatementdetailsFilter')
+                                .then(()=>{
+  
+  axios.get("api/customerstatementrecords").then(({ data }) => (this.customerstatementrecords = data));
+ 
+//axios.get("api/makeexpenseofficeuser").then(({ data }) => (this.officemadeexpensesrecords = data));
+                                // Toast.fire({
+                                // icon: 'success',
+                                // title: 'Record Added Successfully'
+                                // });
+
+                                                              this.loading = false;
+
+                                  this.form.clear();
+        this.form.reset();
+                                })
+                                .catch(()=>{
+
+                                })
+
+}, 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  saveproductdetailsFilter(){
 
                                 this.loading = true;
@@ -3264,14 +3251,16 @@ axios.get("api/gettheinvoicetotalwithoutvat").then(({ data }) => (this.gettheinv
 
 
 
-  savedatestoVieedailyreport(){
+  savedatesforcustomerstatement(){
 
                                 this.loading = true;
-                                this.form.post('api/setdatestoviewdailyreport')
+                                this.form.post('api/satecustomerstatementtoview')
                                 .then(()=>{
 
 
 //////////////////
+
+axios.get("api/customerstatementrecords").then(({ data }) => (this.customerstatementrecords = data));
  axios.get("api/salesdetailscostofthesalesmadetotalrange").then(({ data }) => (this.salesdetailscostofthesalesmadetotalrange = data));
           axios.get("api/salesdetailsalesmadetotalrange").then(({ data }) => (this.salesdetailsalesmadetotalrange = data));
            axios.get("api/salesdetailvatcollectedtotalrange").then(({ data }) => (this.salesdetailvatcollectedtotalrange = data));
@@ -3287,29 +3276,29 @@ axios.get("api/salesreportsatartingdate").then(({ data }) => (this.salesreportsa
         axios.get("api/salesreportdetailslineprofit").then(({ data }) => (this.salesreportdetailslineprofit = data));
        axios.get("api/productbrandsrecords").then(({ data }) => (this.productbrandsrecords = data));
     /////
-axios.get("api/salesdetailsreportdetailedrecords").then(({ data }) => (this.salesdetailsreportdetailedrecords = data));
-axios.get("api/customerstatementrecords").then(({ data }) => (this.customerstatementrecords = data));
-axios.get('/api/dailyvatcollectedforselection').then(function (response) { this.dailyvatcollectedforselection = response.data;}.bind(this));
-axios.get('/api/dailytotalsalesforselection').then(function (response) { this.dailytotalsalesforselection = response.data;}.bind(this));
-axios.get('/api/salesreportsummaryrecords').then(function (response) { this.salesreportsummaryrecords = response.data;}.bind(this));
-//////////////////////
- axios.get("api/totaldailysalesvatinclusiverangereports").then(({ data }) => (this.totaldailysalesvatinclusiverangereports = data));
-        axios.get("api/totaldailytotalcostrangereports").then(({ data }) => (this.totaldailytotalcostrangereports = data));
-        axios.get("api/totaldailygrossprofitrangereports").then(({ data }) => (this.totaldailygrossprofitrangereports = data));
-          axios.get("api/totaldailytotalvatrangereports").then(({ data }) => (this.totaldailytotalvatrangereports = data));
-        axios.get("api/totaldailysaleswithouttaxgrossrangereports").then(({ data }) => (this.totaldailysaleswithouttaxgrossrangereports = data));
-        axios.get("api/totaldailylineprofitrangereports").then(({ data }) => (this.totaldailylineprofitrangereports = data));
-///////////////
+// axios.get("api/salesdetailsreportdetailedrecords").then(({ data }) => (this.salesdetailsreportdetailedrecords = data));
+// axios.get("api/customerstatementrecords").then(({ data }) => (this.customerstatementrecords = data));
+// axios.get('/api/dailyvatcollectedforselection').then(function (response) { this.dailyvatcollectedforselection = response.data;}.bind(this));
+// axios.get('/api/dailytotalsalesforselection').then(function (response) { this.dailytotalsalesforselection = response.data;}.bind(this));
+// axios.get('/api/salesreportsummaryrecords').then(function (response) { this.salesreportsummaryrecords = response.data;}.bind(this));
+// //////////////////////
+//  axios.get("api/totaldailysalesvatinclusiverangereports").then(({ data }) => (this.totaldailysalesvatinclusiverangereports = data));
+//         axios.get("api/totaldailytotalcostrangereports").then(({ data }) => (this.totaldailytotalcostrangereports = data));
+//         axios.get("api/totaldailygrossprofitrangereports").then(({ data }) => (this.totaldailygrossprofitrangereports = data));
+//           axios.get("api/totaldailytotalvatrangereports").then(({ data }) => (this.totaldailytotalvatrangereports = data));
+//         axios.get("api/totaldailysaleswithouttaxgrossrangereports").then(({ data }) => (this.totaldailysaleswithouttaxgrossrangereports = data));
+//         axios.get("api/totaldailylineprofitrangereports").then(({ data }) => (this.totaldailylineprofitrangereports = data));
+// ///////////////
 
-  axios.get("api/salesreportsatartingdate").then(({ data }) => (this.salesreportsatartingdate = data));
-        axios.get("api/salesreportendingdate").then(({ data }) => (this.salesreportendingdate = data));
-        axios.get("api/salesreportdetailstotalsales").then(({ data }) => (this.salesreportdetailstotalsales = data));
-          axios.get("api/salesreportdetailstotalcost").then(({ data }) => (this.salesreportdetailstotalcost = data));
-        axios.get("api/salesreportdetailstotalprofit").then(({ data }) => (this.salesreportdetailstotalprofit = data));
-        axios.get("api/salesreportdetailstotalvat").then(({ data }) => (this.salesreportdetailstotalvat = data));
-          axios.get("api/salesreportdetailsgrosssales").then(({ data }) => (this.salesreportdetailsgrosssales = data));
-        axios.get("api/salesreportdetailslineprofit").then(({ data }) => (this.salesreportdetailslineprofit = data));
-       axios.get("api/productbrandsrecords").then(({ data }) => (this.productbrandsrecords = data));
+  // axios.get("api/salesreportsatartingdate").then(({ data }) => (this.salesreportsatartingdate = data));
+  //       axios.get("api/salesreportendingdate").then(({ data }) => (this.salesreportendingdate = data));
+  //       axios.get("api/salesreportdetailstotalsales").then(({ data }) => (this.salesreportdetailstotalsales = data));
+  //         axios.get("api/salesreportdetailstotalcost").then(({ data }) => (this.salesreportdetailstotalcost = data));
+  //       axios.get("api/salesreportdetailstotalprofit").then(({ data }) => (this.salesreportdetailstotalprofit = data));
+  //       axios.get("api/salesreportdetailstotalvat").then(({ data }) => (this.salesreportdetailstotalvat = data));
+  //         axios.get("api/salesreportdetailsgrosssales").then(({ data }) => (this.salesreportdetailsgrosssales = data));
+  //       axios.get("api/salesreportdetailslineprofit").then(({ data }) => (this.salesreportdetailslineprofit = data));
+  //      axios.get("api/productbrandsrecords").then(({ data }) => (this.productbrandsrecords = data));
 //  axios.get("api/fishcollections").then(({ data }) => (this.fishcollectionrecords = data));
 //axios.get("api/makeexpenseofficeuser").then(({ data }) => (this.officemadeexpensesrecords = data));
                                 // Toast.fire({
@@ -3491,6 +3480,8 @@ paginationResultsProductdetailsrecords(page = 1) {
         axios.get("api/featuresaccessSettings").then(({ data }) => (this.featuresaccessSettings = data));
 axios.get('/api/unitmeasurelist').then(function (response) { this.unitmeasurelist = response.data;}.bind(this));
 axios.get('/api/productbrandslist').then(function (response) { this.productbrandslist = response.data;}.bind(this));
+
+
         //  axios.get('/api/branchDetails').then(function (response) { this.brancheslist = response.data;}.bind(this));
         axios.get("api/brandsComponentaccess").then(({ data }) => (this.brandsComponentaccess = data));
 axios.get("api/categoriesComponentaccess").then(({ data }) => (this.categoriesComponentaccess = data));
@@ -3498,7 +3489,7 @@ axios.get("api/unitsofmeasureComponentaccess").then(({ data }) => (this.unitsofm
 axios.get("api/companyproductsComponentaccess").then(({ data }) => (this.companyproductsComponentaccess = data));
 axios.get("api/purchasesComponentaccess").then(({ data }) => (this.purchasesComponentaccess = data));
 axios.get("api/purchaserecordsComponentaccess").then(({ data }) => (this.purchaserecordsComponentaccess = data));
-axios.get("api/salessummaryComponentaccess").then(({ data }) => (this.salessummaryComponentaccess = data));
+// axios.get("api/salessummaryComponentaccess").then(({ data }) => (this.salessummaryComponentaccess = data));
 
   },
     loadSalesdetailsreportdetailed(){
@@ -4829,11 +4820,11 @@ this.productstoaddtoinvoicerecords = data.data;
 
 
 
+axios.get('/api/customerslist').then(function (response) { this.customerslist = response.data;}.bind(this));
 
+//    axios.get('/api/inputvatamount').then(function (response) { this.inputvatamount = response.data;}.bind(this));
 
-   axios.get('/api/inputvatamount').then(function (response) { this.inputvatamount = response.data;}.bind(this));
-
- axios.get('/api/outputvatamount').then(function (response) { this.outputvatamount = response.data;}.bind(this));
+//  axios.get('/api/outputvatamount').then(function (response) { this.outputvatamount = response.data;}.bind(this));
 
 
 
@@ -4843,23 +4834,23 @@ this.productstoaddtoinvoicerecords = data.data;
 
             this.loadDailysalesreportdetails();
             axios.get("api/getcurrencydetails").then(({ data }) => (this.currencydetails = data));
-               axios.get('/api/productcategorieslist').then(function (response) { this.productcategorieslist = response.data;}.bind(this));
-               axios.get('/api/productbrandslist').then(function (response) { this.productbrandslist = response.data;}.bind(this));
+          //      axios.get('/api/productcategorieslist').then(function (response) { this.productcategorieslist = response.data;}.bind(this));
+          //      axios.get('/api/productbrandslist').then(function (response) { this.productbrandslist = response.data;}.bind(this));
             
-          axios.get('/api/unitmeasurelist').then(function (response) { this.unitmeasurelist = response.data;}.bind(this));
+          // axios.get('/api/unitmeasurelist').then(function (response) { this.unitmeasurelist = response.data;}.bind(this));
            axios.get('/api/supplierslist').then(function (response) { this.supplierslist = response.data;}.bind(this));
-                axios.get('/api/invoiceslist').then(function (response) { this.invoiceslist = response.data;}.bind(this));
-                axios.get('/api/productslist').then(function (response) { this.productslist = response.data;}.bind(this));
-                   axios.get('/api/walletsofeapenselist').then(function (response) { this.walletsofeapenselist = response.data;}.bind(this));
+                // axios.get('/api/invoiceslist').then(function (response) { this.invoiceslist = response.data;}.bind(this));
+                // axios.get('/api/productslist').then(function (response) { this.productslist = response.data;}.bind(this));
+                //    axios.get('/api/walletsofeapenselist').then(function (response) { this.walletsofeapenselist = response.data;}.bind(this));
           
 
-              axios.get("api/inputvatamount").then(({ data }) => (this.inputvatamount = data));
-              axios.get("api/outputvatamount").then(({ data }) => (this.outputvatamount = data));
+              // axios.get("api/inputvatamount").then(({ data }) => (this.inputvatamount = data));
+              // axios.get("api/outputvatamount").then(({ data }) => (this.outputvatamount = data));
            //this.checkBranchescomponentfeatures();
             Fire.$on('AfterAction', () =>{
 this.loadDailysalesreportdetails();
       });
-  setInterval(() =>this.loadvatvalues(),3000);
+  // setInterval(() =>this.loadvatvalues(),3000);
         }
     }
 </script>

@@ -108,21 +108,21 @@ class CustomersController extends Controller
 //     ]);
 // }
 // }
-       
+   
 public function customerstatementrecords()
 {
   $userid =  auth('api')->user()->id;
   $userbranch =  auth('api')->user()->branch;
   $userrole =  auth('api')->user()->type;
-  $productcategory = \DB::table('productdetailsfilters')->where('ucret', $userid )->value('productcategory');
-  $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
-  $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+  $customername = \DB::table('customersreporttoviews')->where('ucret', $userid )->value('customername');
+  $startdate = \DB::table('customersreporttoviews')->where('ucret', $userid )->value('startdate');
+  $enddate = \DB::table('customersreporttoviews')->where('ucret', $userid )->value('enddate');
 
  return   Customerstatement::with(['customerName','createdbyName'])->orderBy('transactiondate', 'Asc')
  /// return   Customerstatement::orderBy('id', 'Desc')
-//  ->whereBetween('datesold', [$startdate, $enddate])
+  ->whereBetween('transactiondate', [$startdate, $enddate])
   
-//  ->where('brand', $productbrand)
+ ->where('customername', $customername)
 //   ->where('del', 0)
     ->paginate(90);
 
@@ -133,7 +133,7 @@ public function customerstatementrecords()
   
 }
 
-    public function customerstamento(){
+    public function satecustomerstatementtoview(){
    
         $userid =  auth('api')->user()->id;
         $userbranch =  auth('api')->user()->branch;

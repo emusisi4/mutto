@@ -64,8 +64,8 @@ Route::apiResources(['productdetailsrecords' => 'API\CompanyproductsController']
 
 //Route::apiResources(['productstoaddtoinvoicerecords' => 'API\CompanyproductsController@purchaseproducts']);
 Route::get('salesreportsummaryrecords', 'API\CompanyReportsController@dailysalesreports');
-Route::get('salesdetailsreportdetailedrecords', 'API\CompanyReportsController@salesdetailsreportdetailedrecords');
-
+// Route::get('salesdetailsreportdetailedrecords', 'API\CompanyReportsController@salesdetailsreportdetailedrecords');
+Route::apiResources(['salesdetailsreportdetailedrecords' => 'API\CompanyproductsController']);
 Route::get('salesdetailscostofthesalesmadetotalrange', 'API\CompanyReportsController@salesdetailscostofthesalesmadetotalrange');
 Route::get('salesdetailsalesmadetotalrange', 'API\CompanyReportsController@salesdetailsalesmadetotalrange');
 Route::get('salesdetailvatcollectedtotalrange', 'API\CompanyReportsController@salesdetailvatcollectedtotalrange');
@@ -212,11 +212,15 @@ Route::get('findUser', 'API\CompanyproductsController@search');
 Route::get('findtheProdctinlist', 'API\CompanyproductsController@searchproductinproductlist');
 Route::get('returnreceiptdetails', 'API\ReturnsalesitemsController@returnreceiptdetails');
 
-
+Route::get('satecustomerstatementtoview', 'API\CustomersController@satecustomerstatementtoview');
 Route::get('findExpensefromexpenseslist', 'API\ExpensesController@findExpensefromexpenseslist');
 
 Route::apiResources(['productcategoryFiltertoview' => 'API\ProductrecordsFilterController']);
 Route::apiResources(['productdetailsFiltertoview' => 'API\ProductdetailsFilterController']);
+
+
+Route::apiResources(['customerstatementdetailsFilter' => 'API\CustomerstatementtoviewController']);
+
 Route::apiResources(['setdatestoviewdailyreport' => 'API\ReportstoviewController']);
 
 Route::apiResources(['saveexpensereportdetailstoView' => 'API\ExpensereportstoviewController']);

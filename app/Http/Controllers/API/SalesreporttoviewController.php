@@ -191,14 +191,7 @@ if($reptov == "expreportbywallet")
 $user->update($request->all());
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    
-    
+      
     
     
     
