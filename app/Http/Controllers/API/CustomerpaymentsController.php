@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\API;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -11,7 +12,8 @@ use App\Branch;
 use App\Customer;
 use App\Customersreporttoview;
 use App\Customerstatement;
-class CustomersController extends Controller
+use App\Customerpayment;
+class CustomerpaymentsController extends Controller
 {
    
     public function __construct()
@@ -50,30 +52,58 @@ class CustomersController extends Controller
 
 
        $this->validate($request,[
-       'customername'   => 'required  |max:191',
-       'description'   => 'required  |max:225',
-       'location' => 'required',
-       'contact'   => 'required'
-       // 'dorder'   => 'sometimes |min:0'
+    //   'customername'   => 'required  |max:191',
+       'narration'   => 'required  |max:225',
+       'dop' => 'required',
+       'mop' => 'required',
+       'amountpaid'   => 'required'
+     //  'dorder'   => 'sometimes |min:0'
      ]);
      $userid =  auth('api')->user()->id;
-
+$currentcustomerbalance = $request['bal'];
   $datepaid = date('Y-m-d');
 //  $inpbranch = $request['branchnametobalance'];
 
 
 
-       return Customer::Create([
+        Customerpayment::Create([
     
 
-      'customername' => $request['customername'],
-     'location'=> $request['location'],
-      'contact' => $request['contact'],
-      'description' => $request['description'],
-      'bal' => $request['balance'],
+      'customername' => $request['id'],
+     'amountpaid'=> $request['amountpaid'],
+      'datepaid' => $request['dop'],
+      'description' => $request['narration'],
+      'reccievedby' => $userid,
+      'mop' => $request['mop'],
       'ucret' => $userid,
     
   ]);
+
+/// Updating the customer Statement
+
+Customerstatement::Create([
+   
+    'customername' =>  $request['id'],
+    'openningbal' => $currentcustomerbalance,
+   'transactiontype' => 2,
+    'transactiondate' =>$request['dop'],  
+    'description'=> 'Customer Payment',
+    'debitamount'=> $request['amountpaid'],
+  
+    'resultatantbalance' => $currentcustomerbalance - $request['amountpaid'],
+   
+              'ucret' => $userid,
+            
+          ]);
+
+
+          /// Updatint the Custoomer balance
+          DB::table('customers')
+          ->where('id', $request['id'])
+          ->update([
+          'bal' =>  $currentcustomerbalance - $request['amountpaid']
+          ]);
+
     }
 //     public function customerstamento(){
    

@@ -256,8 +256,11 @@ pre {
                                 <li role="presentation" class="active"><a href="#home" data-toggle="tab" aria-expanded="false">Customers</a></li>
                                 <li role="presentation" class=""><a href="#profile" @click="loadCustomerdetails()"
                                   data-toggle="tab" aria-expanded="false">Suppliers</a></li>
-                                <!-- <li role="presentation" class=""><a href="#messages" data-toggle="tab" @click="loadIncomesources()" aria-expanded="false">Other Income Sources</a></li>
-                                <li role="presentation" class="active"><a href="#settings" data-toggle="tab" aria-expanded="true">SETTINGS</a></li> -->
+                                <li role="presentation" class=""><a href="#messages" data-toggle="tab"
+                                 @click="loadIncomesources()" aria-expanded="false">Customer Pay In</a></li>
+
+
+                                <li role="presentation"><a href="#settings" data-toggle="tab" aria-expanded="true">Supplier Payouts </a></li>
                             </ul>
 
                             <!-- Tab panes -->
@@ -304,13 +307,13 @@ pre {
      
       <td>{{(prodcates.status)}}</td>
        <td class="musisialignright">{{formatPrice(prodcates.bal)}}</td>
-
+      
 
                                <td>
-                            <div  class="musisialignright">
-      
-       <button type="button"    class="btn  bg-gradient-secondary btn-xs fas fa-edit"  @click="editexpensecategory(prodcates)">Edit</button>
-       <!-- <button type="button"    class="btn  bg-gradient-danger btn-xs fas fa-trash-alt" @click="deleteexpensecategory(prodcates.id)"> DEl </button> -->
+                            <div  class="musisialign">
+       <button type="button"   class="btn btn-success btn-xs waves-effect"  @click="recievecustomerpayment(prodcates)">Recieve Payment</button>
+       <button type="button"   class="btn bg-brown btn-xs waves-effect"  @click="editProductdetails(prodcates)">Edit Record</button>
+       <button type="button"   class="btn bg-black btn-xs waves-effect"  @click="editProductdetails(prodcates)">Print Latest Receipt</button>       <!-- <button type="button"    class="btn  bg-gradient-danger btn-xs fas fa-trash-alt" @click="deleteexpensecategory(prodcates.id)"> DEl </button> -->
  </div>
 </td>
   
@@ -417,7 +420,7 @@ pre {
                                 <div role="tabpanel" class="tab-pane" id="messages">
                                    <div class="bethapa-table-header"></div>
                  <div class="bethapa-table-header">
-                      Other Income Sources 
+                      Customer Payments Details
                       
                       <!-- -->
                       <button type="button" class="add-newm" @click="addnewincomesource" >Add Income Source</button>
@@ -478,47 +481,131 @@ pre {
 
 
 <!-- All modals container  -->
+<div class="modal fade" id="customerpaymentModal">
+   
+         <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">New Product Registration</h3> 
+                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Update Record </h4> 
+                        </div>
+                  <form class="form-horizontal" @submit.prevent="editmode ? recieveCustomercash():recieveCustomercash()"> 
 
-<div class="modal fade" id="addnewExpensecategorymodal">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-        <div  class="modal-content">
-            <div  class="modal-header">
-                <h4  v-show="!editmode"    class="modal-title">ADD NEW RECORD</h4> 
-                <h4  v-show="editmode" class="modal-title" >UPDATE RECORD</h4> 
-                <button  type="button" data-dismiss="modal" aria-label="Close" class="close"><span  aria-hidden="true">×</span></button></div> 
-                 <form class="form-horizontal" @submit.prevent="editmode ? updateexpensecategory():createNewcategory()"> 
-
-                    <div  class="modal-body">
-                  <div class="form-group  row">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">CAT. NAME</label>
-                    <div class="col-sm-6">
-                  <input v-model="form.expcatcatname" type="text" name="expcatcatname"
-                      class="form-control" :class="{ 'is-invalid': form.errors.has('expcatcatname') }">
-                    <has-error :form="form" field="expcatcatname"></has-error>
-                                  </div>
-                   
-      
-                
-                  </div>
+ 
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Customer Name :</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                  <input v-model="form.customername" type="text" name="customername" readonly
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('customername') }">
 
 
-           
-                
-                
-                
-                 <div class="form-group  row">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">DESCRIPTION</label>
-                    <div class="col-sm-6">
-                  <input v-model="form.description" type="text" name="description"
-                      class="form-control" :class="{ 'is-invalid': form.errors.has('description') }">
-                    <has-error :form="form" field="description"></has-error>
-                                  </div>
-                   
-      
-                  </div>
-                 
-                    </div>
+                      
+                    <has-error :form="form" field="customername"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
+                                    <input v-model="form.id" style="display:none" type="text" name="id" readonly>
+
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Current Balance : </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                 <input v-model="form.bal" readonly type="number" name="bal"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('bal') }">
+                    <has-error :form="form" field="bal"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+
+
+  <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Date of Payment :</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                  <input v-model="form.dop" type="date" name="dop"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('dop') }">
+                    <has-error :form="form" field="dop"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+ <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Amount Paid : </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                  <input v-model="form.amountpaid" type="number" name="amountpaid"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('amountpaid') }">
+                    <has-error :form="form" field="amountpaid"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                 <div v-show="editmode" class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Mode of Payment : </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+              <select name ="mop" v-model="form.mop" id ="mop" class="form-control"  :class="{'is-invalid': form.errors.has('mop')}">
+                    
+                    <option></option>
+                      <option value="1"> Cash</option>
+                        <option value="2"> Mobile Money</option>
+                         <option value="3"> Bank</option>
+
+
+                    </select>
+                    <has-error :form="form" field="mop"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                 <div v-show="editmode" class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Narration :</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+             <textarea v-model="form.narration" type="text" name="narration"
+                      class="form-control no-resize" :class="{ 'is-invalid': form.errors.has('narration') }"></textarea>
+                    <has-error :form="form" field="narration"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+
+                             
+   
+                              
+<br>
 
                   <div  class="modal-footer">
                     <button  v-show="!editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
@@ -529,6 +616,8 @@ pre {
                        </div>
                           </div>
                 </div>
+
+
 <!-- Modal add menu -->
 <div class="modal fade" id="addnewcompanyexpensemodal">
         <div class="modal-dialog modal-dialog-top modal-lg">
@@ -1631,6 +1720,11 @@ expenseslist:{},
                 daterecieved:'',
                  expensecategory : '',
                  walletexpense:'',
+                 customername:'',
+              contact   :'',
+                location :'',
+                   bal :'',
+
    expensetypes : '',
    incomesource:'',
                 email:'',
@@ -2167,6 +2261,17 @@ makethetransfer(){
 
 
 
+
+
+
+  recievecustomerpayment(customerdetailsrecords){
+                this.editmode = true;
+                 this.form.clear();
+        this.form.reset();
+        this.form.fill(customerdetailsrecords);
+
+$('#customerpaymentModal').modal('show');
+            },   
 
 
 
@@ -2925,7 +3030,29 @@ if (result.isConfirmed) {
     },
 
     
+recieveCustomercash(){
+      this.$Progress.start();
+        this.form.post('api/recievethecustomerPayment')
+        .then(()=>{
 
+         
+    $('#customerpaymentModal').modal('hide');
+    this.form.reset();
+       axios.get("api/customerdetailsrecords").then(({ data }) => (this.customerdetailsrecords = data));
+   
+
+  Toast.fire({
+  icon: 'success',
+  title: 'Customer Payment Recieved'
+});
+        this.$Progress.finish();
+//axios.get("api/authorisedcomponents").then(({ data }) => (this.allowedrolecomponentsObject = data));
+        })
+        .catch(()=>{
+          
+        })
+         
+    },
 createNewcompanyexpense(){
       this.$Progress.start();
         this.form.post('api/expenses')

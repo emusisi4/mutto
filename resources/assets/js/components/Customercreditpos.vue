@@ -568,7 +568,7 @@ text-align: center;
                                   
                              <td><div class="musisialignright">   
                                    
-                             <button type="button" v-if="prodcates.unitprice > 0 &&  prodcates.qty > 0 && existsausercreditcustomer > 0  "  class="btn bg-brown waves-effect btn-sm float-right" @click="editProductdetails(prodcates)" >Sell Out  </button>
+                             <button type="button" v-if="prodcates.creditsellingprice > 0 &&  prodcates.qty > 0 && existsausercreditcustomer > 0  "  class="btn bg-brown waves-effect btn-sm float-right" @click="editProductdetails(prodcates)" >Sell Out  </button>
                              
                              </div></td>
                                  <!-- <td style="background-color:#eeeeee "><div class="musisialign"> {{formatPrice(prodcates.netinvoiceincome)}} </div></td>

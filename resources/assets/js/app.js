@@ -129,7 +129,7 @@ let routes = [
  { path: '/companypayments', component: require('./components/Companypayments.vue')},
  { path: '/productsreturnsdeston', component: require('./components/Salesandpurcasesreturns.vue')},
  { path: '/exprepssena', component: require('./components/Senaexpensesreport.vue')},
- 
+ { path: '/customerstamento', component: require('./components/Customerstatement.vue')},
   ]
   const router = new VueRouter({
     mode: 'history',

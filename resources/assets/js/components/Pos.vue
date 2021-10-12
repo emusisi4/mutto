@@ -463,7 +463,7 @@ text-align: center;
                     <div class="card">
                         <div class="header">
                             <h2>
-                          COMPANY ITEMS AND PRICE LIST  
+                          ITEMS PRICE LIST  
                             
                             </h2>
                         
@@ -653,7 +653,7 @@ text-align: center;
     </tr>
     <tr>
       <td colspan="5">Tax : </td>
-     <td>{{currencydetails}} {{formatPrice(0.18*carttotal)}}</td>
+     <td>{{currencydetails}} {{formatPrice((0.18*carttotal)/1.18)}}</td>
     </tr>
     <tr>
       <td colspan="5">Total :</td>

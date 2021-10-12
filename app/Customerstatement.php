@@ -12,12 +12,15 @@ class Customerstatement extends Authenticatable
 
    
     protected $fillable = [
-         'customername', 'transactiontype', 'transactiondate', 'description', 'amount', 'ucret', 'resultatantbalance'
-       
+         'customername', 'transactiontype', 'transactiondate', 'description', 'openningbal', 'amount', 'debitamount', 'ucret', 'resultatantbalance'       
     ];
-    public function productName(){
+    public function customerName(){
         // creating a relationship between the students model 
-        return $this->belongsTo(Product::class, 'productcode'); 
+        return $this->belongsTo(Customer::class, 'customername'); 
+    }
+    public function createdbyName(){
+        // creating a relationship between the students model 
+        return $this->belongsTo(User::class, 'ucret'); 
     }
     
     public function brandName(){

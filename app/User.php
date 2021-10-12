@@ -34,7 +34,10 @@ class User extends Authenticatable
         return $this->hasMany(Branchanduser::class, 'username', 'id'); 
     }
 
-
+    public function createdbyName(){
+        // creating a relationship between the students model 
+        return $this->hasMany(Salesreturn::class, 'ucret', 'id'); 
+    }
 
     public function productSaleuser(){
         // creating a relationship between the students model 

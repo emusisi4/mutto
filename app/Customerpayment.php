@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Customer extends Authenticatable
+class Customerpayment extends Authenticatable
 {
     use HasApiTokens, Notifiable;
 
@@ -14,7 +14,7 @@ class Customer extends Authenticatable
     
    
     protected $fillable = [
-    'customername', 'contact', 'location', 'del',  'ucret', 'bal', 'status', 'description'       
+       'customername', 'amountpaid', 'datepaid', 'reccievedby', 'description','mop', 'ucret'   
     ];
     
     public function customerName(){

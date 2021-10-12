@@ -418,6 +418,7 @@ $newcustomerbalance = $customerbalance+$totallineforinvoice;
 Customerstatement::Create([
    
     'customername' => $customerinquestion,
+    'openningbal' => $customerbalance,
    'transactiontype' => 1,
     'transactiondate' =>$invoicedatetaken,  
     'description'=> 'Recieved Goods on Credit',

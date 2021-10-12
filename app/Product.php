@@ -17,7 +17,7 @@ class Product extends Authenticatable
 
         'productname', 'uracode', 'category', 'unitmeasure', 'rol', 'qty', 'ucret',
          'brand', 'description', 'unitcost', 'unitprice', 'del','salesturnover',
-         'discountstatus','discountedprice'
+         'discountstatus','discountedprice','creditsellingprice'
        
     ];
     

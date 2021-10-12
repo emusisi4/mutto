@@ -78,7 +78,7 @@ $discountedstatus = \DB::table('products') ->where('id', '=', $product)->orderBy
 
 if($discountedstatus < 1)
 {
-$unitprice = \DB::table('products') ->where('id', '=', $product)->orderBy('id', 'Desc')->value('unitprice');
+$unitprice = \DB::table('products') ->where('id', '=', $product)->orderBy('id', 'Desc')->value('creditsellingprice');
 }
 if($discountedstatus > 0)
 {
