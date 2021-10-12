@@ -7663,7 +7663,7 @@ fieldset[disabled] .form-control {
       padding-left: 0; 
       background-color: #e9edf2;
      
-      border-image: url("images/bg-l.png");
+      /* border-image: url("images/bg-l.png"); */
     }
       .sidebar .menu .list li.active > :first-child span {
         font-weight: bold; }

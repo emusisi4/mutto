@@ -48,7 +48,17 @@
 <!-- Custom Css -->
 <link href="css/style.css" rel="stylesheet">
 <link href="css/mystyle.css" rel="stylesheet">
-<link href="css/sree-code.css" rel="stylesheet" />
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.css" rel="stylesheet" />
+    <!-- <link href="side-bar.css" rel="stylesheet" /> -->
+
+<link href="css/bootstrap-theme.css" rel="stylesheet" />
+<link rel="stylesheet" href="css/all.css">
+<link rel="stylesheet" href="css/all.min.css">
+
+
+    <!-- Custom styles -->
+    <link href="css/sree-code.css" rel="stylesheet" />
     <link href="css/sree-main.css" rel="stylesheet" />
 <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
 <link href="css/themes/all-themes.css" rel="stylesheet" />
@@ -221,6 +231,7 @@ foreach ($allowedsubmenu as $rowallsub)
             
       
         </aside>
+        
         <!-- #END# Left Sidebar -->
        
        
