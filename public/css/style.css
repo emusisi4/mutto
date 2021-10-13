@@ -7568,7 +7568,7 @@ fieldset[disabled] .form-control {
   transition: all 0.5s;
   font-family: "Roboto", sans-serif;
   background: #fdfdfd;
-  width: 300px;
+  width: 340px;
   overflow: hidden;
   display: inline-block;
   height: calc(100vh - 70px);
@@ -7734,9 +7734,10 @@ fieldset[disabled] .form-control {
           font-weight: bold;
           font-size: 20px;
           overflow: hidden;
-          border-bottom-style: dashed;
-          border-bottom-color: #722f2f;
-          border-bottom-width: 2px;
+          border-bottom: 1px solid #885959;
+          /* border-bottom-style: dashed; */
+          /* border-bottom-color: #722f2f; */
+          /* border-bottom-width: 2px; */
           width: 100%; }
       .sidebar .menu .list .ml-menu {
         list-style: none;
