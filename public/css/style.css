@@ -4304,7 +4304,7 @@ section.content {
 .modal .modal-header {
   border: none;
 
-  background: #412e0f;
+  background: #184b5c;
   padding: 25px 25px 5px 25px; }
   .modal .modal-header .modal-title {
     font-weight: bold;
@@ -4326,7 +4326,7 @@ section.content {
 
 .modal .modal-footer {
   border: none;
-  background: #5d5151;
+  background: #184b5cbd;
  }
 
 .modal-col-red {
