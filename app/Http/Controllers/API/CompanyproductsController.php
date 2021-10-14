@@ -31,6 +31,7 @@ class CompanyproductsController extends Controller
   if($productcategory != '900' )
     {
       return   Product::with(['brandName','productCategory','productSupplier','unitMeasure'])->orderBy('qty', 'Desc')
+      ->orderBy('unitprice', 'Desc')->orderBy('unitcost', 'Desc')
   ->where('category', $productcategory)
   //  ->where('brand', $productbrand)
     ->where('del', 0)
@@ -39,6 +40,7 @@ class CompanyproductsController extends Controller
  if($productcategory == '900' )
  {
    return   Product::with(['brandName','productCategory','productSupplier','unitMeasure'])->orderBy('qty', 'Desc')
+   ->orderBy('unitprice', 'Desc')->orderBy('unitcost', 'Desc')
 //->where('category', $productcategory)
 // ->where('brand', $productbrand)
  ->where('del', 0)
