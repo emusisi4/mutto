@@ -70,7 +70,8 @@ class InserintocartController extends Controller
      $userid =  auth('api')->user()->id;
      $branch =  auth('api')->user()->branch;
   $datepaid = date('Y-m-d');
-
+  $yearmade = date('Y', strtotime($datepaid));
+  $monthmade = date('m', strtotime($datepaid));
   
 /// getting the Unit Price
 $product = $request['id'];
@@ -111,6 +112,8 @@ if($productexistsoncart < 1)
       'netunitsalewithoutvat' => $unitprice-$unitcost-$linevat,
       'vatamount'=> $totalvat,
       'linevat'=> $linevat,
+      'monthmade'=> $monthmade,
+      'yearmade'=> $yearmade,
       'linetotal' => ($unitprice*( $request['quantity'])),
      'totalcostprice'  => ($unitcost*( $request['quantity'])),
      'lineprofit'  => (($unitprice*( $request['quantity']))-($unitcost*( $request['quantity']))),

@@ -140,6 +140,8 @@ $invoiceno = $inv.$dto;
      'datesold' => $user->datesold,
      'vatamount'=> $user->vatamount, 
      'itemreceiptno'=> $user->itemreceiptno, 
+     'monthmade'=> $user->monthmade, 
+     'yearmade'=> $user->yearmade, 
      'linevat'=> $user->linevat, 
      'branch' => $user->branch, 
      'linetotal' => $user->linetotal,
@@ -231,6 +233,8 @@ $dto88 = date('Y-m-d');
           'totalcost' => $totalcostoftheinvoice,
           'otherincomes'=> $incomestatementotherincomes,
           'expenses'=> $incomestatementexpenses,
+          'monthmade'=> $monthmade,
+          'yearmade'=> $yearmade,
            'totalsales' => ($totallineforinvoice-$totalvatoninvoice),   
           'incomesourcedescription' =>  'Sales',   
            'grossprofit' => $totalnetsaleswithoutvatinvoice,
@@ -248,7 +252,9 @@ $dto88 = date('Y-m-d');
                   'sourceoftransaction' => 2,
                   'typeoftransaction'=> 2,
                   'descriptionoftransaction'=> 'Product Purchase',
-                   'transactionamount' => ($totalcostoftheinvoice),   
+                   'transactionamount' => ($totalcostoftheinvoice), 
+                   'mothmade'=> $monthmade,
+                   'yearmade' => ($yearmade),   
                   'incomesourcedescription' =>  'On Purchases',   
                     'ucret' => $userid,
                           
@@ -265,7 +271,9 @@ $dto88 = date('Y-m-d');
                           'typeoftransaction'=> 1,
                           'descriptionoftransaction'=> 'Sales',
                            'transactionamount' => ($totallineforinvoice-$totalvatoninvoice),   
-                          'incomesourcedescription' =>  'From Sales Made',   
+                          'incomesourcedescription' =>  'From Sales Made',  
+                          'mothmade'=> $monthmade,
+                          'yearmade' => ($yearmade),    
                             'ucret' => $userid,
                                   
                                 ]);
@@ -349,7 +357,8 @@ Incomestatementsummary::Create([
   'totalsales' =>$incomestatementtotalsales,  
   'otherincomes'=> $incomestatementotherincomes,
   'expenses'=> $incomestatementexpenses,
-
+  'mothmade'=> $monthmade,
+                   'yearmade' => ($yearmade),   
   'grossprofitonsales' => $incomestatementtotalsales-$incomestatementtotalcost,
 'netprofitbeforetaxes' => $incomestatementtotalsales-$incomestatementtotalcost+$incomestatementotherincomes-$incomestatementexpenses,
     

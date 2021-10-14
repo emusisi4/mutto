@@ -15,7 +15,7 @@ class Incomestatementsummary extends Authenticatable
     protected $fillable = [
        
       
-        'statementdate', 'totalsales', 'totalcost', 'grossprofitonsales', 'otherincomes', 'expenses', 'netprofitbeforetaxes', 'ucret', 'del'
+       'yearmade','monthmade', 'statementdate', 'totalsales', 'totalcost', 'grossprofitonsales', 'otherincomes', 'expenses', 'netprofitbeforetaxes', 'ucret', 'del'
     ];
 
 

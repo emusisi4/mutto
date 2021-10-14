@@ -17,7 +17,8 @@ class Incomestatementrecord extends Authenticatable
       //  'netprofitbeforetax', 'ucret', 'incomestatementdate', 'incomerefrenceid', 'incomesourcedescription'
 
        'totalsales', 'totalcost', 'grossprofit', 'otherincomes', 'expenses', 'netprofitbeforetax', 'ucret', 'incomestatementdate', 'incomerefrenceid', 
-       'incomesourcedescription', 'typeoftransaction', 'amountoftransaction', 'dateoftransaction', 'sourceoftransaction', 'transactionamount', 'status'
+       'incomesourcedescription', 'typeoftransaction', 'amountoftransaction', 'dateoftransaction', 'sourceoftransaction', 'transactionamount', 
+       'status','yearmade','mothmade'
 
     ];
 

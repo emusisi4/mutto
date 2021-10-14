@@ -13,7 +13,8 @@ class Shopingcat extends Authenticatable
    
     protected $fillable = [
         'vatamount','linevat','productcode','quantity','unitcost','totalcostprice','lineprofit', 'datesold', 'status',
-        'ucret','branch','linetotal','unitprice','supplier','unitmeasure','invoiceno','netsalewithoutvat','netunitsalewithoutvat','itemreceiptno'
+        'ucret','branch','linetotal','unitprice','supplier','unitmeasure','invoiceno','netsalewithoutvat','netunitsalewithoutvat','itemreceiptno','monthmade',
+        'yearmade'
        
     ];
     public function productName(){
