@@ -60,6 +60,9 @@ Route::apiResources(['makesalepur' => 'API\ConfirmpositemsController']);
 Route::apiResources(['appenditemtotheinvoice' => 'API\AppenditemstoinvoiceController']);
 Route::apiResources(['newinvoicegeneration' => 'API\NewinvoicegenerationController']);
 Route::apiResources(['productdetailsrecords' => 'API\CompanyproductsController']);
+Route::apiResources(['saveproducttotransist' => 'API\ProducttransferController']);
+Route::apiResources(['confirmationtransferdetails' => 'API\ConfirmstocktransferController']);
+Route::get('gettransferexistanceforuser', 'API\ProducttransferController@gettransferexistanceforuser');
 //Route::apiResources(['salesreportsummaryrecords' => 'API\CompanyReportsController@dailysalesreports']);
 
 //Route::apiResources(['productstoaddtoinvoicerecords' => 'API\CompanyproductsController@purchaseproducts']);
@@ -72,7 +75,15 @@ Route::get('salesdetailvatcollectedtotalrange', 'API\CompanyReportsController@sa
 Route::get('salesdetailsgrossprofittotalrange', 'API\CompanyReportsController@salesdetailsgrossprofittotalrange');
 
 
+Route::get('unitfromname', 'API\ProducttransferController@unitfromname');
+Route::get('unittoname', 'API\ProducttransferController@unittoname');
+Route::get('producttoname', 'API\ProducttransferController@producttoname');
 
+Route::get('producttocode', 'API\ProducttransferController@producttocode');
+Route::get('qtyintransit', 'API\ProducttransferController@qtyintransit');
+Route::get('transferdadt', 'API\ProducttransferController@transferdadt');
+Route::get('productfromcode', 'API\ProducttransferController@productfromcode');
+Route::get('productfromname', 'API\ProducttransferController@productfromname');
 
 
 

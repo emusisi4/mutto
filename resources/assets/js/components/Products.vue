@@ -893,7 +893,7 @@ pre {
                                  
                                  
    <div class="bethapa-table-header">
-                  COMPANY PRODUCT DETAILS
+                  PRODUCT DETAILS
                   <!-- v-if="allowedtoaddbranch > 0 " -->
                       <button type="button"  class="add-newm" @click="newproductModal" >Add New </button> 
                      </div>
@@ -1022,7 +1022,7 @@ pre {
 
 <th>  Credit Price ({{currencydetails}})</th>
 <th>  Status</th>
-<th>  Discounted Price ({{currencydetails}})</th>
+<th>  Price ({{currencydetails}})</th>
 
 
 
@@ -1083,12 +1083,19 @@ pre {
                                   
                              <td><div class="musisialignright">   
                                    
-                          <button type="button"   class="btn bg-brown btn-xs waves-effect"  @click="editProductdetails(prodcates)">Edit Record</button>
+                          <button type="button"   class="btn bg-brown btn-xs waves-effect"  @click="editProductdetails(prodcates)">Edit</button>
                         
 
 
 
-                            <button type="button"  class="btn bg-deep-orange btn-xs waves-effect" @click="deleteUnitofmeasure(prodcates.id)"> Delete Record </button>
+                            <button type="button"  class="btn bg-deep-orange btn-xs waves-effect" @click="deleteUnitofmeasure(prodcates.id)"> Del </button>
+        <button type="button" v-if="gettransferexistanceforuser< 1"   class="btn bg-brown btn-xs waves-effect"  @click="productstockTransfer(prodcates)">Stock Transfer</button>
+                        
+
+
+
+<button v-if="gettransferexistanceforuser > 0" type="button" class="btn bg-blue btn-xs waves-effect" data-toggle="modal" data-target="#productintransitModal">View Transit</button>
+
 
     
                              </div></td>
@@ -1348,8 +1355,326 @@ pre {
                 </div>
 
 
+<!-- product in transit -->
+
+<div class="modal fade" id="productintransitModal">
+         <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Product in Transit</h3> 
+                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;"> </h4> 
+                        </div>
+                  <form class="form-horizontal" @submit.prevent="compoleteProducttransfer()"> 
+
+  <div class ="bethapa-table-sectionheader">Product in Transit Details</div>   
+
+                           <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Product Reference Code : </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                               {{productfromcode}}
+      
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Product Name : </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                             {{productfromname}}
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                        
+
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Unit Measure : </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                       {{unitfromname}}
 
 
+                     
+                    
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+ <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Quantity Available : </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                {{qtyintransit}}
+  
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                  
+ <div class ="bethapa-table-sectionheader">Stock transfer Details</div> 
+      <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Transfer date</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                               
+                                               {{transferdadt}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+ <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Quantity transfered : </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+
+                                              {{qtyintransit}}
+ 
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+  
+
+ <div class ="bethapa-table-sectionheader">Destined Product details</div> 
+  <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Product Refrence ID : </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                              {{producttocode}} 
+                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Product Name : </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                              {{producttoname}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+    <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Unit Measure : </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                         {{unittoname}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                              
+
+
+                  <div  class="modal-footer">
+                     
+
+<button v-if="gettransferexistanceforuser > 0" type="submit" class="btn bg-blue btn-xs waves-effect"
+   data-toggle="modal" data-target="#productintransitModal">Check Transit Details</button>
+
+                  
+                        <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Close</button >
+                        </div>
+                 </form>
+                       </div>
+                          </div>
+                </div>
+
+
+
+
+
+
+
+
+
+<!--  -->
+<div class="modal fade" id="productstocktransferModal">
+         <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">New Product Registration</h3> 
+                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Transfer Product Stock </h4> 
+                        </div>
+                  <form class="form-horizontal" @submit.prevent="editmode ? createProductintransit():createProductintransit()"> 
+
+  <div class ="bethapa-table-sectionheader">Product in Transit Details</div>   
+
+                           <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Product Reference Code : </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                  <input v-model="form.id" readonly type="text" name="id"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('id') }">
+                    <has-error :form="form" field="id"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Product Name : </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                  <input v-model="form.productname" readonly type="text" name="productname"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('productname') }">
+                    <has-error :form="form" field="productname"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                               
+
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Unit Measure : </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                    
+
+
+                       <input v-model="form.unitmeasure" style="display:none"  readonly type="text" name="unitmeasure">
+                    
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+ <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Quantity Available : </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                  <input v-model="form.qty" readonly type="number" name="qty"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('rol') }">
+                    <has-error :form="form" field="rol"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                  
+ <div class ="bethapa-table-sectionheader">Stock transfer Details</div> 
+      <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Transfer date</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                  <input v-model="form.transferdate" type="date" name="transferdate"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('transferdate') }">
+                    <has-error :form="form" field="transferdate"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+ <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Quantity transfered : </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                  <input v-model="form.transferquantity" type="number" name="transferquantity"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('transferquantity') }">
+                    <has-error :form="form" field="transferquantity"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+        
+
+ <div class ="bethapa-table-sectionheader">Destined Product details</div> 
+  <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Product Refrence ID : </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+
+                                                  <input  v-model="form.productrefrenceiddes" type="text" name="productrefrenceiddes"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('productrefrenceiddes') }">
+                    <has-error :form="form" field="productrefrenceiddes"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            
+
+
+                              
+
+
+                  <div  class="modal-footer">
+                    <button  v-if="gettransferexistanceforuser < 1" type="submit" class="btn btn-primary btn-sm">Initiate Transfer</button> 
+                     
+                      <button v-if="gettransferexistanceforuser > 0" type="submit" class="btn btn-success btn-sm" >Confirm</button>
+                        <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Close</button >
+                        </div>
+                 </form>
+                       </div>
+                          </div>
+                </div>
 
 
 
@@ -1568,6 +1893,26 @@ pre {
 <div class="musisialignright">  </div>
 </th>
 
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
@@ -2112,7 +2457,7 @@ pre {
                               <img src="images/logo.png" class="profile-user-img img-fluid img-circle"
                                style="height: 80px; width: 80px;">NEW INVOICE GENERATION</h3> 
                 <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" 
-                class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Update Record</h3> </h4> 
+                class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Update Record</h4> 
                         </div>
                   <form class="form-horizontal" @submit.prevent="editmode ? updateUnitofmeasure():createnewInvoice()"> 
 
@@ -2166,27 +2511,8 @@ pre {
                                         </div>
                                     </div>
                                 </div>
-                                 <!-- <div class="row clearfix">
-                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="password_2">Description</label>
-                                    </div>
-                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                        <div class="form-group">
-                                            <div class="form-line">
-
-
-
-
-
-
-                                                <textarea v-model="form.description" type="text" name="description"
-                      class="form-control no-resize" :class="{ 'is-invalid': form.errors.has('description') }"></textarea>
-                    <has-error :form="form" field="description"></has-error>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                               -->
+                        
+                        
 
    
 
@@ -2866,6 +3192,20 @@ salessummaryComponentaccess:'',
           myOptions: [], // or [{id: key, text: value}, {id: key, text: value}]
           editmode: false,
            shopingcartdetails:{},
+
+
+        producttoname:{},
+        unittoname:{},
+        unitfromname:{},
+        productfromname:{},
+productfromcode:{},
+transferdadt:{},
+qtyintransit:{},
+producttocode:{},
+
+
+
+
           productcategoriesrecords : {},
           activeinvoicetoupdaterecords:{},
           getthinvoicenumberactive:{},
@@ -2876,6 +3216,7 @@ gettheinvoicetotalwithoutvat:{},
           getthinvoicesuppliername:{},
           gettheinvoicedate:{},
           getinvoicepaymentstatus:{},
+           gettransferexistanceforuser:{},
 gettheinvoicedeliverystatus:{},
           productbrandsrecords:{},
           productunitofmeasurerecords:{},
@@ -2914,6 +3255,7 @@ gettheinvoicedeliverystatus:{},
                 rol:'',
                 qty:'',
                 creditsellingprice:'',
+                unitmeasure:'',
 totalcost:1,
 unitcost :1,
 quantity: 1,
@@ -3096,6 +3438,8 @@ saveinvoiceInaction(){
 axios.get("api/getthinvoicedocumentno").then(({ data }) => (this.getthinvoicedocumentno = data));
 axios.get("api/gettheinvoicedeliverystatus").then(({ data }) => (this.gettheinvoicedeliverystatus = data));
 axios.get("api/getinvoicepaymentstatus").then(({ data }) => (this.getinvoicepaymentstatus = data));
+
+
 axios.get("api/gettheinvoicedate").then(({ data }) => (this.gettheinvoicedate = data));
   
 axios.get("api/gettheinvoicevatamount").then(({ data }) => (this.gettheinvoicevatamount = data));
@@ -3613,6 +3957,15 @@ addmyselectedProducttoPurcase(productstoaddtoinvoicerecords){
         this.form.fill(productstoaddtoinvoicerecords);
 $('#ccfnewpurchaseinvoiceModal').modal('show');
             },
+
+        
+    productstockTransfer(productdetailsrecords){
+                this.editmode = true;
+                 this.form.clear();
+        this.form.reset();
+        this.form.fill(productdetailsrecords);
+$('#productstocktransferModal').modal('show');
+            },    
   editProductdetails(productdetailsrecords){
                 this.editmode = true;
                  this.form.clear();
@@ -3679,8 +4032,136 @@ $('#confirmitemonpurchase').modal('show');
         this.form.fill(productcategoriesrecords);
 $('#addproductcategoryModal').modal('show');
             },
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             compoleteProducttransfer(){
+      this.$Progress.start();
+        this.form.post('api/confirmationtransferdetails')
+        .then(()=>{
 
-            
+         
+    $('#productstocktransferModal').modal('hide');
+    $('#productintransitModal').modal('hide');
+     this.form.clear();
+        this.form.reset();
+      axios.get("api/gettransferexistanceforuser").then(({ data }) => (this.gettransferexistanceforuser = data));
+    axios.get("api/unitfromname").then(({ data }) => (this.unitfromname = data));
+    axios.get("api/unittoname").then(({ data }) => (this.unittoname = data));
+    axios.get("api/producttoname").then(({ data }) => (this.producttoname = data));
+
+ axios.get("api/productfromname").then(({ data }) => (this.productfromname = data));
+    axios.get("api/productfromcode").then(({ data }) => (this.productfromcode = data));
+    axios.get("api/transferdadt").then(({ data }) => (this.transferdadt = data));
+
+ axios.get("api/qtyintransit").then(({ data }) => (this.qtyintransit = data));
+    axios.get("api/producttocode").then(({ data }) => (this.producttocode = data));
+      
+axios.get("api/productdetailsrecords").then(({ data }) => (this.productdetailsrecords = data));
+    axios.get("api/productstoaddtoinvoicerecords").then(({ data }) => (this.productstoaddtoinvoicerecords = data));
+
+
+   
+  Toast.fire({
+  icon: 'success',
+  title: 'Record Successfully transfered'
+});
+        this.$Progress.finish();
+ this.form.reset();
+        })
+        .catch(()=>{
+          
+        })
+         
+    }, // end of create
+ comuygiojmpoleteProducttransfer(){
+    this.$Progress.start();
+          
+this.form.put('api/confirmationtransferdetails/')
+  .then(()=> {
+    // on success
+  // $('#pruductdetailModal').modal('hide');
+    Swal.fire(
+        'Confirmed!',
+        'Product Transfer has been Confirmed.',
+        'success'
+      )
+      this.$Progress.finish();
+    // Fire.$emit('AfterAction');
+    axios.get("api/productdetailsrecords").then(({ data }) => (this.productdetailsrecords = data));
+    axios.get("api/productstoaddtoinvoicerecords").then(({ data }) => (this.productstoaddtoinvoicerecords = data));
+
+  })
+
+
+  .catch(()=>{
+ this.$Progress.fail();
+   Swal.fire({  
+         icon: 'error',
+        title: 'Failed',
+       text: "Transaction was Not successfull. Contact the Administrator for More Assistance",});
+  
+  
+  });
+   },// end of update
+
+
+
+
+
+
+
+
+                   createProductintransit(){
+      this.$Progress.start();
+        this.form.post('api/saveproducttotransist')
+        .then(()=>{
+
+         
+    $('#productstocktransferModal').modal('hide');
+    $('#productintransitModal').modal('show');
+     this.form.clear();
+        this.form.reset();
+      axios.get("api/gettransferexistanceforuser").then(({ data }) => (this.gettransferexistanceforuser = data));
+    axios.get("api/unitfromname").then(({ data }) => (this.unitfromname = data));
+    axios.get("api/unittoname").then(({ data }) => (this.unittoname = data));
+    axios.get("api/producttoname").then(({ data }) => (this.producttoname = data));
+
+ axios.get("api/productfromname").then(({ data }) => (this.productfromname = data));
+    axios.get("api/productfromcode").then(({ data }) => (this.productfromcode = data));
+    axios.get("api/transferdadt").then(({ data }) => (this.transferdadt = data));
+
+ axios.get("api/qtyintransit").then(({ data }) => (this.qtyintransit = data));
+    axios.get("api/producttocode").then(({ data }) => (this.producttocode = data));
+      
+
+
+
+   
+  Toast.fire({
+  icon: 'success',
+  title: 'Record Successfully transfered'
+});
+        this.$Progress.finish();
+ this.form.reset();
+        })
+        .catch(()=>{
+          
+        })
+         
+    }, // end of create
+          
             createProductdetails(){
       this.$Progress.start();
         this.form.post('api/productdetailsrecords')
@@ -3690,6 +4171,9 @@ $('#addproductcategoryModal').modal('show');
     $('#pruductdetailModal').modal('show');
      this.form.clear();
         this.form.reset();
+
+axios.get("api/gettransferexistanceforuser").then(({ data }) => (this.gettransferexistanceforuser = data));
+
     axios.get("api/productdetailsrecords").then(({ data }) => (this.productdetailsrecords = data));
     axios.get("api/productstoaddtoinvoicerecords").then(({ data }) => (this.productstoaddtoinvoicerecords = data));
   Toast.fire({
@@ -4556,7 +5040,21 @@ loadvatvalues(){
         created() {
 
 
+axios.get("api/gettransferexistanceforuser").then(({ data }) => (this.gettransferexistanceforuser = data));
+axios.get("api/unitfromname").then(({ data }) => (this.unitfromname = data));
+    axios.get("api/unittoname").then(({ data }) => (this.unittoname = data));
+    axios.get("api/producttoname").then(({ data }) => (this.producttoname = data));
 
+ axios.get("api/productfromname").then(({ data }) => (this.productfromname = data));
+    axios.get("api/productfromcode").then(({ data }) => (this.productfromcode = data));
+    axios.get("api/transferdadt").then(({ data }) => (this.transferdadt = data));
+
+ axios.get("api/qtyintransit").then(({ data }) => (this.qtyintransit = data));
+    axios.get("api/producttocode").then(({ data }) => (this.producttocode = data));
+
+
+
+    
    Fire.$on('searchforproductlist', ()=>{
             // let query = this.$parent.search;
             let query = this.myrposearch;
