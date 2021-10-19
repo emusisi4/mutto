@@ -971,8 +971,8 @@ pre {
                 border-bottom: 4px solid rgb(124 102 102); 
                   background-color: rgb(29 31 34 / 37%); color: #131378;"> CATEGORY</th>
         
-              <th colspan="1"  style="font-size: 18px; text-align:center;    
-               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> CODE </th>
+              <!-- <th colspan="1"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> CODE </th> -->
               
             <th colspan="1"  style="font-size: 18px; text-align:center;    
                border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> PRODUCT NAME </th>
@@ -1037,8 +1037,8 @@ pre {
 <!--  -->
           <tr v-for="prodcates in productdetailsrecords.data" :key="prodcates.id">
              <td>{{prodcates.id  }}</td>
-             <td><div class="musisialignleft">({{prodcates.category}})   <template v-if="prodcates.product_category">	{{prodcates.product_category.catname}}  </template></div></td>
-                     <td>{{prodcates.uracode  }}</td>
+             <!-- <td><div class="musisialignleft">({{prodcates.category}})   <template v-if="prodcates.product_category">	{{prodcates.product_category.catname}}  </template></div></td>
+                     <td>{{prodcates.uracode  }}</td> -->
             <td><div class="musisialignleft">   {{prodcates.productname | firstletterCapital}} </div></td>
             <td>  <template v-if="prodcates.unit_measure">	{{prodcates.unit_measure.shotcode}}</template> -
               <template v-if="prodcates.unit_measure">	{{prodcates.unit_measure.unitname}}</template></td>  
