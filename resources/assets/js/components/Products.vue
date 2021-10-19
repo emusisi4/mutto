@@ -1037,8 +1037,8 @@ pre {
 <!--  -->
           <tr v-for="prodcates in productdetailsrecords.data" :key="prodcates.id">
              <td>{{prodcates.id  }}</td>
-             <!-- <td><div class="musisialignleft">({{prodcates.category}})   <template v-if="prodcates.product_category">	{{prodcates.product_category.catname}}  </template></div></td>
-                     <td>{{prodcates.uracode  }}</td> -->
+             <td><div class="musisialignleft">({{prodcates.category}})   <template v-if="prodcates.product_category">	{{prodcates.product_category.catname}}  </template></div></td>
+                     <!-- <td>{{prodcates.uracode  }}</td> -->
             <td><div class="musisialignleft">   {{prodcates.productname | firstletterCapital}} </div></td>
             <td>  <template v-if="prodcates.unit_measure">	{{prodcates.unit_measure.shotcode}}</template> -
               <template v-if="prodcates.unit_measure">	{{prodcates.unit_measure.unitname}}</template></td>  
