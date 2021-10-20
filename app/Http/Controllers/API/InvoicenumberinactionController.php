@@ -18,6 +18,7 @@ use App\Expensereporttoview;
 use App\Fishreportselection;
 use App\Purchase;
 use App\Invoicetoview;
+use App\Purchasessummary;
 use App\Productdetailsfilter;
 
 
@@ -116,7 +117,7 @@ $invoiceinaction = $request['invoiceinaction'];
 /// creating a new record for Non Existance
         
   $datepaid = date('Y-m-d');
-    
+  $userid =  auth('api')->user()->id;
 //   if($numbero < 1){
 //       {
 //           if($productcategory2 > 0)
@@ -162,34 +163,31 @@ $invoiceinaction = $request['invoiceinaction'];
     {
         //
     }
-    public function Branchtotalsd()
-    {
-        //getSinglebranchpayoutdaily
-        $ed = '0';
-      //  return Branchpayout::where('del',0)->sum('amount');
-      return   Branchpayout::latest('id')
-      //  return   Branchpayout::latest('id')
-         ->where('del', 0);
-     //  ->paginate(13);
- 
-    }
+   
    
   
     public function update(Request $request, $id)
     {
         //
-        $user = Branchpayout::findOrfail($id);
+        $datepaid = date('Y-m-d');
+        $userid =  auth('api')->user()->id;
+        $user = Purchasessummary::findOrfail($id);
 
-        $this->validate($request,[
-            'receiptno'   => 'required | String |max:191',
-            'datemade'   => 'required',
-            'branch'  => 'required',
-            'amount'  => 'required'
-    ]);
+        $invoiceinact = \DB::table('purchasessummaries')->where('id', '=', $id)->value('supplierinvoiceno');
+        DB::table('invoicetoviews')->where('ucret', $userid)->delete();
+
+        return Invoicetoview::Create([
+       
+        'invoiceno' => $invoiceinact,
+       
+        'ucret' => $userid,
+       
+       
+       ]);
 
  
      
-$user->update($request->all());
+// $user->update($request->all());
     }
 
   
@@ -208,6 +206,9 @@ $user->update($request->all());
      $userrole =  auth('api')->user()->type;
      $invoiceno =    \DB::table('invoicetoviews')->where('ucret', '=', $userid)->value('invoiceno');
      $doccumentno =    \DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $invoiceno)->value('purchaseno');
+     /// getting the suppplier ig
+     $supplieridno =    \DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $invoiceno)->value('suppliername');
+
      DB::table('purchasessummaries')
      ->where('supplierinvoiceno', $invoiceno)
      ->update(array(
@@ -226,6 +227,9 @@ $user->update($request->all());
      
      
      ));
+
+     /// getting the current supplier balance
+     $doccumentno =    \DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $invoiceno)->value('purchaseno');
  
 
     }

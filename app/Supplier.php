@@ -15,8 +15,7 @@ class Supplier extends Authenticatable
    
     protected $fillable = [
        
-     'suppname', 'description', 'uret', 'contact', 'location', 'company', 'contactofcontact', 'companycontactperson', 'del', 'companyemailaddress'
-       
+      'suppname', 'description', 'ucret', 'contact', 'location', 'company', 'contactofcontact', 'companycontactperson', 'del', 'companyemailaddress', 'tinnumber', 'bal'       
     ];
     
 

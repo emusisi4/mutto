@@ -881,7 +881,7 @@ Route::get('getbranchnametocollectfrom', 'APIController@Branchnametocollectfrom'
 
 /////////////////////////////////////////////////////////////////////////
 Route::apiResources(['branches' => 'API\BranchesController']);
-Route::apiResources(['suppliers' => 'API\SuppliersController']);
+Route::apiResources(['suppliersrecord' => 'API\SuppliersController']);
 
 
 

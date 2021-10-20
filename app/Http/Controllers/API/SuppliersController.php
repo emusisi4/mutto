@@ -66,13 +66,14 @@ return   Supplier::with(['supplierCompany'])->latest('id')
 
 
        $this->validate($request,[
-      'company'   => 'required  |max:191',
-   
+   //   'company'   => 'required  |max:191',
+   //id, suppname, description, created_at, 
+   //updated_at, ucret, contact, location, company, contactofcontact, companycontactperson, del, companyemailaddress, tinnumber, bal
+      'suppname'   => 'required',
+      'tinnumber'   => 'required' ,
       'contact'   => 'required',
-      'location'   => 'required' ,
-      // 'suppname'   => 'required',
-      'companycontactperson'   => 'required',
-      'contactofcontact'  => 'required'
+      'location'   => 'required',
+      'description' => 'required'
      ]);
      $userid =  auth('api')->user()->id;
 
@@ -85,14 +86,14 @@ $dateinq =  $request['datedone'];
        return Supplier::Create([
     
   //    'productcode' => $request['productcode'],
-      'suppname' => $request['companycontactperson'],
-      'companycontactperson' => $request['companycontactperson'],
-      'company' => $request['company'],
-      'location' => $request['location'],
-      'contactofcontact' => $request['contactofcontact'],
-      'companycontactperson' => $request['companycontactperson'],
+      'suppname' => $request['suppname'],
+      'tinnumber' => $request['tinnumber'],
       'contact' => $request['contact'],
-      'companyemailaddress' =>$request['companyemailaddress'],
+      'location' => $request['location'],
+      'description' => $request['description'],
+      // 'companycontactperson' => $request['companycontactperson'],
+      // 'contact' => $request['contact'],
+      // 'companyemailaddress' =>$request['companyemailaddress'],
       'ucret' => $userid,
     
   ]);
@@ -142,27 +143,6 @@ $this->validate($request,[
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
@@ -179,12 +159,7 @@ $this->validate($request,[
 $user->update($request->all());
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+  
     public function destroy($id)
     {
         //

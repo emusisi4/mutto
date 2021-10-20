@@ -1702,10 +1702,10 @@ pre {
 
    <div class="bethapa-table-header">
      
-                  PURCHASES  / INVOICES SUMMARY
+                  Purchase Invoices Summarry
                   <!-- v-if="allowedtoaddbranch > 0 " -->
                       <button type="button"  class="add-newm" @click="newpurchaseInvoice" >Generate Invoice </button> 
-                       <button type="button"  class="add-newm" @click="updateinvoiceproductsModal" @mouseover="laodProductdetails" >View  Invoice Details </button> 
+               
                      </div>
 
 
@@ -1726,9 +1726,9 @@ pre {
           
               <th colspan="3"  style="font-size: 18px; text-align:center;   
                 border-bottom: 4px solid rgb(124 102 102); 
-                  background-color: rgb(29 31 34 / 37%); color: #131378;"> ORDER DETAILS</th>
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> Supplier Details</th>
         
-              <th colspan="3"  style="font-size: 18px; text-align:center;    
+              <th colspan="4"  style="font-size: 18px; text-align:center;    
                border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> COST DETAILS </th>
               
             <th colspan="3"  style="font-size: 18px; text-align:center;    
@@ -1746,15 +1746,16 @@ pre {
     <th></th>
 
 <th>Date	</th>
-<th>Supplier Invoice number </th>
-<th> Supplier Name</th>
+<th>Invoice No. </th>
+<th> Supplier</th>
 
-<th>  Invoice Amount ( {{currencydetails}} )</th>
-<th>  Total Vat Expected ( {{currencydetails}} )</th>
-<th> Status</th>
+<th>  Invoice Amount ({{currencydetails}})</th>
+<th>  Expected VAT ({{currencydetails}})</th>
+<th>  Total ({{currencydetails}})</th>
+<th>  Status</th>
 
-<th>  Amount Delivered ( {{currencydetails}} ) </th>
-<th>  Tatal Vat Paid ({{currencydetails}})</th>
+<th>  Amount ({{currencydetails}}) </th>
+<th>  Vat Paid ({{currencydetails}})</th>
 <th>  Status </th>
 
 <th>  Amount Paid ( {{currencydetails}} ) </th>
@@ -1773,8 +1774,9 @@ pre {
                                    <td>   <template v-if="probrands.supplier_name">	{{probrands.supplier_name.suppname}}</template></td> 
                               
                                
-                                  <td>{{formatPrice(probrands.tendercost)}}</td>
-                                <td>{{formatPrice(probrands.expectedvat)}}</td>
+                                  <td class="musisialignright">{{formatPrice(probrands.tendercost)}}</td>
+                                <td class="musisialignright">{{formatPrice(probrands.expectedvat)}}</td>
+                                 <td class="musisialignright">{{formatPrice(probrands.totalinvoicewithvat)}}</td>
                                  <td><div v-if="probrands.invoicelockstatus == '1' " >
                                  <span class="label bg-red">Locked</span>
                                  </div>
@@ -1783,8 +1785,8 @@ pre {
                                  </div>
 
                                  </td>
-                                 <td>{{formatPrice(probrands.finalcost)}}</td>
-                                  <td>{{formatPrice(probrands.totalvat)}}</td>
+                                 <td class="musisialignright">{{formatPrice(probrands.finalcost)}}</td>
+                                  <td class="musisialignright">{{formatPrice(probrands.totalvat)}}</td>
                                       
                                     <td><div v-if="probrands.status == '1' " >
                                  <span class="label bg-orange">Partialy Delivered</span>
@@ -1798,8 +1800,8 @@ pre {
 
                                  </td>
                                
-                                      <td>{{formatPrice(probrands.amountpaid)}}</td>
-                                      <td>{{formatPrice(probrands.finalcost-probrands.amountpaid)}}</td>
+                                      <td class="musisialignright">{{formatPrice(probrands.amountpaid)}}</td>
+                                      <td class="musisialignright">{{formatPrice(probrands.finalcost-probrands.amountpaid)}}</td>
                                   
                                   <td><div v-if="((probrands.finalcost-probrands.amountpaid) != 0) && ((probrands.finalcost-probrands.amountpaid) <  (probrands.finalcost)) " >
                                  <span class="label bg-orange">Partialy Paid</span>
@@ -1815,16 +1817,26 @@ pre {
                                
                                  <td> 
                                   
-                            <div v-if="probrands.finalcost > 0 ">
-                             <button type="button"  @click="paypurchaseInvoice(probrands)" class="btn bg-brown btn-xs waves-effect">Pay Invoice</button>
+                            <div v-if="probrands.finalcost > 0 && probrands.invoicelockstatus == 1 ">
+                             <button type="button"  @click="paypurchaseInvoice(probrands)" class="btn bg-brown btn-xs waves-effect">Pay</button>
+                           <button type="button"  class="btn bg-blue btn-xs waves-effect"
+                                @click="saveinvoiceToview(probrands.id)"> View </button>
+                                       
+                            </div>
+                            <div v-if="probrands.finalcost < 1 && probrands.invoicelockstatus == 1 ">
                             
+                           <button type="button"  class="btn bg-blue btn-xs waves-effect"
+                                @click="saveinvoiceToview(probrands.id)"> View </button>
+                                       
                             </div>
                              <div v-if="probrands.invoicelockstatus == 0 ">
-                               <button type="button"  class="btn bg-green btn-xs waves-effect" @click="deleteUnitofmeasure(probrands.id)"> Edit  Invoice</button>
+                               <button type="button"  class="btn bg-blue btn-xs waves-effect"
+                                @click="saveinvoiceToview(probrands.id)"> View </button>
+                            
   <button type="button"  class="btn bg-deep-orange btn-xs waves-effect" @click="deleteUnitofmeasure(probrands.id)"> Del</button>
                            
                              </div>
-
+                             
 
 
                              
@@ -1832,33 +1844,7 @@ pre {
        <tr>
 
 
-<th style="font-size: 18px; text-align:center;    
-               border-top: 4px solid rgb(124 102 102);    
-                background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright">  </div>
-</th>
 
-<th style="font-size: 18px; text-align:center;    
-               border-top: 4px solid rgb(124 102 102);    
-                background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright">  </div>
-</th>
-
-<th style="font-size: 18px; text-align:center;    
-               border-top: 4px solid rgb(124 102 102);    
-                background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright">  </div>
-</th>
-<th style="font-size: 18px; text-align:center;    
-               border-top: 4px solid rgb(124 102 102);    
-                background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright">  </div>
-</th>
-<th style="font-size: 18px; text-align:center;    
-               border-top: 4px solid rgb(124 102 102);    
-                background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright">  </div>
-</th>
 
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
@@ -2135,12 +2121,12 @@ pre {
                     <!-- <div class="modal-content" style="width:1500px"> -->
                         <div class="modal-header">
                             <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">INVOICE PRODUCT UPDATE</h3> 
-                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Update Record</h3> </h4> 
+                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Update Record </h4> 
                         </div>
                  
                                  
                             
-                                <form @submit.prevent="saveinvoiceInaction()">     
+                                <!-- <form @submit.prevent="saveinvoiceInaction()">     
                           <div class ="bethapa-table-sectionheader">Invoice Selection</div>       
                                  
                                  
@@ -2167,7 +2153,7 @@ pre {
                                 </div>
                                 <button type="button" name= "submit" @click="laodIvoiceslist" class="btn btn-primary btn-sm">Load invoices</button>
                                 <button type="submit" style="display:none" id="submit" hidden="hidden" name= "submit" ref="buttontosubmitinvoicenumbertoview" class="btn btn-primary btn-sm">Saveit</button>   
-                            </form>
+                            </form> -->
 
               
                                 <div class ="bethapa-table-sectionheader">Product Details to add to invoice</div>  
@@ -4938,6 +4924,116 @@ if (result.isConfirmed) {
 
             },
   ////////////////////
+
+
+saveinvoiceInaction2(){
+
+                                this.loading = true;
+                                this.form.post('api/invoicenumbertocheck')
+                                .then(()=>{
+    axios.get("api/invoicelockstatus").then(({ data }) => (this.invoicelockstatus = data));
+    axios.get("api/activeinvoicetoupdaterecords").then(({ data }) => (this.activeinvoicetoupdaterecords = data));
+  axios.get("api/getthinvoicenumberactive").then(({ data }) => (this.getthinvoicenumberactive = data));
+ axios.get("api/getthinvoicesuppliername").then(({ data }) => (this.getthinvoicesuppliername = data));
+    axios.get("api/productpurchasesdetailrecords").then(({ data }) => (this.productpurchasesdetailrecords = data));
+axios.get("api/getthinvoicedocumentno").then(({ data }) => (this.getthinvoicedocumentno = data));
+axios.get("api/gettheinvoicedeliverystatus").then(({ data }) => (this.gettheinvoicedeliverystatus = data));
+axios.get("api/getinvoicepaymentstatus").then(({ data }) => (this.getinvoicepaymentstatus = data));
+
+
+axios.get("api/gettheinvoicedate").then(({ data }) => (this.gettheinvoicedate = data));
+  
+axios.get("api/gettheinvoicevatamount").then(({ data }) => (this.gettheinvoicevatamount = data));
+axios.get("api/gettheinvoicegrandtotal").then(({ data }) => (this.gettheinvoicegrandtotal = data));
+axios.get("api/gettheinvoicetotalwithoutvat").then(({ data }) => (this.gettheinvoicetotalwithoutvat = data));
+  
+ axios.get("api/getcurrencydetails").then(({ data }) => (this.currencydetails = data));
+
+
+
+
+// getthinvoicesuppliername
+// gettheinvoicedate
+
+  
+  // Toast.fire({
+                                // icon: 'success',
+                                // title: 'Record Added Successfully'
+                                // });
+
+                                                              this.loading = false;
+
+                                  this.form.clear();
+        this.form.reset();
+                                })
+                                .catch(()=>{
+
+                                })
+
+}, 
+
+saveinvoiceToview(id){
+//    Swal.fire({
+//   title: 'Are you sure?',
+//   text: "You won't be able to revert this!",
+//   icon: 'warning',
+//   showCancelButton: true,
+//   confirmButtonColor: '#3085d6',
+//   cancelButtonColor: '#d33',
+//   confirmButtonText: 'Yes'
+// }).then((result) => {
+
+// /// send request ti
+// if (result.isConfirmed) {
+ //  this.form.delete('api/invoicenumbertocheck/'+id);
+   this.form.put('api/invoicenumbertocheck/'+id);
+   
+   axios.get("api/purchaseincoicesummaryrecords").then(({ data }) => (this.purchaseincoicesummaryrecords = data));
+     axios.get("api/invoicelockstatus").then(({ data }) => (this.invoicelockstatus = data));
+    axios.get("api/activeinvoicetoupdaterecords").then(({ data }) => (this.activeinvoicetoupdaterecords = data));
+  axios.get("api/getthinvoicenumberactive").then(({ data }) => (this.getthinvoicenumberactive = data));
+ axios.get("api/getthinvoicesuppliername").then(({ data }) => (this.getthinvoicesuppliername = data));
+    axios.get("api/productpurchasesdetailrecords").then(({ data }) => (this.productpurchasesdetailrecords = data));
+axios.get("api/getthinvoicedocumentno").then(({ data }) => (this.getthinvoicedocumentno = data));
+axios.get("api/gettheinvoicedeliverystatus").then(({ data }) => (this.gettheinvoicedeliverystatus = data));
+axios.get("api/getinvoicepaymentstatus").then(({ data }) => (this.getinvoicepaymentstatus = data));
+
+
+axios.get("api/gettheinvoicedate").then(({ data }) => (this.gettheinvoicedate = data));
+  
+axios.get("api/gettheinvoicevatamount").then(({ data }) => (this.gettheinvoicevatamount = data));
+axios.get("api/gettheinvoicegrandtotal").then(({ data }) => (this.gettheinvoicegrandtotal = data));
+axios.get("api/gettheinvoicetotalwithoutvat").then(({ data }) => (this.gettheinvoicetotalwithoutvat = data));
+  
+ axios.get("api/getcurrencydetails").then(({ data }) => (this.currencydetails = data));
+ $('#updateinvoiceproductsModal').modal('show');
+  //  .then(()=>{
+  
+  //                       Swal.fire(
+  //                         'Deleted!',
+  //                         'Your file has been deleted.',
+  //                         'success'
+  //                       )
+                   
+  //     axios.get("api/authorisedcomponents").then(({ data }) => (this.allowedrolecomponentsObject = data));
+
+  // }).catch(()=>{
+  //    Swal.fire({  
+  //        icon: 'error',
+  //       title: 'Failed',
+  //      text: "Transaction was Not successfull. Contact the Administrator for More Assistance",});
+
+  // });
+
+
+// }                  
+
+
+
+// })
+
+            },
+            /// end of revoke component
 
 
 

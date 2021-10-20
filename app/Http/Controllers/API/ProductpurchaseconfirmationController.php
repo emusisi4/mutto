@@ -11,6 +11,7 @@ use App\Productprice;
 use App\Branch;
 use App\Purchase;
 use App\Productpricechange;
+use App\Supplierstatement;
 class ProductpurchaseconfirmationController extends Controller
 {
     
@@ -91,7 +92,7 @@ $dateinq =  $request['datedone'];
         
       
           ]);
-      
+          
 $unitcostwithoutvat = $request['unitprice'];
 $qtydelivered = $request['qtydelivered'];
 $newsellingprice = $request['unitsellingprice'];
@@ -115,6 +116,9 @@ $newamounttoaddtoinvoice = $qtydelivered*$purchasecostforunit;
 $newconfirmedinvoicetotal = $oldinvoicetotal+$newamounttoaddtoinvoice;
 
 
+/////// supplierid
+$supplieridno =\DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $supplierinvoiceno)->value('suppliername');
+
 /// Vat calculation on deliveries
 $vatstat = \DB::table('purchases')->where('supplierinvoiceno', '=', $supplierinvoiceno)->value('vatstatus');
 if($vatstat == '1')
@@ -131,8 +135,9 @@ if($vatstat == '3')
   $vattotalcurrentbasedonquantitydelivered = ((round((($purchasecostforunit*1.18))))-$purchasecostforunit )*($qtydelivered);
 }
 $newinvoicevat =  $vattotalcurrentbasedonquantitydelivered+$oldinvoicevat;
-
-
+$levibalance = ($qtydelivered*$purchasecostforunit)+($newinvoicevat);
+          
+$ttttddedd = (($newinvoicevat)+(($unitcostwithoutvat)*($qtydelivered)));
    $oldquantityavailable = \DB::table('products')->where('id', '=', $productnumber)->value('qty');
    $oldsellingprice = \DB::table('products')->where('id', '=', $productnumber)->value('unitprice');
    $newquantity = $oldquantityavailable+$qtydelivered;
@@ -195,7 +200,54 @@ Productpricechange::Create([
   'ucret' => $userid,
 
 ]);
+////////////$newamounttoaddtoinvoice
+$currentsupplierbalance =    \DB::table('suppliers')->where('id', '=', $supplieridno)->value('bal');
+$newsupplierbalance = $currentsupplierbalance+$levibalance;
 
+
+//// Updating the supplier statement
+
+
+
+$isinvoiceinstatementforsupplier = \DB::table('supplierstatements')->where('invoiceinaction', '=', $supplierinvoiceno)->count();
+
+if($isinvoiceinstatementforsupplier > 0)
+{
+  $totalnow = \DB::table('supplierstatements')->where('invoiceinaction', '=', $supplierinvoiceno)->value('amount');
+  $newrrrtttf = $totalnow+$ttttddedd;
+
+  DB::table('supplierstatements')->where('invoiceinaction', $supplierinvoiceno)->update(array('amount' => $newrrrtttf));
+}
+
+
+if($isinvoiceinstatementforsupplier < 1)
+{
+   $supplieropenningbalance = \DB::table('suppliers')->where('id', '=', $supplieridno)->value('bal');
+ 
+$resultantbalance = $supplieropenningbalance+$ttttddedd;
+  Supplierstatement::Create([
+    
+
+    'suppliername' => $supplieridno,
+    'transactiontype' => 1,
+    'transactiondate' => $datedelivered,
+  
+    'description' => 'Order Delivery',
+    'openningbal' => $supplieropenningbalance,
+    'amount' => $ttttddedd,
+
+    'debitamount' => 0,
+    'invoiceinaction' => $supplierinvoiceno,
+    'resultatantbalance' => $resultantbalance,
+   
+    'ucret' => $userid,
+  
+  ]);
+
+  // DB::table('supplierstatements')->where('invoiceinaction', $supplierinvoiceno)->update(array('amount' => $newrrrtttf));
+}
+
+DB::table('suppliers')->where('id', $supplieridno)->update(array('bal' => $newsupplierbalance));
 //////////////////////////////////////////////////////////////////////////// Purchases
 DB::table('purchases')->where('id', $id)->update(array('status' => 1,'qtydelivered' => $qtydelivered,'datedelivered' => $datedelivered,
 'ucretconfirmeddelivery' => $userid,'linecostdelivery' => $purchasecostforunit,'totalcostdelivery'=> $purchasecostforunit*$qtydelivered));

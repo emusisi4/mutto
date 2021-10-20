@@ -346,22 +346,23 @@ pre {
        
                      Supplier Details   
                      
-           <button type="button" v-if="allowedtoaddincome > 0" class="add-newm" @click="newofficeexpenditure" >Add New Income</button>
+           <button type="button"  class="add-newm" @click="newsupplier" >Add New Supplier</button>
                      </div>
               <table  class="musisireporttable" width="100%" border="1">
 
 <tr>
     <!-- id, , description, contact, company, contactofcontact, companycontactperson, del, companyemailaddress -->
-       <th>#</th>
+                       <th>#</th>
                        <th>SUPPLIER NAME</th>
                         <th>LOCATION</th>
-                        <th>CONTACT PERSON</th>
-                          <th>COMPANY</th>
-                      <th>AMOUNT ( {{currencydetails }} ) </th>
+                        <th>TIN NUMBER</th>
+                          <th>CONTACT NUMBER</th>
+                    
                      
                       <th>DESCRIPTION</th>
+                       
                       <th>STATUS</th>
-                   
+                    <th>ACCOUNT BALANCE ({{currencydetails }}) </th>
                      <th >  </th>
 </tr>
 <tr>
@@ -369,18 +370,18 @@ pre {
 
 
 
-   <tr v-for="shobalrecs in companyincomerecords.data" :key="shobalrecs.id">
+   <tr v-for="shobalrecs in suppliersrecord.data" :key="shobalrecs.id">
           
         <td>{{shobalrecs.id}}</td>
                      <td>{{shobalrecs.suppname}}</td>
                     
                   <td>{{shobalrecs.location}}</td>    
-                  <td>{{shobalrecs.contact}}</td>  
-                  <td>{{shobalrecs.contactperson}}</td>      
-                                 <td>{{formatPrice(shobalrecs.amount)}}</td>
+                  <td>{{shobalrecs.tinnumber}}</td>  
+                  <td>{{shobalrecs.contact}}</td>      
+                               
                             
                                <td>{{(shobalrecs.description)}}</td>
-                   
+                 
 
                     
                           
@@ -398,7 +399,7 @@ pre {
                               </div>
                              </td>
                          
-                         
+                             <td class="musisialignright">{{formatPrice(shobalrecs.bal)}}</td>
                     
                        <td><button type="button"  v-if="((shobalrecs.status)) == 0" class="btn  bg-green btn-xs" @click="confirmmycashrecievedbank(shobalrecs.id)"> Confirm </button>
                           
@@ -481,6 +482,124 @@ pre {
 
 
 <!-- All modals container  -->
+
+
+
+
+<div class="modal fade" id="suppliersModal">
+         <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">New Product Registration</h3> 
+                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Update Record </h4> 
+                        </div>
+                  <form class="form-horizontal" @submit.prevent="editmode ? updateSupplier():createNewsupplier()"> 
+
+  <!-- <div class ="bethapa-table-sectionheader">Product Details</div>     -->
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Supplier Name</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                 <has-error :form="form" field="suppname"></has-error>
+                                                  <input v-model="form.suppname" type="text" name="suppname"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('suppname') }">
+                 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Tin-Number</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                     <has-error :form="form" field="tinnumber"></has-error>
+                                                  <input v-model="form.tinnumber" type="text" name="tinnumber"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('tinnumber') }">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+
+                                  
+
+
+
+
+
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Supplier Contact</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                     <has-error :form="form" field="contact"></has-error>
+                                                  <input v-model="form.contact" type="text" name="contact"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('contact') }">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+  <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Location</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                     <has-error :form="form" field="location"></has-error>
+                                                  <input v-model="form.location" type="text" name="location"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('location') }">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+  <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Description</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                     <has-error :form="form" field="description"></has-error>
+                                                  <input v-model="form.description" type="text" name="description"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('description') }">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+ <br>
+                              
+
+
+                  <div  class="modal-footer">
+                    <button  v-show="!editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
+                      <button v-show="editmode" type="submit" class="btn btn-success btn-sm" >Update</button>
+                        <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Close</button >
+                        </div>
+                 </form>
+                       </div>
+                          </div>
+                </div>
+
+
+
+
+
 <div class="modal fade" id="customerpaymentModal">
    
          <div class="modal-dialog modal-lg" role="document">
@@ -1662,7 +1781,7 @@ incomeaccessSetting:'',
           expensetypesrecords:{},
           datarecordsSubmenusauthorised:{},
           allowedrolecomponentsObject :{},
-          companyincomerecords :{},
+          suppliersrecord :{},
           bankaccounttransactionrecords:{},
            datarecordscompanyexpenses :{},
           admincashindatarecords:{},
@@ -1727,6 +1846,7 @@ expenseslist:{},
 
    expensetypes : '',
    incomesource:'',
+   tinnumber:'',
                 email:'',
                 rolename:'',
                 type:'',
@@ -1944,7 +2064,7 @@ paginationroleAuthorisedcomponentsfeature(page = 1) {
  
 
 loadCustomerdetails(){
-       axios.get("api/theincomedetails").then(({ data }) => (this.companyincomerecords = data));
+       axios.get("api/suppliersrecord").then(({ data }) => (this.suppliersrecord = data));
        axios.get("api/capitalaccountcurrentbalance").then(({ data }) => (this.capitalaccountcurrentbalance = data));
     axios.get("api/pettycashaccountcurrentbalance").then(({ data }) => (this.pettycashaccountcurrentbalance = data));
     axios.get("api/bankaccountcurrentbalance").then(({ data }) => (this.bankaccountcurrentbalance = data));
@@ -2474,7 +2594,7 @@ $('#addnewcashcredit').modal('show');
 
 /// send request ti
 if (result.isConfirmed) {
-  this.form.delete('api/theincomedetails/'+id).then(()=>{
+  this.form.delete('api/suppliersrecord/'+id).then(()=>{
   
                         Swal.fire(
                           'Deleted!',
@@ -2529,7 +2649,7 @@ if (result.isConfirmed) {
                           'success'
                         )
                    
-    axios.get("api/theincomedetails").then(({ data }) => (this.companyincomerecords = data));
+    axios.get("api/suppliersrecord").then(({ data }) => (this.suppliersrecord = data));
 
   }).catch(()=>{
      Swal.fire({  
@@ -2713,6 +2833,26 @@ axios.get("api/registernewincome").then(({ data }) => (this.bankaccounttransacti
             },
            
 
+ createNewsupplier(){
+      this.$Progress.start();
+        this.form.post('api/suppliersrecord')
+        .then(()=>{
+axios.get("api/suppliersrecord").then(({ data }) => (this.suppliersrecord = data));
+         
+    $('#suppliersModal').modal('hide');
+    Fire.$emit('AfterAction');
+  Toast.fire({
+  icon: 'success',
+  title: 'Record added successfully'
+});
+        this.$Progress.finish();
+
+        })
+        .catch(()=>{
+          
+        })
+         
+    }, // end of create
     createNewcategory(){
       this.$Progress.start();
         this.form.post('api/expensecategories')
@@ -3081,12 +3221,14 @@ createNewcompanyexpense(){
          
     },
 
-  newofficeexpenditure(){
+  newsupplier(){
                       this.editmode = false;
                  this.form.clear();
         this.form.reset();
-$('#makeofficeexpensemodal').modal('show');
+$('#suppliersModal').modal('show');
             },
+
+
             deleteRecord(id){
                 swal.fire({
   title: 'Are you sure?',
@@ -3216,7 +3358,7 @@ axios.get("api/incomesourcerecords").then(({ data }) => (this.incomesourcerecord
 
                                 // Fire.$emit('AfterAction');
 
-  axios.get("api/theincomedetails").then(({ data }) => (this.companyincomerecords = data));
+  axios.get("api/suppliersrecord").then(({ data }) => (this.suppliersrecord = data));
                                // $('#addNew').modal('hide');
 
                                 Toast.fire({
@@ -3293,7 +3435,7 @@ axios.get("api/authorisedcomponents").then(({ data }) => (this.allowedrolecompon
     },
     createBalancingrecord(){
       this.$Progress.start();
-        this.form.post('api/theincomedetails')
+        this.form.post('api/suppliersrecord')
         .then(()=>{
 
          
@@ -3304,7 +3446,7 @@ axios.get("api/authorisedcomponents").then(({ data }) => (this.allowedrolecompon
   title: 'Component Authorised'
 });
         this.$Progress.finish();
-axios.get("api/theincomedetails").then(({ data }) => (this.companyincomerecords = data));
+axios.get("api/suppliersrecord").then(({ data }) => (this.suppliersrecord = data));
         })
         .catch(()=>{
           
