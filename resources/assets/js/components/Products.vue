@@ -1833,7 +1833,7 @@ pre {
                                <button type="button"  class="btn bg-blue btn-xs waves-effect"
                                 @click="saveinvoiceToview(probrands.id)"> View </button>
                             
-  <button type="button"  class="btn bg-deep-orange btn-xs waves-effect" @click="deleteUnitofmeasure(probrands.id)"> Del</button>
+  <!-- <button type="button"  class="btn bg-deep-orange btn-xs waves-effect" @click="deleteUnitofmeasure(probrands.id)"> Del</button> -->
                            
                              </div>
                              
