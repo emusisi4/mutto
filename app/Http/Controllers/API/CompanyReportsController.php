@@ -647,6 +647,31 @@ if($supplier == '900')
 
 
  
+    public function salesdetailsreportdetailedrecords()
+    {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+      $productcategory = \DB::table('productdetailsfilters')->where('ucret', $userid )->value('productcategory');
+      $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+      $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+   
+      return   Productsale::with(['branchName','productSaleuser','productName'])->orderBy('datesold', 'Desc')
+      //return   Salessummary::orderBy('invoicedate', 'Desc')
+      ->whereBetween('datesold', [$startdate, $enddate])
+      
+  //  ->where('brand', $productbrand)
+ //   ->where('del', 0)
+        ->paginate(90);
+ 
+ 
+
+
+    
+      
+    }
+
+ 
     public function dailysalesreports()
     {
       $userid =  auth('api')->user()->id;

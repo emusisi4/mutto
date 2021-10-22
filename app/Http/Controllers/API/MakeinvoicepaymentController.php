@@ -10,7 +10,7 @@ use App\Mainmenucomponent;
 use App\Productprice;
 use App\Invoicepayment;
 use App\Purchase;
-
+use App\Supplierstatement;
 class MakeinvoicepaymentController extends Controller
 {
     
@@ -126,7 +126,8 @@ $suppliername =\DB::table('purchasessummaries')->where('supplierinvoiceno', '=',
 $invoicedate =\DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $supplierinvoiceno)->value('invoicedate');
 $invoiceamount =\DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $supplierinvoiceno)->value('finalcost');
 $doccumentno =\DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $supplierinvoiceno)->value('purchaseno');
-
+/// Getting the current outstanding
+$openningbalance =\DB::table('suppliers')->where('id', '=', $suppliername)->value('bal');
 /// Getting the account in Question
 $accountinquestionbalance =\DB::table('expensewalets')->where('walletno', '=', $walletofexpense)->value('bal');
 $newaccountinquestionbalance = $accountinquestionbalance-$newpayment;
@@ -150,7 +151,25 @@ Invoicepayment::Create([
     'ucret' => $userid,
        
      ]);
-    
+    ////  Updating the supplier statement
+    ///id, suppliername, transactiontype, transactiondate, 
+    //description, openningbal, amount, debitamount, ucret, resultatantbalance, created_at, updated_at, invoiceinaction
+    Supplierstatement::Create([
+      'invoiceinaction' => $doccumentno,
+      'suppliername' => $suppliername,
+       'transactiontype' => 2,
+       'transactiondate' => $dateofpayment,
+       'debitamount' => $newpayment,
+       'description' => 'Payment from Ssennah Hardware',
+
+
+       'openningbal' => $openningbalance,
+
+       'resultatantbalance' => $openningbalance-$newpayment,
+      
+        'ucret' => $userid,
+           
+         ]);
     }/// closing if the account balance is enough
 /// updting the purchase summary
 DB::table('purchasessummaries')

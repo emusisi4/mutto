@@ -9,7 +9,7 @@ use App\Mainmenucomponent;
 use App\Submheader;
 use App\Branch;
 use App\Supplier;
-
+use App\Supplierstatement;
 class SuppliersController extends Controller
 {
     /**
@@ -129,7 +129,31 @@ $this->validate($request,[
    }
 
 
-
+ 
+   public function supplierstatementrecords()
+   {
+     $userid =  auth('api')->user()->id;
+     $userbranch =  auth('api')->user()->branch;
+     $userrole =  auth('api')->user()->type;
+     $customername = \DB::table('customersreporttoviews')->where('ucret', $userid )->value('customername');
+     $startdate = \DB::table('customersreporttoviews')->where('ucret', $userid )->value('startdate');
+     $enddate = \DB::table('customersreporttoviews')->where('ucret', $userid )->value('enddate');
+   
+    return   Supplierstatement::with(['supplierName','createdbyName'])->orderBy('transactiondate', 'Asc')
+    /// return   Customerstatement::orderBy('id', 'Desc')
+     ->whereBetween('transactiondate', [$startdate, $enddate])
+     
+    ->where('suppliername', $customername)
+   //   ->where('del', 0)
+       ->paginate(90);
+   
+   
+   
+   
+   
+     
+   }
+   
 
 
 

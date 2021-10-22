@@ -31,7 +31,7 @@
                         <div class="body">
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs" role="tablist">
-                                <li role="presentation" class="active"  v-if="usersccessSettings > 0 ">
+                                <li role="presentation" class="active" >
                                     <a href="#home_with_icon_title" @click="loadUsers()" data-toggle="tab">
                                         <i class="material-icons">home</i>Users
                                     </a>
@@ -1558,7 +1558,7 @@ paginationroleAuthorisedcomponentsfeature(page = 1) {
                       },
   /// users
   
-  loadSuppliers(){
+  loadUsers(){
        axios.get("api/suppliers").then(({ data }) => (this.suppliers = data));
      
         axios.get("api/generalcomponentaccessSettings").then(({ data }) => (this.generalcomponentaccessSettings = data));

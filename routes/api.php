@@ -23,8 +23,8 @@ Route::apiResources(['newfishcurrentcodes' => 'API\CurrentmacinecodesController'
 // Sena Hardware Start
 Route::apiResources(['customerdetailsrecords' => 'API\CustomersController']);
 Route::apiResources(['recievethecustomerPayment' => 'API\CustomerpaymentsController']);
-
 Route::get('customerstatementrecords', 'API\CustomersController@customerstatementrecords');
+Route::get('supplierstatementrecords', 'API\CustomersController@supplierstatementrecords');
 
 Route::get('customerstamento', 'API\CustomersController@customerstamento');
 Route::apiResources(['addnewcustomerrecord' => 'API\CustomersController']);
@@ -67,8 +67,8 @@ Route::get('gettransferexistanceforuser', 'API\ProducttransferController@gettran
 
 //Route::apiResources(['productstoaddtoinvoicerecords' => 'API\CompanyproductsController@purchaseproducts']);
 Route::get('salesreportsummaryrecords', 'API\CompanyReportsController@dailysalesreports');
-// Route::get('salesdetailsreportdetailedrecords', 'API\CompanyReportsController@salesdetailsreportdetailedrecords');
-Route::apiResources(['salesdetailsreportdetailedrecords' => 'API\CompanyproductsController']);
+ Route::get('salesdetailsreportdetailedrecords', 'API\CompanyReportsController@salesdetailsreportdetailedrecords');
+//Route::apiResources(['salesdetailsreportdetailedrecords' => 'API\CompanyproductsController']);
 Route::get('salesdetailscostofthesalesmadetotalrange', 'API\CompanyReportsController@salesdetailscostofthesalesmadetotalrange');
 Route::get('salesdetailsalesmadetotalrange', 'API\CompanyReportsController@salesdetailsalesmadetotalrange');
 Route::get('salesdetailvatcollectedtotalrange', 'API\CompanyReportsController@salesdetailvatcollectedtotalrange');
