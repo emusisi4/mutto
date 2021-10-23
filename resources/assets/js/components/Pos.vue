@@ -848,8 +848,8 @@ text-align: center;
                                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                  <input v-model="form.quantity" type="number" @keypress="updatecurrentsalestatus" @keyup="updatecurrentsalestatus" name="quantity"
-                      class="form-control" :class="{ 'is-invalid': form.errors.has('quantity') }">
+                                                  <input v-model="form.quantity"  type="text" @keypress="updatecurrentsalestatus" @keyup="updatecurrentsalestatus" name="quantity"
+                      class="number-only" :class="{ 'is-invalid': form.errors.has('quantity') }">
                     <has-error :form="form" field="quantity"></has-error>
                                             </div>
                                         </div>
@@ -1209,7 +1209,16 @@ text-align: center;
 <script>
 import Vue from 'vue';
 import VueHtmlToPaper from 'vue-html-to-paper';
-
+onload =function(){ 
+  var ele = document.querySelectorAll('.number-only')[0];
+  ele.onkeypress = function(e) {
+     if(isNaN(this.value+""+String.fromCharCode(e.charCode)))
+        return false;
+  }
+  ele.onpaste = function(e){
+     e.preventDefault();
+  }
+}
 const options = {
   name: '_blank',
   specs: [
