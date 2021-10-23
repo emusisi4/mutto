@@ -2270,10 +2270,11 @@ pre {
                             
                             <ul class="list-unstyled text-right">
                                <!-- <div class="invoice-logo"><img width="100" src="images/invoice.png" alt="Invoice logo"></div> -->
-                                <li><b>SENA Hardware Ltd </b></li>
-                                <li>Jogo</li>
-                                <li>0775294763</li>
-                                <li>VAT Number : EU826113958</li>
+                                <li><b>Ssennah Hardware </b></li>
+                                <li> Misindye Jjogo</li>
+                                <li>Bukeerere Road</li>
+                                <li>0702941704 / 0392941704 </li>
+                                 <li>Tin Number : 1019044346 </li>
                             </ul>
                         </div>
                     </div>
