@@ -1839,7 +1839,10 @@ pre {
                            
                              </div>
                              
-
+ <div v-if="(probrands.finalcost-probrands.amountpaid) == 0 " >
+                          <button type="button"  class="btn bg-blue btn-xs waves-effect"
+                                @click="saveinvoiceToview(probrands.id)"> View </button>
+                                 </div>
 
                              
                               </td>
