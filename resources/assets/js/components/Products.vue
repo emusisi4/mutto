@@ -1731,7 +1731,7 @@ pre {
               <th colspan="4"  style="font-size: 18px; text-align:center;    
                border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> COST DETAILS </th>
               
-            <th colspan="3"  style="font-size: 18px; text-align:center;    
+            <th colspan="4"  style="font-size: 18px; text-align:center;    
                border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> DELIVERY DETAILS </th>
               
              <th colspan="3"  style="font-size: 18px; text-align:center;    
@@ -1756,6 +1756,7 @@ pre {
 
 <th>  Amount ({{currencydetails}}) </th>
 <th>  Vat Paid ({{currencydetails}})</th>
+<th>  Total ({{currencydetails}})</th>
 <th>  Status </th>
 
 <th>  Amount Paid ( {{currencydetails}} ) </th>
@@ -1787,6 +1788,7 @@ pre {
                                  </td>
                                  <td class="musisialignright">{{formatPrice(probrands.finalcost)}}</td>
                                   <td class="musisialignright">{{formatPrice(probrands.totalvat)}}</td>
+                                   <td class="musisialignright">{{formatPrice(probrands.finalcost+probrands.totalvat)}}</td>
                                       
                                     <td><div v-if="probrands.status == '1' " >
                                  <span class="label bg-orange">Partialy Delivered</span>
@@ -1801,8 +1803,8 @@ pre {
                                  </td>
                                
                                       <td class="musisialignright">{{formatPrice(probrands.amountpaid)}}</td>
-                                      <td class="musisialignright">{{formatPrice(probrands.finalcost-probrands.amountpaid)}}</td>
-                                  
+                                     
+                                   <td class="musisialignright">{{formatPrice(probrands.finalcost+probrands.totalvat-probrands.amountpaid)}}</td>
                                   <td><div v-if="((probrands.finalcost-probrands.amountpaid) != 0) && ((probrands.finalcost-probrands.amountpaid) <  (probrands.finalcost)) " >
                                  <span class="label bg-orange">Partialy Paid</span>
                                  </div>

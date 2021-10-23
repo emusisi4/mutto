@@ -15,7 +15,7 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                               COMPANNY OTHER INCOMES
+                               COMPANNY OTHER INCOMES && CASH TRANSFERS
                             
                             </h2>
                        
@@ -690,152 +690,134 @@
 
 
 
+
 <div class="modal fade" id="makecashtransferstart">
-        <div class="modal-dialog modal-dialog-top modal-lg">
-        <div  class="modal-content">
-            <div  class="modal-header">
-                <h4  v-show="!editmode"    class="modal-title">CASH TRANSFER </h4> 
-                <h4  v-show="editmode" class="modal-title" >UPDATE RECORD</h4> 
-                <button  type="button" data-dismiss="modal" aria-label="Close" class="close"><span  aria-hidden="true">×</span></button></div> 
-                
-                
-               <div id="axiosForm">
-     <div class="loader" v-if="loading">
-       
-       <!-- <div class="spinner-border"  style="width: 10rem; height: 10rem;" role="status">
-  <span class="sr-only">Loading...</span>
-</div> -->
-
-</div>
-                
-                 <form class="form-horizontal" @submit.prevent="editmode ? updadeexpenseforofficeuse():createnewTransactiontottransfer()"> 
-
-                    <div  class="modal-body">
-              
-                      <div class="form-group row">
-
-                            <label class="col-sm-2 col-form-label">Source </label>
-                              <div class="col-sm-6">
-                            <select name ="cashsource" v-model="form.cashsource" id ="cashsource" v-on:click="loadDatarecords()" class="form-control" :class="{'is-invalid': form.errors.has('cashsource')}">
-<option value=" ">  </option>
-<option v-for='data in walletlist' v-bind:value='data.id'>{{ data.name }}</option>
-
-</select>
-            <has-error :form="form" field="cashsource"></has-error>
-                              </div>
-
-                        </div>
-                      <div class="form-group row">
-
-                            <label class="col-sm-2 col-form-label">Destination </label>
-                              <div class="col-sm-6">
-                            <select name ="cashdestination" v-model="form.cashdestination" id ="cashdestination" v-on:click="loadDatarecords()" class="form-control" :class="{'is-invalid': form.errors.has('cashdestination')}">
-<option value=" ">  </option>
-<option v-for='data in walletlist' v-bind:value='data.id'>{{ data.name }}</option>
-
-</select>
-            <has-error :form="form" field="cashdestination"></has-error>
-                              </div>
-
+         <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png"
+                             class="profile-user-img img-fluid img-circle" 
+                            style="height: 80px; width: 80px;">Cash Transfer</h3> 
+                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" 
+                class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Update Record</h3> </h4> 
                         </div>
                  
-               
-                
-                      
-               
-                    
-          
+                 <form class="form-horizontal" @submit.prevent="editmode ? updadeexpenseforofficeuse():createnewTransactiontottransfer()">  
+<br>
 
-                           <!-- <div class="form-group row">
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Transfer from:</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <has-error :form="form" field="cashsource"></has-error>
+                                               <select style="min-width:300px;" name ="cashsource" 
+                                               v-model="form.cashsource" id ="cashsource"   
+                                                :class="{'is-invalid': form.errors.has('cashsource')}">
+                   <option v-for='data in walletlist' v-bind:value='data.id'>{{ data.name }}</option>
+                    </select>
+                  
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                            <label class="col-sm-2 col-form-label">Transaction </label>
-                              <div class="col-sm-6">
-                            <select name ="expense" v-model="form.expense" id ="expense"  class="form-control" :class="{'is-invalid': form.errors.has('expense')}">
-<option value=" ">  </option>
-<option v-for='data in transactiontypeslist' v-bind:value='data.id'>{{ data.transactiontypename }}</option>
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Destination:</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
 
-</select>
-            <has-error :form="form" field="expense"></has-error>
-                              </div>
-
-                        </div>
-                 -->
-                      
-               
-   <div class="form-group row">
-
-                            <label class="col-sm-2 col-form-label">Amount </label>
-                              <div class="col-sm-6">
-                              <input v-model="form.amount" type="number" name="amount"
+                                <has-error :form="form" field="cashdestination"></has-error>               
+                                               <select style="min-width:300px;" name ="cashdestination" 
+                                               v-model="form.cashdestination" id ="cashdestination"    :class="{'is-invalid': form.errors.has('cashdestination')}">
+                   <option v-for='data in walletlist' v-bind:value='data.id'>{{ data.name }}</option>
+                    </select>
+                   
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+  
+                                 <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Amount</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <has-error :form="form" field="amount"></has-error>
+                                                   <input v-model="form.amount" type="number" name="amount"
        class="form-control form-control-sm" :class="{ 'is-invalid': form.errors.has('amount') }">
-      <has-error :form="form" field="amount"></has-error>
-                              </div>
+    
 
-                        </div>
-                        <div class="form-group row">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                              
 
-                            <label class="col-sm-2 col-form-label">Date</label>
-                              <div class="col-sm-6">
-                              <input v-model="form.daterecieved" type="date" name="daterecieved"
+      <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Transaction Date</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                         <has-error :form="form" field="daterecieved"></has-error>
+                                                   <input v-model="form.daterecieved" type="date" name="daterecieved"
        class="form-control form-control-sm" :class="{ 'is-invalid': form.errors.has('daterecieved') }">
-      <has-error :form="form" field="daterecieved"></has-error>
-                              </div>
-
-                        </div>
-                
-                     
-                        <!--  -->
-                         <!-- <div class="form-group row">
-
-                            <label class="col-sm-2 col-form-label">Wallet </label>
-                              <div class="col-sm-6">
-                              <select name ="walletexpense" v-model="form.walletexpense" id ="walletexpense" v-on:click="loadDatarecords()" class="form-control" :class="{'is-invalid': form.errors.has('walletexpense')}">
-                  <option value=" ">  </option>
-                  <option v-for='data in walletlist' v-bind:value='data.id'>{{ data.id }} - {{ data.name }}</option>
-
-                  </select>
-            <has-error :form="form" field="walletexpense"></has-error>
-                              </div>
-
-                        </div> -->
-                
-                 <div class="form-group row">
-
-                            <label class="col-sm-2 col-form-label">Description </label>
-                              <div class="col-sm-6">
-                                    <textarea v-model="form.description" name="description" rows="5" cols="30" class="form-control" :class="{ 'is-invalid': form.errors.has('description') }"></textarea>
-                 
-                <has-error :form="form" field="description"></has-error>
      
-                              </div>
+ 
 
-                        </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+  <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Description / Comment</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                              <has-error :form="form" field="description"></has-error>
+               <textarea v-model="form.description" name="description" rows="5" cols="30" class="form-control" :class="{ 'is-invalid': form.errors.has('description') }"></textarea>
+                 
                 
+     
+ 
 
-                
-                      
-                
-                 
-                 </div>
-                 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                              <br>
+
+
                   <div  class="modal-footer">
                     <button  v-show="!editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
                       <button v-show="editmode" type="submit" class="btn btn-success btn-sm" >Update</button>
                         <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Close</button >
                         </div>
                  </form>
-
-               </div>
                        </div>
                           </div>
-                
-                    
-                    
-                    
-              
-              
-              
-                  </div>
+                </div>
+
+
+
+
+
+
+
+
+
 
 
 <div class="modal fade" id="addnewshopbalancingrecord">
@@ -845,9 +827,8 @@
                 <h4  v-show="!editmode"    class="modal-title">Shop Balancing</h4> 
                 <h4  v-show="editmode" class="modal-title" >UPDATE RECORD</h4> 
                 <button  type="button" data-dismiss="modal" aria-label="Close" class="close"><span  aria-hidden="true">×</span></button></div> 
-   <form class="form-horizontal" @submit.prevent="editmode ? updatebranchpayout():createBalancingrecord()"> 
-
-                    <div  class="modal-body">
+                  <form class="form-horizontal" @submit.prevent="editmode ? updadeexpenseforofficeuse():createnewTransactiontottransfer()"> 
+                   <div  class="modal-body">
               
             <form @submit.prevent="SaveRecordbranch()">  
 
@@ -3292,7 +3273,7 @@ axios.get("api/transactiontypeslist").then(({ data }) => (this.transactiontypesl
              axios.get("api/getcurrencydetails").then(({ data }) => (this.currencydetails = data));
               
       });
-  setInterval(() =>this.balancescheck(),1000);
+ // setInterval(() =>this.balancescheck(),1000);
         }
     }
 </script>
