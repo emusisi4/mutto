@@ -101,7 +101,7 @@
        <th>#</th>
                      
                       <th>WALLET</th>
-                      <th>BRANCH</th>
+                      <!-- <th>BRANCH</th> -->
                        <th>CURRENT BALANCE</th>
                    
                         
