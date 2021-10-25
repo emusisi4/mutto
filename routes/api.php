@@ -792,6 +792,8 @@ Route::apiResources(['registernewincome' => 'API\BankstatementsConroller']);
 Route::apiResources(['registernewincomesource' => 'API\MyincomsourcesController']);
 Route::apiResources(['makecashtransferfromaccountto' => 'API\CashtransfersConroller']);
 
+Route::apiResources(['makecashtransfercredit' => 'API\CashtransferscrediConroller']);
+
 Route::apiResources(['makeexpenseofficeuser' => 'API\MadeexpensesofficeConroller']);
 ////////////////////////////////////////////////////////////////////////////////
 Route::get('geteditcashcredit', 'APIController@geteditcashcredit');

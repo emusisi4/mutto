@@ -38,7 +38,14 @@ class User extends Authenticatable
         // creating a relationship between the students model 
         return $this->hasMany(Salesreturn::class, 'ucret', 'id'); 
     }
-
+    public function transferingUser(){
+        // creating a relationship between the students model 
+        return $this->hasMany(Cashtransfer::class, 'ucret', 'id'); 
+    }
+    public function acceptinguserUser(){
+        // creating a relationship between the students model 
+        return $this->hasMany(Cashtransfer::class, 'ucomplete', 'id'); 
+    }
     public function productSaleuser(){
         // creating a relationship between the students model 
         return $this->hasMany(Productsale::class, 'ucret', 'id'); 

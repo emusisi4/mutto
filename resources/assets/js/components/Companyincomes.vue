@@ -140,8 +140,8 @@
             <button type="button" v-if="prodcates.bal > 0 && prodcates.bal" class="btn bg-green btn-xs waves-effect"  @click="makecashCollection(prodcates)"><b>Collect Cash</b></button>
                              
 
-
-          <button type="button"  class="btn bg-brown btn-xs waves-effect" @click="deleteProductCategory(prodcates.id)"> Give  Cash  </button>
+<!-- 
+          <button type="button"  class="btn bg-brown btn-xs waves-effect" @click="givecashTouser(prodcates)"> Give  Cash  </button> -->
 
  
 </td>
@@ -172,18 +172,18 @@
                       <!-- -->
                      
                      </div>                     
-                                        <table  class="musisireporttable" width="100%" border="1">
+<table  class="musisireporttable" width="100%" border="1">
 
 <tr>
        <th>#</th>
-                      <th>TRANSACTION DATE</th>
-                      <th>DESCRIPTION</th>
+                      <th class="musisialignleft">TRANSACTION DATE</th>
+                      <th class="musisialignleft">DESCRIPTION</th>
                       <th>AMOUNT</th>
-                       <th>SOURCE</th>
-                        <th>DESTINATION</th>
-                         <th>INITIATER</th>
-                          <th>RECIEVER</th>
-                          <th>STATUS</th>
+                       <th class="musisialignleft">SOURCE</th>
+                       <th class="musisialignleft">DESTINATION</th>
+                       <th class="musisialignleft">SENDING USER</th>
+                        <th class="musisialignleft">CONFIRMING USER</th>
+                        <th class="musisialignleft">STATUS</th>
                      
                         
                         <th ></th>
@@ -199,7 +199,7 @@
           <tr v-for="prodcates in cashtransferrecords.data" :key="prodcates.id">
           
        <td>{{prodcates.id }}</td>
-                                 <td>{{prodcates.transerdate | myDate2 }}</td>
+       <td>{{prodcates.transerdate | myDate2 }}</td>
  
 
 
@@ -223,11 +223,21 @@
                       </td>
                       <td class="musisialignright">{{formatPrice(prodcates.amount)}}</td>
 
+<td>
+ <template v-if="prodcates.account_transferfrom">	{{prodcates.account_transferfrom.walletname}}</template>
+</td>
+    <td>
+      <template v-if="prodcates.account_transferto">	{{prodcates.account_transferto.walletname}}</template>
 
- <td>{{(prodcates.accountinact)}}</td>
-    <td>{{(prodcates.destinatin)}}</td>
-<td>{{(prodcates.ucret)}}</td>
-<td>{{(prodcates.accountinact)}}</td>
+    </td>
+<td>
+    <template v-if="prodcates.transfering_user">	{{prodcates.transfering_user.name}}</template>
+
+</td>
+<td>
+    <template v-if="prodcates.acceptinguser_user">	{{prodcates.acceptinguser_user.name}}</template>
+
+</td>
 
                                    <td>
    <div  v-if="((prodcates.status)) == 1">
@@ -911,6 +921,127 @@
 
 
 
+
+
+<div class="modal fade" id="issuecashtouser">
+         <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png"
+                             class="profile-user-img img-fluid img-circle" 
+                            style="height: 80px; width: 80px;">Caseeeh Transfer</h3> 
+                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" 
+                class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Credit Cash</h4> 
+                        </div>
+                 
+                 <form class="form-horizontal" @submit.prevent="editmode ? createnewTransactiontottransfercredit():createnewTransactiontottransfercredit()">  
+<br>
+
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Account to Credit:</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <has-error :form="form" field="walletname"></has-error>
+                                                   <input v-model="form.walletname" readonly  type="text" name="walletname"
+       class="form-control form-control-sm" :class="{ 'is-invalid': form.errors.has('walletname') }">
+
+
+         <input v-model="form.id" type="text" style="display:none" readonly name="id">
+                  
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Account to Debit:</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+
+                                <has-error :form="form" field="cashdestination"></has-error>               
+                                               <select style="min-width:300px;" name ="cashdestination" 
+                                               v-model="form.cashdestination" id ="cashdestination"    :class="{'is-invalid': form.errors.has('cashdestination')}">
+                 <option> </option>
+                   <option v-for='data in walletlist' v-bind:value='data.id'>{{ data.name }}</option>
+                    </select>
+                   
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+  
+                                 <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Amount</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <has-error :form="form" field="amount"></has-error>
+                                                   <input v-model="form.amount" type="number" name="amount"
+       class="form-control form-control-sm" :class="{ 'is-invalid': form.errors.has('amount') }">
+    
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                              
+
+      <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Transaction Date</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                         <has-error :form="form" field="daterecieved"></has-error>
+                                                   <input v-model="form.daterecieved" type="date" name="daterecieved"
+       class="form-control form-control-sm" :class="{ 'is-invalid': form.errors.has('daterecieved') }">
+     
+ 
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+  <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Description / Comment</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                              <has-error :form="form" field="description"></has-error>
+               <textarea v-model="form.description" name="description" rows="5" cols="30" class="form-control" :class="{ 'is-invalid': form.errors.has('description') }"></textarea>
+                 
+                
+     
+ 
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                              <br>
+
+
+                  <div  class="modal-footer">
+                    <button  v-show="!editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
+                      <button v-show="editmode" type="submit" class="btn btn-success btn-sm" >Update</button>
+                        <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Close</button >
+                        </div>
+                 </form>
+                       </div>
+                          </div>
+                </div>
 
 
 <div class="modal fade" id="makecashtransferstart">
@@ -1894,7 +2025,7 @@ myClickEventtransactions($event) { const elem = this.$refs.theButtontransafertra
 
 confirmCashcollection(id){
    Swal.fire({
-  title: 'Fish Cash-In Confirmation',
+  title: 'Cashout Transfer',
   text: "You won't be able to revert this",
   icon: 'warning',
   showCancelButton: true,
@@ -1913,7 +2044,7 @@ if (result.isConfirmed) {
                           'success'
                         )
                    
-    axios.get("api/fishcollections").then(({ data }) => (this.fishcollectionrecords = data));
+    axios.get("api/cashtransferrecords").then(({ data }) => (this.cashtransferrecords = data));
 
   }).catch(()=>{
      Swal.fire({  
@@ -2240,6 +2371,14 @@ newsubmenuaccess(){
      $('#addnewComponenttotheRole').modal('show');
             },
 
+givecashTouser(companywalletdetails){
+        this.editmode = true;
+        this.form.clear();
+        this.form.reset();
+            this.form.fill(companywalletdetails);
+     
+     $('#issuecashtouser').modal('show');
+            },
 makecashCollection(companywalletdetails){
         this.editmode = true;
         this.form.clear();
@@ -3165,6 +3304,35 @@ $('#makeofficeexpensemodal').modal('show');
             },
 
 
+createnewTransactiontottransfercredit(){
+
+                          //   this.loading = true,
+                                this.form.post('api/makecashtransfercredit')
+                                .then(()=>{
+
+
+                                // Fire.$emit('AfterAction');
+
+                               // $('#addNew').modal('hide');
+
+                                Toast.fire({
+                                icon: 'success',
+                                title: 'Record Added Successfully'
+                                });
+
+                             //  this.loading = false;
+                                  this.form.clear();
+                                  axios.get("api/companywalletdetails").then(({ data }) => (this.companywalletdetails = data));
+                                  axios.get("api/cashtransferrecords").then(({ data }) => (this.cashtransferrecords = data));
+        this.form.reset();
+                                })
+                                .catch(()=>{
+
+                                })
+
+
+       }, 
+ 
  createnewTransactiontottransfer(){
 
                           //   this.loading = true,

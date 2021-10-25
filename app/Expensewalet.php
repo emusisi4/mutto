@@ -23,9 +23,15 @@ class Expensewalet extends Authenticatable
     return $this->hasMany(Madeexpense::class, 'walletexpense', 'id'); 
 }
 
-
+public function accountTransferfrom(){
+  return $this->hasMany(Cashtransfer::class, 'accountinact', 'id'); 
+}
 
   
+public function accountTransferto(){
+  return $this->hasMany(Cashtransfer::class, 'destination', 'id'); 
+}
+
     protected $hidden = [
       //  'hid', 'id',
     ];

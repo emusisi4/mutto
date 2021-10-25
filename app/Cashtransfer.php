@@ -29,7 +29,23 @@ public function usernameTransferto(){
     // creating a relationship between the students model 
     return $this->belongsTo(User::class, 'transferto'); 
 }
+public function accountTransferfrom(){
+    // creating a relationship between the students model 
+    return $this->belongsTo(Expensewalet::class, 'accountinact'); 
+}
+public function accountTransferto(){
+    // creating a relationship between the students model 
+    return $this->belongsTo(Expensewalet::class, 'destination'); 
+}
 
+public function transferingUser(){
+    // creating a relationship between the students model 
+    return $this->belongsTo(User::class, 'ucret'); 
+}
+public function acceptinguserUser(){
+    // creating a relationship between the students model 
+    return $this->belongsTo(User::class, 'ucomplete'); 
+}
     protected $hidden = [
       //  'hid', 'id',
     ];

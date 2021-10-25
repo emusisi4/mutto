@@ -41,8 +41,8 @@ class CashtransfersConroller extends Controller
 
          if($userrole == '900' || $userrole == '100')
         {
-         return  Cashtransfer::latest('id')
-  
+          return  Cashtransfer::with(['accountTransferto','accountTransferfrom','transferingUser','acceptinguserUser'])->latest('id')
+        
       //->where('accountinact', $mywallet)
  //     ->whereBetween('transerdate', [$startdate, $enddate])
       ->paginate(30);
@@ -52,7 +52,8 @@ class CashtransfersConroller extends Controller
    
     if($userrole != '900' || $userrole != '100')
     {
-      return Cashtransfer::latest('id')
+      return  Cashtransfer::with(['accountTransferto','accountTransferfrom','transferingUser','acceptinguserUser'])->latest('id')
+         
       ->where('accountinact', $mywallet)
   //->where('transfertype', $transaction)
  // ->whereBetween('transerdate', [$startdate, $enddate])
@@ -64,6 +65,50 @@ class CashtransfersConroller extends Controller
 
   
     public function store(Request $request)
+    {
+       
+        
+
+       $this->validate($request,[
+       'cashdestination'   => 'required',
+       //'cashsource' => 'required',
+        'description'   => 'required',
+        'amount'  => 'required',
+        'daterecieved'  => 'required',
+     ]);
+
+
+     $userid =  auth('api')->user()->id;
+     $dateinact = $request['daterecieved'];
+     $yearmade = date('Y', strtotime($dateinact));
+     $monthmade = date('m', strtotime($dateinact));
+    
+    $transactionno = Str::random(40);
+     ////////////////////
+     /////////////////////////////////////// transfer out 
+        Cashtransfer::Create([
+      'transerdate' =>  $request['daterecieved'],
+  
+      'accountinact' => $request['id'],
+      'destination' => $request['cashdestination'],
+
+      'amount' => $request['amount'],
+      'transfertype' => 1,
+      'ucret' => $userid,
+      'yeardone' => $yearmade,
+      'description' => 'Account Debited',
+      'monthdone' => $monthmade,
+      'transactionno' => $transactionno,
+      
+    
+  ]);
+
+
+  //// updating the shop balance
+
+    }
+
+    public function makecashtransferfromaccounttocredit(Request $request)
     {
        
         
