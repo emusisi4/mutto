@@ -39,23 +39,23 @@ class CashtransfersConroller extends Controller
      
 
 
-        if($transaction == '900' || $transaction == '100')
+         if($userrole == '900' || $userrole == '100')
         {
          return  Cashtransfer::latest('id')
   
       //->where('accountinact', $mywallet)
-      ->whereBetween('transerdate', [$startdate, $enddate])
+ //     ->whereBetween('transerdate', [$startdate, $enddate])
       ->paginate(30);
     }
    
    
    
-    if($transaction != '900' || $transaction != '100')
+    if($userrole != '900' || $userrole != '100')
     {
       return Cashtransfer::latest('id')
       ->where('accountinact', $mywallet)
-  ->where('transfertype', $transaction)
-  ->whereBetween('transerdate', [$startdate, $enddate])
+  //->where('transfertype', $transaction)
+ // ->whereBetween('transerdate', [$startdate, $enddate])
  
    ->paginate(30);
 }
@@ -70,7 +70,7 @@ class CashtransfersConroller extends Controller
 
        $this->validate($request,[
        'cashdestination'   => 'required',
-       'cashsource' => 'required',
+       //'cashsource' => 'required',
         'description'   => 'required',
         'amount'  => 'required',
         'daterecieved'  => 'required',
@@ -88,34 +88,20 @@ class CashtransfersConroller extends Controller
         Cashtransfer::Create([
       'transerdate' =>  $request['daterecieved'],
   
-      'accountinact' => $request['cashsource'],
+      'accountinact' => $request['id'],
       'destination' => $request['cashdestination'],
 
       'amount' => $request['amount'],
       'transfertype' => 1,
       'ucret' => $userid,
       'yeardone' => $yearmade,
-      'description' => 'Account Debit Note',
+      'description' => 'Account Debited',
       'monthdone' => $monthmade,
       'transactionno' => $transactionno,
       
     
   ]);
-///////////////////////////////////////////////////////
-Cashtransfer::Create([
-    'transerdate' =>  $request['daterecieved'],
-    'destination' => $request['cashdestination'],
-    'accountinact' => $request['cashdestination'],
-    'amount' => $request['amount'],
-    'transfertype' => 2,
-    'ucret' => $userid,
-    'yeardone' => $yearmade,
-    'description' => 'Account Credit Note',
-    'monthdone' => $monthmade,
-    'transactionno' => $transactionno,
-    
-  
-]);
+
 
   //// updating the shop balance
 
@@ -145,7 +131,17 @@ $this->validate($request,[
      
 $user->update($request->all());
     }
+    public function detetethetransaction($id)
+    {
+        //
+     //   $this->authorize('isAdmin'); 
+     $userid =  auth('api')->user()->id;
+$datenow = Carbon::now();
+        $user = Cashtransfer::findOrFail($id);
+        $transactionid = \DB::table('cashtransfers')->where('id', $id)->value('transactionno');
+       return  DB::table('cashtransfers')->where('transactionno', $transactionid)->delete();
 
+}
    
     public function destroy($id)
     {

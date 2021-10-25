@@ -189,6 +189,51 @@ public function customeraddress()
   }
 
 
+  
+
+  public function loggedinuserid()
+  {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+     // $loggedinuserrole =  auth('api')->user()->mywallet;
+     
+             return response()->json($userid);
+}
+  
+  public function loggedinuserrole()
+  {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+     // $loggedinuserrole =  auth('api')->user()->mywallet;
+     
+             return response()->json($userrole);
+}
+
+  public function loggedinuserbranch()
+  {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+      $momowallet =  auth('api')->user()->mywallet;
+     
+             return response()->json($userbranch);
+}
+
+  public function momowallet()
+  {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+      $momowallet =  auth('api')->user()->mywallet;
+     
+             return response()->json($momowallet);
+}
+
+
+
+
 
     public function getthinvoicenumberactive()
     {

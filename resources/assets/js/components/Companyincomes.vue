@@ -1,4 +1,18 @@
+<style scoped>
+.musisialign{
+     text-align: center;
 
+}
+.musisialignright{
+     text-align: right;
+         padding-right: 10px;
+
+}
+.musisialignleft{
+     text-align: left;
+
+}
+</style>
 
 
 
@@ -72,13 +86,93 @@
 
                 </form>
 <div class="bethapa-table-header"></div>
+
+
+<div v-if="loggedinuserrole == '900' || loggedinuserrole == '100'">
                  <div class="bethapa-table-header">
-                      Cash Transfer Records : Starting {{currencydetails}} To {{currencydetails}}
-                      
+                      <!-- Cash Transfer Records : Starting {{currencydetails}} To {{currencydetails}} -->
+                       Wallets and Cash Balances
                       <!-- -->
-                      <button type="button" class="add-newm" @click="makethetransfer" >Transfer Cash</button>
+                   
                      </div>                     
                                  <table  class="musisireporttable" width="100%" border="1">
+
+<tr>
+       <th>#</th>
+                     
+                      <th>WALLET</th>
+                      <th>BRANCH</th>
+                       <th>CURRENT BALANCE</th>
+                   
+                        
+                        <th ></th>
+</tr>
+<tr>
+  
+
+
+
+
+                      
+  
+          <tr v-for="prodcates in companywalletdetails.data" :key="prodcates.id">
+          
+       <td>{{prodcates.id }}</td>
+                                 <td>{{prodcates.walletname }}</td>
+ 
+
+
+
+ <!-- <td> <template v-if="prodcates.branch_name">	{{prodcates.branch_name.branchname}}</template> </td> -->
+ 
+  
+                  
+                   
+                      <td class="musisialignright">{{formatPrice(prodcates.bal)}}</td>
+
+
+                                
+                               <td class="musisialignright">
+                  
+                  
+
+        
+            <button type="button" v-if="prodcates.bal > 0 && prodcates.bal" class="btn bg-green btn-xs waves-effect"  @click="makecashCollection(prodcates)"><b>Collect Cash</b></button>
+                             
+
+
+          <button type="button"  class="btn bg-brown btn-xs waves-effect" @click="deleteProductCategory(prodcates.id)"> Give  Cash  </button>
+
+ 
+</td>
+                                
+                                
+                                
+                               
+                            
+                                 <!-- <td style="background-color:#eeeeee "><div class="musisialign"> {{formatPrice(prodcates.netinvoiceincome)}} </div></td>
+                                 -->
+     
+</tr>
+<tr>
+
+
+
+    </tr>
+</table>
+
+</div>
+<!-- closing if the role is Super admin or admin for transfers -->
+
+
+<div>
+                 <div class="bethapa-table-header">
+                      <!-- Cash Transfer Records : Starting {{currencydetails}} To {{currencydetails}} -->
+                       Cash Transfers
+                      <!-- -->
+                     
+                     </div>                     
+                                        <table  class="musisireporttable" width="100%" border="1">
 
 <tr>
        <th>#</th>
@@ -151,11 +245,18 @@
                       </td>
                                 
                                <td>
-                            <div  class="musisialignright" v-if="((prodcates.transfertype)) == '1'">
-      
-       <button type="button" v-if="((prodcates.status)) == '0'"   class="btn  bg-gradient-secondary btn-xs fas fa-edit"  @click="editexpensecategory(prodcates)">Edkkkkit</button>
-       <button type="button" v-if="((prodcates.status)) == '0'" class="btn  bg-gradient-danger btn-xs fas fa-trash-alt" @click="deleteexpensecategory(prodcates.id)"> DEl </button>
- </div>
+                      
+                      
+
+     <button v-show="prodcates.status == 0 && prodcates.accountinact ==  momowallet " type="button"   class="btn bg-green btn-xs waves-effect"
+       @click="confirmCashcollection(prodcates.id)"> Confirm Collection </button>      
+    <button type="button" v-if="prodcates.status == 0 && prodcates.ucret == loggedinuserid "  class="btn bg-red btn-xs waves-effect"
+    @click="deletecashcollection(prodcates.id)"> Delete  </button>
+ 
+ 
+
+
+ 
 </td>
                                 
                                 
@@ -172,7 +273,9 @@
 
     </tr>
 </table>
-                                 
+</div>
+<!-- closing if the role is Super admin or admin for transfers -->
+
                                 </div>
                                 <div role="tabpanel" class="tab-pane fade" id="profile">
 
@@ -685,21 +788,15 @@
 
 
 
-
-
-
-
-
-
-<div class="modal fade" id="makecashtransferstart">
+<div class="modal fade" id="makecashcredit">
          <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png"
                              class="profile-user-img img-fluid img-circle" 
-                            style="height: 80px; width: 80px;">Cash Transfer</h3> 
+                            style="height: 80px; width: 80px;">Caseeeh Transfer</h3> 
                 <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" 
-                class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Update Record</h3> </h4> 
+                class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">CASH COLLECTION</h4> 
                         </div>
                  
                  <form class="form-horizontal" @submit.prevent="editmode ? updadeexpenseforofficeuse():createnewTransactiontottransfer()">  
@@ -735,6 +832,132 @@
                                 <has-error :form="form" field="cashdestination"></has-error>               
                                                <select style="min-width:300px;" name ="cashdestination" 
                                                v-model="form.cashdestination" id ="cashdestination"    :class="{'is-invalid': form.errors.has('cashdestination')}">
+                   <option v-for='data in walletlist' v-bind:value='data.id'>{{ data.name }}</option>
+                    </select>
+                   
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+  
+                                 <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Amount</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <has-error :form="form" field="amount"></has-error>
+                                                   <input v-model="form.amount" type="number" name="amount"
+       class="form-control form-control-sm" :class="{ 'is-invalid': form.errors.has('amount') }">
+    
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                              
+
+      <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Transaction Date</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                         <has-error :form="form" field="daterecieved"></has-error>
+                                                   <input v-model="form.daterecieved" type="date" name="daterecieved"
+       class="form-control form-control-sm" :class="{ 'is-invalid': form.errors.has('daterecieved') }">
+     
+ 
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+  <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Description / Comment</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                              <has-error :form="form" field="description"></has-error>
+               <textarea v-model="form.description" name="description" rows="5" cols="30" class="form-control" :class="{ 'is-invalid': form.errors.has('description') }"></textarea>
+                 
+                
+     
+ 
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                              <br>
+
+
+                  <div  class="modal-footer">
+                    <button  v-show="!editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
+                      <button v-show="editmode" type="submit" class="btn btn-success btn-sm" >Update</button>
+                        <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Close</button >
+                        </div>
+                 </form>
+                       </div>
+                          </div>
+                </div>
+
+
+
+
+
+
+
+<div class="modal fade" id="makecashtransferstart">
+         <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png"
+                             class="profile-user-img img-fluid img-circle" 
+                            style="height: 80px; width: 80px;">Caseeeh Transfer</h3> 
+                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" 
+                class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Cash Collection</h4> 
+                        </div>
+                 
+                 <form class="form-horizontal" @submit.prevent="editmode ? createnewTransactiontottransfer():createnewTransactiontottransfer()">  
+<br>
+
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Account of Collection:</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <has-error :form="form" field="walletname"></has-error>
+                                                   <input v-model="form.walletname" readonly  type="text" name="walletname"
+       class="form-control form-control-sm" :class="{ 'is-invalid': form.errors.has('walletname') }">
+
+
+         <input v-model="form.id" type="text" style="display:none" readonly name="id">
+                  
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Destination:</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+
+                                <has-error :form="form" field="cashdestination"></has-error>               
+                                               <select style="min-width:300px;" name ="cashdestination" 
+                                               v-model="form.cashdestination" id ="cashdestination"    :class="{'is-invalid': form.errors.has('cashdestination')}">
+                 <option> </option>
                    <option v-for='data in walletlist' v-bind:value='data.id'>{{ data.name }}</option>
                     </select>
                    
@@ -1383,7 +1606,7 @@
                 todayscashouttotal:null,
                 todaysexpensestotal:null,
                 todayspayouttotal:null,
-                shopbalancngname: null,
+               
                 todayscashintotal:null,
                 shopopenningbalance:null,
                 shopopenningbalancecacollectpoint:null,
@@ -1399,6 +1622,15 @@
           mybrancheslist:[],
           // walletlist:[],
          transactiontypeslist:{},
+
+
+loggedinuserid:{},
+loggedinuserrole:{},
+loggedinuserbranch:{},
+momowallet:{},
+
+
+
         expenseslist:{},
             walletlist:{},
          gencomponentaccessCompanyincomes:'',
@@ -1423,6 +1655,8 @@ incomeaccessSetting:'',
           myOptions: [], // or [{id: key, text: value}, {id: key, text: value}]
           editmode: false,
           cashtransferrecords : {},
+          companywalletdetails:{},
+          
           incomesourcerecords:{},
           expensetypesrecords:{},
           datarecordsSubmenusauthorised:{},
@@ -1482,6 +1716,7 @@ expenseslist:{},
 
                 id: '',
                 name:'',
+                walletname:'',
                 daterecieved:'',
                  expensecategory : '',
                  walletexpense:'',
@@ -1657,7 +1892,45 @@ myClickEventtransactions($event) { const elem = this.$refs.theButtontransafertra
             },
 
 
+confirmCashcollection(id){
+   Swal.fire({
+  title: 'Fish Cash-In Confirmation',
+  text: "You won't be able to revert this",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes'
+}).then((result) => {
 
+/// send request ti
+if (result.isConfirmed) {
+  this.form.delete('api/approvecashcollection/'+id).then(()=>{
+  
+                        Swal.fire(
+                          'Cashout Confirmed!',
+                          'Transaction Done.',
+                          'success'
+                        )
+                   
+    axios.get("api/fishcollections").then(({ data }) => (this.fishcollectionrecords = data));
+
+  }).catch(()=>{
+     Swal.fire({  
+         icon: 'error',
+        title: 'Failed',
+       text: "Transaction was Not successfull. Contact the Administrator for More Assistance",});
+
+  });
+
+
+}                  
+
+
+
+})
+
+            },
 
 paginationroleAuthorisedsubmenues(page = 1) {
                         axios.get('api/authorisedsubmenus?page=' + page)
@@ -1695,7 +1968,7 @@ paginationroleAuthorisedcomponentsfeature(page = 1) {
    paginationResultsExpensecategories(page = 1) {
                         axios.get('api/expensecategories?page=' + page)
                           .then(response => {
-                            this.cashtransferrecords = response.data;
+                            this.companywalletdetails = response.data;
                           });
                       },
 
@@ -1787,8 +2060,10 @@ balancescheck(){
    },
   loadExpensecategories(){
       axios.get("api/getWalletlist").then(({ data }) => (this.walletlist = data)); 
-       axios.get("api/cashtransferrecords").then(({ data }) => (this.cashtransferrecords = data));
-    
+   
+   axios.get("api/cashtransferrecords").then(({ data }) => (this.cashtransferrecords = data));
+ axios.get("api/companywalletdetails").then(({ data }) => (this.companywalletdetails = data));
+
         axios.get("api/gencomponentaccessCompanyincomes").then(({ data }) => (this.gencomponentaccessCompanyincomes = data));
         axios.get("api/cashtransferSettings").then(({ data }) => (this.cashtransferSettings = data));
         axios.get("api/collectionsaccountSetting").then(({ data }) => (this.collectionsaccountSetting = data));
@@ -1965,6 +2240,14 @@ newsubmenuaccess(){
      $('#addnewComponenttotheRole').modal('show');
             },
 
+makecashCollection(companywalletdetails){
+        this.editmode = true;
+        this.form.clear();
+        this.form.reset();
+            this.form.fill(companywalletdetails);
+     
+     $('#makecashtransferstart').modal('show');
+            },
 newCashcredit(){
         this.editmode = false;
         this.form.clear();
@@ -2066,13 +2349,55 @@ $('#addnewcompanyexpensemodal').modal('show');
 $('#addnewcashcollection').modal('show');
             },
 /////////////////////////////////////////////////////////////////////////////////////////////
-            editexpensecategory(cashtransferrecords){
+            editexpensecategory(companywalletdetails){
                 this.editmode = true;
                  this.form.clear();
         this.form.reset();
-        this.form.fill(cashtransferrecords);
-
+        this.form.fill(companywalletdetails);
+// axios.get("api/companywalletdetails").then(({ data }) => (this.companywalletdetails = data));
 $('#addnewExpensecategorymodal').modal('show');
+            },
+
+
+  deletecashtransfer(id){
+   Swal.fire({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes'
+}).then((result) => {
+
+/// send request ti
+if (result.isConfirmed) {
+  this.form.delete('api/detetethetransaction/'+id).then(()=>{
+  
+                        Swal.fire(
+                          'Deleted!',
+                          'Your Record has been deleted.',
+                          'success'
+                        )
+                   
+     axios.get("api/companywalletdetails").then(({ data }) => (this.companywalletdetails = data));
+     
+     axios.get("api/cashtransferrecords").then(({ data }) => (this.cashtransferrecords = data));
+  }).catch(()=>{
+     Swal.fire({  
+         icon: 'error',
+        title: 'Failed',
+       text: "Transaction was Not successfull. Contact the Administrator for More Assistance",});
+
+  });
+
+
+}                  
+
+
+
+})
+
             },
 
 
@@ -2097,13 +2422,8 @@ if (result.isConfirmed) {
                           'success'
                         )
                    
-     axios.get("api/cashtransferrecords").then(({ data }) => (this.cashtransferrecords = data));
-     axios.get("api/shopopenningpalance").then(({ data }) => (this.shopopenningpalance = data));
-     axios.get("api/todayscashintotal").then(({ data }) => (this.todayscashintotal = data));
-     axios.get("api/todayscashouttotal").then(({ data }) => (this.todayscashouttotal = data));
-     axios.get("api/todaysexpensestotal").then(({ data }) => (this.todaysexpensestotal = data));
-     axios.get("api/todayspayouttotal").then(({ data }) => (this.todayspayouttotal = data));
-
+     axios.get("api/companywalletdetails").then(({ data }) => (this.companywalletdetails = data));
+    axios.get("api/cashtransferrecords").then(({ data }) => (this.cashtransferrecords = data));
   }).catch(()=>{
      Swal.fire({  
          icon: 'error',
@@ -2313,7 +2633,7 @@ if (result.isConfirmed) {
 
 /// send request ti
 if (result.isConfirmed) {
-  this.form.delete('api/cashtransferrecords/'+id).then(()=>{
+  this.form.delete('api/companywalletdetails/'+id).then(()=>{
   
                         Swal.fire(
                           'Approved!',
@@ -2321,6 +2641,7 @@ if (result.isConfirmed) {
                           'success'
                         )
                    
+   axios.get("api/companywalletdetails").then(({ data }) => (this.companywalletdetails = data));
    axios.get("api/cashtransferrecords").then(({ data }) => (this.cashtransferrecords = data));
 
   }).catch(()=>{
@@ -2605,7 +2926,7 @@ if (result.isConfirmed) {
                           'success'
                         )
                    
- axios.get("api/shopcashoutdetails").then(({ data }) => (this.cashtransferrecords = data));
+
 
   }).catch(()=>{
      Swal.fire({  
@@ -2862,6 +3183,7 @@ $('#makeofficeexpensemodal').modal('show');
 
                              //  this.loading = false;
                                   this.form.clear();
+                                  axios.get("api/companywalletdetails").then(({ data }) => (this.companywalletdetails = data));
                                   axios.get("api/cashtransferrecords").then(({ data }) => (this.cashtransferrecords = data));
         this.form.reset();
                                 })
@@ -2887,6 +3209,7 @@ $('#makeofficeexpensemodal').modal('show');
 //  axios.get("api/generalreportselectedstartdate").then(({ data }) => (this.generalreportselectedstartdate = data));
 //      axios.get("api/generalreportselectedenddate").then(({ data }) => (this.generalreportselectedenddate = data));
                         //  Fire.$emit('AfterAction');
+axios.get("api/companywalletdetails").then(({ data }) => (this.companywalletdetails = data));
 axios.get("api/cashtransferrecords").then(({ data }) => (this.cashtransferrecords = data));
                                // $('#addNew').modal('hide');
 
@@ -3262,8 +3585,17 @@ if (result.isConfirmed) {
 
 ///////////////////////////////////////////////////
         created() {
+
+//// general user details
+           axios.get("api/loggedinuserid").then(({ data }) => (this.loggedinuserid = data));
+              axios.get("api/loggedinuserrole").then(({ data }) => (this.loggedinuserrole = data));
+                   axios.get("api/loggedinuserbranch").then(({ data }) => (this.loggedinuserbranch = data));
+                 axios.get("api/momowallet").then(({ data }) => (this.momowallet = data));
             axios.get("api/shopopenningpalance").then(({ data }) => (this.shopopenningpalance = data));
-              axios.get("api/getbranchnamebalancing").then(({ data }) => (this.shopbalancngname = data));
+             
+// end of global details
+ axios.get("api/cashtransferrecords").then(({ data }) => (this.cashtransferrecords = data));
+
 axios.get("api/transactiontypeslist").then(({ data }) => (this.transactiontypeslist = data));
 
             this.loadExpensecategories();

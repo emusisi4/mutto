@@ -26,6 +26,11 @@ Route::apiResources(['recievethecustomerPayment' => 'API\CustomerpaymentsControl
 Route::get('customerstatementrecords', 'API\CustomersController@customerstatementrecords');
 Route::get('supplierstatementrecords', 'API\CustomersController@supplierstatementrecords');
 
+
+Route::get('detetethetransaction', 'API\CashtransfersConroller@detetethetransaction');
+
+
+
 Route::get('customerstamento', 'API\CustomersController@customerstamento');
 Route::apiResources(['addnewcustomerrecord' => 'API\CustomersController']);
 Route::apiResources(['products' => 'API\ExpensesController']);
@@ -364,6 +369,7 @@ Route::apiResources(['allowedbranchanduserdatarecords' => 'API\Authorisedbrancha
 
 Route::apiResources(['correctmydaterecordsexpenses' => 'API\AutocorrectdatedetailsexpensesreportController']);
 Route::apiResources(['correctmydaterecords' => 'API\AutocorrectdatedetailsController']);
+Route::apiResources(['companywalletdetails' => 'API\WalletdetailsController']);
 
 
 Route::apiResources(['authorisedbranchmachines' => 'API\AuthorisedbranchandmachineController']);
@@ -389,8 +395,10 @@ Route::get('generalreportselectedenddate', 'APIController@generalreportselectede
 
 
 Route::get('branchDetails', 'APIController@branchDetails');
-
-
+Route::get('loggedinuserid', 'APIController@loggedinuserid');
+Route::get('loggedinuserrole', 'APIController@loggedinuserrole');
+Route::get('loggedinuserbranch', 'APIController@loggedinuserbranch');
+Route::get('momowallet', 'APIController@momowallet');
 
 
 
@@ -482,7 +490,7 @@ Route::apiResources(['vuecomponents' => 'API\VuecomponentsController']);
 Route::apiResources(['componentfeatures' => 'API\ComponentfeaturesController']);
 Route::apiResources(['shopcashoutdetails' => 'API\ShopcasoutdetailsController']);
 Route::apiResources(['approvecashin' => 'API\ApproveCashinController']);
-Route::apiResources(['approvefishcashin' => 'API\Approvefishcashin']);
+Route::apiResources(['approvecashcollection' => 'API\ApprovecashcollectionController']);
 Route::get('generalcomponentaccessSettings', 'APIController@generalcomponentaccessSettings');
 Route::get('dailyfishreportAccessComponent', 'APIController@dailyfishreportAccessComponent');
 Route::get('genrealfishreportsAccess', 'APIController@genrealfishreportsAccess');
