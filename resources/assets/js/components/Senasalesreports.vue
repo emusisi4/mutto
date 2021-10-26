@@ -935,7 +935,7 @@ Sales report summary : Rangingin from  {{salesreportsatartingdate}} to {{salesre
 
 
   <div class="bethapa-reports-header">
-            Product Sales details  : Rangingin from  {{salesreportsatartingdate}} to {{salesreportendingdate}}
+            Product Sales details  : Ranginging from  {{salesreportsatartingdate}} to {{salesreportendingdate}}
                    
                      </div>
      <div class="mysalessect2"> 

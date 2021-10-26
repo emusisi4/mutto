@@ -676,7 +676,128 @@ text-align: center;
                 </div>
 
 
+<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h3>
+                         TODAYS SALES DETILS
+  
+                            </h3>
+                        
+                        </div>
+                        <div class="body">
+                       
+                <table  class="table" width="100%" border="1">
+              
+<tr>
 
+<th>Receipt</th>
+<th> Date</th>
+
+<th>Branch</th>
+<th>Cashier</th>
+<th>Product</th>
+<th>Unit Cost </th>
+<th>Qty </th>
+<th>Total </th>
+
+
+</tr>
+
+<tr>
+          <tr v-for="prodcates in todayssalesdetailttyu.data" :key="prodcates.id">
+               <td>{{prodcates.invoiceno}}</td>
+                                 <td>{{prodcates.datesold | myDate2 }}</td>
+ 
+                             
+                          <td> <template v-if="prodcates.branch_name">	{{prodcates.branch_name.branchname}}</template></td>  
+                          <td> <template v-if="prodcates.product_saleuser">	{{prodcates.product_saleuser.name}}</template></td>  
+                          <td> <template v-if="prodcates.product_name">	{{prodcates.product_name.productname}}</template></td>  
+
+                          <td><div class="musisialignright"> {{formatPrice(prodcates.unitcost)}} </div></td>
+                          <td><div class="musisialign"> {{formatPrice(prodcates.quantity)}} </div></td>
+                          <td><div class="musisialignright"> {{formatPrice(prodcates.totalcost)}} </div></td>
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                                 
+                                
+                                  
+
+
+ <tr>
+
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"></div>
+</th>
+
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+
+
+    
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"></div>
+</th>
+
+
+    
+</tr>
+
+
+</table>      
+
+
+                    
+  
+                   
+                        </div>
+                    </div>
+                </div>
 
 
 
@@ -1280,6 +1401,7 @@ carttotal:[],
           productsavailableforsalelist:{},
           shopingcartdetails:{},
           returnreceiptdetails:{},
+          todayssalesdetailttyu:{},
           receipttotal : {}, 
     receiptcashier :{},
     todaystotalsales:{},
@@ -2379,7 +2501,11 @@ this.productsellingrecords = data.data;
 
  })
           })
-           axios.get("api/productsellingrecords").then(({ data }) => (this.productsellingrecords = data));
+
+          
+          axios.get("api/todayssalesdetailttyu").then(({ data }) => (this.todayssalesdetailttyu = data));
+         
+         axios.get("api/productsellingrecords").then(({ data }) => (this.productsellingrecords = data));
             axios.get("api/existanceofitemsoncart").then(({ data }) => (this.existanceofitemsoncart = data)); 
             
     axios.get("api/shopingcartdetails").then(({ data }) => (this.shopingcartdetails = data));  
