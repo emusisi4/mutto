@@ -402,13 +402,14 @@ text-align: center;
                        
                     </div>
                 </div>
+               
 <div v-if="inputvatcomponentaccess > 0 "  class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box bg-indigo">
                         <div class="icon">
                             <i class="material-icons"></i>
                         </div>
                         <div class="content">
-                            <div class="text"><b>INPUT VAT (Fom Purchases) </b></div>
+                            <div class="text"><b>INPUT VAT</b></div>
                             <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20">
                               <b>{{currencydetails}}  {{formatPrice(inputvatamount) }}</b></div>
                         </div>
@@ -420,7 +421,7 @@ text-align: center;
                             <i class="material-icons"></i>
                         </div>
                         <div class="content">
-                            <div class="text"><b>OUTPUT VAT (On Sales) </b></div>
+                            <div class="text"><b>OUTPUT VAT </b></div>
                             <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20"
                             >   <b>{{currencydetails}}  {{formatPrice(outputvatamount) }}</b></div>
                         </div>
@@ -439,8 +440,8 @@ text-align: center;
                         </div>
                     </div>
                 </div>
-
-                   <div v-if="netvatvatcomponentcomponentaccess > 0" class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+<!-- v-if="netvatvatcomponentcomponentaccess > 0" -->
+                   <div  class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box bg-indigo">
                         <div class="icon">
                             <i class="material-icons"></i>
@@ -448,7 +449,7 @@ text-align: center;
                         <div class="content">
                             <div class="text"><b>Today's Sales </b></div>
                             <div class="number count-to" data-from="0" data-to="257" data-speed="1000"
-                             data-fresh-interval="20"><b>{{currencydetails}}</b></div>
+                             data-fresh-interval="20"><b>{{currencydetails}} {{formatPrice(todaystotalsales) }}</b></div>
                         </div>
                     </div>
                 </div>
@@ -1281,6 +1282,12 @@ carttotal:[],
           returnreceiptdetails:{},
           receipttotal : {}, 
     receiptcashier :{},
+    todaystotalsales:{},
+     inputvatamount:{},
+                bankaccountbalance:{},
+                outputvatamount:{},
+                administratoraccountbalance:{},
+                shopcashbalance:{},
     getreceiptdate:{},
     getreceiptno:{},
           carttotal:{},
@@ -1483,6 +1490,7 @@ axios.get('/api/bankaccountbalance').then(function (response) { this.bankaccount
   axios.get('/api/inputvatamount').then(function (response) { this.inputvatamount = response.data;}.bind(this));
 
  axios.get('/api/outputvatamount').then(function (response) { this.outputvatamount = response.data;}.bind(this));
+ axios.get('/api/todaystotalsales').then(function (response) { this.todaystotalsales = response.data;}.bind(this));
 
 axios.get('/api/inputvatcomponentaccess').then(function (response) { this.inputvatcomponentaccess = response.data;}.bind(this));
 axios.get('/api/outputcomponentaccess').then(function (response) { this.outputcomponentaccess = response.data;}.bind(this));
