@@ -1089,6 +1089,18 @@ $wordCount = \DB::table('collectionreporttoviews')
             return response()->json($data);
 }
 
+public function walletstorecievemoney()
+{
+    $userid =  auth('api')->user()->id;
+    $userbranch =  auth('api')->user()->branch;
+    $userrole =  auth('api')->user()->type;
+  
+  
+   $data = Expensewalet::latest('id')
+   ->where('recievableincome', '=', 1)
+   ->get();
+           return response()->json($data);
+}
 public function walletsofeapenselist()
 {
     $userid =  auth('api')->user()->id;
@@ -3473,7 +3485,12 @@ $data = Expense::latest('id')
 ->get();
    return response()->json($data);}
 
-
+   if($userrole == '101') 
+   {
+ $data = Expense::latest('id')
+ //->where('collectionswallet', 1)
+ ->get();
+    return response()->json($data);}
 
 
 

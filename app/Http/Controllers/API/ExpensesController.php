@@ -43,7 +43,7 @@ class ExpensesController extends Controller
       
          return   Expense::with(['ExpenseTypeconnect','expenseCategory'])->latest('id')
         ->where('del', 0)
-       ->paginate(20);
+       ->paginate(100);
      }
        //  return Submheader::latest()
          //  -> where('ucret', $userid)
@@ -79,7 +79,8 @@ class ExpensesController extends Controller
        $this->validate($request,[
         'expensename'   => 'required | String |max:191',
         'expensecategory'   => 'required',
-        'expensetype'  => 'required',
+        'approvaltype'  => 'required',
+        'description'  => 'required',
        // 'expensetype'   => 'sometimes |min:0'
      ]);
 
@@ -96,8 +97,8 @@ class ExpensesController extends Controller
      'expenseno' => $hid,
       'description' => $request['description'],
       'expensecategory' => $request['expensecategory'],
-      'expensetype' => $request['expensetype'],
-     // 'mainheadercategory' => $request['mainheadercategory'],
+     // 'expensetype' => $request['expensetype'],
+     'approvaltype' => $request['approvaltype'],
  
       'ucret' => $userid,
     

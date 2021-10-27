@@ -13,7 +13,7 @@ class Expensewalet extends Authenticatable
 
 
     protected $fillable = [
-        'walletno', 'name', 'ucret','amount','walletname'
+        'walletno', 'name', 'ucret','amount','walletname','recievableincome'
     ];
     
     public function students(){

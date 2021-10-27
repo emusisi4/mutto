@@ -606,7 +606,8 @@ pre {
                     <div class="modal-content">
                         <div class="modal-header">
                             <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">New Product Registration</h3> 
-                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Update Record </h4> 
+                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" 
+                style="height: 80px; width: 80px;">Customer Cash receipt </h4> 
                         </div>
                   <form class="form-horizontal" @submit.prevent="editmode ? recieveCustomercash():recieveCustomercash()"> 
 
@@ -655,9 +656,10 @@ pre {
                                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                         <div class="form-group">
                                             <div class="form-line">
+                         <has-error :form="form" field="dop"></has-error>
                                                   <input v-model="form.dop" type="date" name="dop"
                       class="form-control" :class="{ 'is-invalid': form.errors.has('dop') }">
-                    <has-error :form="form" field="dop"></has-error>
+                   
                                             </div>
                                         </div>
                                     </div>
@@ -670,14 +672,33 @@ pre {
                                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                         <div class="form-group">
                                             <div class="form-line">
+                                     <has-error :form="form" field="amountpaid"></has-error>
                                                   <input v-model="form.amountpaid" type="number" name="amountpaid"
                       class="form-control" :class="{ 'is-invalid': form.errors.has('amountpaid') }">
-                    <has-error :form="form" field="amountpaid"></has-error>
+                   
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
+ <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Recieving Wallet: </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                              <has-error :form="form" field="recievingwallet"></has-error>
+                                                <select name ="recievingwallet" v-model="form.recievingwallet" id ="recievingwallet" v-on:click="loadDatarecords()" class="form-control" :class="{'is-invalid': form.errors.has('expensecategory')}">
+<option value="">  </option>
+<option v-for='data in walletstorecievemoney' v-bind:value='data.id'>{{ data.walletname }}</option>
+
+</select>
+                    
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
 
 
@@ -688,6 +709,7 @@ pre {
                                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                         <div class="form-group">
                                             <div class="form-line">
+                                               <has-error :form="form" field="mop"></has-error>
               <select name ="mop" v-model="form.mop" id ="mop" class="form-control"  :class="{'is-invalid': form.errors.has('mop')}">
                     
                     <option></option>
@@ -697,7 +719,7 @@ pre {
 
 
                     </select>
-                    <has-error :form="form" field="mop"></has-error>
+                   
                                             </div>
                                         </div>
                                     </div>
@@ -3677,6 +3699,9 @@ if (result.isConfirmed) {
 
 ///////////////////////////////////////////////////
         created() {
+          
+           axios.get("api/walletstorecievemoney").then(({ data }) => (this.walletstorecievemoney = data));
+
             axios.get("api/shopopenningpalance").then(({ data }) => (this.shopopenningpalance = data));
               axios.get("api/getbranchnamebalancing").then(({ data }) => (this.shopbalancngname = data));
 axios.get("api/transactiontypeslist").then(({ data }) => (this.transactiontypeslist = data));

@@ -269,13 +269,14 @@ pre {
                             <ul class="nav nav-tabs tab-nav-right" role="tablist">
                                 <li role="presentation" v-if="expensecategoriesaccessSettings > 0 " class="active"><a href="#home" @click="loadExpensecategories()" data-toggle="tab" aria-expanded="false">Expense Categories</a></li>
                                 <li role="presentation"  v-if="expensetypesaccessSettings > 0 " class=""><a href="#profile" @click="loadExpensetypes()" data-toggle="tab" aria-expanded="false">Expense Types</a></li>
-                                <li role="presentation" class=""  v-if="allcompanyexpensesaccessSettings > 0 "><a href="#messages" data-toggle="tab" @click="loadGeneralExpenses()" aria-expanded="false">Expenses List</a></li>
+                                <li role="presentation" class=""  v-if="allcompanyexpensesaccessSettings > 0 "><a href="#messages" 
+                                data-toggle="tab" @click="loadGeneralExpenses()" aria-expanded="false">Expenses List</a></li>
                                 <li role="presentation" v-if="makeofficeexpenseaccessSettings > 0 "><a href="#settings" data-toggle="tab"   @click="loadExpensesmadebyoffice()"  aria-expanded="true">Expense Requests</a></li>
                             </ul>
 
                             <!-- Tab panes -->
                             <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane fade  active in" id="home">
+                                <div role="tabpanel" v-if="expensecategoriesaccessSettings > 0 " class="tab-pane fade  active in" id="home">
                                  
  <div class="bethapa-table-header"  >  Expense Categories  <button type="button"  v-if="allowedtoaddexpensecategory > 0 "  class="add-newm" @click="newExpensecategorymodal" >Add New </button> </div>
 
@@ -381,7 +382,8 @@ pre {
                                 <div role="tabpanel" class="tab-pane fade" id="messages">
                                                                  
  <div class="bethapa-table-header"  >  Company Expenses   
-    <button type="button" v-if="allowedtoaddnewexpensereccord > 0" class="add-newm" @click="newCompanyexpense" >ADD EXPENSE</button> </div>
+   <!-- v-if="allowedtoaddnewexpensereccord > 0" -->
+    <button type="button"  class="add-newm" @click="newCompanyexpense" >ADD EXPENSE</button> </div>
 <form @submit.prevent="saveproductcategoryFilter()">
                  
                       <div class="form-group">
@@ -446,7 +448,7 @@ pre {
   <th>#</th>
                       <th>EXPENSE NAME</th>
                       <th>CATEGORY</th>
-                      <!-- <th>TYPE</th> -->
+                      <th>APPROVAL</th>
                       <th>DESCRIPTION</th>
                     
                       <th>CREATED</th>
@@ -463,7 +465,10 @@ pre {
                 
                            <td>    <template v-if="compexps.expense_category">	{{compexps.expense_category.expcatcatname}}</template></td>
                            <!-- <td>    <template v-if="compexps.expense_typeconnect">	{{compexps.expense_typeconnect.typename}}</template></td> -->
-                       
+                       <td>
+                         <div style="color: green" v-if="compexps.approvaltype == '1' "> Auto Approved </div>
+                       <div style="color: maroon" v-if="compexps.approvaltype == '2' "> Approval Required </div>
+                       </td>
                                <td>{{compexps.description}}</td>
                                <td>{{compexps.created_at}}</td>
                             
@@ -554,7 +559,7 @@ pre {
              <button type="submit" style="display:none" id="submit" hidden="hidden" name= "submit" ref="theButtontotosalesreportmonthly" class="btn btn-primary btn-sm">Saveit</button>         
 
                                 
-               <select2 :options="options" v-model="selected"></select2>
+            
        
                    
           </div>
@@ -570,7 +575,7 @@ pre {
                       <th>BRANCH</th>
                       <th>EXPENSE</th>
                        <th>DESCRIPTION</th>
-                      <th>AMOUNT ( {{currencydetails}} ) </th>
+                      <th>AMOUNT</th>
                      
                     <th> STATION </th>
                        <th> EXPENSE WALLET </th>
@@ -590,6 +595,8 @@ pre {
                           <td>{{offcmadeexp.description}}</td>
                        
                                <td class="musisialignright"> {{formatPrice((offcmadeexp.amount))}}</td>
+                           
+                           
                                <td>   <div v-if="((offcmadeexp.explevel)) == 1">
                                 <span class="cell" style="color:#dc3545 ;">  
    
@@ -602,31 +609,8 @@ pre {
                               </div> 
                               
                               </td>
-
-   <td>   <div v-if="((offcmadeexp.walletexpense)) == 1">
-                                <span class="cell" style="color:green ;">  
+ <td>    <template v-if="offcmadeexp.expense_wallet">	{{offcmadeexp.expense_wallet.walletname}}</template></td>
    
-                    <span style="font-size:1.0em;" center >  Collections </span></span>
-                              </div>
-                               <div v-if="((offcmadeexp.walletexpense)) == 2">
-                                <span class="cell" style="color:#1591a5 ;">  
-   
-                    <span style="font-size:1.0em;" center >  Investment </span></span>
-                              </div>
-                                  <div v-if="((offcmadeexp.walletexpense)) == 3">
-                                <span class="cell" style="color:#maroon ;">  
-   
-                    <span style="font-size:1.0em;" center >  Petty Cash </span></span>
-                              </div>
-                              
-                                 <div v-if="((offcmadeexp.walletexpense)) == 4">
-                                <span class="cell" style="color:#1378a5 ;">  
-   
-                    <span style="font-size:1.0em;" center >  Branch </span></span>
-                              </div>
-                              
-                               </td>
-
 
 
 
@@ -654,7 +638,7 @@ pre {
        </div>
        
 
-      <button type="button" v-if="offcmadeexp.approvalstate > 0"  class="btn bg-deep-orange btn-xs waves-effect" @click="deletemadeexpense(offcmadeexp.id)"> Delete Expense </button>
+      <button type="button" v-if="offcmadeexp.approvalstate > 0 (loggedinuserrole =='900') "  class="btn bg-deep-orange btn-xs waves-effect" @click="deletemadeexpense(offcmadeexp.id)"> Delete Expense </button>
        
 <!-- v-if="allowedtodeleteadmincashcollection > 0 " -->
                       </td>
@@ -744,7 +728,7 @@ pre {
 
                        <div class="row clearfix">
                                     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="email_address_2">Expense Name</label>
+                                        <label for="email_address_2">Expense Name :</label>
                                     </div>
                                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                         <div class="form-group">
@@ -1111,118 +1095,109 @@ pre {
 
                   </div>
                   
-<div class="modal fade" id="bringupthemodal">
-        <div class="modal-dialog modal-dialog-top modal-lg">
-        <div  class="modal-content">
-            <div  class="modal-header">
-                <h4  v-show="!editmode"    class="modal-title">ADD NEW EXPENSE</h4> 
-                <h4  v-show="editmode" class="modal-title" >UPDATE RECORD</h4> 
-                <button  type="button" data-dismiss="modal" aria-label="Close" class="close"><span  aria-hidden="true">×</span></button></div> 
-                 <form class="form-horizontal" @submit.prevent="editmode ? updateexpenserecord():createNewcompanyexpense()"> 
 
-                    <div  class="modal-body">
-              
-              
-           
-               
-                    
-          
-
-                          
-                
-                      
-               
-                
-                 
-                 </div>
-                 
-                  <div  class="modal-footer">
-                    <button  v-show="!editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
-                      <button v-show="editmode" type="submit" class="btn btn-success btn-sm" >Update</button>
-                        <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Close</button >
-                        </div>
-                 </form>
-                       </div>
-                          </div>
-</div>
 
 <!-- Modal add menu -->
 <div class="modal fade" id="addnewcompanyexpensemodal">
-        <div class="modal-dialog modal-dialog-top modal-lg">
-        <div  class="modal-content">
-            <div  class="modal-header">
-                <h4  v-show="!editmode"    class="modal-title">ADD NEW EXPENSE</h4> 
-                <h4  v-show="editmode" class="modal-title" >UPDATE RECORD</h4> 
-                <button  type="button" data-dismiss="modal" aria-label="Close" class="close"><span  aria-hidden="true">×</span></button></div> 
+         <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">New company expense</h3> 
+                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Update Record </h4> 
+                        </div>
                  <form class="form-horizontal" @submit.prevent="editmode ? updateexpenserecord():createNewcompanyexpense()"> 
 
-                    <div  class="modal-body">
-              
-              
-                 
-                 <div class="form-group row">
 
-                            <label class="col-sm-2 col-form-label">Expense Name   </label>
-                              <div class="col-sm-6">
-                         <input v-model="form.expensename" type="text" name="expensename"
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Expense Name :</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                               <has-error :form="form" field="expensename"></has-error>
+                                              <input v-model="form.expensename" type="text" name="expensename"
         class="form-control form-control-sm" :class="{ 'is-invalid': form.errors.has('expensename') }">
-      <has-error :form="form" field="expensename"></has-error>
+                   
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                              </div>
 
-                        </div>
-                
-                      
+                               <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Category :</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                               <has-error :form="form" field="expensename"></has-error>
+                                            <select name ="expensecategory" v-model="form.expensecategory" id ="expensecategory"
+                                                      class="form-control-sm show-tick" data-live-search="true"  
+                                                      :class="{'is-invalid': form.errors.has('expensecategory')}">
+                    <option value="">   </option>
+                <option v-for='data in expensecategorieslist' v-bind:value='data.id'>{{ data.expcatcatname }}</option>
+
+                    </select>
+                  
+                   
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                    <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Approval State :</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                               <has-error :form="form" field="approvaltype"></has-error>
+                                            <select name ="approvaltype" v-model="form.approvaltype" id ="approvaltype"
+                                                      class="form-control" 
+                                                      :class="{'is-invalid': form.errors.has('approvaltype')}">
+                    <option value="">   </option>
+                   <option value="1"> Auto Approved  </option>
+                      <option value="2">  Pre-Approval Required </option>
+
+                    </select>
+                  
+                   
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Description</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                               <has-error :form="form" field="description"></has-error>
+  <textarea v-model="form.description" name="description" rows="5" cols="10" class="form-control" 
+  :class="{ 'is-invalid': form.errors.has('description') }"></textarea>
+                 
                
-                    
-          
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+ 
+                                
+<br>
+                               
 
-                           <div class="form-group row">
 
-                            <label class="col-sm-2 col-form-label">Category </label>
-                              <div class="col-sm-6">
-                           <select name ="expensecategory" v-model="form.expensecategory" id ="expensecategory" v-on:click="loadDatarecords()" class="form-control" :class="{'is-invalid': form.errors.has('expensecategory')}">
-<option value=" "> Select Category </option>
-<option v-for='data in expensecategory' v-bind:value='data.id'>{{ data.expcatcatname }}</option>
-
-</select>
-            <has-error :form="form" field="expensecategory"></has-error>
-                              </div>
-
-                        </div>
-                
-                      
-               
-   <div class="form-group row">
-
-                            <label class="col-sm-2 col-form-label">Expense Type </label>
-                              <div class="col-sm-6">
-                             <select name ="expensetype" v-model="form.expensetype" id ="expensetype" v-on:click="loadUsers()" class="form-control" :class="{'is-invalid': form.errors.has('expensetype')}">
-<option value=""> Select Expense type </option>
-<option v-for='data in expensetypes' v-bind:value='data.id'>{{ data.typename }}</option>
-
-</select>
-            <has-error :form="form" field="expensetype"></has-error>
-                              </div>
-
-                        </div>
-                
-                        <div class="form-group row">
-
-                            <label class="col-sm-2 col-form-label">Description </label>
-                              <div class="col-sm-6">
-                               <textarea v-model="form.description" name="description" rows="5" cols="30" class="form-control" :class="{ 'is-invalid': form.errors.has('description') }"></textarea>
-                 
-                <has-error :form="form" field="description"></has-error>
-                              </div>
-
-                        </div>
-
-                       
-                
-                 
-                 </div>
-                 
                   <div  class="modal-footer">
                     <button  v-show="!editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
                       <button v-show="editmode" type="submit" class="btn btn-success btn-sm" >Update</button>
@@ -1231,13 +1206,13 @@ pre {
                  </form>
                        </div>
                           </div>
-                
-                    
-                    
-                    
-                    
-                        </div>
-<!-- Modal add menu -->
+                </div>
+
+
+
+
+  <!-- jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj  -->
+     <!-- Modal add menu -->
 <div class="modal fade" id="addnewExpensecategorymodal">
         <div class="modal-dialog modal-dialog-centered modal-xl">
         <div  class="modal-content">
@@ -1406,6 +1381,7 @@ Vue.component("select2", {
                 totalcashin:null,
                 cashinforcollectiontotal:null,
                  brancheslist: null,
+                 expensecategorieslist:null,
             ///////////////////////////////////
           brancheslist: [],
           mybrancheslist:[],
@@ -1413,6 +1389,11 @@ Vue.component("select2", {
        
         expenseslist:{},
             walletlist:{},
+         
+loggedinuserid:{},
+loggedinuserrole:{},
+loggedinuserbranch:{},
+momowallet:{},
          gencomponentaccessExpenses:'',
          branchcashOutSettings:'',
           expensecategoriesaccessSettings:'',
@@ -1480,7 +1461,7 @@ makeofficeexpenseaccessSettings:'',
           submenulist:{},
           mainmenulist:{},
           formfeatures:{},
-expenseslist:{},
+
    expensecategory : '',
    expensetypes : '',
 
@@ -1844,6 +1825,9 @@ loadShopbalancingrecords(){
         axios.get("api/cashcollectionaccessSetting").then(({ data }) => (this.cashcollectionaccessSetting = data));
  axios.get("api/getcurrencydetails").then(({ data }) => (this.currencydetails = data));
          axios.get('/api/branchDetails').then(function (response) { this.brancheslist = response.data;}.bind(this));
+
+
+
          axios.get('/api/mybranch').then(function (response) { this.mybrancheslist = response.data;}.bind(this));
 
   },
@@ -1888,7 +1872,7 @@ loadGeneralExpenses(){
         axios.get("api/expenses").then(({ data }) => (this.datarecordscompanyexpenses = data));
         axios.get("api/getExpensecategories").then(({ data }) => (this.expensecategory = data));
         axios.get("api/getExpensetypes").then(({ data }) => (this.expensetypes = data));
-        //  axios.get("api/getExpensestomake").then(({ data }) => (this.expenseslist = data));
+        axios.get("api/expensecategorieslist").then(({ data }) => (this.expensecategorieslist = data));
            
        
        
@@ -1913,7 +1897,7 @@ loadExpensesmadebyoffice(){
   //   this.checkMainmenuaccessfeatures();
        axios.get("api/makeexpenseofficeuser").then(({ data }) => (this.officemadeexpensesrecords = data));
           
-        axios.get("api/getMainmenues").then(({ data }) => (this.mainmenulist = data));
+        // axios.get("api/getMainmenues").then(({ data }) => (this.mainmenulist = data));
  axios.get("api/allcompanyexpensesaccessSettings").then(({ data }) => (this.allcompanyexpensesaccessSettings = data));
         axios.get("api/makeofficeexpenseaccessSettings").then(({ data }) => (this.makeofficeexpenseaccessSettings = data));
       axios.get("api/gencomponentaccessExpenses").then(({ data }) => (this.gencomponentaccessExpenses = data));
@@ -2782,7 +2766,7 @@ $('#makeofficeexpensemodal').modal('show');
                                 this.form.post('api/makeexpenseofficeuser')
                                 .then(()=>{
 
-
+   axios.get("api/makeexpenseofficeuser").then(({ data }) => (this.officemadeexpensesrecords = data));
                                 // Fire.$emit('AfterAction');
 
                                // $('#addNew').modal('hide');
@@ -3102,6 +3086,14 @@ if (result.isConfirmed) {
 
 
 
+//// general user details
+           axios.get("api/loggedinuserid").then(({ data }) => (this.loggedinuserid = data));
+              axios.get("api/loggedinuserrole").then(({ data }) => (this.loggedinuserrole = data));
+                   axios.get("api/loggedinuserbranch").then(({ data }) => (this.loggedinuserbranch = data));
+                 axios.get("api/momowallet").then(({ data }) => (this.momowallet = data));
+            axios.get("api/shopopenningpalance").then(({ data }) => (this.shopopenningpalance = data));
+             
+// end of global details
 
  Fire.$on('searchingforexpense', ()=>{
             // let query = this.$parent.search;
@@ -3122,6 +3114,7 @@ this.datarecordscompanyexpenses = data.data;
 
 
 
+axios.get('/api/expensecategorieslist').then(function (response) { this.expensecategorieslist = response.data;}.bind(this));
 
 
    axios.get("api/getWalletlist").then(({ data }) => (this.walletlist = data));

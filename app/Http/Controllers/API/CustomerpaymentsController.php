@@ -56,34 +56,36 @@ class CustomerpaymentsController extends Controller
        'narration'   => 'required  |max:225',
        'dop' => 'required',
        'mop' => 'required',
+       'recievingwallet' =>'required',
        'amountpaid'   => 'required'
      //  'dorder'   => 'sometimes |min:0'
      ]);
+
+
+
+$walletrecieving =  $request['recievingwallet'];
+
+
+
      $userid =  auth('api')->user()->id;
 $currentcustomerbalance = $request['bal'];
   $datepaid = date('Y-m-d');
 //  $inpbranch = $request['branchnametobalance'];
 
-
-
-        Customerpayment::Create([
-    
-
-      'customername' => $request['id'],
+$currentwalletinactionbalance = \DB::table('expensewalets')->where('id', $walletrecieving )->value('bal');
+Customerpayment::Create([
+     'customername' => $request['id'],
      'amountpaid'=> $request['amountpaid'],
       'datepaid' => $request['dop'],
       'description' => $request['narration'],
       'reccievedby' => $userid,
       'mop' => $request['mop'],
-      'ucret' => $userid,
-    
+      'ucret' => $userid, 
   ]);
 
 /// Updating the customer Statement
-
 Customerstatement::Create([
-   
-    'customername' =>  $request['id'],
+   'customername' =>  $request['id'],
     'openningbal' => $currentcustomerbalance,
    'transactiontype' => 2,
     'transactiondate' =>$request['dop'],  
@@ -95,14 +97,13 @@ Customerstatement::Create([
               'ucret' => $userid,
             
           ]);
-
+          $bec = $request['amountpaid'];
+$newwalbal = $currentwalletinactionbalance+$bec;
 
           /// Updatint the Custoomer balance
-          DB::table('customers')
-          ->where('id', $request['id'])
-          ->update([
-          'bal' =>  $currentcustomerbalance - $request['amountpaid']
-          ]);
+  DB::table('customers')->where('id', $request['id'])->update(['bal' =>  $currentcustomerbalance - $request['amountpaid']]);
+  /// Updating the collection wallet
+  DB::table('expensewalets')->where('id', $walletrecieving)->update(['bal' =>  $newwalbal]);
 
     }
 //     public function customerstamento(){

@@ -12,7 +12,8 @@ class Madeexpense extends Authenticatable
 
 
     protected $fillable = [
-        'expense','explevel','walletexpense','category','exptype', 'amount', 'datemade','ucret','branch','description','approvalstate','monthmade','yearmade'
+        'expense','explevel','walletexpense','category','exptype', 'amount', 
+        'datemade','ucret','branch','description','approvalstate','monthmade','yearmade','approvaltype'
     ];
     
 
@@ -20,6 +21,8 @@ class Madeexpense extends Authenticatable
         
         return $this->belongsTo(Expense::class, 'expense'); 
     }
+
+   
     public function branchName(){
       
         return $this->belongsTo(Branch::class, 'branch'); 

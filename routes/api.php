@@ -316,7 +316,7 @@ Route::get('productbrandslist', 'APIController@productbrandslist');
 Route::get('unitmeasurelist', 'APIController@unitmeasurelist');
 Route::get('productslist', 'APIController@productslist');
 Route::get('walletsofeapenselist', 'APIController@walletsofeapenselist');
-
+Route::get('walletstorecievemoney', 'APIController@walletstorecievemoney');
 // Sena Hardware End
 
 Route::apiResources(['branchesandmachinesadd' => 'API\AuthorisedbranchandmachineController']); 

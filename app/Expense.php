@@ -17,7 +17,7 @@ class Expense extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'expensename', 'expensecategory', 'expenseno','ucret','expensetype','description',
+        'expensename', 'expensecategory', 'expenseno','ucret','expensetype','description','approvaltype'
     ];
     
 
@@ -26,6 +26,11 @@ class Expense extends Authenticatable
         return $this->belongsTo(Expensetype::class, 'expensetype'); 
     }
     
+    public function expenseWallet(){
+     
+         return $this->hasMany(Madeexpense::class, 'walletexpense', 'id'); 
+     //   return $this->belongsTo(Expensewalet::class, 'walletexpense');
+      }
     public function expenseName(){
         // creating a relationship between the students model 
         return $this->hasMany(Madeexpense::class, 'expense', 'id'); 
