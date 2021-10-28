@@ -553,11 +553,11 @@ pre {
                             
                           <td>     
                               <!-- v-if="allowedtoedituser > 0 " v-if="allowedtoeditCompanyexpense > 0 " v-if="allowedtodeleteCompanyexpense > 0 "  -->
-                            <button type="button"   class="btn  bg-gradient-secondary btn-xs fas fa-edit"  @click="editCompanyexp(compexps)">Edit</button>
+                            <button type="button"   class="btn bg-brown btn-xs waves-effect"  @click="editCompanyexpense(compexps)">Edit</button>
                              <!--  -->
 
 
-                            <button type="button"   class="btn  bg-gradient-danger btn-xs fas fa-trash-alt" @click="deleteCompanyexp(compexps.id)"> DEl </button>
+                            <!-- <button type="button"   class="btn  bg-gradient-danger btn-xs fas fa-trash-alt" @click="deleteCompanyexp(compexps.id)"> DEl </button> -->
 
 
 
@@ -1195,7 +1195,7 @@ pre {
                             <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">New company expense</h3> 
                 <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Update Record </h4> 
                         </div>
-                 <form class="form-horizontal" @submit.prevent="editmode ? updateexpenserecord():createNewcompanyexpense()"> 
+                 <form class="form-horizontal" @submit.prevent="editmode ? updatemyexpell():createNewcompanyexpense()"> 
 
 
                                 <div class="row clearfix">
@@ -1575,6 +1575,8 @@ todaystotalsales:{},
                  expensecategory : '',
                  walletexpense:'',
    expensetypes : '',
+   expensename:'',
+   expensecategory:'',
                 email:'',
                 rolename:'',
                 type:'',
@@ -1953,6 +1955,13 @@ loadShopbalancingrecords(){
          axios.get('/api/mybranch').then(function (response) { this.mybrancheslist = response.data;}.bind(this));
 
   },
+   editCompanyexpense(datarecordscompanyexpenses){
+                this.editmode = true;
+                 this.form.clear();
+        this.form.reset();
+        this.form.fill(datarecordscompanyexpenses);
+$('#addnewcompanyexpensemodal').modal('show');
+            },
   loadExpensecategories(){
       
        axios.get("api/expensecategories").then(({ data }) => (this.expensecategorydetails = data));
@@ -2541,10 +2550,11 @@ this.form.post('api/branchtobalance');
             },
 
 
-updateexpenserecord(){
+
+updatemyexpell(){
     this.$Progress.start();
           
-this.form.put('api/makeexpense/'+this.form.id)
+this.form.put('api/expenses/'+this.form.id)
   .then(()=> {
     // on success
    $('#addnewcompanyexpensemodal').modal('hide');
@@ -2569,6 +2579,40 @@ this.form.put('api/makeexpense/'+this.form.id)
  
 
   })
+
+
+  .catch(()=>{
+ this.$Progress.fail();
+   Swal.fire({  
+         icon: 'error',
+        title: 'Failed',
+       text: "Transaction was Not successfull. Contact the Administrator for More Assistance",});
+  
+  
+  });
+   },
+
+updateexpenserecord(){
+    this.$Progress.start();
+          
+this.form.put('api/makeexpense/'+this.form.id)
+  .then(()=> {
+    // on success
+   $('#addnewcompanyexpensemodal').modal('hide');
+  
+    Swal.fire(
+        'Update!',
+        'Record has been updated.',
+        'success'
+      )
+      this.$Progress.finish();
+  axios.get("api/expenses").then(({ data }) => (this.datarecordscompanyexpenses = data));
+  axios.get("api/shopopenningpalance").then(({ data }) => (this.shopopenningpalance = data));
+     axios.get("api/todayscashintotal").then(({ data }) => (this.todayscashintotal = data));
+     axios.get("api/todayscashouttotal").then(({ data }) => (this.todayscashouttotal = data));
+     axios.get("api/todaysexpensestotal").then(({ data }) => (this.todaysexpensestotal = data));
+     axios.get("api/todayspayouttotal").then(({ data }) => (this.todayspayouttotal = data));
+ })
 
 
   .catch(()=>{

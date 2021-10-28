@@ -155,7 +155,7 @@ class ExpensesController extends Controller
 $this->validate($request,[
   'expensename'   => 'required | String |max:191',
   'expensecategory'   => 'required',
-  'expensetype'  => 'required'
+//  'expensetype'  => 'required'
     ]);
 
  
