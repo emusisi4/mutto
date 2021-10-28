@@ -32,23 +32,24 @@ class MadeexpensesofficeConroller extends Controller
       $userid =  auth('api')->user()->id;
      $userbranch =  auth('api')->user()->branch;
     $userrole =  auth('api')->user()->mmaderole;
-    //$userwallet =  auth('api')->user()->mmaderole;
+    $userwallet =  auth('api')->user()->mywallet;
      $branchinb = \DB::table('expenserecordtoselects')->where('ucret', $userid )->value('branch');
      $expensename = \DB::table('expenserecordtoselects')->where('ucret', $userid )->value('expensename');
      $displaynumber = \DB::table('expenserecordtoselects')->where('ucret', $userid )->value('displaynumber');
 
-    //  if($userrole == '101')
-    //   {
+     if($userrole == '101')
+      {
       
-    //      return   Madeexpense::with(['branchName','expenseName'])->latest('datemade')
-    //   // return   Madeexpense::latest('id')
-    //     ->where('del', 0)
-    //     ->where('branch', $userbranch)
-    //    ->paginate(20);
-    //   }
+         return   Madeexpense::with(['branchName','expenseName','expenseWallet'])->latest('datemade')
+      // return   Madeexpense::latest('id')
+        ->where('del', 0)
+        ->where('branch', $userbranch)
+        ->where('walletexpense', $userwallet)
+       ->paginate(30);
+      }
      
   //{  
-    return   Madeexpense::with(['branchName','expenseName'])->latest('datemade')
+    return   Madeexpense::with(['branchName','expenseName','expenseWallet'])->latest('datemade')
         
     //->where('expense', $expensename)
  //    ->where('branch', $branchinb)
@@ -110,6 +111,7 @@ class MadeexpensesofficeConroller extends Controller
 
      $userid =  auth('api')->user()->id;
      $userrole =  auth('api')->user()->mmaderole;
+     $userwallet =  auth('api')->user()->mywallet;
      //$id1  = Expense::latest('id')->where('del', 0)->orderBy('id', 'Desc')->limit(1)->value('expenseno');
      //$hid = $id1+1;
 
@@ -126,10 +128,12 @@ $reference = $generalnum1.$generalnum2;
 if($userrole == '101')
 {
   $expl = '1';
+  $expwalet = $userwallet;
 }
 if($userrole != '101')
 {
   $expl = '2';
+  $expwalet = $request['walletexpense'];
 }
   $apptype =  DB::table('expenses')->where('expenseno', $exp )->value('approvaltype');
   $dateinact = $request['datemade'];
@@ -142,7 +146,7 @@ if($userrole != '101')
       'amount' => $request['amount'],
       'datemade' => $request['datemade'],
       'branch' => $request['branch'],
-      'walletexpense' => $request['walletexpense'],
+      'walletexpense' => $expwalet,
       'explevel' => $expl,
       'category' => $expcat,
       'approvaltype'=> $apptype,

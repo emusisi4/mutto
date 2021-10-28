@@ -247,7 +247,86 @@ pre {
 
 
 
+<div class="row clearfix">
+  <div v-if="branchwalletcomponentaccess > 0 " class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="info-box bg-indigo">
+                        <div class="icon">
+                            <i class="material-icons"></i>
+                        </div>
+                        <div class="content">
+                            <div class="text"><b>JOGO SHOP BALANCE </b></div>
+                            <div class="number count-to">
+                              <b>{{currencydetails}}  {{formatPrice(shopcashbalance)}}</b></div>
+                        </div>
+                    </div>
+                </div>
+ <div v-if="administratorcomponentaccess > 0 " class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="info-box bg-indigo">
+                        <div class="icon">
+                            <i class="material-icons"></i>
+                        </div>
+                        <div class="content">
+                            <div class="text"><b>ADMINISTRATOR ACCOUNT  </b></div>
+                            <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20">
+                              <b>{{currencydetails}}  {{formatPrice(administratoraccountbalance)}}</b></div>
+                        </div>
+                    </div>
+                </div>
 
+                <div v-if="bankwalletcomponentaccess > 0 " class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="info-box bg-indigo">
+                        <div class="icon">
+                            <i class="material-icons"></i>
+                        </div>
+                        <div class="content">
+                            <div class="text"><b>BANK ACCOUNT  </b></div>
+                            <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20">
+                              <b>{{currencydetails}}  {{formatPrice(bankaccountbalance)}}</b></div>
+                        </div>
+                       
+                    </div>
+                </div>
+               
+<!-- <div v-if="inputvatcomponentaccess > 0 "  class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-indigo">
+                        <div class="icon">
+                            <i class="material-icons"></i>
+                        </div>
+                        <div class="content">
+                            <div class="text"><b>INPUT VAT</b></div>
+                            <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20">
+                              <b>{{currencydetails}}  {{formatPrice(inputvatamount) }}</b></div>
+                        </div>
+                    </div>
+                </div> -->
+       <!-- <div v-if="outputcomponentaccess > 0 " class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-indigo">
+                        <div class="icon">
+                            <i class="material-icons"></i>
+                        </div>
+                        <div class="content">
+                            <div class="text"><b>OUTPUT VAT </b></div>
+                            <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20"
+                            >   <b>{{currencydetails}}  {{formatPrice(outputvatamount) }}</b></div>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- <div v-if="netvatvatcomponentcomponentaccess > 0" class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-indigo">
+                        <div class="icon">
+                            <i class="material-icons"></i>
+                        </div>
+                        <div class="content">
+                            <div class="text"><b>NET VAT </b></div>
+                            <div class="number count-to" data-from="0" data-to="257" data-speed="1000"
+                             data-fresh-interval="20"><b>{{currencydetails}}</b></div>
+                        </div>
+                    </div>
+                </div> -->
+
+
+</div>
 
 
 
@@ -577,7 +656,7 @@ pre {
                        <th>DESCRIPTION</th>
                       <th>AMOUNT</th>
                      
-                    <th> STATION </th>
+                    <!-- <th> STATION </th> -->
                        <th> EXPENSE WALLET </th>
                         <th> STATUS </th>
                    
@@ -589,15 +668,15 @@ pre {
                        <tr v-for="offcmadeexp in officemadeexpensesrecords.data" :key="offcmadeexp.id">
                     <td>{{offcmadeexp.id}}</td>
                   
-                    <td>{{offcmadeexp.datemade}}</td>
-                           <td>    <template v-if="offcmadeexp.branch_name">	{{offcmadeexp.branch_name.branchname}}</template></td>
-                           <td>    <template v-if="offcmadeexp.expense_name">	{{offcmadeexp.expense_name.expensename}}</template></td>
-                          <td>{{offcmadeexp.description}}</td>
+                    <td>{{offcmadeexp.datemade |myDate2}}</td>
+                          <td>    <template v-if="offcmadeexp.branch_name">	{{offcmadeexp.branch_name.branchname}}</template></td>
+                            <td>    <template v-if="offcmadeexp.expense_name">	{{offcmadeexp.expense_name.expensename}}</template></td>
+                      <td>{{offcmadeexp.description}}</td>
                        
                                <td class="musisialignright"> {{formatPrice((offcmadeexp.amount))}}</td>
                            
                            
-                               <td>   <div v-if="((offcmadeexp.explevel)) == 1">
+                                   <!-- <td>   <div v-if="((offcmadeexp.explevel)) == 1">
                                 <span class="cell" style="color:#dc3545 ;">  
    
                     <span style="font-size:1.0em;" center >  Branch </span></span>
@@ -608,13 +687,13 @@ pre {
                     <span style="font-size:1.0em;" center >  Office </span></span>
                               </div> 
                               
-                              </td>
+                              </td> -->
  <td>    <template v-if="offcmadeexp.expense_wallet">	{{offcmadeexp.expense_wallet.walletname}}</template></td>
-   
+  <!--   -->
 
 
 
-                                <td> <div v-if="((offcmadeexp.approvalstate))== 0">
+                          <td> <div v-if="((offcmadeexp.approvalstate))== 0">
                                 <span class="cell" style="color:maroon ;">  
    
                     <span style="font-size:1.0em;" center >  Pending </span></span>
@@ -625,23 +704,34 @@ pre {
                     <span style="font-size:1.0em;" center >  Approved </span></span>
                               </div>
                               
-                              </td>
+                              </td>       <!-- -->
 
                                
-                          <td> 
-                                <!-- div  >       -->
+                        <td> 
+                             
         <div >                         
-       <button v-show="offcmadeexp.approvalstate < 1" type="button"  class="btn bg-green btn-xs waves-effect" 
+       <button v-show="offcmadeexp.approvalstate < 1 && ((loggedinuserrole =='900') ||  (loggedinuserrole =='100'))" type="button"  class="btn bg-green btn-xs waves-effect" 
         @click="confirmexpense(offcmadeexp.id)"> Confirm  </button>
-      <button type="button" v-if="offcmadeexp.approvalstate < 1" class="btn bg-brown btn-xs waves-effect"  @click="editOfficemadeexpense(offcmadeexp)">Edit Expense</button>
-         <button type="button" v-if="offcmadeexp.approvalstate < 1"  class="btn bg-deep-orange btn-xs waves-effect" @click="deletemadeexpense(offcmadeexp.id)"> Cancel </button>
+
+
+      <button type="button" v-if=" (offcmadeexp.approvalstate < 1) && (offcmadeexp.ucret == loggedinuserid ) && (loggedinuserrole == '900' || loggedinuserrole == '100'  )"  
+      class="btn bg-brown btn-xs waves-effect" 
+       @click="editOfficemadeexpense(offcmadeexp)">Edit</button>
+
+         <button type="button" v-if=" (offcmadeexp.approvalstate < 1) && (offcmadeexp.ucret != loggedinuserid )" 
+      class="btn bg-brown btn-xs waves-effect" 
+       @click="editOfficemadeexpense(offcmadeexp)">Edit</button>
+      
+         <button type="button" v-if=" (offcmadeexp.approvalstate < 1) && (offcmadeexp.ucret == loggedinuserid )"  class="btn bg-deep-orange btn-xs waves-effect" @click="deletemadeexpense(offcmadeexp.id)"> Cancel </button>
+
+          <button type="button" v-if=" (offcmadeexp.approvalstate < 1) && (offcmadeexp.ucret != loggedinuserid ) && (loggedinuserrole == '900' || loggedinuserrole == '100'  )"  class="btn bg-deep-orange btn-xs waves-effect" @click="deletemadeexpense(offcmadeexp.id)"> Cancel </button>
        </div>
        
 
-      <button type="button" v-if="offcmadeexp.approvalstate > 0 (loggedinuserrole =='900') "  class="btn bg-deep-orange btn-xs waves-effect" @click="deletemadeexpense(offcmadeexp.id)"> Delete Expense </button>
+      <button type="button" v-if="offcmadeexp.approvalstate > 0 && ((loggedinuserrole =='900') ||  (loggedinuserrole =='100'))"  class="btn bg-deep-orange btn-xs waves-effect" @click="deletemadeexpense(offcmadeexp.id)"> Delete Expense </button>
        
-<!-- v-if="allowedtodeleteadmincashcollection > 0 " -->
-                      </td>
+
+                      </td>    <!---->
                     </tr>
               
                     
@@ -787,7 +877,7 @@ pre {
                  
 
 
-    <div class="row clearfix">
+    <div class="row clearfix" v-show=" loggedinuserrole != '101' ">
                                     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
                                         <label for="email_address_2">Expense Wallet</label>
                                     </div>
@@ -797,7 +887,7 @@ pre {
                                                  <select style="min-width:300px;" name ="expense" v-model="form.walletexpense" id ="walletexpense"  data-live-search="true"    :class="{'is-invalid': form.errors.has('walletexpense')}">
                 
               <option value=" ">  </option>
-                  <option v-for='data in walletlist' v-bind:value='data.id'>{{ data.id }} - {{ data.name }}</option>
+                  <option v-for='data in expensablewallets' v-bind:value='data.id'>{{ data.id }} - {{ data.name }}</option>
 
 
                     </select>
@@ -810,7 +900,7 @@ pre {
                                 
                   <div class="row clearfix">
                                     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="email_address_2">DEscription / Comment</label>
+                                        <label for="email_address_2">Description</label>
                                     </div>
                                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                         <div class="form-group">
@@ -1385,10 +1475,10 @@ Vue.component("select2", {
             ///////////////////////////////////
           brancheslist: [],
           mybrancheslist:[],
-          // walletlist:[],
+          // expensablewallets:[],
        
         expenseslist:{},
-            walletlist:{},
+            expensablewallets:{},
          
 loggedinuserid:{},
 loggedinuserrole:{},
@@ -1409,6 +1499,18 @@ makeofficeexpenseaccessSettings:'',
          cashcollectionaccessSetting:'',
      ///    
 
+    branchwalletcomponentaccess:'',
+         administratorcomponentaccess:'',
+         bankwalletcomponentaccess:'',
+inputvatcomponentaccess:'',
+outputcomponentaccess:'',
+netvatvatcomponentcomponentaccess:'',
+todaystotalsales:{},
+     inputvatamount:{},
+                bankaccountbalance:{},
+                outputvatamount:{},
+                administratoraccountbalance:{},
+                shopcashbalance:{},
        
        ////////////////////////////////////////////////////////////////////////////////////
           myValue: '',
@@ -1534,7 +1636,27 @@ myClickEventtoshowmodal($event) { const elem = this.$refs.theButtontotosalesrepo
      
      $('#bringupthemodal').modal('show');
             },
+loadvatvalues(){
+  axios.get('/api/bankaccountbalance').then(function (response) { this.bankaccountbalance = response.data;}.bind(this));
+  axios.get('/api/administratoraccountbalance').then(function (response) { this.administratoraccountbalance = response.data;}.bind(this));
 
+
+  axios.get('/api/shopcashbalance').then(function (response) { this.shopcashbalance = response.data;}.bind(this));
+  axios.get('/api/inputvatamount').then(function (response) { this.inputvatamount = response.data;}.bind(this));
+
+ axios.get('/api/outputvatamount').then(function (response) { this.outputvatamount = response.data;}.bind(this));
+ axios.get('/api/todaystotalsales').then(function (response) { this.todaystotalsales = response.data;}.bind(this));
+
+axios.get('/api/inputvatcomponentaccess').then(function (response) { this.inputvatcomponentaccess = response.data;}.bind(this));
+axios.get('/api/outputcomponentaccess').then(function (response) { this.outputcomponentaccess = response.data;}.bind(this));
+axios.get('/api/bankwalletcomponentaccess').then(function (response) { this.bankwalletcomponentaccess = response.data;}.bind(this));
+axios.get('/api/netvatvatcomponentcomponentaccess').then(function (response) { this.netvatvatcomponentcomponentaccess = response.data;}.bind(this));
+axios.get('/api/administratorcomponentaccess').then(function (response) { this.administratorcomponentaccess = response.data;}.bind(this));
+axios.get('/api/branchwalletcomponentaccess').then(function (response) { this.branchwalletcomponentaccess = response.data;}.bind(this));
+
+
+
+},
            savethemonthlyreportforallbranches(){
 
                                 this.loading = true;
@@ -1907,6 +2029,7 @@ loadExpensesmadebyoffice(){
         axios.get("api/branchcashInSettings").then(({ data }) => (this.branchcashInSettings = data));
         axios.get("api/submenuaccessSettings").then(({ data }) => (this.submenuaccessSettings = data));
         axios.get("api/getWalletlist").then(({ data }) => (this.walletlist = data));
+        axios.get("api/expensablewallets").then(({ data }) => (this.expensablewallets = data));
         axios.get("api/branchpayoutaccessSettings").then(({ data }) => (this.branchpayoutaccessSettings = data));
         axios.get("api/cashcollectionaccessSetting").then(({ data }) => (this.cashcollectionaccessSetting = data));
 ///
@@ -2767,6 +2890,24 @@ $('#makeofficeexpensemodal').modal('show');
                                 .then(()=>{
 
    axios.get("api/makeexpenseofficeuser").then(({ data }) => (this.officemadeexpensesrecords = data));
+   axios.get('/api/bankaccountbalance').then(function (response) { this.bankaccountbalance = response.data;}.bind(this));
+  axios.get('/api/administratoraccountbalance').then(function (response) { this.administratoraccountbalance = response.data;}.bind(this));
+
+
+  axios.get('/api/shopcashbalance').then(function (response) { this.shopcashbalance = response.data;}.bind(this));
+  axios.get('/api/inputvatamount').then(function (response) { this.inputvatamount = response.data;}.bind(this));
+
+ axios.get('/api/outputvatamount').then(function (response) { this.outputvatamount = response.data;}.bind(this));
+ axios.get('/api/todaystotalsales').then(function (response) { this.todaystotalsales = response.data;}.bind(this));
+
+axios.get('/api/inputvatcomponentaccess').then(function (response) { this.inputvatcomponentaccess = response.data;}.bind(this));
+axios.get('/api/outputcomponentaccess').then(function (response) { this.outputcomponentaccess = response.data;}.bind(this));
+axios.get('/api/bankwalletcomponentaccess').then(function (response) { this.bankwalletcomponentaccess = response.data;}.bind(this));
+axios.get('/api/netvatvatcomponentcomponentaccess').then(function (response) { this.netvatvatcomponentcomponentaccess = response.data;}.bind(this));
+axios.get('/api/administratorcomponentaccess').then(function (response) { this.administratorcomponentaccess = response.data;}.bind(this));
+axios.get('/api/branchwalletcomponentaccess').then(function (response) { this.branchwalletcomponentaccess = response.data;}.bind(this));
+
+
                                 // Fire.$emit('AfterAction');
 
                                // $('#addNew').modal('hide');
@@ -3116,7 +3257,7 @@ this.datarecordscompanyexpenses = data.data;
 
 axios.get('/api/expensecategorieslist').then(function (response) { this.expensecategorieslist = response.data;}.bind(this));
 
-
+axios.get("api/expensablewallets").then(({ data }) => (this.expensablewallets = data));
    axios.get("api/getWalletlist").then(({ data }) => (this.walletlist = data));
 axios.get("api/getExpensestomake").then(({ data }) => (this.expenseslist = data));
 
@@ -3132,7 +3273,7 @@ axios.get("api/getExpensestomake").then(({ data }) => (this.expenseslist = data)
             this.loadExpensecategories();
              axios.get("api/getcurrencydetails").then(({ data }) => (this.currencydetails = data));
       });
-  //setInterval(() =>this.loadExpensecategories(),3000);
+  setInterval(() =>this.loadvatvalues(),3000);
         }
     }
 </script>

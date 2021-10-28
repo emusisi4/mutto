@@ -1385,7 +1385,16 @@ carttotal:[],
           brancheslist: null,
          // accessusercoponent : null,
          generalPointofsalecomponentaccess:'',
+         
          branchwalletcomponentaccess:'',
+         administratorcomponentaccess:'',
+         bankwalletcomponentaccess:'',
+inputvatcomponentaccess:'',
+outputcomponentaccess:'',
+netvatvatcomponentcomponentaccess:'',
+
+
+
          mainmenuaccessComponent:'',
          submenuaccessComponent : '',
          vuedetailsaccessComponent : '',

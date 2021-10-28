@@ -3497,6 +3497,16 @@ $data = Expense::latest('id')
 
 }
 
+public function expensablewallets()
+{
+ 
+$data = Expensewalet::latest('id')
+->where('recievableincome', 1)
+->get();
+    return response()->json($data);
+}
+
+
 public function getWallets()
 {
  
@@ -3505,9 +3515,6 @@ $data = Expensewalet::latest('id')
 ->get();
     return response()->json($data);
 }
-
-
-
 
 
 

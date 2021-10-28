@@ -379,6 +379,8 @@ Route::apiResources(['authorisedbranchmachines' => 'API\Authorisedbranchandmachi
 Route::apiResources(['roletoaddsumenu' => 'API\RoletoaddsubmenuController']);
 Route::apiResources(['roletoaddmainmenu' => 'API\RoletoaddmainmenuController']);
 Route::apiResources(['expensecategories' => 'API\ExpensecategoriesController']);
+Route::apiResources(['officemadeexpensesrecords' => 'API\CompanymadeexpensesController']);
+
 Route::apiResources(['cashtransferrecords' => 'API\CashtransfersConroller']);
 
 Route::apiResources(['incomesourcerecords' => 'API\MyincomsourcesController']);
@@ -782,6 +784,8 @@ Route::get('getdeleteexpensetype', 'APIController@getdeleteexpensetype');
 Route::get('fishcreditaccessSetting', 'APIController@fishcreditaccessSetting');
 Route::get('fishdebitaccessSetting', 'APIController@fishdebitaccessSetting');
 Route::get('getWalletlist', 'APIController@getWallets');
+Route::get('expensablewallets', 'APIController@expensablewallets');
+
 Route::get('cashcreditaccessSetting', 'APIController@cashcreditaccessSetting');
 Route::get('cashcollectionaccessSetting', 'APIController@cashcollectionaccessSetting');
 Route::get('geteditcashcollection', 'APIController@geteditcashcollection');
