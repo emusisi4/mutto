@@ -2726,9 +2726,11 @@ pre {
          <div class="modal-dialog modal-sm" role="document">
                     <div class="modal-content" style="width:800px">
                         <div class="modal-header">
-                            <h3  v-show="!editmode"    class="modal-title">
-                              <img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">CONFIRM PURCHASE</h3> 
-                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">CONFIRM PURCHASE</h3> </h4> 
+                            <h3  v-show="!editmode" 
+                               class="modal-title">
+                              <img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Purchase Confirmation</h3> 
+                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" 
+                class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Purchase Confirmation </h4> 
                         </div>
                   <form class="form-horizontal" @submit.prevent="editmode ? updatecreateOrderconfirmation():createnewInvoice()"> 
 
@@ -2837,13 +2839,15 @@ pre {
                                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                  <input v-model="form.qtydelivered" type="text"  name="qtydelivered"
+                                                  <input v-model="form.qtydelivered" type="text" @keypress="updatecurrentsalestatus" @keyup="updatecurrentsalestatus"  name="qtydelivered"
                       class="form-control" :class="{ 'is-invalid': form.errors.has('qtydelivered') }">
+                        <input v-model="form.newqtybhbbbb" type="text" style="display:none"  name="newqtybhbbbb">
                     <has-error :form="form" field="qtydelivered"></has-error>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                               
 <div class ="bethapa-table-sectionheader">PRICE SETTINGS</div>
                                        <div class="row clearfix">
                                     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -3308,6 +3312,7 @@ gettheinvoicedeliverystatus:{},
                 qty:'',
                 creditsellingprice:'',
                 unitmeasure:'',
+                newqtybhbbbb:1,
 totalcost:1,
 unitcost :1,
 quantity: 1,
@@ -3603,6 +3608,10 @@ tosubmitProductdetailfilter($event) { const elem = this.$refs.buttontosubmitProd
 
 
 
+updatecurrentsalestatus(event) {
+        this.form.qtydelivered = event.target.value
+        this.form.newqtybhbbbb = (this.form.qtydelivered)-(this.form.quantity)
+      },
 
 
 
@@ -4280,6 +4289,9 @@ axios.get("api/gettheinvoicetotalwithoutvat").then(({ data }) => (this.gettheinv
 
 
   createnewInvoice(){
+
+
+
       this.$Progress.start();
         this.form.post('api/newinvoicegeneration')
         .then(()=>{
@@ -4303,8 +4315,9 @@ axios.get("api/gettheinvoicetotalwithoutvat").then(({ data }) => (this.gettheinv
           
         })
          
-    }, // end of create
 
+  }, // end of create
+  
 
             createUnitofmeasure(){
       this.$Progress.start();
@@ -4384,6 +4397,10 @@ this.form.put('api/productdetailsrecords/'+this.form.id)
 
 
 updatecreateOrderconfirmation(){
+
+if(this.form.newqtybhbbbb <= 0)
+{
+
     this.$Progress.start();
           
 this.form.put('api/purcaseorderconfirmation/'+this.form.id)
@@ -4411,6 +4428,19 @@ this.form.put('api/purcaseorderconfirmation/'+this.form.id)
   
   
   });
+} ////////////////////////////////////
+ if(this.form.newqtybhbbbb > 0)
+{
+ Swal.fire({  
+         icon: 'warning',
+          timer: 5000,
+        title: 'Ivalid Entry',
+       text: "Your Delivered quntity is More than the Ordered quantity.  Check Please",});
+
+
+
+
+}
    },// end of update
 
 
