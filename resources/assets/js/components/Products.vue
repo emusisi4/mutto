@@ -2583,20 +2583,70 @@ pre {
 
 
 <table  class="musisireporttable" width="100%" border="1">
+
+       <tr>
+             <th colspan="1"  style="font-size: 18px;     border-bottom: 4px solid rgb(124 102 102);  
+                background-color: rgb(29 31 34 / 37%); color: #131378;"> #</th>
+            
+          
+              <th colspan="1"  style="font-size: 18px; text-align:center;   
+                border-bottom: 4px solid rgb(124 102 102); 
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> Date</th>
+        
+              <!-- <th colspan="1"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> CODE </th> -->
+              
+            <th colspan="1"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> Supplier Invoice </th>
+              
+             <th colspan="1"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> Supplier Name	</th>
+          
+             <th colspan="1"  style="font-size: 18px;   text-align:center;  border-bottom: 4px solid rgb(124 102 102); 
+                 background-color: rgb(29 31 34 / 37%); color: #131378;"> Item Name</th>
+
+                 
+
+                <th colspan="5"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> Order details</th>
+  
+  
+               <th colspan="4"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> Delivery Details</th>
+    <th colspan="1"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> 	Status</th>
+  
+                <th colspan="1"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> 	</th>
+          
+        </tr>
+
+  
      <tr>
-   <th > # </th>
-                       <th > DATE</th>
-                      <th > SUPPLIER INVOICE</th>
-                        <th >SUPPLIER</th>
-                      <th > ITEM / PRODUCT </th>
-                       <th > UNITCOST({{currencydetails}})</th>
-                       <th >QTY</th>
-                       <th >TOTAL</th>
-                       <th >VAT</th>
-                       <th >GRANT TOTAL</th>
-                       <th >STATUS</th>
+   <th > </th>
+                       <th > </th>
+                      <th > </th>
+                        <th ></th>
+                      <th >  </th>
+                       <th > Unit Cost</th>
+                       <th >Qty</th>
+                       <th >Total</th>
+                       <th >Vat</th>
+                       <th >Grand Cost</th>
+                   
                                          
                     
+
+
+  
+                       <th >Date</th>
+                      <th > Unit Cost</th>
+                       <th >Qty</th>
+                       <th >Total Cost</th>
+                     
+
+
+<th >  </th>
                      <th >  </th>
 
 </tr>
@@ -2620,11 +2670,21 @@ pre {
      <td> {{formatPrice(purcdet.grandtotal)  }}</td>
                              
                                
-                                 
+                                
+                                
+     <td> {{(purcdet.datedelivered)  }}</td>
+     
+     <td> {{formatPrice(purcdet.unitprice)  }}</td>
+     <td> <b> <div v-if="purcdet.qtydelivered > purcdet.quantity"  style="color:maroon" > {{(purcdet.qtydelivered)  }} </div></b>
+     
+     <div v-if="purcdet.qtydelivered == purcdet.quantity"  style="color:green" > {{(purcdet.qtydelivered)  }} </div>
+     <div v-if="purcdet.qtydelivered < purcdet.quantity"  style="color:orange" > {{(purcdet.qtydelivered)  }} </div>
+     </td>
+     <td> {{formatPrice(purcdet.totalcostdelivery)  }}</td>   
                                 
                                  <td> 
-                                   <div v-if="purcdet.status == '0' "> Pending </div>
-                                 <div v-if="purcdet.status == '1' "> Confirmed </div>
+                                   <div style="color:orange" v-if="purcdet.status == '0' "> Pending </div>
+                                 <div style="color:green" v-if="purcdet.status == '1' "> Confirmed </div>
                                  </td>
                                  <td> 
                                   
