@@ -449,7 +449,7 @@ text-align: center;
                         <div class="content">
                             <div class="text"><b>Today's total Sales </b></div>
                             <div class="number count-to" data-from="0" data-to="257" data-speed="1000"
-                             data-fresh-interval="20"><b>{{currencydetails}} {{formatPrice(todaystotalsales) }}</b></div>
+                             data-fresh-interval="20"><b>{{currencydetails}} {{formatPrice(todaystotalsales+todaystotalcreditsales) }}</b></div>
                         </div>
                     </div>
                 </div>
