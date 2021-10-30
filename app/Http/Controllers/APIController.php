@@ -654,6 +654,7 @@ if($userrole == '101')
    
     ->where('branch', '=', $userbranch)
    ->where('datesold', '=', $currentdate)
+   ->where('saletype', '=', 1)
   //  ->where('status', '=', 0)
     //->orderByDesc('id')
     //->limit(1)
