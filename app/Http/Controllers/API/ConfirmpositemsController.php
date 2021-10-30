@@ -144,6 +144,7 @@ $invoiceno = $inv.$dto;
      'yearmade'=> $user->yearmade, 
      'linevat'=> $user->linevat, 
      'branch' => $user->branch, 
+     'saletype' => 1,
      'linetotal' => $user->linetotal,
      'unitcost' => $user->unitcost,
     'totalcost' => $user->totalcostprice,
@@ -211,6 +212,8 @@ $dto88 = date('Y-m-d');
    'totalcost' => $totalcostoftheinvoice,
      'lineprofit' => $totalprofitoninvoice,
      'vatamount' => $totalvatoninvoice,
+     'saletype' => 1,
+
     'invoiceamount' => $totallineforinvoice,  
     'actualprofit' => $totalprofitoninvoice-$totalvatoninvoice, 
     'netinvoiceincome' => ($totallineforinvoice-$totalvatoninvoice),   
@@ -311,7 +314,7 @@ Dailysummaryreport::Create([
   'netunitsalewithoutvat' => $totalnetunitsalewithoutvat,
   'netsalewithoutvat' => $totalnetsalewithoutvat,
 
-
+  'saletype' => 1,
   'invoiceamount' => $totalsalesamount,
   'totalcost' => $totalcost,
   'netinvoiceincome' => $netinvoiceincome,
@@ -358,7 +361,7 @@ Incomestatementsummary::Create([
   'otherincomes'=> $incomestatementotherincomes,
   'expenses'=> $incomestatementexpenses,
   'mothmade'=> $monthmade,
-                   'yearmade' => ($yearmade),   
+  'yearmade' => ($yearmade),   
   'grossprofitonsales' => $incomestatementtotalsales-$incomestatementtotalcost,
 'netprofitbeforetaxes' => $incomestatementtotalsales-$incomestatementtotalcost+$incomestatementotherincomes-$incomestatementexpenses,
     
