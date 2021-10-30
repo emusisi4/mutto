@@ -642,6 +642,28 @@ public function bankaccountbalance()
 
 
 
+public function todaystotalcashsales()
+{
+  $userid =  auth('api')->user()->id;
+  $userbranch =  auth('api')->user()->branch;
+  $userrole =  auth('api')->user()->mmaderole;
+  $currentdate = date('Y-m-d');
+if($userrole == '101')
+{
+  $ttsales = \DB::table('productsales')
+   
+    ->where('branch', '=', $userbranch)
+   ->where('datesold', '=', $currentdate)
+  //  ->where('status', '=', 0)
+    //->orderByDesc('id')
+    //->limit(1)
+    ->sum('linetotal');
+
+    return $ttsales;
+} 
+}
+
+
 
 public function todaystotalcreditsales()
 {

@@ -474,7 +474,7 @@ text-align: center;
                         <div class="content">
                             <div class="text"><b>Today's Cash </b></div>
                             <div class="number count-to" data-from="0" data-to="257" data-speed="1000"
-                             data-fresh-interval="20"><b>{{currencydetails}} {{formatPrice(todaystotalsales-todaystotalcreditsales) }}</b></div>
+                             data-fresh-interval="20"><b>{{currencydetails}} {{formatPrice(todaystotalcashsales) }}</b></div>
                         </div>
                     </div>
                 </div>
@@ -1440,7 +1440,7 @@ netvatvatcomponentcomponentaccess:'',
     receiptcashier :{},
     todaystotalsales:{},
     todaystotalcreditsales:{},
-   
+   todaystotalcashsales:{},
      inputvatamount:{},
                 bankaccountbalance:{},
                 outputvatamount:{},
@@ -1657,8 +1657,8 @@ axios.get('/api/bankwalletcomponentaccess').then(function (response) { this.bank
 axios.get('/api/netvatvatcomponentcomponentaccess').then(function (response) { this.netvatvatcomponentcomponentaccess = response.data;}.bind(this));
 axios.get('/api/administratorcomponentaccess').then(function (response) { this.administratorcomponentaccess = response.data;}.bind(this));
 axios.get('/api/branchwalletcomponentaccess').then(function (response) { this.branchwalletcomponentaccess = response.data;}.bind(this));
-
-
+ 
+axios.get('/api/todaystotalcashsales').then(function (response) { this.todaystotalcashsales = response.data;}.bind(this));
 
 },
 
