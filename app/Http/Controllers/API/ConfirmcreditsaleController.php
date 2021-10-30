@@ -146,6 +146,7 @@ $invoiceno = $inv.$dto;
      'itemreceiptno'=> $user->itemreceiptno, 
      'linevat'=> $user->linevat, 
      'branch' => $user->branch, 
+     'saletype' =>2,
      'linetotal' => $user->linetotal,
      'unitcost' => $user->unitcost,
     'totalcost' => $user->totalcostprice,
