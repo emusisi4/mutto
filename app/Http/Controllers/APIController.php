@@ -674,10 +674,12 @@ public function todaystotalcreditsales()
   $currentdate = date('Y-m-d');
 if($userrole == '101')
 {
-  $ttsales = \DB::table('creditsalesdetails')
+  $ttsales = \DB::table('productsales')
    
     ->where('branch', '=', $userbranch)
    ->where('datesold', '=', $currentdate)
+   ->where('saletype', '=', 2)
+
   //  ->where('status', '=', 0)
     //->orderByDesc('id')
     //->limit(1)
