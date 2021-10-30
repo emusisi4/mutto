@@ -276,7 +276,7 @@ Route::get('inputvatamount', 'APIController@inputvatamount');
 Route::get('outputvatamount', 'APIController@outputvatamount');
 Route::get('todaystotalsales', 'APIController@todaystotalsales');   
 //axios.get('/api/todaystotalsales').then(function (response) { this.todaystotalsales = response.data;}.bind(this));
-
+Route::get('todaystotalcreditsales', 'APIController@todaystotalcreditsales');
 
              Route::get('dailytotalsalesforselection', 'API\CompanyReportsController@dailytotalsalesforselection');
              Route::get('dailyvatcollectedforselection', 'API\CompanyReportsController@dailyvatcollectedforselection');

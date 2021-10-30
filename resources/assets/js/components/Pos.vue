@@ -447,9 +447,34 @@ text-align: center;
                             <i class="material-icons"></i>
                         </div>
                         <div class="content">
-                            <div class="text"><b>Today's Sales </b></div>
+                            <div class="text"><b>Today's total Sales </b></div>
                             <div class="number count-to" data-from="0" data-to="257" data-speed="1000"
                              data-fresh-interval="20"><b>{{currencydetails}} {{formatPrice(todaystotalsales) }}</b></div>
+                        </div>
+                    </div>
+                </div>
+                        <div  class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-indigo">
+                        <div class="icon">
+                            <i class="material-icons"></i>
+                        </div>
+                        <div class="content">
+                            <div class="text"><b>Today's Credit Sales </b></div>
+                            <div class="number count-to" data-from="0" data-to="257" data-speed="1000"
+                             data-fresh-interval="20"><b>{{currencydetails}} {{formatPrice(todaystotalcreditsales) }}</b></div>
+                        </div>
+                    </div>
+                </div>
+                
+                        <div  class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-indigo">
+                        <div class="icon">
+                            <i class="material-icons"></i>
+                        </div>
+                        <div class="content">
+                            <div class="text"><b>Today's Cash </b></div>
+                            <div class="number count-to" data-from="0" data-to="257" data-speed="1000"
+                             data-fresh-interval="20"><b>{{currencydetails}} {{formatPrice(todaystotalsales-todaystotalcreditsales) }}</b></div>
                         </div>
                     </div>
                 </div>
@@ -1414,6 +1439,7 @@ netvatvatcomponentcomponentaccess:'',
           receipttotal : {}, 
     receiptcashier :{},
     todaystotalsales:{},
+    todaystotalcreditsales:{},
      inputvatamount:{},
                 bankaccountbalance:{},
                 outputvatamount:{},
@@ -1622,7 +1648,8 @@ axios.get('/api/bankaccountbalance').then(function (response) { this.bankaccount
 
  axios.get('/api/outputvatamount').then(function (response) { this.outputvatamount = response.data;}.bind(this));
  axios.get('/api/todaystotalsales').then(function (response) { this.todaystotalsales = response.data;}.bind(this));
-
+  
+   axios.get('/api/todaystotalcreditsales').then(function (response) { this.todaystotalcreditsales = response.data;}.bind(this));
 axios.get('/api/inputvatcomponentaccess').then(function (response) { this.inputvatcomponentaccess = response.data;}.bind(this));
 axios.get('/api/outputcomponentaccess').then(function (response) { this.outputcomponentaccess = response.data;}.bind(this));
 axios.get('/api/bankwalletcomponentaccess').then(function (response) { this.bankwalletcomponentaccess = response.data;}.bind(this));

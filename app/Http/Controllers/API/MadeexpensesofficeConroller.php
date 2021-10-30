@@ -167,7 +167,7 @@ if($apptype == '1')
   $id = \DB::table('madeexpenses')->where('ucret', $userid )->orderBy('id', 'Desc')->value('id');
   $approvalstate = \DB::table('madeexpenses')->where('id', $id )->value('approvalstate');
      $walletofexpense = \DB::table('madeexpenses')->where('id', $id )->value('walletexpense');
-   
+     $branchinq = \DB::table('madeexpenses')->where('id', $id )->value('branch');
    
   
      $transamount = \DB::table('madeexpenses')->where('id', $id)->value('amount');
@@ -179,6 +179,7 @@ if($approvalstate == 0 )
    {
     $newwalletamountrecieving = $currentaccountbalancespending-$transamount;
     $updatingthegivingaccount = \DB::table('expensewalets')->where('id', $walletofexpense)->update(['bal' =>  $newwalletamountrecieving]);
+    $bstanding = \DB::table('branchcashstandings')->where('branch', $branchinq)->update(['outstanding' =>  $newwalletamountrecieving]);
     $updatingthestatus = \DB::table('madeexpenses')->where('id', $id)->update(['approvalstate' => 1]);
 
 //// working on the monthly expenses report
@@ -457,7 +458,8 @@ if($approvalstate == 0 )
     $newwalletamountrecieving = $currentaccountbalancespending-$transamount;
     $updatingthegivingaccount = \DB::table('expensewalets')->where('id', $walletofexpense)->update(['bal' =>  $newwalletamountrecieving]);
     $updatingthestatus = \DB::table('madeexpenses')->where('id', $id)->update(['approvalstate' => 1]);
-
+    $branchinq = \DB::table('madeexpenses')->where('id', $id )->value('branch');
+    $bstanding = \DB::table('branchcashstandings')->where('branch', $branchinq)->update(['outstanding' =>  $newwalletamountrecieving]);
 //// working on the monthly expenses report
 
 $branchinact = \DB::table('madeexpenses')->where('id', $id)->value('branch');
