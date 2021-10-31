@@ -674,16 +674,16 @@ public function todaystotalcreditsales()
   $currentdate = date('Y-m-d');
 if($userrole == '101')
 {
-  $ttsales = \DB::table('productsales')
+  $ttsales = \DB::table('creditsalessummarries')
    
     ->where('branch', '=', $userbranch)
-   ->where('datesold', '=', $currentdate)
-   ->where('saletype', '=', 2)
+   ->where('invoicedate', '=', $currentdate)
+   //->where('saletype', '=', 2)
 
   //  ->where('status', '=', 0)
     //->orderByDesc('id')
     //->limit(1)
-    ->sum('linetotal');
+    ->sum('invoiceamount');
 
     return $ttsales;
 } 
