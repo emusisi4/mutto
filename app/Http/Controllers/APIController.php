@@ -676,7 +676,7 @@ if($userrole == '101')
 {
   $ttsales = \DB::table('creditsalessummarries')
    
-    ->where('branch', '=', $userbranch)
+   // ->where('branch', '=', $userbranch)
    ->where('invoicedate', '=', $currentdate)
    //->where('saletype', '=', 2)
 

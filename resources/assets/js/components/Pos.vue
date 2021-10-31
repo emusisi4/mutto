@@ -2539,7 +2539,7 @@ this.productsellingrecords = data.data;
  })
           })
 
-          
+            axios.get('/api/todaystotalcreditsales').then(function (response) { this.todaystotalcreditsales = response.data;}.bind(this));
           axios.get("api/todayssalesdetailttyu").then(({ data }) => (this.todayssalesdetailttyu = data));
          
          axios.get("api/productsellingrecords").then(({ data }) => (this.productsellingrecords = data));
