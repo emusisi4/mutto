@@ -340,7 +340,7 @@ pre {
                                
                                 <li role="presentation" class="active" >
                                     <a href="#home_with_icon_title" @click="loadContactdetailscustomers()" data-toggle="tab">
-                                        <i class="material-icons"></i> Contact details
+                                        <i class="material-icons"></i> Ledger Details
                                     </a>
                                 </li>
                                
