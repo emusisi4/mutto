@@ -245,8 +245,7 @@ pre {
                     <div class="card">
                         <div class="header">
                             <h2>
-                               COMPANY CONTACTS
-                            
+                               LEDGER ACCOUNTS                            
                             </h2>
                        
                         </div>
@@ -273,7 +272,7 @@ pre {
                       Ledger Accounts
                       
                       <!-- -->
-                      <button type="button" class="add-newm" @click="makethetransfer" >Add new Customer</button>
+                      <button type="button" class="add-newm" @click="makethetransfer" >Add new Ledger</button>
                      </div>                     
                                  <table  class="musisireporttable" width="100%" border="1">
 
@@ -1093,16 +1092,17 @@ pre {
          <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">ADD NEW RECORD</h3> 
+                            <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png"
+                             class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">New Ledger Creation</h3> 
                 <h4  v-show="editmode" class="modal-title" >UPDATE RECORD</h4> 
                         </div>
                   <form class="form-horizontal" @submit.prevent="editmode ? updatecustomerrecords():createNewcustomer()"> 
 
                 
-<div class ="bethapa-table-sectionheader">Client Information</div>
+<div class ="bethapa-table-sectionheader">Ledger Information</div>
                                 <div class="row clearfix">
                                     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="email_address_2">Customer Name</label>
+                                        <label for="email_address_2">Ledger Name</label>
                                     </div>
                                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                         <div class="form-group">
@@ -1119,7 +1119,7 @@ pre {
 
 <div class="row clearfix">
                                     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="email_address_2">Client type</label>
+                                        <label for="email_address_2">Ledger type</label>
                                     </div>
                                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                         <div class="form-group">
@@ -1127,8 +1127,8 @@ pre {
                                                <select name ="customertype"  v-model="form.customertype" id ="customertype" 
                       class="show-tick" :class="{'is-invalid': form.errors.has('customertype')}">
                     <option value="">   </option>
-                    <option value="1"> Customer </option>
-                    <option value="2"> Supplier  </option>
+                    <option value="1"> For Customer </option>
+                    <option value="2">For  Supplier  </option>
                    
 
                     </select>

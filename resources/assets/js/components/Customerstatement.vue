@@ -330,7 +330,7 @@ pre {
                     <div class="card">
                         <div class="header">
                             <h2>
-                        CUSTOMER STATEMENTS
+                        Ledger Statements
                             </h2>
                             
                         </div>
@@ -710,13 +710,13 @@ List of Ledger Accounts
                             <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png"
                              class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">New Product Registration</h3> 
                 <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" 
-                style="height: 80px; width: 80px;">Customer Statement </h4> 
+                style="height: 80px; width: 80px;">Ledgers Statements </h4> 
                         </div>
                 
                       
  <div class="bethapa-reports-header"  >
    
-Customer Statement Report  : From  {{salesreportsatartingdate}} to {{salesreportendingdate}}
+Ledger  Statement Report  : From  {{salesreportsatartingdate}} to {{salesreportendingdate}}
 </div>
 
 <!-- <div class="mysalessect">  -->
@@ -936,7 +936,7 @@ Customer Statement Report  : From  {{salesreportsatartingdate}} to {{salesreport
 
  <div class="bethapa-reports-header"  >
    
-Customer Statement Report  : From  {{salesreportsatartingdate}} to {{salesreportendingdate}}
+Ledger Statement Report  : From  {{salesreportsatartingdate}} to {{salesreportendingdate}}
 </div>
 
 <!-- <div class="mysalessect">  -->
