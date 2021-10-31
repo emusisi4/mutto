@@ -33,7 +33,7 @@ class CustomersController extends Controller
       return   Customer::latest('id')
        //  return   Branchpayout::latest('id')
         // ->where('branch', $userbranch)
-        ->paginate(30);
+        ->paginate(50);
       }
 
 
