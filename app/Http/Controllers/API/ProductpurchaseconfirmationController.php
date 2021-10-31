@@ -12,6 +12,7 @@ use App\Branch;
 use App\Purchase;
 use App\Productpricechange;
 use App\Supplierstatement;
+use App\Customerstatement;
 class ProductpurchaseconfirmationController extends Controller
 {
     
@@ -201,7 +202,7 @@ Productpricechange::Create([
 
 ]);
 ////////////$newamounttoaddtoinvoice
-$currentsupplierbalance =    \DB::table('suppliers')->where('id', '=', $supplieridno)->value('bal');
+$currentsupplierbalance =    \DB::table('customers')->where('id', '=', $supplieridno)->value('bal');
 $newsupplierbalance = $currentsupplierbalance+$levibalance;
 
 
@@ -209,34 +210,34 @@ $newsupplierbalance = $currentsupplierbalance+$levibalance;
 
 
 
-$isinvoiceinstatementforsupplier = \DB::table('supplierstatements')->where('invoiceinaction', '=', $supplierinvoiceno)->count();
+$isinvoiceinstatementforsupplier = \DB::table('customerstatements')->where('invoiceinaction', '=', $supplierinvoiceno)->count();
 
 if($isinvoiceinstatementforsupplier > 0)
 {
-  $totalnow = \DB::table('supplierstatements')->where('invoiceinaction', '=', $supplierinvoiceno)->value('amount');
+  $totalnow = \DB::table('customerstatements')->where('invoiceinaction', '=', $supplierinvoiceno)->value('amount');
   $newrrrtttf = $totalnow+$ttttddedd;
 
-  DB::table('supplierstatements')->where('invoiceinaction', $supplierinvoiceno)->update(array('amount' => $newrrrtttf));
+  DB::table('customerstatements')->where('invoiceinaction', $supplierinvoiceno)->update(array('amount' => $newrrrtttf));
 }
 
 
 if($isinvoiceinstatementforsupplier < 1)
 {
-   $supplieropenningbalance = \DB::table('suppliers')->where('id', '=', $supplieridno)->value('bal');
+   $supplieropenningbalance = \DB::table('customers')->where('id', '=', $supplieridno)->value('bal');
  
 $resultantbalance = $supplieropenningbalance+$ttttddedd;
-  Supplierstatement::Create([
+  Customerstatement::Create([
     
 
-    'suppliername' => $supplieridno,
-    'transactiontype' => 1,
+    'customername' => $supplieridno,
+    'transactiontype' => 2,
     'transactiondate' => $datedelivered,
   
-    'description' => 'Order Delivery',
+    'description' => 'Recieved goods from Supplier',
     'openningbal' => $supplieropenningbalance,
-    'amount' => $ttttddedd,
+    'amount' => 0,
 
-    'debitamount' => 0,
+    'debitamount' => $ttttddedd,
     'invoiceinaction' => $supplierinvoiceno,
     'resultatantbalance' => $resultantbalance,
    
@@ -247,7 +248,7 @@ $resultantbalance = $supplieropenningbalance+$ttttddedd;
   // DB::table('supplierstatements')->where('invoiceinaction', $supplierinvoiceno)->update(array('amount' => $newrrrtttf));
 }
 
-DB::table('suppliers')->where('id', $supplieridno)->update(array('bal' => $newsupplierbalance));
+DB::table('customers')->where('id', $supplieridno)->update(array('bal' => $newsupplierbalance));
 //////////////////////////////////////////////////////////////////////////// Purchases
 DB::table('purchases')->where('id', $id)->update(array('status' => 1,'qtydelivered' => $qtydelivered,'datedelivered' => $datedelivered,
 'ucretconfirmeddelivery' => $userid,'linecostdelivery' => $purchasecostforunit,'totalcostdelivery'=> $purchasecostforunit*$qtydelivered));

@@ -1,4 +1,11 @@
 <style scoped>
+.hhn {
+  position: absolute;
+  right: 0px;
+  width: 300px;
+  border: 3px solid #73AD21;
+  padding: 10px;
+}
 .invoice {
     background: #fff;
     padding: 20px;
@@ -331,9 +338,9 @@ pre {
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs" role="tablist">
                                
-                                <li role="presentation" class="active" v-if="categoriesComponentaccess > 0">
-                                    <a href="#home_with_icon_title" @click="loadDailysalesreportdetails()" data-toggle="tab">
-                                        <i class="material-icons"></i> Statement Transactions
+                                <li role="presentation" class="active" >
+                                    <a href="#home_with_icon_title" @click="loadContactdetailscustomers()" data-toggle="tab">
+                                        <i class="material-icons"></i> Contact details
                                     </a>
                                 </li>
                                
@@ -344,11 +351,11 @@ pre {
 
 
                                 <!-- v-if="brandsComponentaccess > 0" -->
-                                <!-- <li role="presentation">
-                                    <a href="#profile_with_icon_title"  @click="loadSalesreportsummary()" data-toggle="tab">
-                                        <i class="material-icons"></i> Sales Reports Summary
+                                <li role="presentation">
+                                    <a href="#profile_with_icon_title"  @click="loadDailysalesreportdetails()" data-toggle="tab">
+                                        <i class="material-icons"></i> Statement Transactions
                                     </a>
-                                </li> -->
+                                </li>
                                 <!-- v-if="unitsofmeasureComponentaccess > 0" -->
                                 <!-- <li role="presentation">
                                     <a href="#messages_with_icon_title"  @click="loadSalesdetailsreportdetailed()" data-toggle="tab">
@@ -391,6 +398,539 @@ pre {
 <div role="tabpanel" class="tab-pane fade in active" id="home_with_icon_title"  v-if="categoriesComponentaccess > 0">
                                          
                     
+              
+
+
+ <div class="bethapa-reports-header"  >
+   
+List of Ledger Accounts
+</div>
+
+<!-- <div class="mysalessect">  -->
+    <!-- <div> 
+
+      
+           <div class="mysalessect"> 
+                <form @submit.prevent="savecustomerstatementFilter()">
+                 
+                      <div class="form-group">
+       
+                                        <label>Start Date</label>
+  <input v-model="form.startdate" type="date" name="startdate" id="startdate" v-on:change="tosubmitProductdetailfilter" >
+
+      <label>End Date</label>
+  <input v-model="form.enddate" type="date" name="enddate" id="enddate" v-on:change="tosubmitProductdetailfilter" > 
+<label><b>Customer : </b></label>
+                    <select style="min-width:300px;" name ="customername" v-model="form.customername" id ="customername"  data-live-search="true"  v-on:change="tosubmitProductdetailfilter"  :class="{'is-invalid': form.errors.has('customername')}">
+                    <option>   </option>
+                    <option v-for='data in customerslist' v-bind:value='data.id'>{{ data.customername }}</option>
+
+                    </select>
+                                <has-error :form="form" field="customername"></has-error>         
+                              
+             <button type="submit" style="display:none" id="submit" hidden="hidden" name= "submit" ref="buttontosubmitProductdetailFilter" class="btn btn-primary btn-sm">Saveit</button>         
+
+                                
+            
+       
+                   
+          </div>
+   
+
+                </form>
+ 
+           </div>
+        
+               
+</div>
+      -->
+
+                   <table  class="musisireporttable" width="100%" border="1">
+
+<tr>
+       <th>#</th>
+                      <th>Ledger Name</th>
+                         <!-- <th>Account Balance </th> -->
+                           <th>Debit Balance </th>
+                             <th>Credit Balance </th>
+                               <th>Ledger Type </th>
+                     
+                        
+                     
+                        
+                        <th ></th>
+</tr>
+<tr>
+  
+
+
+
+
+                      
+  
+          <tr v-for="prodcates in customerdetailsrecords.data" :key="prodcates.id">
+          
+       <td>{{prodcates.id }}</td>
+      <td>{{prodcates.customername  }}</td>
+       <!-- <td class="musisialignright">{{formatPrice(prodcates.bal)}}</td> -->
+       <td class="musisialignright">
+         <div v-if="(prodcates.customertype == '1' && prodcates.bal >= 0)"> {{formatPrice(prodcates.bal)}} </div>
+       <div v-if="(prodcates.customertype == '1' && prodcates.bal < 0)"> 0 </div>
+
+
+  <div v-if="(prodcates.customertype == '2' && prodcates.bal >= 0)"> 0 </div>
+       <div v-if="(prodcates.customertype == '2' && prodcates.bal < 0)"> {{formatPrice((prodcates.bal)*-1)}}  </div>
+
+       </td>
+         <td class="musisialignright">
+            <div v-if="(prodcates.customertype == '1' && prodcates.bal < 0)"> {{formatPrice((prodcates.bal)*-1)}} </div>
+             <div v-if="(prodcates.customertype == '1' && prodcates.bal >= 0)"> 0 </div>
+
+
+
+              <div v-if="(prodcates.customertype == '2' && prodcates.bal >= 0)">  {{formatPrice((prodcates.bal))}} </div>
+       <div v-if="(prodcates.customertype == '2' && prodcates.bal < 0)"> 0  </div>
+            </td>
+ 
+     
+   <td><div style="color:green" v-if="prodcates.customertype == '1'"> Customer </div>
+   <div style="color:maroon" v-if="prodcates.customertype == '2'"> Supplier </div> </td>
+ 
+      
+
+                               <td>
+                            <div  class="musisialign">
+       <button type="button"   class="btn btn-success btn-xs waves-effect"  @click="recievecustomerpayment(prodcates)">Recieve Payment</button>
+      
+      <button type="button"   class="btn bg-primary btn-xs waves-effect"  @click="viewcustomerstatement(prodcates)">View Statement</button>  
+       <button type="button"   class="btn bg-brown btn-xs waves-effect"  @click="editProductdetails(prodcates)">Customer Deposit</button>
+
+              <!-- <button type="button"    class="btn  bg-gradient-danger btn-xs fas fa-trash-alt" @click="deleteexpensecategory(prodcates.id)"> DEl </button> -->
+ </div>
+</td>
+  
+                  
+                    
+                                     
+
+                           
+                                
+                                
+                                
+                               
+                            
+                                 <!-- <td style="background-color:#eeeeee "><div class="musisialign"> {{formatPrice(prodcates.netinvoiceincome)}} </div></td>
+                                 -->
+     
+</tr>
+<tr>
+
+
+
+    </tr>
+</table>
+
+
+
+             
+    <!-- <div class="card-footer">
+                <ul class="pagination pagination-sm m-0 float-right">
+                   <pagination :data="salesreportsummaryrecords" @pagination-change-page="paginationResultsProductcategories"></pagination>
+                </ul>
+    </div> -->
+          
+ 
+
+
+
+<div class="modal fade" id="customerpaymentModal">
+   
+         <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">New Product Registration</h3> 
+                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" 
+                style="height: 80px; width: 80px;">Customer Cash receipt </h4> 
+                        </div>
+                  <form class="form-horizontal" @submit.prevent="editmode ? recieveCustomercash():recieveCustomercash()"> 
+
+ 
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Customer Name :</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                  <input v-model="form.customername" type="text" name="customername" readonly
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('customername') }">
+
+
+                      
+                    <has-error :form="form" field="customername"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                    <input v-model="form.id" style="display:none" type="text" name="id" readonly>
+
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Current Balance : </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                 <input v-model="form.bal" readonly type="number" name="bal"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('bal') }">
+                    <has-error :form="form" field="bal"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+
+
+  <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Date of Payment :</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                         <has-error :form="form" field="dop"></has-error>
+                                                  <input v-model="form.dop" type="date" name="dop"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('dop') }">
+                   
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+ <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Amount Paid : </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                     <has-error :form="form" field="amountpaid"></has-error>
+                                                  <input v-model="form.amountpaid" type="number" name="amountpaid"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('amountpaid') }">
+                   
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+ <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Recieving Account: </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                              <has-error :form="form" field="recievingwallet"></has-error>
+                                                <select name ="recievingwallet" v-model="form.recievingwallet" id ="recievingwallet" v-on:click="loadDatarecords()" class="form-control" :class="{'is-invalid': form.errors.has('expensecategory')}">
+<option value="">  </option>
+<option v-for='data in walletstorecievemoney' v-bind:value='data.id'>{{ data.walletname }}</option>
+
+</select>
+                    
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                 <div v-show="editmode" class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Mode of Payment : </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                               <has-error :form="form" field="mop"></has-error>
+              <select name ="mop" v-model="form.mop" id ="mop" class="form-control"  :class="{'is-invalid': form.errors.has('mop')}">
+                    
+                    <option></option>
+                      <option value="1"> Cash</option>
+                        <option value="2"> Mobile Money</option>
+                         <option value="3"> Bank</option>
+
+
+                    </select>
+                   
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                 <div v-show="editmode" class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Narration :</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+             <textarea v-model="form.narration" type="text" name="narration"
+                      class="form-control no-resize" :class="{ 'is-invalid': form.errors.has('narration') }"></textarea>
+                    <has-error :form="form" field="narration"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+
+                             
+   
+                              
+<br>
+
+                  <div  class="modal-footer">
+                    <button  v-show="!editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
+                      <button v-show="editmode" type="submit" class="btn btn-success btn-sm" >Update</button>
+                        <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Close</button >
+                        </div>
+                 </form>
+                       </div>
+                          </div>
+                </div>
+
+
+<div class="modal fade" id="customerstatementModal">
+   
+         <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png"
+                             class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">New Product Registration</h3> 
+                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" 
+                style="height: 80px; width: 80px;">Customer Statement </h4> 
+                        </div>
+                
+                      
+ <div class="bethapa-reports-header"  >
+   
+Customer Statement Report  : From  {{salesreportsatartingdate}} to {{salesreportendingdate}}
+</div>
+
+<!-- <div class="mysalessect">  -->
+    <div> 
+
+      
+           <div class="mysalessect"> 
+                <form @submit.prevent="savecustomerstatementFilter()">
+                 
+                      <div class="form-group">
+       
+                                        <label>Start Date</label>
+  <input v-model="form.startdate" type="date" name="startdate" id="startdate" v-on:change="tosubmitProductdetailfilter" >
+
+      <label>End Date</label>
+  <input v-model="form.enddate" type="date" name="enddate" id="enddate" v-on:change="tosubmitProductdetailfilter" > 
+<label><b>Customer : </b></label>
+                    <select style="min-width:300px;" name ="customername" v-model="form.customername" id ="customername"  data-live-search="true"  v-on:change="tosubmitProductdetailfilter"  :class="{'is-invalid': form.errors.has('customername')}">
+                    <option>   </option>
+                    <option v-for='data in customerslist' v-bind:value='data.id'>{{ data.customername }}</option>
+
+                    </select>
+                                <has-error :form="form" field="customername"></has-error>         
+                              
+             <button type="submit" style="display:none" id="submit" hidden="hidden" name= "submit" ref="buttontosubmitProductdetailFilter" class="btn btn-primary btn-sm">Saveit</button>         
+
+                                
+            
+       
+                   
+          </div>
+   
+
+                </form>
+ 
+           </div>
+        
+               
+</div>
+
+<div class="mysalessect2"> 
+  Client Id : <p>
+    Client Name: 
+    </p>
+
+</div>
+     
+<div class="hh">
+<table  class="musisireporttable" width="100%" border="1">
+
+      <tr>
+           
+
+              <th colspan="1"  style="font-size: 18px; text-align:left;   
+                border-bottom: 4px solid rgb(124 102 102); 
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> Date</th>
+          
+          
+          
+                  
+        
+              <th colspan="1"  style="font-size: 18px; text-align:left;   
+                border-bottom: 4px solid rgb(124 102 102); 
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> Transaction </th>
+          
+              
+           
+              <th colspan="1"  style="font-size: 18px; text-align:left;   
+                border-bottom: 4px solid rgb(124 102 102); 
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> Debit</th>
+
+
+              <th colspan="1"  style="font-size: 18px; text-align:left;   
+                border-bottom: 4px solid rgb(124 102 102); 
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> Credit</th>
+
+                <th colspan="1"  style="font-size: 18px; text-align:left;   
+                border-bottom: 4px solid rgb(124 102 102); 
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> Running Balance</th>
+
+
+              <th colspan="1"  style="font-size: 18px; text-align:left;   
+                border-bottom: 4px solid rgb(124 102 102); 
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> </th>
+
+
+
+        </tr>
+  <!-- <tr>
+             <th></th>
+             <th></th>
+             <th></th>
+             <th></th>
+             <th></th>
+             <th></th>
+             <th>Openning Amount ({{currencydetails}})</th>
+             <th>Credit Amount ({{currencydetails}})</th>
+                <th>Debit Amount ({{currencydetails}})</th>
+                 <th>BALANCE ({{currencydetails}})</th>
+                   <th></th>
+  </tr> -->
+<tr>
+          <tr v-for="prodcates in customerstatementrecords.data" :key="prodcates.id">
+              <!-- <td>{{prodcates.id }}</td> -->
+                                 <td>{{prodcates.transactiondate  }}</td>
+            <!-- <td>{{prodcates.customername }}</td> -->
+                     <!-- <td>  <template v-if="prodcates.customer_name">	{{prodcates.customer_name.customername}}</template></td>  
+                             -->
+ 
+                    <!-- <td>
+                    <div style="color:maroon"  v-if="prodcates.transactiontype == 1"> Credit transaction </div>
+                    <div style="color:green"  v-if="prodcates.transactiontype == 2"> Debit Transaction </div>
+                    </td> -->
+                    
+                          <td><div>   {{(prodcates.description)}} </div></td>
+                          
+                            <td><div class="musisialignright">   {{formatPrice(prodcates.openningbal)}} </div></td>
+   
+                          <!-- <td><div class="musisialignright">   {{formatPrice(prodcates.amount)}} </div></td> -->
+                         <td><div class="musisialignright">   {{formatPrice(prodcates.debitamount)}} </div></td>
+ <td><div class="musisialignright"> {{formatPrice(prodcates.resultatantbalance)}} </div></td>
+
+  <td>    <button type="button"   class="btn bg-primary btn-xs waves-effect"  @click="viewcustomerstatement(prodcates)">View</button>  </td> 
+
+</tr>
+  <tr>
+
+
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+
+
+
+
+
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> 
+     </div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+                <!-- {{currencydetails}} {{formatPrice(totaldailygrossprofitrangereports)}} -->
+<div class="musisialignright">  </div>
+</th>
+
+
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+                <!--  {{currencydetails}} {{formatPrice(totaldailytotalvatrangereports)}} -->
+<div class="musisialignright"> </div>
+</th>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+                <!-- {{currencydetails}} {{formatPrice(totaldailysaleswithouttaxgrossrangereports)}} -->
+<div class="musisialignright">  </div>
+</th>
+
+
+
+</tr>
+</table>
+</div>
+
+   
+                              
+<br>
+
+                  <div  class="modal-footer">
+                    <!-- <button  v-show="!editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
+                      <button v-show="editmode" type="submit" class="btn btn-success btn-sm" >Update</button> -->
+                        <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Close</button >
+                        </div>
+                
+                       </div>
+                          </div>
+                </div>
+
+
+
+
+                                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                                <div role="tabpanel" class="tab-pane fade" id="profile_with_icon_title" v-if="brandsComponentaccess > 0">
+
               
 
 
@@ -441,49 +981,59 @@ Customer Statement Report  : From  {{salesreportsatartingdate}} to {{salesreport
 <table  class="musisireporttable" width="100%" border="1">
 
       <tr>
-             <th colspan="1"  style="font-size: 18px;     border-bottom: 4px solid rgb(124 102 102);    
-              background-color: rgb(29 31 34 / 37%); color: #131378;"> #</th>
+             <!-- <th colspan="1"  style="font-size: 18px;     border-bottom: 4px solid rgb(124 102 102);    
+              background-color: rgb(29 31 34 / 37%); color: #131378;"> #</th> -->
 
 
               <th colspan="1"  style="font-size: 18px; text-align:center;   
                 border-bottom: 4px solid rgb(124 102 102); 
                   background-color: rgb(29 31 34 / 37%); color: #131378;"> DATE</th>
-             <th colspan="1"  style="font-size: 18px;     border-bottom: 4px solid rgb(124 102 102); 
+             <!-- <th colspan="1"  style="font-size: 18px;     border-bottom: 4px solid rgb(124 102 102); 
                 
               background-color: rgb(29 31 34 / 37%); color: #131378;"> CUSTOMER ID</th>
            
           
               <th colspan="1"  style="font-size: 18px; text-align:center;   
                 border-bottom: 4px solid rgb(124 102 102); 
-                  background-color: rgb(29 31 34 / 37%); color: #131378;"> CUSTOMER NAME</th>
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> CUSTOMER NAME</th> -->
 
                   
         
-              <th colspan="1"  style="font-size: 18px; text-align:center;   
+              <!-- <th colspan="1"  style="font-size: 18px; text-align:center;   
                 border-bottom: 4px solid rgb(124 102 102); 
-                  background-color: rgb(29 31 34 / 37%); color: #131378;"> TRANSACTION </th>
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> TRANSACTION </th> -->
           
               
            
               <th colspan="1"  style="font-size: 18px; text-align:center;   
                 border-bottom: 4px solid rgb(124 102 102); 
-                  background-color: rgb(29 31 34 / 37%); color: #131378;"> NARRATION</th>
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> TRANSACTION DETAILS</th>
 
-
-              <th colspan="4"  style="font-size: 18px; text-align:center;   
-                border-bottom: 4px solid rgb(124 102 102); 
-                  background-color: rgb(29 31 34 / 37%); color: #131378;"> CASH DETAILS</th>
-
-               
 
               <th colspan="1"  style="font-size: 18px; text-align:center;   
                 border-bottom: 4px solid rgb(124 102 102); 
-                  background-color: rgb(29 31 34 / 37%); color: #131378;"> CREATED BY</th>
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> Openning Balance</th>
+
+                 <th colspan="1"  style="font-size: 18px; text-align:center;   
+                border-bottom: 4px solid rgb(124 102 102); 
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> Debit</th>
+
+                    <th colspan="1"  style="font-size: 18px; text-align:center;   
+                border-bottom: 4px solid rgb(124 102 102); 
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> Credit</th>
+
+                    <th colspan="1"  style="font-size: 18px; text-align:center;   
+                border-bottom: 4px solid rgb(124 102 102); 
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> Running Balance</th>
+
+              <th colspan="1"  style="font-size: 18px; text-align:center;   
+                border-bottom: 4px solid rgb(124 102 102); 
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> </th>
 
 
 
         </tr>
-  <tr>
+  <!-- <tr>
              <th></th>
              <th></th>
              <th></th>
@@ -491,23 +1041,24 @@ Customer Statement Report  : From  {{salesreportsatartingdate}} to {{salesreport
              <th></th>
              <th></th>
              <th>Openning Amount ({{currencydetails}})</th>
+                 <th>Debit Amount ({{currencydetails}})</th>
              <th>Credit Amount ({{currencydetails}})</th>
-                <th>Debit Amount ({{currencydetails}})</th>
+            
                  <th>BALANCE ({{currencydetails}})</th>
                    <th></th>
-  </tr>
+  </tr> -->
 <tr>
           <tr v-for="prodcates in customerstatementrecords.data" :key="prodcates.id">
-              <td>{{prodcates.id }}</td>
-                                 <td>{{prodcates.transactiondate | myDate2 }}</td>
-            <td>{{prodcates.customername }}</td>
+              <!-- <td>{{prodcates.id }}</td> -->
+                                 <td>{{prodcates.transactiondate  }}</td>
+            <!-- <td>{{prodcates.customername }}</td>
                      <td>  <template v-if="prodcates.customer_name">	{{prodcates.customer_name.customername}}</template></td>  
-                            
+                             -->
  
-                    <td>
+                    <!-- <td>
                     <div style="color:maroon"  v-if="prodcates.transactiontype == 1"> Credit transaction </div>
                     <div style="color:green"  v-if="prodcates.transactiontype == 2"> Debit Transaction </div>
-                    </td>
+                    </td> -->
                     
                           <td><div>   {{(prodcates.description)}} </div></td>
                           
@@ -517,7 +1068,7 @@ Customer Statement Report  : From  {{salesreportsatartingdate}} to {{salesreport
                          <td><div class="musisialignright">   {{formatPrice(prodcates.debitamount)}} </div></td>
  <td><div class="musisialignright"> {{formatPrice(prodcates.resultatantbalance)}} </div></td>
 
- <td>  <template v-if="prodcates.createdby_name">	{{prodcates.createdby_name.name}}</template></td>  
+ <td>  </td>  
 
 </tr>
   <tr>
@@ -533,22 +1084,6 @@ Customer Statement Report  : From  {{salesreportsatartingdate}} to {{salesreport
                 background-color: rgb(211 211 211); color: #131378;" >
 <div class="musisialignright">  </div>
 </th>
-<th style="font-size: 18px; text-align:center;    
-               border-top: 4px solid rgb(124 102 102);    
-                background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright">  </div>
-</th>
-<th style="font-size: 18px; text-align:center;    
-               border-top: 4px solid rgb(124 102 102);    
-                background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright">  </div>
-</th>
-
-<th style="font-size: 18px; text-align:center;    
-               border-top: 4px solid rgb(124 102 102);    
-                background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright">  </div>
-</th>
 
 
 
@@ -557,16 +1092,6 @@ Customer Statement Report  : From  {{salesreportsatartingdate}} to {{salesreport
 
 
 
-
-
-
-
-<th style="font-size: 18px; text-align:center;    
-               border-top: 4px solid rgb(124 102 102);    
-                background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> 
-     </div>
-</th>
 
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
@@ -685,273 +1210,6 @@ Customer Statement Report  : From  {{salesreportsatartingdate}} to {{salesreport
 
 
 
-
-
-
-
-
-                                </div>
-
-
-
-
-
-
-
-
-
-
-
-
-                                <div role="tabpanel" class="tab-pane fade" id="profile_with_icon_title" v-if="brandsComponentaccess > 0">
-                                  
-                              <div class="bethapa-reports-header">
-            Sales Report by Receipts Summary  : Rangingin from  {{salesreportsatartingdate}} to {{salesreportendingdate}}
-      
-                     </div>
-     <div class="mysalessect2"> 
- <form @submit.prevent="savedatestoVieedailyreport()">
-                 
-                      <div class="form-group">
-
-                                        <label>Start Date</label>
-  <input v-model="form.startdate" type="date" name="startdate" id="startdate" v-on:change="tosubmitProductcategoryfilter" >
-
-      <label>End Date</label>
-  <input v-model="form.enddate" type="date" name="enddate" id="enddate" v-on:change="tosubmitProductcategoryfilter" > 
-                              
-             <button type="submit" style="display:none" id="submit" hidden="hidden" name= "submit" ref="buttontosubmitProductcategoryFilter" class="btn btn-primary btn-sm">Saveit</button>         
-
-                                
-            
-       
-                   
-          </div>
-      
-
-                </form>
-                  </div> 
-               <table  class="table" width="100%" border="1">
-                   <tr>
-             <th colspan="1"  style="font-size: 18px;     border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> RECEIPT NUMBER</th>
-             <th colspan="1"  style="font-size: 18px;     border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> DATE</th>
-           
-          
-              <th colspan="1"  style="font-size: 18px; text-align:center;   
-                border-bottom: 4px solid rgb(124 102 102); 
-                  background-color: rgb(29 31 34 / 37%); color: #131378;"> BRANCH</th>
-        
-              <th colspan="3"  style="font-size: 18px; text-align:center;    
-               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> TOTALS WITH VAT-IN INCLUSSIVE </th>
-              
-  <th colspan="1"  style="font-size: 18px; text-align:center;    
-               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> TAX (VAT) DETAILS  </th>
-              
-          
-              
-            <th colspan="3"  style="font-size: 18px; text-align:center;    
-               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> TOTALS WITHOUT VAT </th>
-              
-             
-              
-        </tr>
-<tr>
-<th></th>
-<th></th>
-<th></th>
-<th>Total Sales</th>
-<th>Total Cost</th>
-<th>Total Profit</th>
-
-
-
-
-
-
-
-<th> Total Tax ( {{currencydetails}} )</th>
-
-
- <th> Gross Sales ( {{currencydetails}} )</th>
-  <th> Total Cost ( {{currencydetails}} )</th>
-
-   <th> Line Profit ( {{currencydetails}} )</th>
-    
-</tr>
-
-<tr>
-          <tr v-for="prodcates in salesreportsummaryrecords.data" :key="prodcates.id">
-               <td>{{prodcates.invoiceno}}</td>
-                                 <td>{{prodcates.invoicedate | myDate2 }}</td>
- 
-                             
-                          <td> <b> <template v-if="prodcates.branch_name">	{{prodcates.branch_name.branchname}}</template></b></td>  
-
-                                  <td><div class="musisialignright"> {{formatPrice(prodcates.invoiceamount)}} </div></td>
-                                  <td><div class="musisialignright"> {{formatPrice(prodcates.totalcost)}} </div></td>
-                                  <td><div class="musisialignright"> {{formatPrice(prodcates.lineprofit)}} </div></td>
-                               <td><div class="musisialignright"> {{formatPrice(prodcates.vatamount)}} </div></td>
-                               <!-- style="background-color:#eeeeee " -->
-                                 <td >
-                                   <div class="musisialignright"> {{formatPrice(prodcates.netinvoiceincome)}} </div></td>
-                                 <td >
-                                   <div class="musisialignright"> {{formatPrice(prodcates.totalcost)}} </div></td>
-
-                                   <td >
-                                   <div class="musisialignright"> {{formatPrice(prodcates.netsalewithoutvat)}} </div></td>
-                                
-                                  
-<tfoot>
-</tfoot>
-
- <tr>
-
-
-<th style="font-size: 18px; text-align:center;    
-               border-top: 4px solid rgb(124 102 102);    
-                background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright">  </div>
-</th>
-
-<th style="font-size: 18px; text-align:center;    
-               border-top: 4px solid rgb(124 102 102);    
-                background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright">  </div>
-</th>
-
-<th style="font-size: 18px; text-align:center;    
-               border-top: 4px solid rgb(124 102 102);    
-                background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright">  </div>
-</th>
-
-
-<th style="font-size: 18px; text-align:center;    
-               border-top: 4px solid rgb(124 102 102);    
-                background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesreportdetailstotalsales)}} </div>
-</th>
-
-
-<th style="font-size: 18px; text-align:center;    
-               border-top: 4px solid rgb(124 102 102);    
-                background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesreportdetailstotalcost)}} </div>
-</th>
-
-
-<th style="font-size: 18px; text-align:center;    
-               border-top: 4px solid rgb(124 102 102);    
-                background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesreportdetailstotalprofit)}} </div>
-</th>
-
-
-<th style="font-size: 18px; text-align:center;    
-               border-top: 4px solid rgb(124 102 102);    
-                background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesreportdetailstotalvat)}} </div>
-</th>
-<th style="font-size: 18px; text-align:center;    
-               border-top: 4px solid rgb(124 102 102);    
-                background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesreportdetailsgrosssales)}} </div>
-</th>
-
-<th style="font-size: 18px; text-align:center;    
-               border-top: 4px solid rgb(124 102 102);    
-                background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesreportdetailstotalcost)}} </div>
-</th>
-
-<th style="font-size: 18px; text-align:center;    
-               border-top: 4px solid rgb(124 102 102);    
-                background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesreportdetailslineprofit)}} </div>
-</th>
-    
-
-</tr>
-
-
-</table>      
-
-<!-- 
-                 
-    <div class="card-footer">
-                <ul class="pagination pagination-sm m-0 float-right">
-                   <pagination :data="salesreportsummaryrecords" @pagination-change-page="paginationResultsProductcategories"></pagination>
-                </ul>
-    </div> -->
-
-
-
-                  
-          
- 
-
-<div class="modal fade" id="addnewproductbrandsModal">
-         <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">ADD NEW BRAND</h3> 
-                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Update Record</h3> </h4> 
-                        </div>
-                  <form class="form-horizontal" @submit.prevent="editmode ? updateProductbrand():createProductbrand()"> 
-
-
-                                <div class="row clearfix">
-                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="email_address_2">Brand Name</label>
-                                    </div>
-                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                  <input v-model="form.brandname" type="text" name="brandname"
-                      class="form-control" :class="{ 'is-invalid': form.errors.has('brandname') }">
-                    <has-error :form="form" field="brandname"></has-error>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                               
-                                 <div class="row clearfix">
-                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="password_2">Description</label>
-                                    </div>
-                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                        <div class="form-group">
-                                            <div class="form-line">
-
-
-
-
-
-
-                                                <textarea v-model="form.description" type="text" name="description"
-                      class="form-control no-resize" :class="{ 'is-invalid': form.errors.has('description') }"></textarea>
-                    <has-error :form="form" field="description"></has-error>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                              
-
-   
-
-                              
-
-
-                  <div  class="modal-footer">
-                    <button  v-show="!editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
-                      <button v-show="editmode" type="submit" class="btn btn-success btn-sm" >Update</button>
-                        <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Close</button >
-                        </div>
-                 </form>
-                       </div>
-                          </div>
-                </div>
-                
                                 </div>
                   <!--  -->
                                 <div role="tabpanel" class="tab-pane fade" id="messages_with_icon_title" v-if="unitsofmeasureComponentaccess > 0">
@@ -2621,7 +2879,7 @@ Customer Statement Report  : From  {{salesreportsatartingdate}} to {{salesreport
                     <div class="modal-content">
                         <div class="modal-header">
                             <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">ADD NEW UNIT</h3> 
-                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Update Record</h3> </h4> 
+                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Update Record</h4> 
                         </div>
                   <form class="form-horizontal" @submit.prevent="editmode ? updateUnitofmeasure():createUnitofmeasure()"> 
 
@@ -2950,6 +3208,8 @@ salessummaryComponentaccess:'',
           myOptions: [], // or [{id: key, text: value}, {id: key, text: value}]
           editmode: false,
            shopingcartdetails:{},
+           walletstorecievemoney:{},
+            customerdetailsrecords : {},
           salesreportsummaryrecords : {},
           salesdetailsreportdetailedrecords:{},
           customerstatementrecords:{},
@@ -3036,7 +3296,9 @@ amountpaid:'',
 unitoutputvat: 1,
 netprofit:1,
 unitsellingprice:1,
-
+customername:'',
+bal:'',
+dop:'',
                 id: '',
                 name:'',
                 email:'',
@@ -3164,7 +3426,49 @@ savecustomerstatementFilter(){
 
 
 
+  viewcustomerstatement(customerdetailsrecords){
+                this.editmode = true;
+                 this.form.clear();
+        this.form.reset();
+        this.form.fill(customerdetailsrecords);
 
+$('#customerstatementModal').modal('show');
+            },   
+
+
+  recievecustomerpayment(customerdetailsrecords){
+                this.editmode = true;
+                 this.form.clear();
+        this.form.reset();
+        this.form.fill(customerdetailsrecords);
+
+$('#customerpaymentModal').modal('show');
+            },   
+
+
+recieveCustomercash(){
+      this.$Progress.start();
+        this.form.post('api/recievethecustomerPayment')
+        .then(()=>{
+
+         
+    $('#customerpaymentModal').modal('hide');
+    this.form.reset();
+       axios.get("api/customerdetailsrecords").then(({ data }) => (this.customerdetailsrecords = data));
+   
+
+  Toast.fire({
+  icon: 'success',
+  title: 'Customer Payment Recieved'
+});
+        this.$Progress.finish();
+//axios.get("api/authorisedcomponents").then(({ data }) => (this.allowedrolecomponentsObject = data));
+        })
+        .catch(()=>{
+          
+        })
+         
+    },
 
 
 
@@ -3613,6 +3917,10 @@ axios.get("api/purchasesComponentaccess").then(({ data }) => (this.purchasesComp
 axios.get("api/purchaserecordsComponentaccess").then(({ data }) => (this.purchaserecordsComponentaccess = data));
 axios.get("api/salessummaryComponentaccess").then(({ data }) => (this.salessummaryComponentaccess = data));
 
+  },
+  loadContactdetailscustomers(){
+    axios.get("api/customerdetailsrecords").then(({ data }) => (this.customerdetailsrecords = data));
+     
   },
   loadDailysalesreportdetails(){
 
@@ -4800,6 +5108,7 @@ axios.get('/api/dailyvatcollectedforselection').then(function (response) { this.
 
 
 
+ axios.get("api/walletstorecievemoney").then(({ data }) => (this.walletstorecievemoney = data));
 
 
    Fire.$on('searching', ()=>{
@@ -4818,7 +5127,8 @@ this.productstoaddtoinvoicerecords = data.data;
 
 
 
-
+axios.get("api/customerdetailsrecords").then(({ data }) => (this.customerdetailsrecords = data));
+     
 
 axios.get('/api/customerslist').then(function (response) { this.customerslist = response.data;}.bind(this));
 

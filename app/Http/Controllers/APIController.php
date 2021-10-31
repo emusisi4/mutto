@@ -1288,7 +1288,7 @@ $data = Customer::latest('id')
     public function supplierslist()
     {
      
-$data = Supplier::latest('id')
+$data = Customer::latest('id')
 //->where('del', 0)
 ->get();
         return response()->json($data);

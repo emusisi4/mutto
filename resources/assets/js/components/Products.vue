@@ -2495,7 +2495,7 @@ pre {
                                             <div class="form-line">
                                                 <select name ="suppliername"  v-model="form.suppliername" id ="suppliername"  class="show-tick" data-live-search="true"  :class="{'is-invalid': form.errors.has('suppliername')}">
                     <option value="">   </option>
-                    <option v-for='data in supplierslist' v-bind:value='data.id'>{{ data.suppname }}</option>
+                  <option v-for='data in supplierslist' v-bind:value='data.id'><div style="color:green"  v-if="data.customertype == '1'">{{ data.customername }} (Customer) </div> <div style="color:maroon" v-if="data.customertype == '2' ">{{ data.customername }} (Supplier) </div></option>
 
                     </select>
                     <has-error :form="form" field="suppliername"></has-error>
@@ -2689,7 +2689,8 @@ pre {
                                  <td> 
                                   
                           
-                  <button v-if="purcdet.status == '0'" type="button" class="btn bg-teal waves-effect" @click="confirmItempurchaseddelivery(purcdet)">Confirm Delivery</button>           
+                  <button v-if="purcdet.status == '0'" type="button" class="btn bg-teal waves-effect"
+                   @click="confirmItempurchaseddelivery(purcdet)">Confirm Delivery</button>           
                 
 
 

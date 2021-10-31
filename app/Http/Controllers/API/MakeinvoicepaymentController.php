@@ -10,7 +10,7 @@ use App\Mainmenucomponent;
 use App\Productprice;
 use App\Invoicepayment;
 use App\Purchase;
-use App\Supplierstatement;
+use App\Customerstatement;
 class MakeinvoicepaymentController extends Controller
 {
     
@@ -127,7 +127,7 @@ $invoicedate =\DB::table('purchasessummaries')->where('supplierinvoiceno', '=', 
 $invoiceamount =\DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $supplierinvoiceno)->value('finalcost');
 $doccumentno =\DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $supplierinvoiceno)->value('purchaseno');
 /// Getting the current outstanding
-$openningbalance =\DB::table('suppliers')->where('id', '=', $suppliername)->value('bal');
+$openningbalance =\DB::table('customers')->where('id', '=', $suppliername)->value('bal');
 /// Getting the account in Question
 $accountinquestionbalance =\DB::table('expensewalets')->where('walletno', '=', $walletofexpense)->value('bal');
 $newaccountinquestionbalance = $accountinquestionbalance-$newpayment;
@@ -154,13 +154,13 @@ Invoicepayment::Create([
     ////  Updating the supplier statement
     ///id, suppliername, transactiontype, transactiondate, 
     //description, openningbal, amount, debitamount, ucret, resultatantbalance, created_at, updated_at, invoiceinaction
-    Supplierstatement::Create([
+    Customerstatement::Create([
       'invoiceinaction' => $doccumentno,
-      'suppliername' => $suppliername,
-       'transactiontype' => 2,
+      'customername' => $suppliername,
+       'transactiontype' => 1,
        'transactiondate' => $dateofpayment,
-       'debitamount' => $newpayment,
-       'description' => 'Payment from Ssennah Hardware',
+       'amount' => $newpayment,
+       'description' => 'Payment made on account for goods supplied',
 
 
        'openningbal' => $openningbalance,
@@ -201,7 +201,13 @@ DB::table('dailypurchasesreports')
 
 
 
-
+//// updating the client balance
+//// Updating the account balance
+DB::table('customers')
+->where('id', $suppliername)
+->update(array(
+  'bal' => $openningbalance+$newpayment
+));
 
 
 

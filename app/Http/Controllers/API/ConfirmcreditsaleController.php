@@ -414,15 +414,18 @@ Incomestatementsummary::Create([
 $customerinquestion = \DB::table('custinactionsprofs')->where('ucret', '=', $userid)->value('customername');
 $invoicedatetaken = \DB::table('custinactionsprofs')->where('ucret', '=', $userid)->value('invoicesalesdate');
 $customerbalance  = \DB::table('customers')->where('id', '=', $customerinquestion)->sum('bal');
-$newcustomerbalance = $customerbalance+$totallineforinvoice;
+$customertype  = \DB::table('customers')->where('id', '=', $customerinquestion)->value('customertype');
 
-Customerstatement::Create([
+if($customertype == '1')
+{
+  $newcustomerbalance = $customerbalance+$totallineforinvoice;
+  Customerstatement::Create([
    
     'customername' => $customerinquestion,
     'openningbal' => $customerbalance,
    'transactiontype' => 1,
     'transactiondate' =>$invoicedatetaken,  
-    'description'=> 'Recieved Goods on Credit',
+    'description'=> 'Sale of Goods to customer',
     'amount'=> $totallineforinvoice,
   
     'resultatantbalance' => $newcustomerbalance,
@@ -430,6 +433,27 @@ Customerstatement::Create([
               'ucret' => $userid,
             
           ]);
+}
+
+if($customertype == '2')
+
+{
+  $newcustomerbalance = $customerbalance-$totallineforinvoice;
+  Customerstatement::Create([
+   
+    'customername' => $customerinquestion,
+    'openningbal' => $customerbalance,
+   'transactiontype' => 1,
+    'transactiondate' =>$invoicedatetaken,  
+    'description'=> 'Sale of Goods to supplier',
+    'amount'=> $totallineforinvoice,
+  
+    'resultatantbalance' => $newcustomerbalance,
+   
+              'ucret' => $userid,
+            
+          ]);
+}
 //////////
 $checkingforinvoiceno = \DB::table('creditsalesdetails')->where('invoicedate', '=', $ddddtt)->count();
 $vari = $checkingforinvoiceno+1;

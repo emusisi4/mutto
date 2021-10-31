@@ -33,6 +33,9 @@ Route::get('detetethetransaction', 'API\CashtransfersConroller@detetethetransact
 
 Route::get('customerstamento', 'API\CustomersController@customerstamento');
 Route::apiResources(['addnewcustomerrecord' => 'API\CustomersController']);
+
+
+
 Route::apiResources(['products' => 'API\ExpensesController']);
 Route::apiResources(['inserintocart' => 'API\InserintocartController']);
 

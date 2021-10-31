@@ -270,7 +270,7 @@ pre {
 
 
                  <div class="bethapa-table-header">
-                      Customer Details
+                      Ledger Accounts
                       
                       <!-- -->
                       <button type="button" class="add-newm" @click="makethetransfer" >Add new Customer</button>
@@ -279,11 +279,12 @@ pre {
 
 <tr>
        <th>#</th>
-                      <th>CUSTOMER NAME</th>
-                      <th>LOCATION</th>
-                      <th>CONTACT NUMBER</th>
-                       <th>STATUS</th>
-                       <th>ACCOUNT BALANCE ({{currencydetails}})</th>
+                      <th>Ledger name</th>
+                        <th>Account Balance</th>
+                      <th>Ledger type</th>
+                         <th>Location</th>
+                      <th>Contact</th>
+                    
                         
                      
                         
@@ -301,12 +302,14 @@ pre {
           
        <td>{{prodcates.id }}</td>
       <td>{{prodcates.customername  }}</td>
- 
+ <td class="musisialignright">{{formatPrice(prodcates.bal)}}</td>
+   <td><div style="color:green" v-if="prodcates.customertype == '1'"> Customer </div>
+   <div style="color:maroon" v-if="prodcates.customertype == '2'"> Supplier </div> </td>
       <td>{{(prodcates.location)}}</td>  
       <td>{{(prodcates.contact)}}</td>
      
-      <td>{{(prodcates.status)}}</td>
-       <td class="musisialignright">{{formatPrice(prodcates.bal)}}</td>
+    
+       
       
 
                                <td>
@@ -1096,7 +1099,7 @@ pre {
                   <form class="form-horizontal" @submit.prevent="editmode ? updatecustomerrecords():createNewcustomer()"> 
 
                 
-<div class ="bethapa-table-sectionheader">Customer Information</div>
+<div class ="bethapa-table-sectionheader">Client Information</div>
                                 <div class="row clearfix">
                                     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
                                         <label for="email_address_2">Customer Name</label>
@@ -1111,6 +1114,36 @@ pre {
                                         </div>
                                     </div>
                                 </div>
+  
+
+
+<div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Client type</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                               <select name ="customertype"  v-model="form.customertype" id ="customertype" 
+                      class="show-tick" :class="{'is-invalid': form.errors.has('customertype')}">
+                    <option value="">   </option>
+                    <option value="1"> Customer </option>
+                    <option value="2"> Supplier  </option>
+                   
+
+                    </select>
+
+                    <has-error :form="form" field="customertype"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+
 
   <div class="row clearfix">
                                     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">

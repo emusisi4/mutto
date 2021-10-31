@@ -53,6 +53,7 @@ class CustomersController extends Controller
        'customername'   => 'required  |max:191',
        'description'   => 'required  |max:225',
        'location' => 'required',
+       'customertype' => 'required',
        'contact'   => 'required'
        // 'dorder'   => 'sometimes |min:0'
      ]);
@@ -69,6 +70,7 @@ class CustomersController extends Controller
       'customername' => $request['customername'],
      'location'=> $request['location'],
       'contact' => $request['contact'],
+      'customertype' => $request['customertype'],
       'description' => $request['description'],
       'bal' => $request['balance'],
       'ucret' => $userid,

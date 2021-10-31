@@ -14,7 +14,7 @@ class Customer extends Authenticatable
     
    
     protected $fillable = [
-    'customername', 'contact', 'location', 'del',  'ucret', 'bal', 'status', 'description'       
+    'customername', 'contact', 'location', 'del',  'ucret', 'bal', 'status', 'description','customertype'      
     ];
     
     public function customerName(){
