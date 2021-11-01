@@ -665,6 +665,35 @@ if($userrole == '101')
 }
 
 
+public function totaldebtorsbalance()
+{
+  $userid =  auth('api')->user()->id;
+  $userbranch =  auth('api')->user()->branch;
+  $userrole =  auth('api')->user()->mmaderole;
+  $currentdate = date('Y-m-d');
+
+  $totalcustomerdebts = \DB::table('customers')->where('customertype', '=', 1)->where('bal', '>', 0)->sum('bal');
+  $totalsupplierdebt = \DB::table('customers')->where('customertype', '=', 2)->where('bal', '<', 0)->sum('bal');
+  $possupplierdebt =  ($totalsupplierdebt*(-1));
+ // $repotytype  = \DB::table('sortlistreportaccesses')->where('ucret', $userid)->orderBy('id', 'Desc')->limit(1)->value('reporttype');
+$totaltoreturn = $totalcustomerdebts+$possupplierdebt;
+    return $totaltoreturn;
+
+}
+public function totalcreditorsbalance()
+{
+  $userid =  auth('api')->user()->id;
+  $userbranch =  auth('api')->user()->branch;
+  $userrole =  auth('api')->user()->mmaderole;
+  $currentdate = date('Y-m-d');
+  $totalcustomercredits = \DB::table('customers')->where('customertype', '=', 1)->where('bal', '<', 0)->sum('bal');
+  $totalsuppliercredit = \DB::table('customers')->where('customertype', '=', 2)->where('bal', '>', 0)->sum('bal');
+  $posscustomerdebt =  ($totalcustomercredits*(-1));
+ // $repotytype  = \DB::table('sortlistreportaccesses')->where('ucret', $userid)->orderBy('id', 'Desc')->limit(1)->value('reporttype');
+$totaltoreturn = $totalsuppliercredit+$posscustomerdebt;
+    return $totaltoreturn;
+
+}
 
 public function todaystotalcreditsales()
 {

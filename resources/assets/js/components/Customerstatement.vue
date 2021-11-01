@@ -351,11 +351,11 @@ pre {
 
 
                                 <!-- v-if="brandsComponentaccess > 0" -->
-                                <li role="presentation">
+                                <!-- <li role="presentation">
                                     <a href="#profile_with_icon_title"  @click="loadDailysalesreportdetails()" data-toggle="tab">
                                         <i class="material-icons"></i> Statement Transactions
                                     </a>
-                                </li>
+                                </li> -->
                                 <!-- v-if="unitsofmeasureComponentaccess > 0" -->
                                 <!-- <li role="presentation">
                                     <a href="#messages_with_icon_title"  @click="loadSalesdetailsreportdetailed()" data-toggle="tab">
@@ -528,7 +528,47 @@ List of Ledger Accounts
 
 
     </tr>
+
+
+     <tr>
+
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldebtorsbalance)}} </div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totalcreditorsbalance)}} </div>
+</th>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+ </tr>
 </table>
+
 
 
 
@@ -3222,6 +3262,8 @@ salesdetailsgrossprofittotalrange:{},
 
 totaldailysalesvatinclusiverangereports:{},
 totaldailytotalcostrangereports:{},
+totaldebtorsbalance:{},
+totalcreditorsbalance:{},
 totaldailygrossprofitrangereports:{},
 totaldailytotalvatrangereports:{},
 totaldailysaleswithouttaxgrossrangereports:{},
@@ -3920,6 +3962,9 @@ axios.get("api/salessummaryComponentaccess").then(({ data }) => (this.salessumma
   },
   loadContactdetailscustomers(){
     axios.get("api/customerdetailsrecords").then(({ data }) => (this.customerdetailsrecords = data));
+  
+axios.get("api/totaldebtorsbalance").then(({ data }) => (this.totaldebtorsbalance = data));
+axios.get("api/totalcreditorsbalance").then(({ data }) => (this.totalcreditorsbalance = data));
      
   },
   loadDailysalesreportdetails(){
@@ -5128,7 +5173,8 @@ this.productstoaddtoinvoicerecords = data.data;
 
 
 axios.get("api/customerdetailsrecords").then(({ data }) => (this.customerdetailsrecords = data));
-     
+axios.get("api/totaldebtorsbalance").then(({ data }) => (this.totaldebtorsbalance = data));
+axios.get("api/totalcreditorsbalance").then(({ data }) => (this.totalcreditorsbalance = data));
 
 axios.get('/api/customerslist').then(function (response) { this.customerslist = response.data;}.bind(this));
 

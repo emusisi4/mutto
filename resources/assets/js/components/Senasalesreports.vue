@@ -463,15 +463,15 @@ Sales report summary : Rangingin from  {{salesreportsatartingdate}} to {{salesre
 
 <th></th>
 <th></th>
-<th> Total Sales ( {{currencydetails}} )</th>
-<th> Total Cost ( {{currencydetails}} )</th>
-<th> Total Profit ( {{currencydetails}} )</th>
+<th> Total Sales </th>
+<th> Total Cost </th>
+<th> Total Profit </th>
 
-   <th> Total VAT - IN ( {{currencydetails}} )</th>
- <th> Gross Sales ( {{currencydetails}} )</th>
-  <th> Total Cost ( {{currencydetails}} )</th>
+   <th> Total VAT - IN </th>
+ <th> Gross Sales </th>
+  <th> Total Cost </th>
 
-   <th> Line Profit ( {{currencydetails}} )</th>
+   <th> Line Profit </th>
       <th> </th>
 </tr>
 <tr>
@@ -743,13 +743,13 @@ Sales report summary : Rangingin from  {{salesreportsatartingdate}} to {{salesre
 
 
 
-<th> Total Tax ( {{currencydetails}} )</th>
+<th> Total Tax </th>
 
 
- <th> Gross Sales ( {{currencydetails}} )</th>
-  <th> Total Cost ( {{currencydetails}} )</th>
+ <th> Gross Sales </th>
+  <th> Total Cost </th>
 
-   <th> Line Profit ( {{currencydetails}} )</th>
+   <th> Line Profit </th>
     
 </tr>
 
@@ -1613,17 +1613,17 @@ Sales report summary : Rangingin from  {{salesreportsatartingdate}} to {{salesre
                       <th> ORDER DATE</th>
                           <th> SUPPLIER INVOICE No. </th>
                       <th> SUPPLIER NAME </th>
-                      <th>  AMOUNT ({{currencydetails}} ) </th>
-                      <th>  VAT ({{currencydetails}} )</th>
+                      <th>  AMOUNT  </th>
+                      <th>  VAT </th>
                       <th> STATUS</th>
-                      <th>  AMOUNT ({{currencydetails}} ) </th>
-                      <th>  VAT ({{currencydetails}} )</th>
+                      <th>  AMOUNT  </th>
+                      <th>  VAT</th>
                        <th>  STATUS </th>
                      
 
-                          <th> PAID ( {{currencydetails}} )</th>
-                          <th> BALANCE ( {{currencydetails}} )</th>
-                          <th> STATUS ( {{currencydetails}} )</th>
+                          <th> PAID</th>
+                          <th> BALANCE</th>
+                          <th> STATUS</th>
                      <th >  </th>
                     </tr>
                   </thead>

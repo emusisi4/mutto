@@ -302,6 +302,8 @@ Route::get('gettheinvoicevatamount', 'APIController@gettheinvoicevatamount');
 Route::get('gettheinvoicegrandtotal', 'APIController@gettheinvoicegrandtotal');
 Route::get('gettheinvoicetotalwithoutvat', 'APIController@gettheinvoicetotalwithoutvat');
 
+Route::get('totaldebtorsbalance', 'APIController@totaldebtorsbalance');
+Route::get('totalcreditorsbalance', 'APIController@totalcreditorsbalance');
 
 
 
