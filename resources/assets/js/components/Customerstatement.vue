@@ -351,11 +351,11 @@ pre {
 
 
                                 <!-- v-if="brandsComponentaccess > 0" -->
-                                <!-- <li role="presentation">
+                                <li role="presentation">
                                     <a href="#profile_with_icon_title"  @click="loadDailysalesreportdetails()" data-toggle="tab">
                                         <i class="material-icons"></i> Statement Transactions
                                     </a>
-                                </li> -->
+                                </li>
                                 <!-- v-if="unitsofmeasureComponentaccess > 0" -->
                                 <!-- <li role="presentation">
                                     <a href="#messages_with_icon_title"  @click="loadSalesdetailsreportdetailed()" data-toggle="tab">
