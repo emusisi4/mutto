@@ -252,14 +252,14 @@ pre {
                         <div class="body">
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs tab-nav-right" role="tablist">
-                                <li role="presentation" class="active"><a href="#home" data-toggle="tab" aria-expanded="false">Customers</a></li>
-                                <li role="presentation" class=""><a href="#profile" @click="loadCustomerdetails()"
-                                  data-toggle="tab" aria-expanded="false">Suppliers</a></li>
-                                <li role="presentation" class=""><a href="#messages" data-toggle="tab"
-                                 @click="loadIncomesources()" aria-expanded="false">Customer Pay In</a></li>
+                                <li role="presentation" class="active"><a href="#home" data-toggle="tab" aria-expanded="false">Ledger Account Details</a></li>
+                                <!-- <li role="presentation" class=""><a href="#profile" @click="loadCustomerdetails()"
+                                  data-toggle="tab" aria-expanded="false">Suppliers</a></li> -->
+                                <!-- <li role="presentation" class=""><a href="#messages" data-toggle="tab"
+                                 @click="loadIncomesources()" aria-expanded="false">Customer Pay In</a></li> -->
 
 
-                                <li role="presentation"><a href="#settings" data-toggle="tab" aria-expanded="true">Supplier Payouts </a></li>
+                                <!-- <li role="presentation"><a href="#settings" data-toggle="tab" aria-expanded="true">Supplier Payouts </a></li> -->
                             </ul>
 
                             <!-- Tab panes -->
@@ -312,8 +312,8 @@ pre {
       
 
                                <td>
-                            <div  class="musisialign">
-       <button type="button"   class="btn btn-success btn-xs waves-effect"  @click="recievecustomerpayment(prodcates)">Recieve Payment</button>
+                            <div  class="musisialignright">
+       <button v-if="prodcates.customertype == '1'" type="button"   class="btn btn-success btn-xs waves-effect"  @click="recievecustomerpayment(prodcates)">Recieve Payment</button>
        <button type="button"   class="btn bg-brown btn-xs waves-effect"  @click="editProductdetails(prodcates)">Edit Record</button>
        <button type="button"   class="btn bg-black btn-xs waves-effect"  @click="editProductdetails(prodcates)">Print Latest Receipt</button>       <!-- <button type="button"    class="btn  bg-gradient-danger btn-xs fas fa-trash-alt" @click="deleteexpensecategory(prodcates.id)"> DEl </button> -->
  </div>
