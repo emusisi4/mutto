@@ -499,11 +499,11 @@ List of Ledger Accounts
       
 
                                <td>
-                            <div  class="musisialign">
-       <button type="button"   class="btn btn-success btn-xs waves-effect"  @click="recievecustomerpayment(prodcates)">Recieve Payment</button>
+                            <div  class="musisialignright">
+       <button type="button" v-if="prodcates.customertype == '1'"   class="btn btn-success btn-xs waves-effect"  @click="recievecustomerpayment(prodcates)">Recieve Payment</button>
       
       <button type="button"   class="btn bg-primary btn-xs waves-effect"  @click="viewcustomerstatement(prodcates)">View Statement</button>  
-       <button type="button"   class="btn bg-brown btn-xs waves-effect"  @click="editProductdetails(prodcates)">Customer Deposit</button>
+     
 
               <!-- <button type="button"    class="btn  bg-gradient-danger btn-xs fas fa-trash-alt" @click="deleteexpensecategory(prodcates.id)"> DEl </button> -->
  </div>
