@@ -57,7 +57,7 @@ Route::get('getreceiptdate', 'API\ReceiptprintingController@getreceiptdate');
 Route::get('getreceiptno', 'API\ReceiptprintingController@getreceiptno');
 ;
 
-
+Route::get('productstopurchaselist', 'APIController@productstopurchaselist');
 
 
 

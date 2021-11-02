@@ -780,7 +780,14 @@ public function inputvatamount()
     return $invoicelockstatus;
    
 }
-
+public function productstopurchaselist()
+{
+ 
+$data = Product::orderBy('id', 'Asc')
+//->where('del', 0)
+->get();
+    return response()->json($data);
+}
 
 public function outputvatamount()
 {

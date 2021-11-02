@@ -2453,7 +2453,7 @@ pre {
                         </div>
                   <form class="form-horizontal" @submit.prevent="editmode ? updateUnitofmeasure():createnewInvoice()"> 
 
-
+<div class ="bethapa-table-sectionheader">Invoice && Supplier Details</div>  
                                 <div class="row clearfix">
                                     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
                                         <label for="email_address_2">INVOICE No.</label>
@@ -2477,35 +2477,290 @@ pre {
                                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                         <div class="form-group">
                                             <div class="form-line">
+                                              <has-error :form="form" field="invoicedate"></has-error>
                                                   <input v-model="form.invoicedate" type="date" name="invoicedate"
                       class="form-control" :class="{ 'is-invalid': form.errors.has('invoicedate') }">
-                    <has-error :form="form" field="invoicedate"></has-error>
+                    
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                
-                                 <div class="row clearfix">
+  <div class="row clearfix">
                                     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
                                         <label for="email_address_2">Supplier</label>
                                     </div>
                                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <select name ="suppliername"  v-model="form.suppliername" id ="suppliername"  class="show-tick" data-live-search="true"  :class="{'is-invalid': form.errors.has('suppliername')}">
+                                                <has-error :form="form" field="invoicedate"></has-error>
+                                                  <select name ="suppliername"  v-model="form.suppliername" id ="suppliername"  class="show-tick" data-live-search="true"  :class="{'is-invalid': form.errors.has('suppliername')}">
                     <option value="">   </option>
                   <option v-for='data in supplierslist' v-bind:value='data.id'><div style="color:green"  v-if="data.customertype == '1'">{{ data.customername }} (Customer) </div> <div style="color:maroon" v-if="data.customertype == '2' ">{{ data.customername }} (Supplier) </div></option>
 
                     </select>
-                    <has-error :form="form" field="suppliername"></has-error>
+                  
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                        
-                        
 
+                                
+               <div class ="bethapa-table-sectionheader">Product Details</div>  
+
+
+
+
+      <div class="col-md-3">
+             <label for="email_address_2">Item Name</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <select name ="suppliername"  v-model="form.suppliername" id ="suppliername"  class="show-tick" data-live-search="true"  :class="{'is-invalid': form.errors.has('suppliername')}">
+                    <option value="">   </option>
+                  <option v-for='data in productstopurchaselist' v-bind:value='data.id'>{{ data.productname }}</option>
+
+                    </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                   <label for="email_address_2">Vat Charge</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                          <has-error :form="form" field="vatinclussive"></has-error>
+                                          <select style="width:20px" name ="vatinclussive"  v-model="form.vatinclussive" 
+                                            id ="vatinclussive"  class="orm-control show-tick"
+                                             data-live-search="true"  
+                                             :class="{'is-invalid': form.errors.has('vatinclussive')}">
+                    <option value="">   </option>
+                    <option value="1">No  -   This product has no VAT</option>
+                    <option value="2">Yes - VAT is included in the cost Price</option>
+                     <option value="3">Yes - VAT is NOT IN cost Price</option>
+
+                    </select>
+                    
+                                        </div>
+                                    </div>
+                                </div>         
+
+
+                                    <div class="col-md-2">
+                                   <label for="email_address_2">Unit Cost</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                             <has-error :form="form" field="unitcost"></has-error>
+                                            <input style="text-align:centre" :value="form.unitcost" type="text"  id="unitcost"   @keyup="updateunitcost" @keypress="updateunitcost" name="unitcost" class="form-control" :class="{ 'is-invalid': form.errors.has('unitcost') }">
+                                        
+                                        </div>
+                                    </div>
+                                </div>        
+
+
+
+    <div class="col-md-2">
+                                   <label for="email_address_2">Quantity Purchased</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                          <has-error :form="form" field="quantity"></has-error>
+                                               <input type="number" :value="form.quantity" id="quantity" @keyup="updatequantity" @keypress="updatequantity" name="quantity" class="form-control" :class="{ 'is-invalid': form.errors.has('quantity') }">
+                                            
+                                        </div>
+                                    </div>
+                                </div>         
+
+
+    <div class="col-md-2">
+                                   <label for="email_address_2">Total Cost</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                           <has-error :form="form" field="totalcost"></has-error>
+                                                <input type="text" :value="form.totalcost"  name="totalcost" readonly class="form-control"  :class="{ 'is-invalid': form.errors.has('totalcost') }" >
+
+                                            
+                                        </div>
+                                    </div>
+                                </div>         
+
+
+
+
+
+
+
+
+
+
+
+
+          <div class="mysalessect"> 
+  <input type="text" placeholder="Enter Item Name " v-model="search" v-on:keyup="searchit" @keyup="searchit" class="formcont2">
+
+  </div>
+<table  class="musisireporttable" width="100%" border="1">
+                  <thead>
+                    <tr>
+                   
+                      <th > # </th>
+                      
+                          <th > CATEGORY</th>
+                           
+                      <th > PRODUCT NAME </th>
+                     
+                      <th > UNIT OF MEASURE </th>
+                    
+                    
+                    
+                      
+                     
+                     <th >  </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+
+
+ 
+       
+     
+          
+
+                                 <tr v-for="probrands in productstoaddtoinvoicerecords.data" :key="probrands.id">
+                      
+                               
+                
+                      
+                         
+                                <td>{{probrands.id}}</td>
+                              
+                                <td> ({{probrands.category}}) <template v-if="probrands.product_category">	{{probrands.product_category.catname}}</template></td>  
+                                             
+                               
+   <td>   {{probrands.productname | firstletterCapital }}</td>
+   <td> <template v-if="probrands.unit_measure">	{{probrands.unit_measure.shotcode}}</template> -  <template v-if="probrands.unit_measure">
+     	{{probrands.unit_measure.unitname}}</template></td>
+  
+    
+ 
+                   
+   
+                             
+                               
+                                 
+                                
+                               
+                                 <td> 
+                                  <!-- v-if="allowedtoeditbranch > 0 "  -->
+                              <button type="button"   class="btn  bg-secondary btn-xs"  @click="addmyselectedProducttoPurcase(probrands)">Purchase</button>
+  
+
+
+                             
+                              </td>
+
+
+               
+                              
+                               
+                    </tr>
+              
+                     
+                  </tbody>
+              
+ 
+                                   </table>
+              
+ <div class ="bethapa-table-sectionheader">Purchased Products </div>                        
+  <table style="width:100%">
+  <thead>
+    <tr>
+         <th class="tresed">#</th>
+      <th class="tresed"> ITEM</th>
+      <!-- <th class="tresed"> DESCRIPTION</th> -->
+       <th class="tresed">UNIT COST</th>
+       <th class="tresed">UNIT VAT</th>
+      <th class="tresed">QTY</th>
+       
+      <th class="tresed">TOTAL COST</th>
+      <th class="tresed">TOTAL VAT</th>
+       <th class="tresed">INVOICE TOTAL</th>
+      <th class="tresed"></th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr v-for="shobalrecs in activeinvoicetoupdaterecords.data" :key="shobalrecs.id">
+         <td>
+        
+        <span class="book-title"> {{shobalrecs.id}} </span>
+        
+      </td>
+      <td class="four">
+        
+      <span class="book-title"> <template v-if="shobalrecs.product_name">	{{shobalrecs.product_name.productname}}</template></span>
+       
+      </td>
+         <!-- <td class="four">
+        
+      
+
+      <span class="book-title"> 
+        <div  v-if="shobalrecs.vatstatus == '2' "> 
+        VAT is included in the Cost Price
+        </div>
+        <div  v-if="shobalrecs.vatstatus == '3' "> 
+      VAT is separate from Cost price
+        </div>
+     <div  v-if="shobalrecs.vatstatus == '1' "> 
+        No VAT on this item
+        </div>
+      </span>
+
+     
+      </td> -->
+                                <!-- <td>   <template v-if="shobalrecs.supplier_name">	{{shobalrecs.supplier_name.suppname}}</template></td>  -->
+         <td>
+          
+        <span class="book-title">{{formatPrice(shobalrecs.unitprice)}}</span>
+        
+      </td>
+       <td> <span class="book-title">  {{formatPrice(shobalrecs.unitvat)}}</span></td>
+      <td>   <span class="book-title">{{shobalrecs.quantity}}</span></td>
+      <td> <span class="book-title">  {{formatPrice(shobalrecs.linetotal)}}</span></td>
+       <td> <span class="book-title">   {{formatPrice(shobalrecs.vattotal)}}</span></td>
+        
+         <td> <span class="item-price">   {{formatPrice(shobalrecs.grandtotal)}}</span></td>
+           <td> 
+              
+                    <span class="book-title"> 
+                   
+               
+                  <button  v-if="shobalrecs.invoicelockstatus == '0' " type="button" class="btn bg-deep-orange btn-xs waves-effect" 
+                  
+                  @click="deleteproductfromPurcases(shobalrecs.id)">Remove item</button>
+                
+                                         
+                </span></td>
+    
+    
+    </tr>
+   
+
+  </tbody>
+  <tfoot>
+    <tr class="text-offset">
+      <td colspan="7">SUB TOTAL : </td>
+      <td>{{currencydetails}}  {{formatPrice(gettheinvoicetotalwithoutvat)}}</td>
+    </tr>
+    <tr class="text-offset">
+      <td colspan="7">VAT (18%) : </td>
+     <td>{{currencydetails}}  {{formatPrice(gettheinvoicevatamount)}}</td>
+    </tr>
+    <tr class="text-offset">
+      <td colspan="7">GRAND TOTAL :</td>
+     <td>{{currencydetails}}  {{formatPrice(gettheinvoicegrandtotal)}}</td>
+    </tr>
+    
+  </tfoot>
+</table>
    
 
                               
@@ -3135,7 +3390,7 @@ pre {
 
 
  <div  class="modal-footer">
-   <button v-if="invoicelockstatus  == '0'"  type="submit"   class="btn btn-primary btn-sm"> Add to invoice</button>
+   <button type="submit"   class="btn btn-primary btn-sm"> Add to invoice</button>
                 
                       <button  v-if="this.form.newqty >= 0"  type="submit" class="btn btn-success btn-sm" >Add</button>
                         <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Cancel</button >
@@ -3255,6 +3510,7 @@ salessummaryComponentaccess:'',
         unittoname:{},
         unitfromname:{},
         productfromname:{},
+        productstopurchaselist:{},
 productfromcode:{},
 transferdadt:{},
 qtyintransit:{},
@@ -5231,6 +5487,9 @@ loadvatvalues(){
 
 ///////////////////////////////////////////////////
         created() {
+
+   axios.get('/api/productstopurchaselist').then(function (response) { this.productstopurchaselist = response.data;}.bind(this));
+
 
 
 axios.get("api/gettransferexistanceforuser").then(({ data }) => (this.gettransferexistanceforuser = data));

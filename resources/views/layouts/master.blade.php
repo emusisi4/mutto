@@ -62,6 +62,7 @@
     <link href="css/sree-main.css" rel="stylesheet" />
 <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
 <link href="css/themes/all-themes.css" rel="stylesheet" />
+
 </head>
 
 <body>
@@ -282,7 +283,7 @@ foreach ($allowedsubmenu as $rowallsub)
     <!-- Custom Js -->
     <script src="/js/admin.js"></script>
     <script src="/js/pages/forms/advanced-form-elements.js"></script>
-
+    <script src="/js/pages/ui/tooltips-popovers.js"></script>
     <!-- Custom Js -->
     <script src="/js/admin.js"></script>
  
