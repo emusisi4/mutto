@@ -23,6 +23,8 @@ Route::apiResources(['newfishcurrentcodes' => 'API\CurrentmacinecodesController'
 // Sena Hardware Start
 Route::apiResources(['customerdetailsrecords' => 'API\CustomersController']);
 Route::apiResources(['recievethecustomerPayment' => 'API\CustomerpaymentsController']);
+
+Route::apiResources(['makethecustomerPayment' => 'API\CompanypaycustomerController']);
 Route::get('customerstatementrecords', 'API\CustomersController@customerstatementrecords');
 Route::get('supplierstatementrecords', 'API\CustomersController@supplierstatementrecords');
 
@@ -58,7 +60,8 @@ Route::get('getreceiptno', 'API\ReceiptprintingController@getreceiptno');
 ;
 
 Route::get('productstopurchaselist', 'APIController@productstopurchaselist');
-
+Route::get('thereexistsaninvoice', 'APIController@thereexistsaninvoice');
+Route::get('myexistinginvoice', 'APIController@myexistinginvoice');
 
 
 Route::apiResources(['confirmsaleoncredit' => 'API\ConfirmcreditsaleController']);
@@ -223,14 +226,19 @@ Route::apiResources(['productbrandsrecords' => 'API\ProductbrandsController']);
 
 Route::apiResources(['activeinvoicetoupdaterecords' => 'API\InvoicenumberinactionController']);
 Route::apiResources(['invoicenumbertocheck' => 'API\InvoicenumberinactionController']);
+Route::apiResources(['statementrecordtoview' => 'API\StatementrecordtoviewController']);
+Route::get('transtoviewtype', 'API\StatementrecordtoviewController@transtoviewtype');
 
 Route::apiResources(['closeofftheinvoiceinaction' => 'API\InvoicenumberinactionController']);
 Route::apiResources(['purchaseincoicesummaryrecords' => 'API\PurchasessumaryrecordsController']);
 Route::apiResources(['productpurchasesdetailrecords' => 'API\PurchasesrecordsController']);
+
+Route::apiResources(['invoicepurchaseddetailsrecords' => 'API\PurchasesrecordsspecificinvoiceController']);
+
 Route::apiResources(['productpriceslist' => 'API\ProductpricesController']);
+Route::get('getstatementtransactions', 'API\StatementrecordtoviewController@getstatementtransactions');
+
 Route::get('findUser', 'API\CompanyproductsController@search');
-
-
 Route::get('findtheProdctinlist', 'API\CompanyproductsController@searchproductinproductlist');
 Route::get('returnreceiptdetails', 'API\ReturnsalesitemsController@returnreceiptdetails');
 

@@ -60,7 +60,7 @@ class AppenditemstoinvoiceController extends Controller
         $userid =  auth('api')->user()->id;
 // Getting the Invoice to work on 
 $this->validate($request,[
-     'id'   => 'required |max:191',
+     'productname'   => 'required |max:191',
        'vatinclussive'   => 'required',
 
       // 'dorder'   => 'sometimes |min:0'
@@ -139,7 +139,7 @@ $newinvoicetotalvat = $currentinvoivetax+$vatamount;
 //    mainunitmeasure, smallunitmeasure, grandtotal, linetotal, invoiceno, suppliername, supplierinvoiceno
  Purchase::Create([
 
- 'productcode' => $request['id'],
+ 'productcode' => $request['productname'],
  'unitprice' => $exactunitcost,
  'quantity' => $request['quantity'],
  'dateordered' => $dateordered,

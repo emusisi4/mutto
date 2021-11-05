@@ -12,7 +12,8 @@ class Customerstatement extends Authenticatable
 
    
     protected $fillable = [
-         'customername', 'transactiontype', 'transactiondate', 'description', 'openningbal', 'amount', 'debitamount', 'ucret', 'resultatantbalance'       
+         'customername', 'transactiontype', 'transactiondate', 'description', 'openningbal', 'amount', 
+         'debitamount', 'ucret', 'resultatantbalance','transactionmode', 'invoiceinaction'
     ];
     public function customerName(){
         // creating a relationship between the students model 
@@ -22,7 +23,10 @@ class Customerstatement extends Authenticatable
         // creating a relationship between the students model 
         return $this->belongsTo(User::class, 'ucret'); 
     }
-    
+    public function SupplierName(){
+        // creating a relationship between the students model 
+        return $this->hasMany(Purchasessummary::class, 'suppliername', 'id'); 
+    }
     public function brandName(){
         // creating a relationship between the students model 
         return $this->belongsTo(Brand::class, 'brand'); 

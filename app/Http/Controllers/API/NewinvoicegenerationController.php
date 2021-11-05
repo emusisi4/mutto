@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\API;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -10,6 +11,8 @@ use App\Submheader;
 use App\Branch;
 use App\Purchasessummary;
 use App\Dailypurchasesreport;
+use App\Invoincestoappenditem;
+use App\Invoicetoview;
 
 class NewinvoicegenerationController extends Controller
 {
@@ -87,13 +90,42 @@ $wordCount = \DB::table('purchasessummaries')->where('invoicedate', '=', $curren
 $yyt = $wordCount+1;
 $dateinq =   $request['invoicedate'];
 $purcaseno = $invd.$yyt;
+
+
+$thissupplier =   $request['suppliername'];
+$thisinvoiceno =   $request['invoicenumber'];
+$invoicenumberforthissupplierexists = \DB::table('purchasessummaries')->where('suppliername', '=', $thissupplier)
+->where('supplierinvoiceno', '=', $thisinvoiceno)->count();
+
+if($invoicenumberforthissupplierexists < 1)
+{
+Invoincestoappenditem::Create([
+    
+  
+  'invoiceno' => $request['suppliername'].$request['invoicenumber'],
+ 
+  
+  'ucret' => $userid,
+
+]);
+DB::table('invoicetoviews')->where('ucret', $userid)->delete();
+
+Invoicetoview::Create([
+    
+  
+  'invoiceno' => $request['suppliername'].$request['invoicenumber'],
+ 
+  
+  'ucret' => $userid,
+
+]);
    Purchasessummary::Create([
     
   
-      'suppliername' => $request['suppliername'],
+     
       'suppliername' => $request['suppliername'],
       'invoicedate' => $request['invoicedate'],
-      'supplierinvoiceno' => $request['invoicenumber'],
+      'supplierinvoiceno' =>$request['suppliername'].$request['invoicenumber'],
     'purchaseno'=>$purcaseno,
       'ucret' => $userid,
     
@@ -120,7 +152,22 @@ $purcaseno = $invd.$yyt;
   
 ]);
 }
-    }
+} /// closing if the invoice doesnt exist
+
+if($invoicenumberforthissupplierexists > 0)
+{
+Invoincestoappenditdddddddem::Create([
+    
+  
+  'invoiceno' => $request['invoicenumber'],
+ 
+  
+  'ucret' => $userid,
+
+]);
+}
+
+}
 
    
     public function show($id)
@@ -150,8 +197,11 @@ $user->update($request->all());
     {
         //
      //   $this->authorize('isAdmin'); 
-
-        $user = Product::findOrFail($id);
+ 
+     $invoiceno = \DB::table('purchasessummaries')->where('id', '=', $id)->value('supplierinvoiceno');
+        DB::table('invoincestoappenditems')->where('invoiceno', $invoiceno)->delete();
+        DB::table('invoicetoviews')->where('invoiceno', $invoiceno)->delete();
+        $user = Purchasessummary::findOrFail($id);
         $user->delete();
        // return['message' => 'user deleted'];
 

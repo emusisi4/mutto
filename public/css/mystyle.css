@@ -82,6 +82,13 @@ button.add-newm {
     padding: 0rem;
     float: left;
 }
+.mysalessect3 {
+    padding: 0rem;
+    font-size: 28px;
+    font-weight: bold;
+ 
+    text-align: center;
+}
 
 tr:nth-child(even) {
   background-color: #f67d2947;

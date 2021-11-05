@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -70,7 +71,13 @@ $walletrecieving =  $request['recievingwallet'];
      $userid =  auth('api')->user()->id;
 $currentcustomerbalance = $request['bal'];
   $datepaid = date('Y-m-d');
+  $receiptno = Str::random(6);
+  //$receiptno = dd($randomString);
+
 //  $inpbranch = $request['branchnametobalance'];
+//// getting the customer type 
+$customer = $request['id'];
+$customertyppe = \DB::table('customers')->where('id', $customer )->value('customertype');
 
 $currentwalletinactionbalance = \DB::table('expensewalets')->where('id', $walletrecieving )->value('bal');
 Customerpayment::Create([
@@ -80,19 +87,37 @@ Customerpayment::Create([
       'description' => $request['narration'],
       'reccievedby' => $userid,
       'mop' => $request['mop'],
+      'receiptno'=> $receiptno,
       'ucret' => $userid, 
   ]);
+  $cust = $request['id'];
 
 /// Updating the customer Statement
+if($customertyppe == '1')
+{
+  
+  $vvdsr = \DB::table('customers')->where('id', $cust )->value('bal');
+if($vvdsr < 1)
+{
+  $paidamount = $request['amountpaid'];
+  $resultantbalance = $vvdsr-$paidamount;
+}
+if($vvdsr >= 1)
+{
+  $paidamount = $request['amountpaid'];
+  $resultantbalance = $vvdsr-$paidamount;
+}
 Customerstatement::Create([
    'customername' =>  $request['id'],
     'openningbal' => $currentcustomerbalance,
    'transactiontype' => 2,
     'transactiondate' =>$request['dop'],  
-    'description'=> 'Customer Payment',
+    'description'=> 'Recieved cash from customer ',
     'debitamount'=> $request['amountpaid'],
+  'invoiceinaction'=> $receiptno,
+  'transactionmode'=> 1,
   
-    'resultatantbalance' => $currentcustomerbalance - $request['amountpaid'],
+    'resultatantbalance' => $resultantbalance,
    
               'ucret' => $userid,
             
@@ -101,45 +126,48 @@ Customerstatement::Create([
 $newwalbal = $currentwalletinactionbalance+$bec;
 
           /// Updatint the Custoomer balance
-  DB::table('customers')->where('id', $request['id'])->update(['bal' =>  $currentcustomerbalance - $request['amountpaid']]);
+  DB::table('customers')->where('id', $request['id'])->update(['bal' =>  $resultantbalance]);
   /// Updating the collection wallet
   DB::table('expensewalets')->where('id', $walletrecieving)->update(['bal' =>  $newwalbal]);
+}/// closing if
 
-    }
-//     public function customerstamento(){
+if($customertyppe == '2')
+{
+  $vvdsr = \DB::table('customers')->where('id', $cust )->value('bal');
+  if($vvdsr < 1)
+  {
+    $paidamount = $request['amountpaid'];
+    $resultantbalance = $vvdsr+$paidamount;
+  }
+  if($vvdsr >= 1)
+  {
+    $paidamount = $request['amountpaid'];
+    $resultantbalance = $vvdsr+$paidamount;
+  }
+Customerstatement::Create([
+   'customername' =>  $request['id'],
+    'openningbal' => $currentcustomerbalance,
+   'transactiontype' => 1,
+    'transactiondate' =>$request['dop'],  
+    'description'=> 'Recieved cash from customer ',
+    'debitamount'=> $request['amountpaid'],
+  'transactionmode'=> 1,
+    'resultatantbalance' => $resultantbalance,
    
-//       $userid =  auth('api')->user()->id;
-//       $userbranch =  auth('api')->user()->branch;
-//       $userrole =  auth('api')->user()->type;
-//       $existanceinthetable = \DB::table('customersreporttoviews')->where('ucret', '=', $userid)->count();
-     
-     
-     
-//       if($existanceinthetable < 1 )
-//       { Customersreporttoview::Create([
-//         //  'branch', 'ucret','startdate','enddate',
-//           //    'productcode' => $request['productcode'],
-//               'customername' => $request['customername'],
-//               // 'enddate' => $request['enddate'],
-//               // 'supplier' => $request['suppliername'],
-//               'ucret' => $userid,
+              'ucret' => $userid,
             
-//           ]);
-// }
-// if($existanceinthetable > 0 )
-// { 
-//   Customersreporttoview::Create([
-//   //  'branch', 'ucret','startdate','enddate',
-//     //    'productcode' => $request['productcode'],
-//         'startdate' => $request['startdate'],
-//         'enddate' => $request['enddate'],
-//         'supplier' => $request['suppliername'],
-//         'ucret' => $userid,
-      
-//     ]);
-// }
-// }
-       
+          ]);
+          $bec = $request['amountpaid'];
+$newwalbal = $currentwalletinactionbalance+$bec;
+
+          /// Updatint the Custoomer balance
+  DB::table('customers')->where('id', $request['id'])->update(['bal' =>  $currentcustomerbalance + $request['amountpaid']]);
+  /// Updating the collection wallet
+  DB::table('expensewalets')->where('id', $walletrecieving)->update(['bal' =>  $newwalbal]);
+}/// closing if
+    }
+
+    
 public function customerstatementrecords()
 {
   $userid =  auth('api')->user()->id;

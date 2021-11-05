@@ -22,9 +22,9 @@ class Purchasessummary extends Authenticatable
         // creating a relationship between the students model 
         return $this->belongsTo(Product::class, 'productcode'); 
     }
-    public function SupplierName(){
+    public function supplierName(){
         // creating a relationship between the students model 
-        return $this->belongsTo(Supplier::class, 'suppliername'); 
+        return $this->belongsTo(Customer::class, 'suppliername'); 
     }
     public function brandName(){
         // creating a relationship between the students model 

@@ -243,7 +243,358 @@ pre {
   margin-top: 20px;
 }
 </style>
+<style scoped>
 
+.tresed {
+   border:none;
+border-top:2px dotted black;
+
+border-bottom:2px dotted black;
+
+
+
+}
+.musisireporttable-table td, th {
+    border: 0.5px solid #c5c5c5;
+    padding-left: 18px;
+    text-align: left;
+    font-size: 20px;
+    /* background: #a99696; */
+    color: black;
+        vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+        padding: -0.25rem;
+ 
+    /* border-top: 1px solid #822119 */
+}
+.musisialign{
+     text-align: center;
+
+}
+.musisialignright{
+     text-align: right;
+         padding-right: 10px;
+
+}
+.musisialignleft{
+     text-align: left;
+
+}
+
+   .formcont2{
+      display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 28px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+   }
+
+.book-title {
+  color: black;
+  display: block;
+  text-align: center;
+background-color: white;
+border-bottom:2px dotted black;
+}
+.text-offset {
+  color: black;
+  font-size: 14px;
+  background-color: white;
+      font-weight: bold;
+}
+.item-stock,
+.item-qty {
+  text-align: center;
+     border-bottom:2px dotted black;
+background-color: white;
+
+}
+.item-pricetotal {
+
+color: black;
+
+text-align: right;
+background-color: white;
+
+}
+.item-price {
+
+color: black;
+display: block;
+text-align: right;
+background-color: white;
+/* font-weight: bold; */
+   border-bottom:2px dotted black;
+}
+.item-multiple {
+  display: block;
+}
+tfoot {
+  text-align: right;
+  color: black;
+  background-color: white;
+  border-top:2px dotted black;
+
+border-bottom:2px dotted black;
+
+}
+tfoot tr:last-child {
+  background: #f0f0f2;
+  color: black;
+  font-weight: bold;
+  border-top:2px dotted black;
+
+border-bottom:2px dotted black;
+}
+tfoot tr:last-child td:first-child {
+  border-bottom-left-radius: 5px;
+  border-top:2px dotted black;
+
+border-bottom:2px dotted black;
+}
+tfoot tr:last-child td:last-child {
+  border-bottom-right-radius: 5px;
+  border-top:2px dotted black;
+
+border-bottom:2px dotted black;
+}
+#musisi {
+  margin-top: 50px;
+}
+#reccont {
+align-items: center;
+}
+.emnf {
+  margin-top: 50px;
+  width: 300px;
+      margin-left: 648px;
+    width: 458px;
+ 
+  
+}
+
+.tabletextalign{
+    text-align: center;
+}
+
+ 
+td,
+th,
+tr,
+table {
+    border-top: 1px solid black;
+    border-collapse: collapse;
+}
+
+td.description,
+th.description {
+    width: 75px;
+    max-width: 75px;
+}
+
+td.quantity,
+th.quantity {
+    width: 40px;
+    max-width: 40px;
+    word-break: break-all;
+}
+
+td.price,
+th.price {
+    width: 40px;
+    max-width: 40px;
+    word-break: break-all;
+}
+
+.centered {
+    text-align: center;
+    align-content: center;
+}
+
+.ticket {
+   width: 100%;
+    padding-left: 40px;
+    padding-right: 40px;
+    text-align: center;
+      padding-top: 2.5cm;
+       padding-bottom: 2.5cm;
+       height: auto;
+     vertical-align: -webkit-baseline-middle;
+
+}
+.ticketcompanyname {
+   width: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
+    font-size: 1.5em;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+
+}
+
+.ticketlocation{
+  width: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
+    font-size: 1.0em;
+    text-align: center;
+    /* font-weight: bold; */
+    text-transform: uppercase;
+}
+.ticketcontact{
+  width: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
+    font-size: 1.0em;
+    text-align: center;
+    /* font-weight: bold; */
+    text-transform: uppercase;
+}
+
+.ticketdisclaimer{
+  width: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
+    font-size: 1.0em;
+    text-align: center;
+    /* font-weight: bold; */
+    /* text-transform: uppercase; */
+}
+.ticketreceipttitle{
+  width: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
+    font-size: 1.0em;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.ticketreceiptno {
+  width: 100%;
+    padding-left: 0px;
+    padding-right: 40px;
+    font-size: 15px;
+    text-align: left;
+    font-weight: normal;
+
+}
+.text-danger strong {
+    		color: #9f181c;
+		}
+		.receipt-main {
+			background: #ffffff none repeat scroll 0 0;
+     
+			border-bottom: 12px solid #333333;
+			border-top: 12px solid #9f181c;
+			margin-top: 50px;
+			margin-bottom: 50px;
+			padding: 40px 30px !important;
+			position: relative;
+			box-shadow: 0 1px 21px #acacac;
+			color: #333333;
+       width: 700px; 
+
+			font-family: open sans;
+		}
+		.receipt-main p {
+			color: #333333;
+			font-family: open sans;
+			line-height: 1.42857;
+		}
+		.receipt-footer h1 {
+			font-size: 15px;
+			font-weight: 400 !important;
+			margin: 0 !important;
+		}
+		.receipt-main::after {
+			background: #414143 none repeat scroll 0 0;
+			content: "";
+			height: 5px;
+			left: 0;
+			position: absolute;
+			right: 0;
+			top: -13px;
+		}
+		.receipt-main thead {
+			background: #414143 none repeat scroll 0 0;
+		}
+		.receipt-main thead th {
+			color:#fff;
+		}
+		.receipt-right h5 {
+			font-size: 16px;
+			font-weight: bold;
+			margin: 0 0 7px 0;
+		}
+		.receipt-right p {
+			font-size: 12px;
+			margin: 0px;
+		}
+		.receipt-right p i {
+			text-align: center;
+			width: 18px;
+		}
+		.receipt-main td {
+			padding: 9px 20px !important;
+		}
+		.receipt-main th {
+			padding: 13px 20px !important;
+		}
+		.receipt-main td {
+			font-size: 13px;
+			font-weight: initial !important;
+		}
+		.receipt-main td p:last-child {
+			margin: 0;
+			padding: 0;
+		}	
+		.receipt-main td h2 {
+			font-size: 20px;
+			font-weight: 900;
+			margin: 0;
+			text-transform: uppercase;
+		}
+		.receipt-header-mid .receipt-left h1 {
+			font-weight: 100;
+			margin: 34px 0 0;
+			text-align: right;
+			text-transform: uppercase;
+		}
+		.receipt-header-mid {
+			margin: 24px 0;
+			overflow: hidden;
+		}
+		
+		#container {
+			background-color: #dcdcdc;
+		}
+img {
+    max-width: inherit;
+    width: inherit;
+}
+
+   .centerdiv {
+border: 5px solid #FFFF00;
+text-align: center;
+}
+
+@media print {
+    .hidden-print,
+    .hidden-print * {
+        display: none !important;
+    }
+}
+
+
+
+</style>
 <template>
 
     <div>
@@ -500,11 +851,11 @@ List of Ledger Accounts
 
                                <td>
                             <div  class="musisialignright">
-       <button type="button" v-if="prodcates.customertype == '1'"   class="btn btn-success btn-xs waves-effect"  @click="recievecustomerpayment(prodcates)">Recieve Payment</button>
+      <button type="button"   class="btn btn-success btn-xs waves-effect"  @click="recievecustomerpayment(prodcates)">Recieve Payment</button>
       
       <button type="button"   class="btn bg-primary btn-xs waves-effect"  @click="viewcustomerstatement(prodcates)">View Statement</button>  
-     
-
+      <button type="button"    class="btn bg-brown btn-xs waves-effect"  @click="makepaymentpayment(prodcates)">Make Payment</button>
+      
               <!-- <button type="button"    class="btn  bg-gradient-danger btn-xs fas fa-trash-alt" @click="deleteexpensecategory(prodcates.id)"> DEl </button> -->
  </div>
 </td>
@@ -582,6 +933,164 @@ List of Ledger Accounts
  
 
 
+<div class="modal fade" id="companymakepaymentModal">
+   
+         <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">New Product Registration</h3> 
+                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" 
+                style="height: 80px; width: 80px;"> Make Payment to Ledger Account </h4> 
+                        </div>
+                  <form class="form-horizontal" @submit.prevent="editmode ? makepaymentPaymenttocustomer():makepaymentPaymenttocustomer()"> 
+
+ 
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Customer Name :</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                  <input v-model="form.customername" type="text" name="customername" readonly
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('customername') }">
+
+
+                      
+                    <has-error :form="form" field="customername"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                    <input v-model="form.id" style="display:none" type="text" name="id" readonly>
+
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Current Balance : </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                 <input v-model="form.bal" readonly type="text" name="bal"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('bal') }">
+                    <has-error :form="form" field="bal"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+
+
+  <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Date of Payment :</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                         <has-error :form="form" field="dop"></has-error>
+                                                  <input v-model="form.dop" type="date" name="dop"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('dop') }">
+                   
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+ <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Amount Paid : </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                     <has-error :form="form" field="amountpaid"></has-error>
+                                                  <input v-model="form.amountpaid" type="number" name="amountpaid"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('amountpaid') }">
+                   
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+ <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Recieving Account: </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                              <has-error :form="form" field="recievingwallet"></has-error>
+                                                <select name ="recievingwallet" v-model="form.recievingwallet" id ="recievingwallet" v-on:click="loadDatarecords()" class="form-control" :class="{'is-invalid': form.errors.has('expensecategory')}">
+<option value="">  </option>
+<option v-for='data in walletstorecievemoney' v-bind:value='data.id'>{{ data.walletname }}</option>
+
+</select>
+                    
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                 <div v-show="editmode" class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Mode of Payment : </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                               <has-error :form="form" field="mop"></has-error>
+              <select name ="mop" v-model="form.mop" id ="mop" class="form-control"  :class="{'is-invalid': form.errors.has('mop')}">
+                    
+                    <option></option>
+                      <option value="1"> Cash</option>
+                        <option value="2"> Mobile Money</option>
+                         <option value="3"> Bank</option>
+
+
+                    </select>
+                   
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                 <div v-show="editmode" class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Narration :</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+             <textarea v-model="form.narration" type="text" name="narration"
+                      class="form-control no-resize" :class="{ 'is-invalid': form.errors.has('narration') }"></textarea>
+                    <has-error :form="form" field="narration"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+
+                             
+   
+                              
+<br>
+
+                  <div  class="modal-footer">
+                    <button  v-show="!editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
+                      <button v-show="editmode" type="submit" class="btn btn-success btn-sm" >Update</button>
+                        <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Close</button >
+                        </div>
+                 </form>
+                       </div>
+                          </div>
+                </div>
+
 
 <div class="modal fade" id="customerpaymentModal">
    
@@ -590,8 +1099,10 @@ List of Ledger Accounts
                         <div class="modal-header">
                             <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">New Product Registration</h3> 
                 <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" 
-                style="height: 80px; width: 80px;">Customer Cash receipt </h4> 
+                style="height: 80px; width: 80px;">Recieve payment from Ledger Account </h4> 
                         </div>
+                        
+
                   <form class="form-horizontal" @submit.prevent="editmode ? recieveCustomercash():recieveCustomercash()"> 
 
  
@@ -873,14 +1384,17 @@ Ledger  Statement Report  : From  {{salesreportsatartingdate}} to {{salesreporte
                     
                           <td><div>   {{(prodcates.description)}} </div></td>
                           
-                            <td><div class="musisialignright">   {{formatPrice(prodcates.openningbal)}} </div></td>
+                            <td><div class="musisialignright">   {{formatPrice(prodcates.amount)}} </div></td>
    
                           <!-- <td><div class="musisialignright">   {{formatPrice(prodcates.amount)}} </div></td> -->
                          <td><div class="musisialignright">   {{formatPrice(prodcates.debitamount)}} </div></td>
  <td><div class="musisialignright"> {{formatPrice(prodcates.resultatantbalance)}} </div></td>
 
-  <td>    <button type="button"   class="btn bg-primary btn-xs waves-effect"  @click="viewcustomerstatement(prodcates)">View</button>  </td> 
-
+  <td>      <button type="button"  class="btn bg-blue btn-xs waves-effect"
+                                @click="savetransactiontoView(prodcates.id)"> View transaction </button>
+                                
+                                
+  </td>
 </tr>
   <tr>
 
@@ -3005,7 +3519,325 @@ Ledger Statement Report  : From  {{salesreportsatartingdate}} to {{salesreporten
                     </div>
                 </div>
 
+<!-- //////////////////////////////////////////////////////// -->
+<div class="modal fade" id="modaltodisplaythedets">
+   
+         <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png"
+                             class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">New Product Registration</h3> 
+                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" 
+                style="height: 80px; width: 80px;">Statement Record details </h4> 
+                        </div>
+                
+    
+      <div> 
 
+      
+          
+        
+               
+</div>
+<!-- 
+<div class="mysalessect3"> 
+  Ledger Number :     Ledger Name : 
+  
+
+</div> -->
+     
+<div v-if="transtoviewtype == '1'">
+ <div class="ticket" id="print">
+        <div class="ticketcompanyname"  > Ssennah Hardware </div>
+          <div class="ticketlocation"  > Misindye Jjogo </div>
+           <div class="ticketlocation"  > Bukeerere Road </div>
+            <div class="ticketcontact"  > 0702941704 / 0392941704 </div>
+            <div class="ticketcontact"  > Tin Number : 1019044346 </div>
+
+
+            <div  class="ticketreceiptno"  > Receipt : {{getreceiptno}} </div>   
+    <div class="ticketreceiptno"  > Date :  {{getreceiptdate}} </div>
+    <div class="ticketreceiptno"  > Cashier : {{receiptcashier}} </div>
+              <div class="ticketreceipttitle"  > RECEIPT </div>
+  
+           
+       cbvvvm,
+<div class="ticketdisclaimer"  > Goods once Sold are not returnable </div>
+ <div class="ticketreceipttitle"  > Build the Best with Materials and tools from Us. </div>
+        </div>
+ 
+</div>
+
+<div v-if="transtoviewtype == '2' ">
+  <table  class="musisireporttable" width="100%" border="1">
+
+       <tr>
+           
+            
+             
+             <th colspan="1"  style="font-size: 18px;   text-align:left;  border-bottom: 4px solid rgb(124 102 102); 
+                 background-color: rgb(29 31 34 / 37%); color: #131378;"> Item Name</th>
+
+                 
+
+                <th colspan="1"  style="font-size: 18px; text-align:left;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;">Unit Cost</th>
+  
+     <th colspan="1"  style="font-size: 18px; text-align:left;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;">Qty</th>
+  
+              
+  
+                <th colspan="1"  style="font-size: 18px; text-align:left;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> Vat	</th>
+           <th colspan="1"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> Total Cost	</th>
+          
+        </tr>
+
+  
+   
+<!--  -->
+                                   <tr v-for="purcdet in getstatementtransactions.data" :key="purcdet.id">
+                      
+                 
+                  
+                
+                      
+                         
+                                <!-- <td>{{purcdet.invoiceno}}</td>
+                                   <td>{{purcdet.dateordered}}</td> -->
+                                  <!-- <td>{{purcdet.supplierinvoiceno}}</td>
+                                      <td><template v-if="purcdet.supplier_name">	{{purcdet.supplier_name.suppname}}</template></td> -->
+                                 <td><template v-if="purcdet.product_name">	{{purcdet.product_name.productname}}</template></td>
+                               
+                             
+                               
+                                
+                                
+     <!-- <td> {{(purcdet.datedelivered)  }}</td>
+      -->
+     <td class="musisialignright"> {{formatPrice(purcdet.unitprice)  }}</td>
+     <td class=""> <b> <div v-if="purcdet.qtydelivered > purcdet.quantity"  style="color:maroon" > {{(purcdet.qtydelivered)  }} </div></b>
+     
+     <div v-if="purcdet.qtydelivered == purcdet.quantity"  style="color:green" > {{(purcdet.qtydelivered)  }} </div>
+     <div v-if="purcdet.qtydelivered < purcdet.quantity"  style="color:orange" > {{(purcdet.qtydelivered)  }} </div>
+     </td>
+     
+      <td class="musisialignright"> {{formatPrice(purcdet.totaltaxdelivered)  }}</td>   
+     <td class="musisialignright"> {{formatPrice(purcdet.totalcostdeliverywithtax)  }}</td>   
+                                
+                               
+                              
+
+
+                              
+                               
+                    </tr>
+</table>
+</div>
+
+
+   
+                              
+<br>
+
+                  <div  class="modal-footer">
+                    <!-- <button  v-show="!editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
+                      <button v-show="editmode" type="submit" class="btn btn-success btn-sm" >Update</button> -->
+                        <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Close</button >
+                        </div>
+                
+                       </div>
+                          </div>
+                </div>
+<div class="modal fade" id="modaltodisplaythedetshh">
+         <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3  v-show="!editmode"    class="modal-title">
+                              <img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Add ce</h3> 
+                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Add Item to Purchase Invoice
+                 </h4> 
+                        </div>
+              
+              <div class="col-md-6">
+          <div class="card card-secondary">
+            <div class="card-header">
+                 <div class="col-lg-6">
+                        <!-- col-lg-6 start here -->
+                           
+                        <div class="invoice-from">
+                            
+                            <ul class="list-unstyled text-right">
+                               <!-- <div class="invoice-logo"><img width="100" src="images/invoice.png" alt="Invoice logo"></div> -->
+                                <!-- <li><b>Ssennah Hardware </b></li>
+                                <li> Misindye Jjogo</li>
+                                <li>Bukeerere Road</li>
+                                <li>0702941704 / 0392941704 </li>
+                                 <li>Tin Number : 1019044346 </li> -->
+                            </ul>
+                        </div>
+                    </div>
+
+                     <div class="invoice-details mt25">
+                            <div class="well">
+                                <ul class="list-unstyled mb0">
+                                   <li><strong>Document No : </strong> #{{getthinvoicedocumentno}}</li>
+                                    <li><strong>Supplier Invoice Number : </strong>{{getthinvoicenumberactive}}</li>
+                                     <li><strong>Invoice Date  :</strong> {{gettheinvoicedate|myDate2}}</li>
+                                   <li><strong>Supplier Name:</strong> {{getthinvoicesuppliername}}</li>
+                                 
+                                 
+                                     <li v-if="gettheinvoicedeliverystatus == '0'"><strong>Delivery : </strong> <span class="label label-danger">Pending</span></li>
+                                     <li v-if="gettheinvoicedeliverystatus == '1'"><strong>Delivery : </strong> <span class="label label-info">Partial</span></li>
+                                     <li v-if="gettheinvoicedeliverystatus == '2'"><strong>Delivery : </strong> <span class="label label-success">DONE</span></li>
+                                     
+                                   <li v-if="getinvoicepaymentstatus == '0'"><strong>Payment : </strong> <span class="label label-warning">Not Paid</span></li>
+                                     <li v-if="getinvoicepaymentstatus == '1'"><strong>Payment : </strong> <span class="label label-info">Partial</span></li>
+                                     <li v-if="getinvoicepaymentstatus == '2'"><strong>Payment : </strong> <span class="label label-success">Paid</span></li>
+                                     
+                                </ul>
+                            </div>
+                        </div>
+           
+
+       
+            </div>
+            <div class="card-body">
+   <table  class="musisireporttable" width="100%" border="1">
+
+       <tr>
+           
+            
+             
+             <th colspan="1"  style="font-size: 18px;   text-align:center;  border-bottom: 4px solid rgb(124 102 102); 
+                 background-color: rgb(29 31 34 / 37%); color: #131378;"> Item Name</th>
+
+                 
+
+                <th colspan="5"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> Order details</th>
+  
+  
+               <th colspan="4"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> Delivery Details</th>
+
+  
+                <th colspan="1"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> 	</th>
+          
+        </tr>
+
+  
+     <tr>
+  
+                      
+                      <th > </th>
+                      
+                       <th > U.C</th>
+                       <th >Qty</th>
+                       <th >Total</th>
+                       <th >Vat</th>
+                       <th >T.C</th>
+                   
+                                         
+                    
+
+
+  
+                       <th >U.C</th>
+                     
+                       <th >Qty</th>
+
+                     
+                        <th > Vat</th>
+  <th >T.C</th>
+                     
+
+<th >  </th>
+
+                   
+
+</tr>
+<!--  -->
+                                   <tr v-for="purcdet in statementrecordtoview.data" :key="purcdet.id">
+                      
+                 
+                  
+                
+                      
+                         
+                                <!-- <td>{{purcdet.invoiceno}}</td>
+                                   <td>{{purcdet.dateordered}}</td> -->
+                                  <!-- <td>{{purcdet.supplierinvoiceno}}</td>
+                                      <td><template v-if="purcdet.supplier_name">	{{purcdet.supplier_name.suppname}}</template></td> -->
+                                 <td><template v-if="purcdet.product_name">	{{purcdet.product_name.productname}}</template></td>
+                                <td> {{formatPrice(purcdet.unitprice)  }}</td>
+                                <td> {{(purcdet.quantity)  }}</td>
+                                    <td> {{formatPrice(purcdet.linetotal)  }}</td>
+     <td> {{formatPrice(purcdet.vattotal)  }}</td>
+     <td> {{formatPrice(purcdet.grandtotal)  }}</td>
+                             
+                               
+                                
+                                
+     <!-- <td> {{(purcdet.datedelivered)  }}</td>
+      -->
+     <td> {{formatPrice(purcdet.unitprice)  }}</td>
+     <td> <b> <div v-if="purcdet.qtydelivered > purcdet.quantity"  style="color:maroon" > {{(purcdet.qtydelivered)  }} </div></b>
+     
+     <div v-if="purcdet.qtydelivered == purcdet.quantity"  style="color:green" > {{(purcdet.qtydelivered)  }} </div>
+     <div v-if="purcdet.qtydelivered < purcdet.quantity"  style="color:orange" > {{(purcdet.qtydelivered)  }} </div>
+     </td>
+     
+      <td> {{formatPrice(purcdet.totaltaxdelivered)  }}</td>   
+     <td> {{formatPrice(purcdet.totalcostdeliverywithtax)  }}</td>   
+                                
+                                 <td> 
+                                   <div style="color:orange" v-if="purcdet.status == '0' "> 
+                                     
+                                        <button v-if="purcdet.status == '0'" type="button" class="btn bg-deep-orange btn-xs waves-effect"
+                   @click="confirmItempurchaseddelivery(purcdet)">Pending. Click to confirm Delivery</button>           
+                
+                                     
+                                     
+                                      </div>
+                                 <div style="color:green" v-if="purcdet.status == '1' "> Confirmed </div>
+                                 </td>
+                              
+
+
+                              
+                               
+                    </tr>
+</table>
+
+<!-- <button type="button" v-if="invoicelockstatus  == '0'" class="btn btn-danger btn-xs" >Remove all Items from the List </button> -->
+
+ 
+<button type="button" v-if="invoicelockstatus  == '0'" class="btn btn-success btn-xs  waves-effect" @click="lockthepurchaseInvoice">
+                                    <i class="material-icons">lock</i>
+                                    <span>CLOSE INVOICE</span>
+                                </button>
+
+            </div>
+            <!-- closing display if invoice lock is off -->
+
+
+
+
+
+            </div>
+            <!-- /.card-body -->
+          </div>
+                       </div>
+                          </div>
+                </div>
+  
+
+
+<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
 <div class="modal fade" id="ccfnewpurchaseinvoiceModal">
          <div class="modal-dialog modal-lg" role="document">
@@ -3181,7 +4013,7 @@ Ledger Statement Report  : From  {{salesreportsatartingdate}} to {{salesreporten
 
           
 
-    </div>
+  
 </template>
 
 <script>
@@ -3249,8 +4081,10 @@ salessummaryComponentaccess:'',
           editmode: false,
            shopingcartdetails:{},
            walletstorecievemoney:{},
+           statementrecordtoview:{},
             customerdetailsrecords : {},
           salesreportsummaryrecords : {},
+          getstatementtransactions:{},
           salesdetailsreportdetailedrecords:{},
           customerstatementrecords:{},
           totalsalesdailysalesreports:{},
@@ -3280,7 +4114,7 @@ salesreportdetailstotalvat:{},
 
 salesreportdetailsgrosssales:{},
 salesreportdetailslineprofit:{},
-
+    transtoviewtype:{},
 
           totalvatdailysalesreports:{},
 totalnetinvoicedailysalesreports:{},
@@ -3478,6 +4312,15 @@ $('#customerstatementModal').modal('show');
             },   
 
 
+  makepaymentpayment(customerdetailsrecords){
+                this.editmode = true;
+                 this.form.clear();
+        this.form.reset();
+        this.form.fill(customerdetailsrecords);
+
+$('#companymakepaymentModal').modal('show');
+            },   
+
   recievecustomerpayment(customerdetailsrecords){
                 this.editmode = true;
                  this.form.clear();
@@ -3486,6 +4329,31 @@ $('#customerstatementModal').modal('show');
 
 $('#customerpaymentModal').modal('show');
             },   
+
+
+makepaymentPaymenttocustomer(){
+      this.$Progress.start();
+        this.form.post('api/makethecustomerPayment')
+        .then(()=>{
+
+         
+    $('#companymakepaymentModal').modal('hide');
+    this.form.reset();
+       axios.get("api/customerdetailsrecords").then(({ data }) => (this.customerdetailsrecords = data));
+   
+
+  Toast.fire({
+  icon: 'success',
+  title: 'Customer Payment Recieved'
+});
+        this.$Progress.finish();
+//axios.get("api/authorisedcomponents").then(({ data }) => (this.allowedrolecomponentsObject = data));
+        })
+        .catch(()=>{
+          
+        })
+         
+    },
 
 
 recieveCustomercash(){
@@ -3588,6 +4456,70 @@ axios.get("api/gettheinvoicetotalwithoutvat").then(({ data }) => (this.gettheinv
 }, 
 
 
+savetransactiontoView(id){
+//    Swal.fire({
+//   title: 'Are you sure?',
+//   text: "You won't be able to revert this!",
+//   icon: 'warning',
+//   showCancelButton: true,
+//   confirmButtonColor: '#3085d6',
+//   cancelButtonColor: '#d33',
+//   confirmButtonText: 'Yes'
+// }).then((result) => {
+
+// /// send request ti
+// if (result.isConfirmed) {
+ //  this.form.delete('api/invoicenumbertocheck/'+id);
+   this.form.put('api/statementrecordtoview/'+id);
+   
+    axios.get("api/transtoviewtype").then(({ data }) => (this.transtoviewtype = data));
+   axios.get("api/getstatementtransactions").then(({ data }) => (this.getstatementtransactions = data));
+//      axios.get("api/invoicelockstatus").then(({ data }) => (this.invoicelockstatus = data));
+//     axios.get("api/activeinvoicetoupdaterecords").then(({ data }) => (this.activeinvoicetoupdaterecords = data));
+//   axios.get("api/getthinvoicenumberactive").then(({ data }) => (this.getthinvoicenumberactive = data));
+//  axios.get("api/getthinvoicesuppliername").then(({ data }) => (this.getthinvoicesuppliername = data));
+//     axios.get("api/productpurchasesdetailrecords").then(({ data }) => (this.productpurchasesdetailrecords = data));
+//     axios.get("api/invoicepurchaseddetailsrecords").then(({ data }) => (this.invoicepurchaseddetailsrecords = data));
+
+// axios.get("api/getthinvoicedocumentno").then(({ data }) => (this.getthinvoicedocumentno = data));
+// axios.get("api/gettheinvoicedeliverystatus").then(({ data }) => (this.gettheinvoicedeliverystatus = data));
+// axios.get("api/getinvoicepaymentstatus").then(({ data }) => (this.getinvoicepaymentstatus = data));
+
+
+// axios.get("api/gettheinvoicedate").then(({ data }) => (this.gettheinvoicedate = data));
+  
+// axios.get("api/gettheinvoicevatamount").then(({ data }) => (this.gettheinvoicevatamount = data));
+// axios.get("api/gettheinvoicegrandtotal").then(({ data }) => (this.gettheinvoicegrandtotal = data));
+// axios.get("api/gettheinvoicetotalwithoutvat").then(({ data }) => (this.gettheinvoicetotalwithoutvat = data));
+  
+//  axios.get("api/getcurrencydetails").then(({ data }) => (this.currencydetails = data));
+ $('#modaltodisplaythedets').modal('show');
+  //  .then(()=>{
+  
+  //                       Swal.fire(
+  //                         'Deleted!',
+  //                         'Your file has been deleted.',
+  //                         'success'
+  //                       )
+                   
+  //     axios.get("api/authorisedcomponents").then(({ data }) => (this.allowedrolecomponentsObject = data));
+
+  // }).catch(()=>{
+  //    Swal.fire({  
+  //        icon: 'error',
+  //       title: 'Failed',
+  //      text: "Transaction was Not successfull. Contact the Administrator for More Assistance",});
+
+  // });
+
+
+// }                  
+
+
+
+// })
+
+            },
 
 
 
@@ -5153,8 +6085,8 @@ axios.get('/api/dailyvatcollectedforselection').then(function (response) { this.
 
 
 
+ axios.get("api/statementrecordtoview").then(({ data }) => (this.statementrecordtoview = data));
  axios.get("api/walletstorecievemoney").then(({ data }) => (this.walletstorecievemoney = data));
-
 
    Fire.$on('searching', ()=>{
             // let query = this.$parent.search;

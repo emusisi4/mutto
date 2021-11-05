@@ -886,10 +886,47 @@ public function invoicelockstatus()
   $userrole =  auth('api')->user()->type;
   $invoiceno =    \DB::table('invoicetoviews')->where('ucret', '=', $userid)->value('invoiceno');
  $invoicelockstatus = \DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $invoiceno)->value('invoicelockstatus');
-
+ //DB::table('invoicetoviews')->where('ucret', $userid)->delete();
+ //DB::table('invoincestoappenditems')->where('ucret', $userid)->delete();
     return $invoicelockstatus;
    
 }
+
+public function thereexistsaninvoice()
+{
+  $userid =  auth('api')->user()->id;
+        $userbranch =  auth('api')->user()->branch;
+        $userrole =  auth('api')->user()->type;
+       
+        // $receiptno = \DB::table('salessummaries') ->where('ucret', '=', $userid)->orderBy('id', 'Desc')->value('invoiceno');
+
+ $branchtobalanceexisits = \DB::table('invoincestoappenditems')
+
+  
+    ->where('ucret', '=', $userid)
+    ->count();
+
+    return $branchtobalanceexisits;
+   
+}
+
+public function myexistinginvoice()
+     {
+         $userid =  auth('api')->user()->id;
+         $userbranch =  auth('api')->user()->branch;
+         $userrole =  auth('api')->user()->type;
+       
+     
+         $branchtobalanceexisits = \DB::table('invoincestoappenditems')
+
+  
+         ->where('ucret', '=', $userid)
+         ->value('invoiceno');
+     
+         return $branchtobalanceexisits;
+     
+   }
+
 
 public function existanceofitemsoncart()
 {

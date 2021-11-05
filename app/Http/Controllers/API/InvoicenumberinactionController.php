@@ -44,7 +44,7 @@ class InvoicenumberinactionController extends Controller
       
     //   return   Purchase::with(['branchnameDailycodes', 'machinenameDailycodes'])->orderby('datedone', 'Asc')
    // return   Purchase::latest('id')
-    return   Purchase::with(['productName','supplierName'])->orderBy('id', 'Desc')  
+    return   Purchase::with(['productName'])->orderBy('id', 'Desc')  
         ->where('supplierinvoiceno', $supplierinvoiceno)
       
         ->paginate(35);

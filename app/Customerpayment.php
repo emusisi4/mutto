@@ -14,7 +14,7 @@ class Customerpayment extends Authenticatable
     
    
     protected $fillable = [
-       'customername', 'amountpaid', 'datepaid', 'reccievedby', 'description','mop', 'ucret'   
+       'customername', 'amountpaid', 'datepaid', 'reccievedby', 'description','mop', 'ucret','receiptno'
     ];
     
     public function customerName(){

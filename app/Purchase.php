@@ -19,7 +19,7 @@ class Purchase extends Authenticatable
           'invoiceno', 'suppliername', 'supplierinvoiceno', 'vatstatus', 'vattotal','invoicelockstatus',
           'itemconfirmed', 'qtydelivered', 'datedelivered', 'ucretconfirmeddelivery', 'linecostdelivery', 
           'totalcostdelivery','unitvat','lineproductcost',
-          'ordercostwithoutvat','deliverycostwithoutvat','totalinvoicewithvat'
+          'ordercostwithoutvat','deliverycostwithoutvat','totalinvoicewithvat','totalcostdeliverywithtax','totaltaxdelivered'
           
          
     ];
@@ -27,10 +27,7 @@ class Purchase extends Authenticatable
         // creating a relationship between the students model 
         return $this->belongsTo(Product::class, 'productcode'); 
     }
-    public function SupplierName(){
-        // creating a relationship between the students model 
-        return $this->belongsTo(Supplier::class, 'suppliername'); 
-    }
+    
     
     public function brandName(){
         // creating a relationship between the students model 

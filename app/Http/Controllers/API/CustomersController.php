@@ -120,7 +120,7 @@ public function customerstatementrecords()
   $startdate = \DB::table('customersreporttoviews')->where('ucret', $userid )->value('startdate');
   $enddate = \DB::table('customersreporttoviews')->where('ucret', $userid )->value('enddate');
 
- return   Customerstatement::with(['customerName','createdbyName'])->orderBy('transactiondate', 'Asc')
+ return   Customerstatement::with(['customerName','createdbyName'])->orderBy('id', 'Asc')
  /// return   Customerstatement::orderBy('id', 'Desc')
   ->whereBetween('transactiondate', [$startdate, $enddate])
   

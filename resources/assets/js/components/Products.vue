@@ -1703,8 +1703,11 @@ pre {
    <div class="bethapa-table-header">
      
                   Purchase Invoices Summarry
-                  <!-- v-if="allowedtoaddbranch > 0 " -->
-                      <button type="button"  class="add-newm" @click="newpurchaseInvoice" >Generate Invoice </button> 
+                  <!-- v-if="allowedtoaddbranch > 0 "
+                  existanceofpinv(){
+ axios.get("api/thereexistsaninvoice").then(({ data }) => (this.thereexistsaninvoice = data));
+ -->
+                      <button type="button"  class="add-newm" @mouseover="existanceofpinv" @click="newpurchaseInvoice" >Generate Invoice </button> 
                
                      </div>
 
@@ -1734,9 +1737,9 @@ pre {
             <th colspan="4"  style="font-size: 18px; text-align:center;    
                border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> DELIVERY DETAILS </th>
               
-             <th colspan="3"  style="font-size: 18px; text-align:center;    
+             <!-- <th colspan="3"  style="font-size: 18px; text-align:center;    
                border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> PAYMENT DETAILS	</th>
-          
+           -->
             <th colspan="1"  style="font-size: 18px; text-align:center;    
                border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> 	</th>
           
@@ -1758,10 +1761,10 @@ pre {
 <th>  Vat Paid ({{currencydetails}})</th>
 <th>  Total ({{currencydetails}})</th>
 <th>  Status </th>
-
+<!-- 
 <th>  Amount Paid ( {{currencydetails}} ) </th>
 <th>  Balance ({{currencydetails}})</th>
-<th>  Status </th>
+<th>  Status </th> -->
 
 <th>  </th>
 
@@ -1775,7 +1778,7 @@ pre {
                                    <td>   <template v-if="probrands.supplier_name">	{{probrands.supplier_name.suppname}}</template></td> 
                               
                                
-                                  <td class="musisialignright">{{formatPrice(probrands.tendercost)}}</td>
+                                  <td class="musisialignright">{{formatPrice(probrands.ordercostwithoutvat)}}</td>
                                 <td class="musisialignright">{{formatPrice(probrands.expectedvat)}}</td>
                                  <td class="musisialignright">{{formatPrice(probrands.totalinvoicewithvat)}}</td>
                                  <td><div v-if="probrands.invoicelockstatus == '1' " >
@@ -1802,7 +1805,7 @@ pre {
 
                                  </td>
                                
-                                      <td class="musisialignright">{{formatPrice(probrands.amountpaid)}}</td>
+                                      <!-- <td class="musisialignright">{{formatPrice(probrands.amountpaid)}}</td>
                                      
                                    <td class="musisialignright">{{formatPrice(probrands.finalcost+probrands.totalvat-probrands.amountpaid)}}</td>
                                   <td><div v-if="((probrands.finalcost-probrands.amountpaid) != 0) && ((probrands.finalcost-probrands.amountpaid) <  (probrands.finalcost)) " >
@@ -1816,11 +1819,11 @@ pre {
                                  </div>
 
                                  </td>
-                               
+                                -->
                                  <td> 
                                   
                             <div v-if="probrands.finalcost > 0 && probrands.invoicelockstatus == 1 ">
-                             <button type="button"  @click="paypurchaseInvoice(probrands)" class="btn bg-brown btn-xs waves-effect">Pay</button>
+                          
                            <button type="button"  class="btn bg-blue btn-xs waves-effect"
                                 @click="saveinvoiceToview(probrands.id)"> View </button>
                                        
@@ -1835,13 +1838,14 @@ pre {
                                <button type="button"  class="btn bg-blue btn-xs waves-effect"
                                 @click="saveinvoiceToview(probrands.id)"> View </button>
                             
-  <!-- <button type="button"  class="btn bg-deep-orange btn-xs waves-effect" @click="deleteUnitofmeasure(probrands.id)"> Del</button> -->
+  <button type="button"  class="btn bg-deep-orange btn-xs waves-effect" @click="deletePurchaseinvoice(probrands.id)"> Del</button>
                            
                              </div>
                              
  <div v-if="(probrands.finalcost-probrands.amountpaid) == 0 " >
                           <button type="button"  class="btn bg-blue btn-xs waves-effect"
                                 @click="saveinvoiceToview(probrands.id)"> View </button>
+                                  <button type="button"  class="btn bg-deep-orange btn-xs waves-effect" @click="deletePurchaseinvoice(probrands.id)"> Del</button>
                                  </div>
 
                              
@@ -2125,7 +2129,7 @@ pre {
            <div class="modal-content" >
                     <!-- <div class="modal-content" style="width:1500px"> -->
                         <div class="modal-header">
-                            <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">INVOICE PRODUCT UPDATE</h3> 
+                            <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Edit Invoice </h3> 
                 <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Update Record </h4> 
                         </div>
                  
@@ -2161,87 +2165,94 @@ pre {
                             </form> -->
 
               
-                                <div class ="bethapa-table-sectionheader">Product Details to add to invoice</div>  
-  <div class="mysalessect"> 
-  <input type="text" placeholder="Enter Item Name " v-model="search" v-on:keyup="searchit" @keyup="searchit" class="formcont2">
+   <div v-if="thereexistsaninvoice > 0">
+                  <form class="form-horizontal" @submit.prevent="editmode ? createnewInvoiceproducts():createnewInvoiceproducts()"> 
 
-  </div>
-<table class="table">
-                  <thead>
-                    <tr>
-                   
-                      <th > # </th>
-                      
-                          <th > CATEGORY</th>
-                           
-                      <th > PRODUCT NAME </th>
-                     
-                      <th > UNIT OF MEASURE </th>
+               <div class ="bethapa-table-sectionheader">Select Products to append to invoice Number : {{myexistinginvoice}}</div>  
+
+
+
+
+      <div class="col-md-3">
+             <label for="email_address_2">Item Name</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                           <has-error :form="form" field="productname"></has-error>
+                                            <select name ="productname"  v-model="form.productname" id ="productname"
+                                              class="show-tick" data-live-search="true"  :class="{'is-invalid': form.errors.has('productname')}">
+                    <option value="">   </option>
+                  <option v-for='data in productstopurchaselist' v-bind:value='data.id'>{{ data.productname }}</option>
+
+                    </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                   <label for="email_address_2">Vat Charge</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                          <has-error :form="form" field="vatinclussive"></has-error>
+                                          <select style="width:20px" name ="vatinclussive"  v-model="form.vatinclussive" 
+                                            id ="vatinclussive"  class="orm-control show-tick"
+                                             data-live-search="true"  
+                                             :class="{'is-invalid': form.errors.has('vatinclussive')}">
+                    <option value="">   </option>
+                    <option value="1">No  -   This product has no VAT</option>
+                    <option value="2">Yes - VAT is included in the cost Price</option>
+                     <option value="3">Yes - VAT is NOT IN cost Price</option>
+
+                    </select>
                     
-                    
-                    
-                      
-                     
-                     <th >  </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
+                                        </div>
+                                    </div>
+                                </div>         
 
 
- 
-       
-     
-          
-
-                                 <tr v-for="probrands in productstoaddtoinvoicerecords.data" :key="probrands.id">
-                      
-                               
-                
-                      
-                         
-                                <td>{{probrands.id}}</td>
-                              
-                                <td> ({{probrands.category}}) <template v-if="probrands.product_category">	{{probrands.product_category.catname}}</template></td>  
-                                             
-                               
-   <td>   {{probrands.productname | firstletterCapital }}</td>
-   <td> <template v-if="probrands.unit_measure">	{{probrands.unit_measure.shotcode}}</template> -  <template v-if="probrands.unit_measure">	{{probrands.unit_measure.unitname}}</template></td>
-  
-    
- 
-                   
-   
-                             
-                               
-                                 
-                                
-                               
-                                 <td> 
-                                  <!-- v-if="allowedtoeditbranch > 0 "  -->
-                              <button type="button"   class="btn  bg-secondary btn-xs"  @click="addmyselectedProducttoPurcase(probrands)">Purchase</button>
-                             
+                                    <div class="col-md-2">
+                                   <label for="email_address_2">Unit Cost</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                             <has-error :form="form" field="unitcost"></has-error>
+                                            <input style="text-align:centre" :value="form.unitcost" type="text"  id="unitcost"   @keyup="updateunitcost" @keypress="updateunitcost" name="unitcost" class="form-control" :class="{ 'is-invalid': form.errors.has('unitcost') }">
+                                        
+                                        </div>
+                                    </div>
+                                </div>        
 
 
-                          
+
+    <div class="col-md-2">
+                                   <label for="email_address_2">Quantity Purchased</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                          <has-error :form="form" field="quantity"></has-error>
+                                               <input type="number" :value="form.quantity" id="quantity" @keyup="updatequantity" @keypress="updatequantity" name="quantity" class="form-control" :class="{ 'is-invalid': form.errors.has('quantity') }">
+                                            
+                                        </div>
+                                    </div>
+                                </div>         
 
 
-                             
-                              </td>
+    <div class="col-md-2">
+                                   <label for="email_address_2">Total Cost</label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                           <has-error :form="form" field="totalcost"></has-error>
+                                                <input type="text" :value="form.totalcost"  name="totalcost" readonly class="form-control"  :class="{ 'is-invalid': form.errors.has('totalcost') }" >
+
+                                            
+                                        </div>
+                                    </div>
+                                </div>     
+  <div   class="bethapa-table-header">                              
+  <button v-if="thereexistsaninvoice > 0 && invoicelockstatus == '0'"   type="submit"  class="add-newm" >Add item</button>
+        </div>
+                  </form>
+                </div>
+                <!-- closing if there is an invoice -->
 
 
-               
-                              
-                               
-                    </tr>
-              
-                     
-                  </tbody>
-              
- 
-                                   </table>
-
-                      <div class ="bethapa-table-sectionheader"></div> 
 <!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
 
 
@@ -2275,11 +2286,11 @@ pre {
                             
                             <ul class="list-unstyled text-right">
                                <!-- <div class="invoice-logo"><img width="100" src="images/invoice.png" alt="Invoice logo"></div> -->
-                                <li><b>Ssennah Hardware </b></li>
+                                <!-- <li><b>Ssennah Hardware </b></li>
                                 <li> Misindye Jjogo</li>
                                 <li>Bukeerere Road</li>
                                 <li>0702941704 / 0392941704 </li>
-                                 <li>Tin Number : 1019044346 </li>
+                                 <li>Tin Number : 1019044346 </li> -->
                             </ul>
                         </div>
                     </div>
@@ -2306,12 +2317,134 @@ pre {
                         </div>
            
 
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                  <i class="fas fa-minus"></i></button>
-              </div>
+             
             </div>
             <div class="card-body">
+  
+  
+  <div v-if="invoicelockstatus > '0'"   >  
+<table  class="musisireporttable" width="100%" border="1">
+
+       <tr>
+             <!-- <th colspan="1"  style="font-size: 18px;     border-bottom: 4px solid rgb(124 102 102);  
+                background-color: rgb(29 31 34 / 37%); color: #131378;"> #</th>
+             -->
+          
+              <!-- <th colspan="1"  style="font-size: 18px; text-align:center;   
+                border-bottom: 4px solid rgb(124 102 102); 
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> Date</th> -->
+        
+              <!-- <th colspan="1"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> CODE </th> -->
+              
+            
+             
+             <th colspan="1"  style="font-size: 18px;   text-align:center;  border-bottom: 4px solid rgb(124 102 102); 
+                 background-color: rgb(29 31 34 / 37%); color: #131378;"> Item Name</th>
+
+                 
+
+                <th colspan="5"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> Order details</th>
+  
+  
+               <th colspan="4"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> Delivery Details</th>
+
+  
+                <th colspan="1"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> 	</th>
+          
+        </tr>
+
+  
+     <tr>
+  
+                      
+                      <th > </th>
+                      
+                       <th > U.C</th>
+                       <th >Qty</th>
+                       <th >Total</th>
+                       <th >Vat</th>
+                       <th >T.C</th>
+                   
+                                         
+                    
+
+
+  
+                       <th >U.C</th>
+                     
+                       <th >Qty</th>
+
+                     
+                        <th > Vat</th>
+  <th >T.C</th>
+                     
+
+<th >  </th>
+
+                   
+
+</tr>
+<!--  -->
+                                   <tr v-for="purcdet in invoicepurchaseddetailsrecords.data" :key="purcdet.id">
+                      
+                 
+                  
+                
+                      
+                         
+                                <!-- <td>{{purcdet.invoiceno}}</td>
+                                   <td>{{purcdet.dateordered}}</td> -->
+                                  <!-- <td>{{purcdet.supplierinvoiceno}}</td>
+                                      <td><template v-if="purcdet.supplier_name">	{{purcdet.supplier_name.suppname}}</template></td> -->
+                                 <td><template v-if="purcdet.product_name">	{{purcdet.product_name.productname}}</template></td>
+                                <td> {{formatPrice(purcdet.unitprice)  }}</td>
+                                <td> {{(purcdet.quantity)  }}</td>
+                                    <td> {{formatPrice(purcdet.linetotal)  }}</td>
+     <td> {{formatPrice(purcdet.vattotal)  }}</td>
+     <td> {{formatPrice(purcdet.grandtotal)  }}</td>
+                             
+                               
+                                
+                                
+     <!-- <td> {{(purcdet.datedelivered)  }}</td>
+      -->
+     <td> {{formatPrice(purcdet.unitprice)  }}</td>
+     <td> <b> <div v-if="purcdet.qtydelivered > purcdet.quantity"  style="color:maroon" > {{(purcdet.qtydelivered)  }} </div></b>
+     
+     <div v-if="purcdet.qtydelivered == purcdet.quantity"  style="color:green" > {{(purcdet.qtydelivered)  }} </div>
+     <div v-if="purcdet.qtydelivered < purcdet.quantity"  style="color:orange" > {{(purcdet.qtydelivered)  }} </div>
+     </td>
+     
+      <td> {{formatPrice(purcdet.totaltaxdelivered)  }}</td>   
+     <td> {{formatPrice(purcdet.totalcostdeliverywithtax)  }}</td>   
+                                
+                                 <td> 
+                                   <div style="color:orange" v-if="purcdet.status == '0' "> 
+                                     
+                                        <button v-if="purcdet.status == '0'" type="button" class="btn bg-deep-orange btn-xs waves-effect"
+                   @click="confirmItempurchaseddelivery(purcdet)">Pending. Click to confirm Delivery</button>           
+                
+                                     
+                                     
+                                      </div>
+                                 <div style="color:green" v-if="purcdet.status == '1' "> Confirmed </div>
+                                 </td>
+                              
+
+
+                              
+                               
+                    </tr>
+</table>
+  </div>
+  
+   <div v-if="invoicelockstatus == '0'"   >      
+  <!-- display if the invoice is not locked -->
+  
      <table style="width:100%">
   <thead>
     <tr>
@@ -2412,7 +2545,8 @@ pre {
                                     <span>CLOSE INVOICE</span>
                                 </button>
 
-
+   </div>
+   <!-- close display if the invoice is not loacked -->
 
 
 
@@ -2451,6 +2585,8 @@ pre {
                 <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" 
                 class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Update Record</h4> 
                         </div>
+                
+                <div>
                   <form class="form-horizontal" @submit.prevent="editmode ? updateUnitofmeasure():createnewInvoice()"> 
 
 <div class ="bethapa-table-sectionheader">Invoice && Supplier Details</div>  
@@ -2461,9 +2597,10 @@ pre {
                                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                         <div class="form-group">
                                             <div class="form-line">
+                                                  <has-error :form="form" field="invoicenumber"></has-error>
                                                   <input v-model="form.invoicenumber" type="text" name="invoicenumber"
                       class="form-control" :class="{ 'is-invalid': form.errors.has('invoicenumber') }">
-                    <has-error :form="form" field="invoicenumber"></has-error>
+                
                                             </div>
                                         </div>
                                     </div>
@@ -2504,8 +2641,19 @@ pre {
                                     </div>
                                 </div>
 
-                                
-               <div class ="bethapa-table-sectionheader">Product Details</div>  
+
+ <div v-if="thereexistsaninvoice < 1"  class="bethapa-table-header"> <button   type="submit" class="add-newm">Confirm Invoice Details</button> </div>
+
+                               </form>  
+                </div>
+                <!-- closing if there exists a pending invoice to work on -->
+
+
+
+                <div>
+                  <form class="form-horizontal" @submit.prevent="editmode ? createnewInvoiceproducts():createnewInvoiceproducts()"> 
+
+               <div class ="bethapa-table-sectionheader">Select Products to append to invoice Number : {{myexistinginvoice}}</div>  
 
 
 
@@ -2514,7 +2662,9 @@ pre {
              <label for="email_address_2">Item Name</label>
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <select name ="suppliername"  v-model="form.suppliername" id ="suppliername"  class="show-tick" data-live-search="true"  :class="{'is-invalid': form.errors.has('suppliername')}">
+                                           <has-error :form="form" field="productname"></has-error>
+                                            <select  name ="productname"  v-model="form.productname" id ="productname"
+                                              class="show-tick" data-live-search="true"  :class="{'is-invalid': form.errors.has('productname')}">
                     <option value="">   </option>
                   <option v-for='data in productstopurchaselist' v-bind:value='data.id'>{{ data.productname }}</option>
 
@@ -2579,7 +2729,13 @@ pre {
                                             
                                         </div>
                                     </div>
-                                </div>         
+                                </div>     
+        <div   class="bethapa-table-header">                              
+  <button v-if="thereexistsaninvoice > 0 && invoicelockstatus == '0'"   type="submit"  class="add-newm" >Add item</button>
+        </div>
+                  </form>
+                </div>
+                <!-- closing if there is an invoice -->
 
 
 
@@ -2589,14 +2745,11 @@ pre {
 
 
 
-
-
-
-          <div class="mysalessect"> 
+          <!-- <div class="mysalessect"> 
   <input type="text" placeholder="Enter Item Name " v-model="search" v-on:keyup="searchit" @keyup="searchit" class="formcont2">
 
-  </div>
-<table  class="musisireporttable" width="100%" border="1">
+  </div> -->
+<!-- <table  class="musisireporttable" width="100%" border="1">
                   <thead>
                     <tr>
                    
@@ -2650,27 +2803,196 @@ pre {
                                
                                  <td> 
                                   <!-- v-if="allowedtoeditbranch > 0 "  -->
-                              <button type="button"   class="btn  bg-secondary btn-xs"  @click="addmyselectedProducttoPurcase(probrands)">Purchase</button>
-  
+                              <!-- <button type="button"   class="btn  bg-secondary btn-xs"  @click="addmyselectedProducttoPurcase(probrands)">Purchase</button>
+   -->
 
 
                              
-                              </td>
+                              <!-- </td> -->
 
 
                
-                              
+<!--                               
                                
                     </tr>
               
                      
-                  </tbody>
+                  </tbody> -->
               
  
-                                   </table>
+                                   <!-- </table> -->
+
+  <div v-if="invoicelockstatus > '0'"   >  
+<table  class="musisireporttable" width="100%" border="1">
+
+       <tr>
+             <!-- <th colspan="1"  style="font-size: 18px;     border-bottom: 4px solid rgb(124 102 102);  
+                background-color: rgb(29 31 34 / 37%); color: #131378;"> #</th>
+             -->
+          
+              <!-- <th colspan="1"  style="font-size: 18px; text-align:center;   
+                border-bottom: 4px solid rgb(124 102 102); 
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> Date</th> -->
+        
+              <!-- <th colspan="1"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> CODE </th> -->
               
- <div class ="bethapa-table-sectionheader">Purchased Products </div>                        
-  <table style="width:100%">
+            
+             
+             <th colspan="1"  style="font-size: 18px;   text-align:center;  border-bottom: 4px solid rgb(124 102 102); 
+                 background-color: rgb(29 31 34 / 37%); color: #131378;"> Item Name</th>
+
+                 
+
+                <th colspan="5"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> Order details</th>
+  
+  
+               <th colspan="4"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> Delivery Details</th>
+
+  
+                <th colspan="1"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> 	</th>
+          
+        </tr>
+
+  
+     <tr>
+  
+                      
+                      <th > </th>
+                      
+                       <th > U.C</th>
+                       <th >Qty</th>
+                       <th >Total</th>
+                       <th >Vat</th>
+                       <th >T.C</th>
+                   
+                                         
+                    
+
+
+  
+                       <th >U.C</th>
+                     
+                       <th >Qty</th>
+
+                     
+                        <th > Vat</th>
+  <th >T.C</th>
+                     
+
+<th >  </th>
+
+                   
+
+</tr>
+<!--  -->
+                                   <tr v-for="purcdet in invoicepurchaseddetailsrecords.data" :key="purcdet.id">
+                      
+                 
+                  
+                
+                      
+                         
+                                <!-- <td>{{purcdet.invoiceno}}</td>
+                                   <td>{{purcdet.dateordered}}</td> -->
+                                  <!-- <td>{{purcdet.supplierinvoiceno}}</td>
+                                      <td><template v-if="purcdet.supplier_name">	{{purcdet.supplier_name.suppname}}</template></td> -->
+                                 <td><template v-if="purcdet.product_name">	{{purcdet.product_name.productname}}</template></td>
+                                <td> {{formatPrice(purcdet.unitprice)  }}</td>
+                                <td> {{(purcdet.quantity)  }}</td>
+                                    <td> {{formatPrice(purcdet.linetotal)  }}</td>
+     <td> {{formatPrice(purcdet.vattotal)  }}</td>
+     <td> {{formatPrice(purcdet.grandtotal)  }}</td>
+                             
+                               
+                                
+                                
+     <!-- <td> {{(purcdet.datedelivered)  }}</td>
+      -->
+     <td> {{formatPrice(purcdet.unitprice)  }}</td>
+     <td> <b> <div v-if="purcdet.qtydelivered > purcdet.quantity"  style="color:maroon" > {{(purcdet.qtydelivered)  }} </div></b>
+     
+     <div v-if="purcdet.qtydelivered == purcdet.quantity"  style="color:green" > {{(purcdet.qtydelivered)  }} </div>
+     <div v-if="purcdet.qtydelivered < purcdet.quantity"  style="color:orange" > {{(purcdet.qtydelivered)  }} </div>
+     </td>
+     
+       <td> {{formatPrice(purcdet.totaltaxdelivered)  }}</td>   
+     <td> {{formatPrice(purcdet.totalcostdeliverywithtax)  }}</td>   
+                                       
+                                 <td> 
+                                   <div style="color:orange" v-if="purcdet.status == '0' "> 
+                                     
+                                        <button v-if="purcdet.status == '0'" type="button" class="btn bg-deep-orange btn-xs waves-effect"
+                   @click="confirmItempurchaseddelivery(purcdet)">Pending. Click to confirm Delivery</button>           
+                
+                                     
+                                     
+                                      </div>
+                                 <div style="color:green" v-if="purcdet.status == '1' "> Confirmed </div>
+                                 </td>
+                              
+
+
+                              
+                               
+                    </tr>
+</table>
+<br>
+  </div>
+                                    
+ <div v-if="invoicelockstatus == '0'"   >            
+ <div class ="bethapa-table-sectionheader">Purchased Products </div>      
+
+ 
+
+<div class="col-md-6">
+          <div class="card card-secondary">
+            <div class="card-header">
+                 <div class="col-lg-6">
+                        <!-- col-lg-6 start here -->
+                           
+                        <div class="invoice-from">
+                            
+                            <ul class="list-unstyled text-right">
+                               <!-- <div class="invoice-logo"><img width="100" src="images/invoice.png" alt="Invoice logo"></div> -->
+                                <!-- <li><b>Ssennah Hardware </b></li>
+                                <li> Misindye Jjogo</li>
+                                <li>Bukeerere Road</li>
+                                <li>0702941704 / 0392941704 </li>
+                                 <li>Tin Number : 1019044346 </li> -->
+                            </ul>
+                        </div>
+                    </div>
+
+                     <div class="invoice-details mt25">
+                            <div class="well">
+                                <ul class="list-unstyled mb0">
+                                   <li><strong>Document No : </strong> #{{getthinvoicedocumentno}}</li>
+                                    <li><strong>Supplier Invoice Number : </strong>{{getthinvoicenumberactive}}</li>
+                                     <li><strong>Invoice Date  :</strong> {{gettheinvoicedate|myDate2}}</li>
+                                   <li><strong>Supplier Name:</strong> {{getthinvoicesuppliername}}</li>
+                                 
+                                 
+                                     <li v-if="gettheinvoicedeliverystatus == '0'"><strong>Delivery : </strong> <span class="label label-danger">Pending</span></li>
+                                     <li v-if="gettheinvoicedeliverystatus == '1'"><strong>Delivery : </strong> <span class="label label-info">Partial</span></li>
+                                     <li v-if="gettheinvoicedeliverystatus == '2'"><strong>Delivery : </strong> <span class="label label-success">DONE</span></li>
+                                     
+                                   <li v-if="getinvoicepaymentstatus == '0'"><strong>Payment : </strong> <span class="label label-warning">Not Paid</span></li>
+                                     <li v-if="getinvoicepaymentstatus == '1'"><strong>Payment : </strong> <span class="label label-info">Partial</span></li>
+                                     <li v-if="getinvoicepaymentstatus == '2'"><strong>Payment : </strong> <span class="label label-success">Paid</span></li>
+                                     
+                                </ul>
+                            </div>
+                        </div>
+           
+
+       
+            </div>
+            <div class="card-body">
+     <table style="width:100%">
   <thead>
     <tr>
          <th class="tresed">#</th>
@@ -2755,25 +3077,56 @@ pre {
      <td>{{currencydetails}}  {{formatPrice(gettheinvoicevatamount)}}</td>
     </tr>
     <tr class="text-offset">
-      <td colspan="7">GRAND TOTAL :</td>
+      <td colspan="7">TOTAL :</td>
      <td>{{currencydetails}}  {{formatPrice(gettheinvoicegrandtotal)}}</td>
     </tr>
     
   </tfoot>
 </table>
+
+<!-- <button type="button" v-if="invoicelockstatus  == '0'" class="btn btn-danger btn-xs" >Remove all Items from the List </button> -->
+
+ 
+<button type="button" v-if="invoicelockstatus  == '0'" class="btn btn-success btn-xs  waves-effect" @click="lockthepurchaseInvoice">
+                                    <i class="material-icons">lock</i>
+                                    <span>CLOSE INVOICE</span>
+                                </button>
+
+            </div>
+            <!-- closing display if invoice lock is off -->
+
+
+
+
+
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+
+
+
+
+
+
+<div class="container bootdey">
+
+</div>            <div  class="modal-footer">
+                    
+                 
+                        <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Close</button >
+                        </div>
+                
+                       </div>
+                          </div>
+                </div>
    
 
                               
 
 
-                  <div  class="modal-footer">
-                    <button  v-show="!editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
-                        <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Close</button >
-                        </div>
-                 </form>
-                       </div>
-                          </div>
-                </div>
+             
 
 
 
@@ -2790,7 +3143,7 @@ pre {
                                 
 
    <div class="bethapa-table-header">
-                  PURCHASE / ORDER  DETAILS 
+                  PURCHASE / ORDER DETAILS 
                   <!-- v-if="allowedtoaddbranch > 0 " -->
                  
                      </div>
@@ -2944,9 +3297,9 @@ pre {
                                  <td> 
                                   
                           
-                  <button v-if="purcdet.status == '0'" type="button" class="btn bg-teal waves-effect"
+                  <!-- <button v-if="purcdet.status == '0'" type="button" class="btn bg-teal waves-effect"
                    @click="confirmItempurchaseddelivery(purcdet)">Confirm Delivery</button>           
-                
+                 -->
 
 
 
@@ -2975,6 +3328,256 @@ pre {
 
 
       
+
+
+          
+ 
+
+<div class="modal fade" id="unitofmeasureModal">
+         <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">ADD NEW UNIT</h3> 
+                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Update Record </h4> 
+                        </div>
+                  <form class="form-horizontal" @submit.prevent="editmode ? updateUnitofmeasure():createUnitofmeasure()"> 
+
+
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Brand Name</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                  <input v-model="form.unitname" type="text" name="unitname"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('unitname') }">
+                    <has-error :form="form" field="unitname"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+                                 <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Code</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                  <input v-model="form.shotcode" type="text" name="shotcode"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('shotcode') }">
+                    <has-error :form="form" field="shotcode"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                              
+
+   
+
+                              
+
+
+                  <div  class="modal-footer">
+                    <button  v-show="!editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
+                      <button v-show="editmode" type="submit" class="btn btn-success btn-sm" >Update</button>
+                        <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Close</button >
+                        </div>
+                 </form>
+                       </div>
+                          </div>
+                </div>
+
+
+
+
+
+
+
+
+
+                                
+                                </div>
+<!-- ---------------------------------------------------------------------------------------------------------------- -->
+ <div role="tabpanel" class="tab-pane fade" id="three_with_icon_title" v-if="salessummaryComponentaccess > 0"> 
+                                
+                                
+
+   
+
+
+
+
+
+
+
+
+                                
+                                </div>
+<!-- -------------------------------------------------------------------------------------------------- -->
+
+                                <!-- end of products -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+<div class="modal fade" id="ccfnewpurchaseinvoiceModal">
+         <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3  v-show="!editmode"    class="modal-title">
+                              <img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Add Item to Purchase Invoice</h3> 
+                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Add Item to Purchase Invoice
+               </h4> 
+                        </div>
+                 <!-- <form class="form-horizontal" @submit.prevent="editmode ? createnewInvoiceproducts():createnewInvoiceproducts()">  -->
+
+<form>
+
+
+
+
+
+                                 <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">ITEM NAMEnnn </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                              
+                                                 <input v-model="form.id" readonly id="id" type="hidden" name="productonpurchase"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('productname') }">
+                                                  <input v-model="form.productname" readonly id="productname" type="text" name="productname"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('productname') }">
+                    <has-error :form="form" field="productname"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+  <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">VAT CHARGE</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <select style="width:20px" name ="vatinclussive"  v-model="form.vatinclussive" 
+                                            id ="vatinclussive"  class="orm-control show-tick"
+                                             data-live-search="true"  
+                                             :class="{'is-invalid': form.errors.has('vatinclussive')}">
+                    <option value="">   </option>
+                    <option value="1">No  -   This product has no VAT</option>
+                    <option value="2">Yes - VAT is included in the cost Price</option>
+                     <option value="3">Yes - VAT is NOT IN cost Price</option>
+
+                    </select>
+                    <has-error :form="form" field="vatinclussive"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+  <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">UNIT COST</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input :value="form.unitcost" type="text"  id="unitcost"   @keyup="updateunitcost" @keypress="updateunitcost" name="unitcost" class="form-control" :class="{ 'is-invalid': form.errors.has('unitcost') }">
+                                           <has-error :form="form" field="unitcost"></has-error>
+      
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+  <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">QUANTITY TO PURCHASE</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                            <input type="number" :value="form.quantity" id="quantity" @keyup="updatequantity" @keypress="updatequantity" name="quantity" class="form-control" :class="{ 'is-invalid': form.errors.has('quantity') }">
+                                            <has-error :form="form" field="quantity"></has-error>
+ 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+  <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">TOTAL COST</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                          <input type="text" :value="form.totalcost"  name="totalcost" readonly class="form-control"  :class="{ 'is-invalid': form.errors.has('totalcost') }" >
+
+                                             <has-error :form="form" field="totalcost"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+<br>
+
+
+
+
+
+
+ <div  class="modal-footer">
+   <button type="submit"   class="btn btn-primary btn-sm"> Add to invoice</button>
+                
+                      <button  v-if="this.form.newqty >= 0"  type="submit" class="btn btn-success btn-sm" >Add</button>
+                        <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Cancel</button >
+                        </div>
+  
+
+
+                             
+      
+                             
+</form>
+                       </div>
+                          </div>
+                </div>
+
+
+
+
+
+
+
+
+
+          <!-- end of the body -->
 
 
 
@@ -3167,254 +3770,6 @@ pre {
                 </div>
 
                   
-          
- 
-
-<div class="modal fade" id="unitofmeasureModal">
-         <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">ADD NEW UNIT</h3> 
-                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Update Record</h3> </h4> 
-                        </div>
-                  <form class="form-horizontal" @submit.prevent="editmode ? updateUnitofmeasure():createUnitofmeasure()"> 
-
-
-                                <div class="row clearfix">
-                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="email_address_2">Brand Name</label>
-                                    </div>
-                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                  <input v-model="form.unitname" type="text" name="unitname"
-                      class="form-control" :class="{ 'is-invalid': form.errors.has('unitname') }">
-                    <has-error :form="form" field="unitname"></has-error>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                
-                                 <div class="row clearfix">
-                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="email_address_2">Code</label>
-                                    </div>
-                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                  <input v-model="form.shotcode" type="text" name="shotcode"
-                      class="form-control" :class="{ 'is-invalid': form.errors.has('shotcode') }">
-                    <has-error :form="form" field="shotcode"></has-error>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                              
-
-   
-
-                              
-
-
-                  <div  class="modal-footer">
-                    <button  v-show="!editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
-                      <button v-show="editmode" type="submit" class="btn btn-success btn-sm" >Update</button>
-                        <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Close</button >
-                        </div>
-                 </form>
-                       </div>
-                          </div>
-                </div>
-
-
-
-
-
-
-
-
-
-                                
-                                </div>
-<!-- ---------------------------------------------------------------------------------------------------------------- -->
- <div role="tabpanel" class="tab-pane fade" id="three_with_icon_title" v-if="salessummaryComponentaccess > 0"> 
-                                
-                                
-
-   
-
-
-
-
-
-
-
-
-                                
-                                </div>
-<!-- -------------------------------------------------------------------------------------------------- -->
-
-                                <!-- end of products -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-<div class="modal fade" id="ccfnewpurchaseinvoiceModal">
-         <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3  v-show="!editmode"    class="modal-title">
-                              <img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Add Item to Purchase Invoice</h3> 
-                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Add Item to Purchase Invoice
-               </h4> 
-                        </div>
-                 <form class="form-horizontal" @submit.prevent="editmode ? createnewInvoiceproducts():createnewInvoiceproducts()"> 
-
-
-
-
-
-
-
-                                 <div class="row clearfix">
-                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="email_address_2">ITEM NAMEnnn </label>
-                                    </div>
-                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                              
-                                                 <input v-model="form.id" readonly id="id" type="hidden" name="productonpurchase"
-                      class="form-control" :class="{ 'is-invalid': form.errors.has('productname') }">
-                                                  <input v-model="form.productname" readonly id="productname" type="text" name="productname"
-                      class="form-control" :class="{ 'is-invalid': form.errors.has('productname') }">
-                    <has-error :form="form" field="productname"></has-error>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-  <div class="row clearfix">
-                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="email_address_2">VAT CHARGE</label>
-                                    </div>
-                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <select style="width:20px" name ="vatinclussive"  v-model="form.vatinclussive" 
-                                            id ="vatinclussive"  class="orm-control show-tick"
-                                             data-live-search="true"  
-                                             :class="{'is-invalid': form.errors.has('vatinclussive')}">
-                    <option value="">   </option>
-                    <option value="1">No  -   This product has no VAT</option>
-                    <option value="2">Yes - VAT is included in the cost Price</option>
-                     <option value="3">Yes - VAT is NOT IN cost Price</option>
-
-                    </select>
-                    <has-error :form="form" field="vatinclussive"></has-error>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-
-
-  <div class="row clearfix">
-                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="email_address_2">UNIT COST</label>
-                                    </div>
-                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <input :value="form.unitcost" type="text"  id="unitcost"   @keyup="updateunitcost" @keypress="updateunitcost" name="unitcost" class="form-control" :class="{ 'is-invalid': form.errors.has('unitcost') }">
-                                           <has-error :form="form" field="unitcost"></has-error>
-      
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-
-  <div class="row clearfix">
-                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="email_address_2">QUANTITY TO PURCHASE</label>
-                                    </div>
-                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                            <input type="number" :value="form.quantity" id="quantity" @keyup="updatequantity" @keypress="updatequantity" name="quantity" class="form-control" :class="{ 'is-invalid': form.errors.has('quantity') }">
-                                            <has-error :form="form" field="quantity"></has-error>
- 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-
-  <div class="row clearfix">
-                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="email_address_2">TOTAL COST</label>
-                                    </div>
-                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                          <input type="text" :value="form.totalcost"  name="totalcost" readonly class="form-control"  :class="{ 'is-invalid': form.errors.has('totalcost') }" >
-
-                                             <has-error :form="form" field="totalcost"></has-error>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-
-
-<br>
-
-
-
-
-
-
- <div  class="modal-footer">
-   <button type="submit"   class="btn btn-primary btn-sm"> Add to invoice</button>
-                
-                      <button  v-if="this.form.newqty >= 0"  type="submit" class="btn btn-success btn-sm" >Add</button>
-                        <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Cancel</button >
-                        </div>
-  
-
-
-                             
-      
-                             
-</form>
-                       </div>
-                          </div>
-                </div>
-
-
-
-
-
-
-
-
-
-          <!-- end of the body -->
  </div>
 
 <!-- closure of allowed -->
@@ -3484,6 +3839,7 @@ productsandpriceslist:[],
          ///// Access authorities
          generalProductscomponentAccess:'',
          categoriesComponentaccess:'',
+         thereexistsaninvoice:{},
 brandsComponentaccess:'',
 unitsofmeasureComponentaccess:'',
 companyproductsComponentaccess:'',
@@ -3534,6 +3890,7 @@ gettheinvoicedeliverystatus:{},
           productbrandsrecords:{},
           productunitofmeasurerecords:{},
           productpurchasesdetailrecords:{},
+          invoicepurchaseddetailsrecords:{},
           purchaseincoicesummaryrecords:{},
           salessummaryrecords:{},
           activeproductsonsalerecords:{},
@@ -3749,6 +4106,9 @@ saveinvoiceInaction(){
   axios.get("api/getthinvoicenumberactive").then(({ data }) => (this.getthinvoicenumberactive = data));
  axios.get("api/getthinvoicesuppliername").then(({ data }) => (this.getthinvoicesuppliername = data));
     axios.get("api/productpurchasesdetailrecords").then(({ data }) => (this.productpurchasesdetailrecords = data));
+axios.get("api/invoicepurchaseddetailsrecords").then(({ data }) => (this.invoicepurchaseddetailsrecords = data));
+
+    
 axios.get("api/getthinvoicedocumentno").then(({ data }) => (this.getthinvoicedocumentno = data));
 axios.get("api/gettheinvoicedeliverystatus").then(({ data }) => (this.gettheinvoicedeliverystatus = data));
 axios.get("api/getinvoicepaymentstatus").then(({ data }) => (this.getinvoicepaymentstatus = data));
@@ -3998,6 +4358,7 @@ axios.get("api/purchasesComponentaccess").then(({ data }) => (this.purchasesComp
 axios.get("api/purchaserecordsComponentaccess").then(({ data }) => (this.purchaserecordsComponentaccess = data));
 axios.get("api/salessummaryComponentaccess").then(({ data }) => (this.salessummaryComponentaccess = data));
 
+
   },
     loadUnitofmeasure(){
         axios.get("api/productunitofmeasurerecords").then(({ data }) => (this.productunitofmeasurerecords = data));
@@ -4028,7 +4389,8 @@ loadPurchaseInvoicessummary(){
 loadPurchaserecords(){
         axios.get("api/productpurchasesdetailrecords").then(({ data }) => (this.productpurchasesdetailrecords = data));
         axios.get('/api/invoiceslist').then(function (response) { this.invoiceslist = response.data;}.bind(this));
-      
+    axios.get("api/invoicepurchaseddetailsrecords").then(({ data }) => (this.invoicepurchaseddetailsrecords = data));
+  
 
   },
 loadsalesSummary(){
@@ -4339,6 +4701,11 @@ $('#addnewproductbrandsModal').modal('show');
                  this.form.clear();
         this.form.reset();
         this.form.fill(activeinvoicetoupdaterecords);
+        //
+        axios.get("api/invoicepurchaseddetailsrecords").then(({ data }) => (this.invoicepurchaseddetailsrecords = data));
+axios.get("api/purcaseorderconfirmation").then(({ data }) => (this.purcaseorderconfirmation = data));
+    axios.get("api/invoicepurchaseddetailsrecords").then(({ data }) => (this.invoicepurchaseddetailsrecords = data));
+
        // $('#updateinvoiceproductsModal').modal('hide');
 $('#confirmitemonpurchase').modal('show');
             },
@@ -4520,10 +4887,12 @@ axios.get("api/gettransferexistanceforuser").then(({ data }) => (this.gettransfe
         this.form.reset();
           $('#ccfnewpurchaseinvoiceModal').modal('hide');
                
-                  $('#updateinvoiceproductsModal').modal('show');
+             //     $('#updateinvoiceproductsModal').modal('show');
 
     axios.get("api/purchaseincoicesummaryrecords").then(({ data }) => (this.purchaseincoicesummaryrecords = data));
      axios.get("api/activeinvoicetoupdaterecords").then(({ data }) => (this.activeinvoicetoupdaterecords = data));
+axios.get("api/invoicelockstatus").then(({ data }) => (this.invoicelockstatus = data));
+axios.get("api/myexistinginvoice").then(({ data }) => (this.myexistinginvoice = data));
 
      axios.get("api/gettheinvoicevatamount").then(({ data }) => (this.gettheinvoicevatamount = data));
 axios.get("api/gettheinvoicegrandtotal").then(({ data }) => (this.gettheinvoicegrandtotal = data));
@@ -4554,12 +4923,17 @@ axios.get("api/gettheinvoicetotalwithoutvat").then(({ data }) => (this.gettheinv
         .then(()=>{
 
          
-    $('#newpurchaseinvoiceModal').modal('hide');
+  //  $('#newpurchaseinvoiceModal').modal('hide');
    
      this.form.clear();
         this.form.reset();
+         axios.get("api/myexistinginvoice").then(({ data }) => (this.myexistinginvoice = data));
+        axios.get('api/myexistinginvoice').then(function (response) { this.myexistinginvoice = response.data;}.bind(this));
+        axios.get("api/thereexistsaninvoice").then(({ data }) => (this.thereexistsaninvoice = data));
+        axios.get("api/invoicelockstatus").then(({ data }) => (this.invoicelockstatus = data));
    axios.get("api/purchaseincoicesummaryrecords").then(({ data }) => (this.purchaseincoicesummaryrecords = data));
         axios.get('api/invoiceslist').then(function (response) { this.invoiceslist = response.data;}.bind(this));
+       
      ///      $('#updateinvoiceproductsModal').modal('show');
   Toast.fire({
   icon: 'success',
@@ -4663,6 +5037,7 @@ if(this.form.newqtybhbbbb <= 0)
 this.form.put('api/purcaseorderconfirmation/'+this.form.id)
   .then(()=> {
     // on success
+    axios.get("api/purcaseorderconfirmation").then(({ data }) => (this.purcaseorderconfirmation = data));
    $('#confirmitemonpurchase').modal('hide');
     Swal.fire(
         'Confirmed!',
@@ -4672,6 +5047,8 @@ this.form.put('api/purcaseorderconfirmation/'+this.form.id)
       this.$Progress.finish();
     // Fire.$emit('AfterAction');
     axios.get("api/productpurchasesdetailrecords").then(({ data }) => (this.productpurchasesdetailrecords = data));
+ axios.get("api/purcaseorderconfirmation").then(({ data }) => (this.purcaseorderconfirmation = data));
+
 
   })
 
@@ -4824,7 +5201,10 @@ if (result.isConfirmed) {
                           'Order closed. cant add more Items.',
                           'success'
                         )
-                   
+  axios.get("api/myexistinginvoice").then(({ data }) => (this.myexistinginvoice = data));
+                 
+               axios.get("api/invoicepurchaseddetailsrecords").then(({ data }) => (this.invoicepurchaseddetailsrecords = data));
+
   axios.get("api/activeinvoicetoupdaterecords").then(({ data }) => (this.activeinvoicetoupdaterecords = data));
 axios.get("api/invoicelockstatus").then(({ data }) => (this.invoicelockstatus = data));
    axios.get("api/purchaseincoicesummaryrecords").then(({ data }) => (this.purchaseincoicesummaryrecords = data));
@@ -4884,7 +5264,7 @@ if (result.isConfirmed) {
 })
 
             },// End of delrte function
-deleteUnitofmeasure(id){
+deletePurchaseinvoice(id){
    Swal.fire({
   title: 'Are you sure?',
   text: "You won't be able to revert this!",
@@ -4897,15 +5277,17 @@ deleteUnitofmeasure(id){
 
 /// send request ti
 if (result.isConfirmed) {
-  this.form.delete('api/productunitofmeasurerecords/'+id).then(()=>{
+  this.form.delete('api/newinvoicegeneration/'+id).then(()=>{
   
                         Swal.fire(
                           'Deleted!',
                           'Your file has been deleted.',
                           'success'
                         )
-                   
- axios.get("api/productunitofmeasurerecords").then(({ data }) => (this.productunitofmeasurerecords = data));
+ 
+ axios.get("api/thereexistsaninvoice").then(({ data }) => (this.thereexistsaninvoice = data));
+                
+ axios.get("api/purchaseincoicesummaryrecords").then(({ data }) => (this.purchaseincoicesummaryrecords = data));
 
   }).catch(()=>{
      Swal.fire({  
@@ -5347,6 +5729,8 @@ saveinvoiceToview(id){
   axios.get("api/getthinvoicenumberactive").then(({ data }) => (this.getthinvoicenumberactive = data));
  axios.get("api/getthinvoicesuppliername").then(({ data }) => (this.getthinvoicesuppliername = data));
     axios.get("api/productpurchasesdetailrecords").then(({ data }) => (this.productpurchasesdetailrecords = data));
+    axios.get("api/invoicepurchaseddetailsrecords").then(({ data }) => (this.invoicepurchaseddetailsrecords = data));
+
 axios.get("api/getthinvoicedocumentno").then(({ data }) => (this.getthinvoicedocumentno = data));
 axios.get("api/gettheinvoicedeliverystatus").then(({ data }) => (this.gettheinvoicedeliverystatus = data));
 axios.get("api/getinvoicepaymentstatus").then(({ data }) => (this.getinvoicepaymentstatus = data));
@@ -5479,6 +5863,29 @@ loadvatvalues(){
 
 
 },
+existanceofpinv(){
+  axios.get("api/invoicelockstatus").then(({ data }) => (this.invoicelockstatus = data));
+    axios.get("api/productpurchasesdetailrecords").then(({ data }) => (this.productpurchasesdetailrecords = data));
+    axios.get("api/invoicepurchaseddetailsrecords").then(({ data }) => (this.invoicepurchaseddetailsrecords = data));
+
+     axios.get("api/activeinvoicetoupdaterecords").then(({ data }) => (this.activeinvoicetoupdaterecords = data));
+ axios.get("api/thereexistsaninvoice").then(({ data }) => (this.thereexistsaninvoice = data));
+axios.get("api/myexistinginvoice").then(({ data }) => (this.myexistinginvoice = data));
+
+axios.get("api/getthinvoicedocumentno").then(({ data }) => (this.getthinvoicedocumentno = data));
+axios.get("api/gettheinvoicedeliverystatus").then(({ data }) => (this.gettheinvoicedeliverystatus = data));
+axios.get("api/getinvoicepaymentstatus").then(({ data }) => (this.getinvoicepaymentstatus = data));
+
+
+axios.get("api/gettheinvoicedate").then(({ data }) => (this.gettheinvoicedate = data));
+  
+axios.get("api/gettheinvoicevatamount").then(({ data }) => (this.gettheinvoicevatamount = data));
+axios.get("api/gettheinvoicegrandtotal").then(({ data }) => (this.gettheinvoicegrandtotal = data));
+axios.get("api/gettheinvoicetotalwithoutvat").then(({ data }) => (this.gettheinvoicetotalwithoutvat = data));
+  
+ axios.get("api/getcurrencydetails").then(({ data }) => (this.currencydetails = data));
+
+},
 
             
 
@@ -5489,8 +5896,8 @@ loadvatvalues(){
         created() {
 
    axios.get('/api/productstopurchaselist').then(function (response) { this.productstopurchaselist = response.data;}.bind(this));
-
-
+axios.get("api/thereexistsaninvoice").then(({ data }) => (this.thereexistsaninvoice = data));
+axios.get("api/myexistinginvoice").then(({ data }) => (this.myexistinginvoice = data));
 
 axios.get("api/gettransferexistanceforuser").then(({ data }) => (this.gettransferexistanceforuser = data));
 axios.get("api/unitfromname").then(({ data }) => (this.unitfromname = data));

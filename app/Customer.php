@@ -21,18 +21,17 @@ class Customer extends Authenticatable
       // creating a relationship between the students model 
       return $this->hasMany(Branchanduser::class, 'customername', 'id'); 
   }
+ 
+  public function supplierName(){
+    // creating a relationship between the students model 
+    return $this->hasMany(Purchasessummary::class, 'id', 'suppliername'); 
+}
     public function supplierCompany(){
         // creating a relationship between the students model 
         return $this->belongsTo(Company::class, 'company'); 
     }
     
 
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
       //  'hid', 'id',
     ];
