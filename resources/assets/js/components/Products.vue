@@ -978,7 +978,7 @@ pre {
                border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> PRODUCT NAME </th>
               
              <th colspan="1"  style="font-size: 18px; text-align:center;    
-               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> UNIT MEASURE	</th>
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> UNIT	</th>
           
              <th colspan="2"  style="font-size: 18px;   text-align:center;  border-bottom: 4px solid rgb(124 102 102); 
                  background-color: rgb(29 31 34 / 37%); color: #131378;"> STOCK LEVELS</th>
@@ -1008,26 +1008,26 @@ pre {
 
 <th></th>
 <th> </th>
-<th> </th>
+
 <th>  </th>
 <th>  QTY</th>
 <th>  ROL </th>
 
 
 
-<th>  Cost Price ( {{currencydetails}} ) </th>
+<th>  </th>
 
 
-<th>  Cash Price ({{currencydetails}})</th>
+<th>  Cash </th>
 
-<th>  Credit Price ({{currencydetails}})</th>
+<th>  Credit</th>
 <th>  Status</th>
-<th>  Price ({{currencydetails}})</th>
+<th>  Price </th>
 
 
 
-<th>  Cash Profit ( {{currencydetails}} ) </th>
-<th>  Credit Profit ( {{currencydetails}} ) </th>
+<th>  Cash Profit  </th>
+<th>  Credit Profit  </th>
 
 
 
@@ -1116,6 +1116,56 @@ pre {
 <div class="musisialignright">  </div>
 </th>
 
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >

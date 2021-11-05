@@ -281,7 +281,6 @@ if($suppliertype == '1')
       'debitamount' => $ttttddedd,
       'invoiceinaction' => $supplierinvoiceno,
       'resultatantbalance' => $resultantbalance,
-     
       'ucret' => $userid,
     
     ]);
