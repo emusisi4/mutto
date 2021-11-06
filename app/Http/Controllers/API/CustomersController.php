@@ -168,7 +168,26 @@ if($existanceinthetable > 0 )
     {
         //
     }
-  
+  //////////////////////////////////
+
+  public function findcustomerlegeraccount(){
+    if($search = \Request::get('q')){
+      $users = Customer::where(function($query) use ($search){
+        $query->where('customername', 'LIKE', "%$search%");
+      //  ->where('uracode', 'LIKE', "%$search%");
+      })
+        -> paginate(30);
+       return $users;
+    }else{
+      return   Customer::latest('id')
+      //  ->where('brand', $productbrand)
+        ->where('del', 0)
+            ->paginate(20);
+    }
+    
+  }
+
+  ////////////////////
     
     public function update(Request $request, $id)
     {

@@ -755,6 +755,17 @@ if($userrole != '101')
 
 
 
+public function postypes()
+{
+  $userid =  auth('api')->user()->id;
+  $userbranch =  auth('api')->user()->branch;
+  $userrole =  auth('api')->user()->type;
+
+ $invoicelockstatus = \DB::table('postypes')->value('posname');
+
+    return $invoicelockstatus;
+   
+}
 
 public function shopcashbalance()
 {
@@ -779,6 +790,15 @@ public function inputvatamount()
 
     return $invoicelockstatus;
    
+}
+
+public function cashsalesproductlist()
+{
+ 
+$data = Product::orderBy('qty', 'Desc')
+->where('qty','>', 0)
+->get();
+    return response()->json($data);
 }
 public function productstopurchaselist()
 {

@@ -795,7 +795,10 @@ List of Ledger Accounts
                
 </div>
       -->
+     <div class="mysalessect"> 
+  <input type="text" placeholder="Enter customer Name " v-model="custsear" v-on:keyup="customerlistsearch" @keyup="customerlistsearch" class="formcont2">
 
+  </div>                   
                    <table  class="musisireporttable" width="100%" border="1">
 
 <tr>
@@ -4164,6 +4167,7 @@ gettheinvoicedeliverystatus:{},
           formfeatures:{},
           form: new Form({
                 /// Users Form
+                 custsear:'',
 totalcost:1,
 unitcost :1,
 quantity: 1,
@@ -6075,13 +6079,27 @@ axios.get('/api/dailyvatcollectedforselection').then(function (response) { this.
 
 },
 
-            
+    customerlistsearch: _.debounce(() => {
+        Fire.$emit('searchforcustomerlist');
+      },1000),          
 
 },// end of methods
 
 
 ///////////////////////////////////////////////////
         created() {
+ Fire.$on('searchforcustomerlist', ()=>{
+            // let query = this.$parent.search;
+            let query = this.custsear;
+          //   axios.get("api/productpriceslist").then(({ data }) => (this.productpriceslist = data));
+ axios.get('api/findcustomerlegeraccount?q='+ query)
+ .then((data)=> {
+this.customerdetailsrecords = data.data;
+ })
+ .catch(()=>{
+
+ })
+          })
 
 
 

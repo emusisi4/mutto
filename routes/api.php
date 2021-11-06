@@ -29,9 +29,10 @@ Route::get('customerstatementrecords', 'API\CustomersController@customerstatemen
 Route::get('supplierstatementrecords', 'API\CustomersController@supplierstatementrecords');
 
 
+Route::get('postypes', 'APIController@postypes');
 Route::get('detetethetransaction', 'API\CashtransfersConroller@detetethetransaction');
-
-
+//axios.get("api/cashsalesproductlist").then(({ data }) => (this.cashsalesproductlist = data));
+Route::get('cashsalesproductlist', 'APIController@cashsalesproductlist');
 
 Route::get('customerstamento', 'API\CustomersController@customerstamento');
 Route::apiResources(['addnewcustomerrecord' => 'API\CustomersController']);
@@ -240,6 +241,7 @@ Route::get('getstatementtransactions', 'API\StatementrecordtoviewController@gets
 
 Route::get('findUser', 'API\CompanyproductsController@search');
 Route::get('findtheProdctinlist', 'API\CompanyproductsController@searchproductinproductlist');
+Route::get('findcustomerlegeraccount', 'API\CustomersController@findcustomerlegeraccount');
 Route::get('returnreceiptdetails', 'API\ReturnsalesitemsController@returnreceiptdetails');
 
 Route::get('satecustomerstatementtoview', 'API\CustomersController@satecustomerstatementtoview');

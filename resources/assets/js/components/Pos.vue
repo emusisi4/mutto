@@ -500,14 +500,67 @@ text-align: center;
                           </div> -->
 
 
-
-
-
-     <div class="mysalessect">
+ <div v-if="postypes == '2'">
+  <div class="mysalessect">
              
   <input type="text" placeholder="Enter Item Name " v-model="search" v-on:keyup="searchit" @keydown="searchit" @keypress="searchit" class="formcont2">
 
   </div>
+
+  
+<div class="mysalessect">
+
+                  <form  @submit.prevent="editmode ? createNewrecord():createNewrecord()">
+
+    <form  @submit.prevent="editmode ? createProducttosell():createProducttosell()">
+   <label for="email_address_2">Item Name</label>
+  <select name ="id" v-model="form.id" id ="id" class="form-control-sm show-tick"  v-on:change="tosubmitInvoivenumbertoview" data-live-search="true"  :class="{'is-invalid': form.errors.has('id')}">
+                    <option value="">   </option>
+                    <option v-for='data in cashsalesproductlist' v-bind:value='data.id'><b>{{ data.id }}</b> {{ data.productname }} </option>
+                   
+
+                    </select>
+                              
+    </form> 
+
+                               <input  v-model="form.id" type="hidden" name="productcode"> 
+                                 <input v-model="form.qty" type="" name="productcode"> 
+                               <input v-model="form.newqty" type="" name="productcode"> 
+
+
+ <label for="email_address_2">Quantity</label>
+                      <input v-model="form.quantity"  type="text" @keypress="updatecurrentsalestatus" @keyup="updatecurrentsalestatus" name="quantity"
+                      class="number-only" :class="{ 'is-invalid': form.errors.has('quantity') }">
+                    <has-error :form="form" field="quantity"></has-error>           
+                                
+      <button  v-if="this.form.newqty >= 0"  type="submit" class="btn btn-success btn-sm" >Add</button>
+
+                              
+
+
+                 
+                <button type="submit" style="display:none" id="submit" hidden="hidden" name= "submit" ref="buttontosubmitinvoicenumbertoview" class="btn btn-primary btn-sm">Saveit</button>                 
+            
+                  
+                    
+                 </form>
+               
+                        
+
+  </div>
+
+    </div>
+    <!-- kkkkkkkkkkkkkkkkkk -->
+
+
+    <div v-if="postypes == '1'">
+  <div class="mysalessect">
+             
+  <input type="text" placeholder="Enter Item Name " v-model="search" v-on:keyup="searchit" @keydown="searchit" @keypress="searchit" class="formcont2">
+
+  </div>
+    </div>
+    <!-- kkkkkkkkkkkkkkkkkk -->
 
 
 <table  class="musisireporttable" width="100%" border="1">
@@ -518,7 +571,7 @@ text-align: center;
           
               <th colspan="1"  style="font-size: 18px; text-align:center;   
                 border-bottom: 4px solid rgb(124 102 102); 
-                  background-color: rgb(29 31 34 / 37%); color: #131378;"> ITEM</th>
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> Item</th>
         
               <th colspan="1"  style="font-size: 18px; text-align:center;    
                border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> UNIT </th>
@@ -529,8 +582,12 @@ text-align: center;
              <th colspan="1"  style="font-size: 18px; text-align:center;    
                border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> SELLING PRICE	</th>
              <th colspan="1"  style="font-size: 18px;     border-bottom: 4px solid rgb(124 102 102); 
-                 background-color: rgb(29 31 34 / 37%); color: #131378;"> </th>
+                 background-color: rgb(29 31 34 / 37%); color: #131378;">  </th>
           
+        </tr>
+        <tr>
+<th> </th>
+
         </tr>
 <!--  -->
           <tr v-for="prodcates in productsellingrecords.data" :key="prodcates.id">
@@ -550,7 +607,8 @@ text-align: center;
                                   
                              <td><div class="musisialignright">   
                                    
-                             <button type="button" v-if="prodcates.unitprice > 0 &&  prodcates.qty > 0  "  class="btn bg-brown waves-effect btn-sm float-right" @click="editProductdetails(prodcates)" >Sell Out  </button>
+                             <button type="button" v-if="prodcates.unitprice > 0 &&  prodcates.qty > 0  " 
+                                class="btn bg-brown waves-effect btn-sm float-right" @click="editProductdetails(prodcates)" >Sell Out </button>
                              
                              </div></td>
                                  <!-- <td style="background-color:#eeeeee "><div class="musisialign"> {{formatPrice(prodcates.netinvoiceincome)}} </div></td>
@@ -1431,7 +1489,8 @@ netvatvatcomponentcomponentaccess:'',
           existanceofitemsoncart:'',
            productpriceslist:{},
              productsellingrecords:{},
-          
+             cashsalesproductlist:{},
+           postypes:{},
           productsavailableforsalelist:{},
           shopingcartdetails:{},
           returnreceiptdetails:{},
@@ -1611,6 +1670,7 @@ WinPrint.close();
                                 .then(()=>{
    axios.get("api/productsellingrecords").then(({ data }) => (this.productsellingrecords = data));
      
+      
 //  axios.get("api/fishcollections").then(({ data }) => (this.fishcollectionrecords = data));
 //axios.get("api/makeexpenseofficeuser").then(({ data }) => (this.officemadeexpensesrecords = data));
                                 // Toast.fire({
@@ -1798,7 +1858,17 @@ $('#returndetailsssModal').modal('show');
 $('#pruductdetailModal').modal('show');
             },
 
+editProductdetailsnewpos(productsellingrecords){
+                this.editmode = true;
+                 this.form.clear();
+        this.form.reset();
+        this.form.fill(productsellingrecords);
+// $('#pruductdetailModal').modal('show');
+            },
 
+            tosubmitInvoivenumbertoview($event) { const elem = this.$refs.buttontosubmitinvoicenumbertoview
+            elem.click()
+        },
   
   editcomponentfeature(mainmenurecords){
                 this.editmode = true;
@@ -2539,6 +2609,8 @@ this.productsellingrecords = data.data;
  })
           })
 
+          axios.get('/api/postypes').then(function (response) { this.postypes = response.data;}.bind(this));
+ axios.get("api/cashsalesproductlist").then(({ data }) => (this.cashsalesproductlist = data));
             axios.get('/api/todaystotalcreditsales').then(function (response) { this.todaystotalcreditsales = response.data;}.bind(this));
           axios.get("api/todayssalesdetailttyu").then(({ data }) => (this.todayssalesdetailttyu = data));
          

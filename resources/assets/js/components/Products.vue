@@ -957,7 +957,7 @@ pre {
                 </form>
               <div class="bethapa-table-header"></div>
    <div class="mysalessect"> 
-  <input type="text" placeholder="Enter Item Name " v-model="myrposearch" v-on:keyup="productlistsearch" @keyup="productlistsearch" class="formcont2">
+  <input type="text" placeholder="Enter Item Name " v-model="customersearch" v-on:keyup="productlistsearch" @keyup="productlistsearch" class="formcont2">
 
   </div>
 
@@ -5966,7 +5966,7 @@ axios.get("api/unitfromname").then(({ data }) => (this.unitfromname = data));
     
    Fire.$on('searchforproductlist', ()=>{
             // let query = this.$parent.search;
-            let query = this.myrposearch;
+            let query = this.customersearch;
           //   axios.get("api/productpriceslist").then(({ data }) => (this.productpriceslist = data));
  axios.get('api/findtheProdctinlist?q='+ query)
  .then((data)=> {
