@@ -100,30 +100,34 @@ $newsellingprice = $request['unitsellingprice'];
 $datedelivered = $request['deliverydate'];
 $dateordered = $request['dateordered'];
 $recordinquestion = $id;
-/// getting the invoice DEtails
+
 $userid =  auth('api')->user()->id;
       $userbranch =  auth('api')->user()->branch;
       $userrole =  auth('api')->user()->type;
-      $supplierinvoiceno = \DB::table('purchases')->where('id', '=', $recordinquestion)->value('supplierinvoiceno');
-     /// GEtting the product in question
-$productnumber = \DB::table('purchases')->where('id', '=', $recordinquestion)->value('productcode');
+
+
+
+
+/// Activities 1. Updating quantities in products 
+// Getting the current quantities
+$productinaction = \DB::table('purchases')->where('id', '=', $recordinquestion)->value('productcode');
+$currentproductquantity =\DB::table('products')->where('id', '=', $productinaction)->value('qty');
+$newproductquantity = $currentproductquantity+$qtydelivered;
+//// Getting the invoice in action
+$invoicenumberinaction = \DB::table('purchases')->where('id', '=', $recordinquestion)->value('supplierinvoiceno');
+
+/// getting the supplier details
+$suppliername =\DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $invoicenumberinaction)->value('suppliername');
+// getting the supplier type
+$suppliertype = \DB::table('customers')->where('id', '=', $suppliername)->value('customertype');
+
+
+/// Getting the current vattotal
+$currenttotalvatoninvoice =\DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $invoicenumberinaction)->value('totalvat');
+
+/// Calculating the new vat
 $purchasecostforunit = \DB::table('purchases')->where('id', '=', $id)->value('ordercostwithoutvat');
-$oldinvoicevat =\DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $supplierinvoiceno)->value('totalvat');
-
-$olddeliverycostwithoutvat =\DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $supplierinvoiceno)->value('deliverycostwithoutvat');
-$newdeliverycostwithoutvat = $olddeliverycostwithoutvat+($unitcostwithoutvat*$qtydelivered);
-$oldinvoicetotal =\DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $supplierinvoiceno)->value('finalcost');
-$newamounttoaddtoinvoice = $qtydelivered*$purchasecostforunit;
-$newconfirmedinvoicetotal = $oldinvoicetotal+$newamounttoaddtoinvoice;
-
-
-/////// supplierid
-$supplieridno =\DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $supplierinvoiceno)->value('suppliername');
- //// Getting the supplier type in question
- $suppliertype = \DB::table('customers')->where('id', '=', $supplieridno)->value('customertype');
-
-/// Vat calculation on deliveries
-$vatstat = \DB::table('purchases')->where('supplierinvoiceno', '=', $supplierinvoiceno)->value('vatstatus');
+$vatstat = \DB::table('purchases')->where('supplierinvoiceno', '=', $invoicenumberinaction)->value('vatstatus');
 if($vatstat == '1')
 {
   $vattotalcurrentbasedonquantitydelivered = 0;
@@ -137,32 +141,44 @@ if($vatstat == '3')
 {
   $vattotalcurrentbasedonquantitydelivered = ((round((($purchasecostforunit*1.18))))-$purchasecostforunit )*($qtydelivered);
 }
-$newinvoicevat =  $vattotalcurrentbasedonquantitydelivered+$oldinvoicevat;
-$levibalance = ($qtydelivered*$purchasecostforunit)+($newinvoicevat);
-          
-$ttttddedd = (($newinvoicevat)+(($unitcostwithoutvat)*($qtydelivered)));
-   $oldquantityavailable = \DB::table('products')->where('id', '=', $productnumber)->value('qty');
-   $oldsellingprice = \DB::table('products')->where('id', '=', $productnumber)->value('unitprice');
-   $newquantity = $oldquantityavailable+$qtydelivered;
-   $oldcostprice = \DB::table('products')->where('id', '=', $productnumber)->value('unitcost');
-   if($oldcostprice > 0)
-  { $newcostprice =     round((($purchasecostforunit+$oldcostprice)/2),0);
+
+
+///////// Delivered details
+$currentdeliverycostwithoutvat =\DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $invoicenumberinaction)->value('deliverycostwithoutvat');
+$newdeliverycostwithoutvat = ($currentdeliverycostwithoutvat)+($unitcostwithoutvat*$qtydelivered);
+
+
+
+$currentfinalcostoninvoice =\DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $invoicenumberinaction)->value('finalcost');
+$newamounttoaddtoinvoice = $qtydelivered*$purchasecostforunit;
+$newconfirmedinvoicetotal = $currentfinalcostoninvoice+$newamounttoaddtoinvoice;
+
+//// working on costprice
+$oldcostprice = \DB::table('products')->where('id', '=', $productinaction)->value('unitcost');
+$oldsellingprice = \DB::table('products')->where('id', '=', $productinaction)->value('unitprice');
+if($oldcostprice > 0)
+{ $newcostprice =     round((($purchasecostforunit+$oldcostprice)/2),0);
 }
 if($oldcostprice < 1)
 { 
-  $newcostprice =     $purchasecostforunit;
+$newcostprice =     $purchasecostforunit;
 }
+
+/// calculating the total vat on invoice
+$newinvoicevat =  $vattotalcurrentbasedonquantitydelivered+$currenttotalvatoninvoice;
+//////////////////// updating the summaries
+DB::table('purchasessummaries')->where('supplierinvoiceno', $invoicenumberinaction)->update(array('totalvat' => $newinvoicevat,
+'finalcost' => $newconfirmedinvoicetotal,
+'deliverycostwithoutvat' => $newdeliverycostwithoutvat));
+
+//// calculating the vat on purchases input vat
+ 
 $currentinputvat = \DB::table('expensewalets')->where('walletno', '=', 5)->value('bal');
 $newinputvat =  $vattotalcurrentbasedonquantitydelivered;
 $updatedinputtotal = $currentinputvat+$newinputvat;
 DB::table('expensewalets')->where('walletno', 5)->update(array('bal' => $updatedinputtotal));
+//////////////////// dauily purchase report
 
-////
-//////////////////////////////////////////////////////////////////////////// Purchase summaries
- DB::table('purchasessummaries')->where('supplierinvoiceno', $supplierinvoiceno)->update(array('totalvat' => $newinvoicevat,
- 'finalcost' => $newconfirmedinvoicetotal,
- 'deliverycostwithoutvat' => $newdeliverycostwithoutvat));
-///
 $deliveredamount = \DB::table('purchasessummaries')->where('invoicedate', '=', $dateordered)->sum('finalcost');
 $deliveredvatamount = \DB::table('purchasessummaries')->where('invoicedate', '=', $dateordered)->sum('totalvat');
 ///
@@ -179,20 +195,18 @@ DB::table('dailypurchasesreports')
                     
                     
                    ));
-
-
- //////////////////////////////////////////////////////////////////////////// Product quantity
-DB::table('products')->where('id', $productnumber)->update(array('qty' => $newquantity,
+///////////////////////////// updating the product quantities and price
+DB::table('products')->where('id', $productinaction)->update(array(
+  'qty' => $newproductquantity,
  'unitcost' => $newcostprice,
  'unitprice' => $newsellingprice
 ));
- // id, productname, oldcostprice, , , , , ucret, created_at, updated_at
-/// Updating the price fluctuations
+///
 $datenow = date('Y-m-d');
 Productpricechange::Create([
     
 
-  'productname' => $productnumber,
+  'productname' => $productinaction,
   'oldcostprice' => $oldcostprice,
   'newcostprice' => $newcostprice,
 
@@ -203,44 +217,95 @@ Productpricechange::Create([
   'ucret' => $userid,
 
 ]);
+ 
 ////////////$newamounttoaddtoinvoice
-$currentsupplierbalance =    \DB::table('customers')->where('id', '=', $supplieridno)->value('bal');
+//
 
 //// Updating the supplier statement
 
-
-
-$isinvoiceinstatementforsupplier = \DB::table('customerstatements')->where('invoiceinaction', '=', $supplierinvoiceno)->count();
+//// checking if an invoice exists for a supplier
+$isinvoiceinstatementforsupplier = \DB::table('customerstatements')->where('invoiceinaction', '=', $invoicenumberinaction)->count();
 
 if($isinvoiceinstatementforsupplier > 0)
 {
-  if($suppliertype == '2')
-  $newsupplierbalance = $currentsupplierbalance+$levibalance;
+  /// Getting the current statement invoice amount
+ 
 
+ //  $currentsupplierbalance =    \DB::table('customers')->where('id', '=', $suppliername)->value('bal');
 
- { $totalnow = \DB::table('customerstatements')->where('invoiceinaction', '=', $supplierinvoiceno)->value('amount');
-  $newrrrtttf = $totalnow+$ttttddedd;
-}
-if($suppliertype == '1')
-{ $totalnow = \DB::table('customerstatements')->where('invoiceinaction', '=', $supplierinvoiceno)->value('amount');
- $newrrrtttf = $totalnow-$ttttddedd;
-}
-
-  DB::table('customerstatements')->where('invoiceinaction', $supplierinvoiceno)->update(array('amount' => $newrrrtttf));
-}
-
-
-if($isinvoiceinstatementforsupplier < 1)
-{
+//// working on the user type
   if($suppliertype == '2')
   {
-     $supplieropenningbalance = \DB::table('customers')->where('id', '=', $supplieridno)->value('bal');
+    $standinginvoicestatementamount = \DB::table('customerstatements')->where('invoiceinaction', '=', $invoicenumberinaction)->value('debitamount');
+    $myappendamount = ($unitcostwithoutvat * $qtydelivered)+($vattotalcurrentbasedonquantitydelivered);
+    $amounttoupdateoninvoice = $standinginvoicestatementamount+$myappendamount;
+  
+    $supplieropenningbalance = \DB::table('customers')->where('id', '=', $suppliername)->value('bal');
+
+
+
+    ////////////
+    $supplieropenningbalance = \DB::table('customers')->where('id', '=', $suppliername)->value('bal');
  
-$resultantbalance = $supplieropenningbalance+$ttttddedd;
+   $newsupplierbalance = $supplieropenningbalance+$myappendamount;
+
+   
+
+    $totalnow = \DB::table('customerstatements')->where('invoiceinaction', '=', $invoicenumberinaction)->value('debitamount');
+  //  $updatedtotaloninvoice = $totalnow+$newconfirmedinvoicetotal+$newconfirmedinvoicetotal;
+  $resamount = $supplieropenningbalance+$amounttoupdateoninvoice;
+  DB::table('customerstatements')->where('invoiceinaction', $invoicenumberinaction)->update(array('debitamount' => $amounttoupdateoninvoice));
+  DB::table('customerstatements')->where('invoiceinaction', $invoicenumberinaction)->update(array('resultatantbalance' => $newsupplierbalance));
+
+  DB::table('customers')->where('id', $suppliername)->update(array('bal' => $newsupplierbalance));
+
+  }
+ 
+
+
+
+if($suppliertype == '1')
+{ 
+  $standinginvoicestatementamount = \DB::table('customerstatements')->where('invoiceinaction', '=', $invoicenumberinaction)->value('amount');
+$myappendamount = ($unitcostwithoutvat * $qtydelivered)+($vattotalcurrentbasedonquantitydelivered);
+$amounttoupdateoninvoice = $standinginvoicestatementamount+$myappendamount;
+  $supplieropenningbalance = \DB::table('customers')->where('id', '=', $suppliername)->value('bal');
+ 
+   $newsupplierbalance = $supplieropenningbalance-$myappendamount;
+
+
+  $totalnow = \DB::table('customerstatements')->where('invoiceinaction', '=', $invoicenumberinaction)->value('amount');
+
+
+ DB::table('customerstatements')->where('invoiceinaction', $invoicenumberinaction)->update(array('amount' => $amounttoupdateoninvoice));
+  DB::table('customerstatements')->where('invoiceinaction', $invoicenumberinaction)->update(array('resultatantbalance' => $newsupplierbalance));
+
+  DB::table('customers')->where('id', $suppliername)->update(array('bal' => $newsupplierbalance));
+}
+
+}
+
+//////////////////////////////////////////////////////
+if($isinvoiceinstatementforsupplier < 1)
+{
+ 
+ 
+ 
+  if($suppliertype == '2')
+  {
+    $standinginvoicestatementamount = \DB::table('customerstatements')->where('invoiceinaction', '=', $invoicenumberinaction)->value('debitamount');
+    $myappendamount = ($unitcostwithoutvat * $qtydelivered)+($vattotalcurrentbasedonquantitydelivered);
+    $amounttoupdateoninvoice = $standinginvoicestatementamount+$myappendamount;
+  
+    $supplieropenningbalance = \DB::table('customers')->where('id', '=', $suppliername)->value('bal');
+    ///////
+     $supplieropenningbalance = \DB::table('customers')->where('id', '=', $suppliername)->value('bal');
+ 
+$resultantbalance = $supplieropenningbalance+$amounttoupdateoninvoice;
   Customerstatement::Create([
     
 
-    'customername' => $supplieridno,
+    'customername' => $suppliername,
     'transactiontype' => 2,
     'transactiondate' => $datedelivered,
   
@@ -248,46 +313,46 @@ $resultantbalance = $supplieropenningbalance+$ttttddedd;
     'openningbal' => $supplieropenningbalance,
     'amount' => 0,
     'transactionmode'=> 2,
-    'debitamount' => $ttttddedd,
-    'invoiceinaction' => $supplierinvoiceno,
+    'debitamount' => $resultantbalance,
+    'invoiceinaction' => $invoicenumberinaction,
     'resultatantbalance' => $resultantbalance,
    
     'ucret' => $userid,
   
   ]);
-  DB::table('customers')->where('id', $supplieridno)->update(array('bal' => $resultantbalance));
+  DB::table('customers')->where('id', $suppliername)->update(array('bal' => $resultantbalance));
   // DB::table('supplierstatements')->where('invoiceinaction', $supplierinvoiceno)->update(array('amount' => $newrrrtttf));
 }
 ////////////////// end of type 2
 if($suppliertype == '1')
-{
-  $newsupplierbalance = $currentsupplierbalance-$levibalance;
+{ $standinginvoicestatementamount = \DB::table('customerstatements')->where('invoiceinaction', '=', $invoicenumberinaction)->value('amount');
+  $myappendamount = ($unitcostwithoutvat * $qtydelivered)+($vattotalcurrentbasedonquantitydelivered);
+  $amounttoupdateoninvoice = $standinginvoicestatementamount+$myappendamount;
+    $supplieropenningbalance = \DB::table('customers')->where('id', '=', $suppliername)->value('bal');
+  $resultantbalance = $supplieropenningbalance-$amounttoupdateoninvoice;
+  $newsupplierbalance = $supplieropenningbalance-$amounttoupdateoninvoice;
 
-
-  $supplieropenningbalance = \DB::table('customers')->where('id', '=', $supplieridno)->value('bal');
- 
-  $resultantbalance = $supplieropenningbalance-$ttttddedd;
     Customerstatement::Create([
       
   
-      'customername' => $supplieridno,
+      'customername' => $suppliername,
       'transactiontype' => 2,
       'transactiondate' => $datedelivered,
     
-      'description' => 'Recieved goods from customer',
+      'description' => 'Recieved goods from supplier',
       'openningbal' => $supplieropenningbalance,
-      'amount' => 0,
+      'amount' => $amounttoupdateoninvoice,
       'transactionmode'=> 2,
-      'debitamount' => $ttttddedd,
-      'invoiceinaction' => $supplierinvoiceno,
+      'debitamount' => 0,
+      'invoiceinaction' => $invoicenumberinaction,
       'resultatantbalance' => $resultantbalance,
       'ucret' => $userid,
     
     ]);
-    DB::table('customers')->where('id', $supplieridno)->update(array('bal' => $resultantbalance));
+    DB::table('customers')->where('id', $suppliername)->update(array('bal' => $resultantbalance));
     // DB::table('supplierstatements')->where('invoiceinaction', $supplierinvoiceno)->update(array('amount' => $newrrrtttf));
 }
-}
+}//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 //////////////////////////////////////////////////////////////////////////// Purchases
@@ -303,10 +368,10 @@ DB::table('purchases')->where('id', $id)->update(array('status' => 1,'qtydeliver
 //// Updating 
         ///////////////////////////////////////////
         /// checking if all products are confirmed
-        $areallconf = \DB::table('purchases')->where('supplierinvoiceno', '=', $supplierinvoiceno)->where('status', '=', '0')->count();
+        $areallconf = \DB::table('purchases')->where('supplierinvoiceno', '=', $invoicenumberinaction)->where('status', '=', '0')->count();
         if($areallconf < 1)
         {
-          DB::table('invoincestoappenditems')->where('invoiceno', $supplierinvoiceno)->delete();
+          DB::table('invoincestoappenditems')->where('invoiceno', $invoicenumberinaction)->delete();
  
         }
     }

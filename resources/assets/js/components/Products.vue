@@ -1,4 +1,11 @@
 <style scoped>
+.tableFixHead          { overflow: auto; height: 100px; }
+.tableFixHead thead th { position: sticky; top: 0; z-index: 1; }
+
+/* Just common table stuff. Really. */
+table  { border-collapse: collapse; width: 100%; }
+th, td { padding: 8px 16px; }
+th     { background:#eee; }
 .invoice {
     background: #fff;
     padding: 20px;
@@ -961,7 +968,7 @@ pre {
 
   </div>
 
-<table  class="musisireporttable" width="100%" border="1">
+<table  class="tableFixHead" width="100%" border="1">
        <tr>
              <th colspan="1"  style="font-size: 18px;     border-bottom: 4px solid rgb(124 102 102);  
                 background-color: rgb(29 31 34 / 37%); color: #131378;"> #</th>

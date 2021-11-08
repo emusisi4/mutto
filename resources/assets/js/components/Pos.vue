@@ -783,7 +783,7 @@ text-align: center;
 <th>Unit Cost </th>
 <th>Qty </th>
 <th>Total </th>
-
+<th> </th>
 
 </tr>
 
@@ -799,9 +799,11 @@ text-align: center;
 
                           <td><div class="musisialignright"> {{formatPrice(prodcates.unitcost)}} </div></td>
                           <td><div class="musisialign"> {{formatPrice(prodcates.quantity)}} </div></td>
-                          <td><div class="musisialignright"> {{formatPrice(prodcates.totalcost)}} </div></td>
+                          <td><div class="musisialignright"> {{formatPrice(prodcates.linetotal)}} </div></td>
                               
-                              
+                      <td><div class="musisialignright"> 
+                           <button  type="button" class="btn bg-deep-orange btn-xs waves-effect" @click="deletesalemade(prodcates.id)">Delete Sale</button>
+                                </div></td>           
                               
                               
                               
@@ -1568,7 +1570,45 @@ methods:{
   //     this.$htmlToPaper('print');
   //   },
 
+deletesalemade(id){
+   Swal.fire({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes'
+}).then((result) => {
 
+/// send request ti
+if (result.isConfirmed) {
+  this.form.delete('api/deletethissale/'+id).then(()=>{
+  
+                        Swal.fire(
+                          'Removed!',
+                          'Record Deleted.',
+                          'success'
+                        )
+                   
+ axios.get("api/activeinvoicetoupdaterecords").then(({ data }) => (this.activeinvoicetoupdaterecords = data));
+
+  }).catch(()=>{
+     Swal.fire({  
+         icon: 'error',
+        title: 'Failed',
+       text: "Transaction was Not successfull. Contact the Administrator for More Assistance",});
+
+  });
+
+
+}                  
+
+
+
+})
+
+            },// End of delrte function
 savereceipttogetproductreturnitems(){
 
                                 this.loading = true;

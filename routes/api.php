@@ -221,6 +221,7 @@ Route::apiResources(['productsellingrecords' => 'API\ProductssellingdetailsContr
 Route::apiResources(['makeinvoicepayment' => 'API\MakeinvoicepaymentController']);
 
 
+Route::apiResources(['deletethissale' => 'API\SalesactionsController']);
 Route::apiResources(['deleterecordfrompurchases' => 'API\ProductpurchaseconfirmationController']);
 Route::apiResources(['purcaseorderconfirmation' => 'API\ProductpurchaseconfirmationController']);
 Route::apiResources(['productbrandsrecords' => 'API\ProductbrandsController']);
