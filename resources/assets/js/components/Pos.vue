@@ -802,7 +802,7 @@ text-align: center;
                           <td><div class="musisialignright"> {{formatPrice(prodcates.linetotal)}} </div></td>
                               
                       <td><div class="musisialignright"> 
-                           <button  type="button" class="btn bg-deep-orange btn-xs waves-effect" @click="deletesalemade(prodcates.id)">Delete Sale</button>
+                           <!-- <button  type="button" class="btn bg-deep-orange btn-xs waves-effect" @click="deletesalemade(prodcates.id)">Delete Sale</button> -->
                                 </div></td>           
                               
                               
@@ -2003,7 +2003,7 @@ if (result.isConfirmed) {
      axios.get("api/shopingcartdetails").then(({ data }) => (this.shopingcartdetails = data));
       axios.get("api/getcattotal").then(({ data }) => (this. carttotal = data));
        axios.get("api/shopcashbalance").then(({ data }) => (this. shopcashbalance = data));
-     
+      axios.get("api/todayssalesdetailttyu").then(({ data }) => (this.todayssalesdetailttyu = data)); 
      //  axios.get('api/shopcashbalance').then(function (response) { this.shopcashbalance = response.data;}.bind(this));
      //  $('#receiptrintModal').modal('show');
   
