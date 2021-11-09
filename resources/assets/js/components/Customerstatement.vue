@@ -927,11 +927,11 @@ List of Ledger Accounts
 
 
              
-    <!-- <div class="card-footer">
+    <div class="card-footer">
                 <ul class="pagination pagination-sm m-0 float-right">
-                   <pagination :data="salesreportsummaryrecords" @pagination-change-page="paginationResultsProductcategories"></pagination>
+                   <pagination :data="customerdetailsrecords" @pagination-change-page="paginationResultsProductcategories"></pagination>
                 </ul>
-    </div> -->
+    </div>
           
  
 
@@ -4742,9 +4742,9 @@ paginationResultsProductdetailsrecords(page = 1) {
 
 
    paginationResultsProductcategories(page = 1) {
-                        axios.get('api/salesreportsummaryrecords?page=' + page)
+                        axios.get('api/customerdetailsrecords?page=' + page)
                           .then(response => {
-                            this.salesreportsummaryrecords = response.data;
+                            this.customerdetailsrecords = response.data;
                           });
                       },
   /// users
