@@ -28,7 +28,10 @@ class Purchase extends Authenticatable
         return $this->belongsTo(Product::class, 'productcode'); 
     }
     
-    
+    public function suppName(){
+        // creating a relationship between the students model 
+        return $this->belongsTo(Customer::class, 'suppliername'); 
+    }
     public function brandName(){
         // creating a relationship between the students model 
         return $this->belongsTo(Brand::class, 'brand'); 

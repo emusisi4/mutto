@@ -1832,7 +1832,7 @@ pre {
                                 <td>{{probrands.purchaseno}}</td>
                                  <td>{{probrands.invoicedate | myDate2 }}</td>
                                     <td>{{probrands.supplierinvoiceno}}</td>
-                                   <td>   <template v-if="probrands.supplier_name">	{{probrands.supplier_name.suppname}}</template></td> 
+                                   <td>   <template v-if="probrands.supp_name">	{{probrands.supp_name.customername}}</template></td> 
                               
                                
                                   <td class="musisialignright">{{formatPrice(probrands.ordercostwithoutvat)}}</td>

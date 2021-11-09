@@ -35,7 +35,7 @@ class PurchasessumaryrecordsController extends Controller
 
     
       
-      return   Purchasessummary::with(['supplierName'])->orderBy('id', 'Desc')
+      return   Purchasessummary::with(['suppName'])->orderBy('id', 'Desc')
        
        // return   Purchasessummary::latest('id')
         //  return   Branchpayout::latest('id')
