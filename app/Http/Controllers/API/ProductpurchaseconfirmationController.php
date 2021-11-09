@@ -313,7 +313,7 @@ $resultantbalance = $supplieropenningbalance+$amounttoupdateoninvoice;
     'openningbal' => $supplieropenningbalance,
     'amount' => 0,
     'transactionmode'=> 2,
-    'debitamount' => $resultantbalance,
+    'debitamount' => $amounttoupdateoninvoice,
     'invoiceinaction' => $invoicenumberinaction,
     'resultatantbalance' => $resultantbalance,
    

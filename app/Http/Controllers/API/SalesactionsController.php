@@ -372,38 +372,15 @@ DB::table('purchases')->where('id', $id)->update(array('status' => 1,'qtydeliver
   
 
 //////////////////////
-$user = Productsale::findOrFail($id);
-$user->delete();
+DB::table('productsales')->where('id', $id)->delete();
 
 
 
-// DB::table('dailysummaryreports')->where('branch', $branchsold)->where('datedone', $datesold)->delete();
-DB::table('dailysummaryreports')->where('datedone', $datesold)->delete();
-
-/// Inserting a fresh record
-
-Dailysummaryreport::Create([
-  'datedone' => $datesold,
-  'branch' => $branchsold, 
-
-  'netunitsalewithoutvat' => $totalnetunitsalewithoutvat,
-  'netsalewithoutvat' => $totalnetsalewithoutvat,
-
-  'saletype' => 1,
-  'invoiceamount' => $totalsalesamount,
-  'totalcost' => $totalcostoftheday,
-  'netinvoiceincome' => $netinvoiceincome,
-  'lineprofit' => $lineprofitdaily,
-  'vatamount'=> $totaldailyvat, 
-  // 'monthmade'=> $monthmade, 
-  // 'yearmade' => $yearmade,
-         
-       ]);
 
 /// working on the sales summary
 /// deleting the invoice details
 
-DB::table('salessummaries')->where('invoiceno', $receiptno)->delete();
+//DB::table('salessummaries')->where('invoiceno', $receiptno)->delete();
 
 //// geting the receipt totals
 $totalreceiptsales =\DB::table('productsales')->where('invoiceno', '=', $receiptno)->sum('linetotal');
@@ -436,6 +413,29 @@ Salessummary::Create([
         ]);        
     
 
+
+// DB::table('dailysummaryreports')->where('branch', $branchsold)->where('datedone', $datesold)->delete();
+DB::table('dailysummaryreports')->where('datedone', $datesold)->delete();
+
+/// Inserting a fresh record
+
+Dailysummaryreport::Create([
+  'datedone' => $datesold,
+  'branch' => $branchsold, 
+
+  'netunitsalewithoutvat' => $totalnetunitsalewithoutvat,
+  'netsalewithoutvat' => $totalnetsalewithoutvat,
+
+  'saletype' => 1,
+  'invoiceamount' => $totalsalesamount,
+  'totalcost' => $totalcostoftheday,
+  'netinvoiceincome' => $netinvoiceincome,
+  'lineprofit' => $lineprofitdaily,
+  'vatamount'=> $totaldailyvat, 
+  // 'monthmade'=> $monthmade, 
+  // 'yearmade' => $yearmade,
+         
+       ]);
    
      }
      

@@ -802,7 +802,7 @@ text-align: center;
                           <td><div class="musisialignright"> {{formatPrice(prodcates.linetotal)}} </div></td>
                               
                       <td><div class="musisialignright"> 
-                           <!-- <button  type="button" class="btn bg-deep-orange btn-xs waves-effect" @click="deletesalemade(prodcates.id)">Delete Sale</button> -->
+                           <button  type="button" class="btn bg-deep-orange btn-xs waves-effect" @click="deletesalemade(prodcates.id)">Delete Sale</button>
                                 </div></td>           
                               
                               
@@ -1590,7 +1590,8 @@ if (result.isConfirmed) {
                           'Record Deleted.',
                           'success'
                         )
-                   
+       
+  axios.get("api/todayssalesdetailttyu").then(({ data }) => (this.todayssalesdetailttyu = data));            
  axios.get("api/activeinvoicetoupdaterecords").then(({ data }) => (this.activeinvoicetoupdaterecords = data));
 
   }).catch(()=>{
