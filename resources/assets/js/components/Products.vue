@@ -1878,33 +1878,17 @@ pre {
                                  </td>
                                 -->
                                  <td> 
-                                  
-                            <div v-if="probrands.finalcost > 0 && probrands.invoicelockstatus == 1 ">
-                          
-                           <button type="button"  class="btn bg-blue btn-xs waves-effect"
+                                    <button type="button"  class="btn bg-blue btn-xs waves-effect"
                                 @click="saveinvoiceToview(probrands.id)"> View </button>
-                                       
-                            </div>
-                            <div v-if="probrands.finalcost < 1 && probrands.invoicelockstatus == 1 ">
-                            
-                           <button type="button"  class="btn bg-blue btn-xs waves-effect"
-                                @click="saveinvoiceToview(probrands.id)"> View </button>
-                                       
-                            </div>
-                             <div v-if="probrands.invoicelockstatus == 0 ">
-                               <button type="button"  class="btn bg-blue btn-xs waves-effect"
-                                @click="saveinvoiceToview(probrands.id)"> View </button>
-                            
-  <button type="button"  class="btn bg-deep-orange btn-xs waves-effect" @click="deletePurchaseinvoice(probrands.id)"> Del</button>
                            
-                             </div>
+                           
+                          
+                            
+                            
+  <button type="button" v-if="probrands.invoicelockstatus == 0 " class="btn bg-deep-orange btn-xs waves-effect" @click="deletePurchaseinvoice(probrands.id)"> Del</button>
+                           
                              
- <div v-if="(probrands.finalcost-probrands.amountpaid) == 0 " >
-                          <button type="button"  class="btn bg-blue btn-xs waves-effect"
-                                @click="saveinvoiceToview(probrands.id)"> View </button>
-                                  <button type="button"  class="btn bg-deep-orange btn-xs waves-effect" @click="deletePurchaseinvoice(probrands.id)"> Del</button>
-                                 </div>
-
+                 
                              
                               </td>
        <tr>
