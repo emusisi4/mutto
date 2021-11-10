@@ -335,6 +335,8 @@ DB::table('purchases')->where('id', $id)->update(array('status' => 1,'qtydeliver
      $totalcost =\DB::table('productsales')->where('id', '=', $id)->value('totalcost');
      $netsalewithoutvat  =\DB::table('productsales')->where('id', '=', $id)->value('netsalewithoutvat');
      $transuser  =\DB::table('productsales')->where('id', '=', $id)->value('ucret');
+     $systemreference =\DB::table('productsales')->where('id', '=', $id)->value('invoiceno');
+    
      /// getting the current balance for the wallet
      $walletinactionone =\DB::table('expensewalets')->where('branchname', '=', $branchsold)->value('id');
      $walletbalance =\DB::table('expensewalets')->where('id', '=', $walletinactionone)->value('bal');
@@ -357,7 +359,7 @@ DB::table('purchases')->where('id', $id)->update(array('status' => 1,'qtydeliver
 
          /// checking the daily sales record 
 
-
+         DB::table('productsales')->where('id', $id)->delete();
          $totalsalesamount = \DB::table('productsales')->where('datesold', '=', $datesold)->sum('linetotal');
          $totalnetunitsalewithoutvat= \DB::table('productsales')->where('datesold', '=', $datesold)->sum('netunitsalewithoutvat');
          $totalnetsalewithoutvat = \DB::table('productsales')->where('datesold', '=', $datesold)->sum('netsalewithoutvat');
@@ -372,7 +374,7 @@ DB::table('purchases')->where('id', $id)->update(array('status' => 1,'qtydeliver
   
 
 //////////////////////
-DB::table('productsales')->where('id', $id)->delete();
+
 
 
 
@@ -391,6 +393,9 @@ $totalvatonreceipt =\DB::table('productsales')->where('invoiceno', '=', $receipt
 $totalcost =\DB::table('productsales')->where('invoiceno', '=', $receiptno)->sum('totalcost');
 $totalnetsaleswithoutvatreceipt =\DB::table('productsales')->where('invoiceno', '=', $receiptno)->sum('netsalewithoutvat');
 $totalnetunitsalewithoutvatinvoice =\DB::table('productsales')->where('invoiceno', '=', $receiptno)->sum('netunitsalewithoutvat');
+
+DB::table('salessummaries')->where('invoiceno', $receiptno)->delete();
+DB::table('salessummaries')->where('invoiceamount', 0)->delete();
 Salessummary::Create([
    
   'invoiceno' => $receiptno,

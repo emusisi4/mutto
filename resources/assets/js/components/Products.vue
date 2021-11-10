@@ -1878,8 +1878,13 @@ pre {
                                  </td>
                                 -->
                                  <td> 
-                                    <button type="button"  class="btn bg-blue btn-xs waves-effect"
-                                @click="saveinvoiceToview(probrands.id)"> View </button>
+                                   
+                                   
+                                   
+                                   
+                                   
+                                   
+             <button type="button"  class="btn bg-blue btn-xs waves-effect"  @click="saveinvoiceToview(probrands.id)"> View </button>
                            
                            
                           
