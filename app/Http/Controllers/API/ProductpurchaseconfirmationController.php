@@ -88,6 +88,7 @@ $dateinq =  $request['datedone'];
      $this->validate($request,[
         'unitprice'   => 'required  |max:191',
         'qtydelivered'   => 'required  |max:191',
+        'qtydelivered'   => 'required  |max:191',
         'unitsellingprice'   => 'required  |max:191',
         'deliverydate'   => 'required'
         
@@ -104,6 +105,28 @@ $recordinquestion = $id;
 $userid =  auth('api')->user()->id;
       $userbranch =  auth('api')->user()->branch;
       $userrole =  auth('api')->user()->type;
+
+
+
+
+
+      $istherecordconfirmedalready = \DB::table('purchases')->where('id', '=', $id)->value('status');
+if($istherecordconfirmedalready < 1)
+{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -374,6 +397,11 @@ DB::table('purchases')->where('id', $id)->update(array('status' => 1,'qtydeliver
           DB::table('invoincestoappenditems')->where('invoiceno', $invoicenumberinaction)->delete();
  
         }
+
+
+
+
+        }//// closing if the record is not confirmed
     }
 
   
@@ -404,4 +432,15 @@ DB::table('purchases')->where('id', $id)->update(array('status' => 1,'qtydeliver
        // return['message' => 'user deleted'];
 
     }
+
+
+  
+
+
+
+
+
+
+
+
 }
