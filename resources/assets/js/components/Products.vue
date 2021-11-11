@@ -360,11 +360,11 @@ pre {
                                     </a>
                                 </li>
                                     
-                                    <li role="presentation">
+                                    <!-- <li role="presentation">
                                     <a href="#two_with_icon_title" v-if="purchaserecordsComponentaccess > 0" @click="loadPurchaserecords()" data-toggle="tab">
                                         <i class="material-icons"></i> Purchase Details
                                     </a>
-                                </li>
+                                </li> -->
                                  <li role="presentation">
                                     <a href="#two_with_icon_title" v-if="salessummaryComponentaccess > 0" @click="loadsalesSummary()" data-toggle="tab">
                                         <i class="material-icons"></i> SALES RECEIPTS
