@@ -414,21 +414,64 @@ DB::table('purchases')->where('id', $id)->update(array('status' => 1,'qtydeliver
      
      $productid =\DB::table('purchases')->where('id', '=', $id)->value('productcode');
      $supplierinvoiceno =\DB::table('purchases')->where('id', '=', $id)->value('supplierinvoiceno');
+     $dateordered =\DB::table('purchases')->where('id', '=', $id)->value('dateordered');
      
      $vattotal =\DB::table('purchases')->where('id', '=', $id)->value('vattotal');
      $tendecostproduct =\DB::table('purchases')->where('id', '=', $id)->value('grandtotal');
-
-     $expectedvat =\DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $supplierinvoiceno)->value('expectedvat');
+    
+     $expectedvat =\DB::table('purchases')->where('supplierinvoiceno', '=', $supplierinvoiceno)->sum('vattotal');
      $tendercost =\DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $supplierinvoiceno)->value('tendercost');
      $newtendercost = $tendercost-$tendecostproduct;
      $newexpectedvat = $expectedvat - $vattotal;
 ////
+DB::table('purchases')->where('id', $id)->delete();
+/////
+$newtotalinvoiceamount = \DB::table('purchases')->where('supplierinvoiceno', '=', $supplierinvoiceno)->sum('grandtotal');
+$newinvoicetotalvat = \DB::table('purchases')->where('supplierinvoiceno', '=', $supplierinvoiceno)->sum('vattotal');
+$newordercostwithoutvat = \DB::table('purchases')->where('supplierinvoiceno', '=', $supplierinvoiceno)->sum('lcostwithoutvat');
+$totalinvoicewithvatnew = \DB::table('purchases')->where('supplierinvoiceno', '=', $supplierinvoiceno)->sum('totalinvoicewithvat');
+//// Purchase summaries
+DB::table('purchasessummaries')
+->where('supplierinvoiceno', $supplierinvoiceno)
+->update(array(
+    'tendercost' => $totalinvoicewithvatnew,
+    'ordercostwithoutvat' => $newordercostwithoutvat,
+    'totalinvoicewithvat' =>$newtotalinvoiceamount,
+   'expectedvat' =>  $newinvoicetotalvat
+ 
+ 
+));
 
 
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////// Daily Purchases report
+$totalinvoiceamount = \DB::table('purchasessummaries')->where('invoicedate', '=', $dateordered)->sum('tendercost');
+$orderedvatamount = \DB::table('purchasessummaries')->where('invoicedate', '=', $dateordered)->sum('expectedvat');
+$orderedvatamountwithoutvat = \DB::table('purchasessummaries')->where('invoicedate', '=', $dateordered)->sum('ordercostwithoutvat');
+$invtotalwithvat = \DB::table('purchasessummaries')->where('invoicedate', '=', $dateordered)->sum('totalinvoicewithvat');
+DB::table('dailypurchasesreports')
+                   ->where('datedone', $dateordered)
+               ->update(array(
+                       'orderedamount' => $totalinvoiceamount,
+                      'orderedvatamount' =>  $orderedvatamount,
+                      'ordercostwithoutvat'=>$orderedvatamountwithoutvat,
+                      'totalinvoicewithvat'=>$invtotalwithvat,
+                    
+                    
+                    
+                   ));
+                   ///////////////////////////////////////////////////////////////////////////
      /// updating the 
-     DB::table('purchasessummaries')->where('supplierinvoiceno', $supplierinvoiceno)->update(array('expectedvat' => $newexpectedvat,'tendercost' => $newtendercost));
-        $user = Purchase::findOrFail($id);
-        $user->delete();
+       
+        DB::table('purchasessummaries')->where('supplierinvoiceno', $supplierinvoiceno)
+        ->update(array('expectedvat' => $newexpectedvat,'tendercost' => $newtendercost));
+  
        // return['message' => 'user deleted'];
 
     }

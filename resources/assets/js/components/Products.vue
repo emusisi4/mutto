@@ -1,11 +1,5 @@
 <style scoped>
-.tableFixHead          { overflow: auto; height: 100px; }
-.tableFixHead thead th { position: sticky; top: 0; z-index: 1; }
 
-/* Just common table stuff. Really. */
-table  { border-collapse: collapse; width: 100%; }
-th, td { padding: 8px 16px; }
-th     { background:#eee; }
 .invoice {
     background: #fff;
     padding: 20px;
@@ -2350,14 +2344,7 @@ pre {
                                    <li><strong>Supplier Name:</strong> {{getthinvoicesuppliername}}</li>
                                  
                                  
-                                     <li v-if="gettheinvoicedeliverystatus == '0'"><strong>Delivery : </strong> <span class="label label-danger">Pending</span></li>
-                                     <li v-if="gettheinvoicedeliverystatus == '1'"><strong>Delivery : </strong> <span class="label label-info">Partial</span></li>
-                                     <li v-if="gettheinvoicedeliverystatus == '2'"><strong>Delivery : </strong> <span class="label label-success">DONE</span></li>
-                                     
-                                   <li v-if="getinvoicepaymentstatus == '0'"><strong>Payment : </strong> <span class="label label-warning">Not Paid</span></li>
-                                     <li v-if="getinvoicepaymentstatus == '1'"><strong>Payment : </strong> <span class="label label-info">Partial</span></li>
-                                     <li v-if="getinvoicepaymentstatus == '2'"><strong>Payment : </strong> <span class="label label-success">Paid</span></li>
-                                     
+                                 
                                 </ul>
                             </div>
                         </div>
@@ -3022,14 +3009,7 @@ pre {
                                    <li><strong>Supplier Name:</strong> {{getthinvoicesuppliername}}</li>
                                  
                                  
-                                     <li v-if="gettheinvoicedeliverystatus == '0'"><strong>Delivery : </strong> <span class="label label-danger">Pending</span></li>
-                                     <li v-if="gettheinvoicedeliverystatus == '1'"><strong>Delivery : </strong> <span class="label label-info">Partial</span></li>
-                                     <li v-if="gettheinvoicedeliverystatus == '2'"><strong>Delivery : </strong> <span class="label label-success">DONE</span></li>
-                                     
-                                   <li v-if="getinvoicepaymentstatus == '0'"><strong>Payment : </strong> <span class="label label-warning">Not Paid</span></li>
-                                     <li v-if="getinvoicepaymentstatus == '1'"><strong>Payment : </strong> <span class="label label-info">Partial</span></li>
-                                     <li v-if="getinvoicepaymentstatus == '2'"><strong>Payment : </strong> <span class="label label-success">Paid</span></li>
-                                     
+                                   
                                 </ul>
                             </div>
                         </div>
@@ -4750,9 +4730,8 @@ $('#addnewproductbrandsModal').modal('show');
         //
         axios.get("api/invoicepurchaseddetailsrecords").then(({ data }) => (this.invoicepurchaseddetailsrecords = data));
 axios.get("api/purcaseorderconfirmation").then(({ data }) => (this.purcaseorderconfirmation = data));
-    axios.get("api/invoicepurchaseddetailsrecords").then(({ data }) => (this.invoicepurchaseddetailsrecords = data));
-
-       // $('#updateinvoiceproductsModal').modal('hide');
+   
+   // $('#updateinvoiceproductsModal').modal('hide');
 $('#confirmitemonpurchase').modal('show');
             },
 
@@ -5092,7 +5071,10 @@ this.form.put('api/purcaseorderconfirmation/'+this.form.id)
       )
       this.$Progress.finish();
     // Fire.$emit('AfterAction');
+    
+    axios.get("api/purchaseincoicesummaryrecords").then(({ data }) => (this.purchaseincoicesummaryrecords = data));
     axios.get("api/productpurchasesdetailrecords").then(({ data }) => (this.productpurchasesdetailrecords = data));
+     axios.get("api/invoicepurchaseddetailsrecords").then(({ data }) => (this.invoicepurchaseddetailsrecords = data));
  axios.get("api/purcaseorderconfirmation").then(({ data }) => (this.purcaseorderconfirmation = data));
 
 
@@ -5291,8 +5273,8 @@ if (result.isConfirmed) {
                           'Record Deleted.',
                           'success'
                         )
-                   
- axios.get("api/activeinvoicetoupdaterecords").then(({ data }) => (this.activeinvoicetoupdaterecords = data));
+ axios.get("api/activeinvoicetoupdaterecords").then(({ data }) => (this.activeinvoicetoupdaterecords = data));        
+ axios.get("api/purchaseincoicesummaryrecords").then(({ data }) => (this.purchaseincoicesummaryrecords = data));
 
   }).catch(()=>{
      Swal.fire({  

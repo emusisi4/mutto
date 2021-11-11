@@ -153,7 +153,7 @@ $newinvoicetotalvat = $currentinvoivetax+$vatamount;
  'unitvat' => $unitvat,
  'lineproductcost' => $lineproductcost,
  'ordercostwithoutvat' => $exactunitcost,
- 
+ 'lcostwithoutvat' => $exactunitcost*$request['quantity'],
  'ucret' => $userid,
 
 

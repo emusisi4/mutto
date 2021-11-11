@@ -262,7 +262,7 @@ public function getthinvoicesuppliername()
       $userrole =  auth('api')->user()->type;
       $invoiceno =    \DB::table('invoicetoviews')->where('ucret', '=', $userid)->value('invoiceno');
       $supplierid =    \DB::table('purchasessummaries')->where('supplierinvoiceno', '=', $invoiceno)->value('suppliername');
-      $suppliername =    \DB::table('suppliers')->where('id', '=', $supplierid)->value('suppname');
+      $suppliername =    \DB::table('customers')->where('id', '=', $supplierid)->value('customername');
      
              return response()->json($suppliername);
 }
