@@ -856,7 +856,7 @@ List of Ledger Accounts
                             <div  class="musisialignright">
       <button type="button"   class="btn btn-success btn-xs waves-effect"  @click="recievecustomerpayment(prodcates)">Recieve Payment</button>
       
-      <button type="button"   class="btn bg-primary btn-xs waves-effect"  @click="viewcustomerstatement(prodcates)">View Statement</button>  
+      <button type="button"   class="btn bg-primary btn-xs waves-effect"  @click="viewcustomerstatement(prodcates.id)">View Statement</button>  
       <button type="button"    class="btn bg-brown btn-xs waves-effect"  @click="makepaymentpayment(prodcates)">Make Payment</button>
       
               <!-- <button type="button"    class="btn  bg-gradient-danger btn-xs fas fa-trash-alt" @click="deleteexpensecategory(prodcates.id)"> DEl </button> -->
@@ -4306,12 +4306,14 @@ savecustomerstatementFilter(){
 
 
 
-  viewcustomerstatement(customerdetailsrecords){
+  viewcustomerstatement(id){
                 this.editmode = true;
                  this.form.clear();
-        this.form.reset();
-        this.form.fill(customerdetailsrecords);
-
+        // this.form.reset();
+        // this.form.fill(customerdetailsrecords);
+          this.form.put('api/statementrecordtoviewtwo/'+id);
+axios.get("api/customerstatementrecords").then(({ data }) => (this.customerstatementrecords = data));
+ 
 $('#customerstatementModal').modal('show');
             },   
 

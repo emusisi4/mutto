@@ -229,6 +229,8 @@ Route::apiResources(['productbrandsrecords' => 'API\ProductbrandsController']);
 Route::apiResources(['activeinvoicetoupdaterecords' => 'API\InvoicenumberinactionController']);
 Route::apiResources(['invoicenumbertocheck' => 'API\InvoicenumberinactionController']);
 Route::apiResources(['statementrecordtoview' => 'API\StatementrecordtoviewController']);
+
+Route::apiResources(['statementrecordtoviewtwo' => 'API\MystatementtoviewController']);
 Route::get('transtoviewtype', 'API\StatementrecordtoviewController@transtoviewtype');
 
 Route::apiResources(['closeofftheinvoiceinaction' => 'API\InvoicenumberinactionController']);
