@@ -3549,7 +3549,7 @@ Ledger Statement Report  : From  {{salesreportsatartingdate}} to {{salesreporten
 
 </div> -->
      
-<div v-if="transtoviewtype == '1'">
+<div v-if="transtoviewtype == 1">
  <div class="ticket" id="print">
         <div class="ticketcompanyname"  > Ssennah Hardware </div>
           <div class="ticketlocation"  > Misindye Jjogo </div>
@@ -3571,7 +3571,7 @@ Ledger Statement Report  : From  {{salesreportsatartingdate}} to {{salesreporten
  
 </div>
 
-<div v-if="transtoviewtype == '2' ">
+<div v-if="transtoviewtype == 2 ">
   <table  class="musisireporttable" width="100%" border="1">
 
        <tr>

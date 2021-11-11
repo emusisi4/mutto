@@ -77,7 +77,8 @@ class StatementrecordtoviewController extends Controller
     //   return   Purchase::with(['branchnameDailycodes', 'machinenameDailycodes'])->orderby('datedone', 'Asc')
        
      //   return   Product::with(['brandName','productCategory','productSupplier','unitMeasure'])->orderBy('id', 'Asc')
-     return   Purchase::with(['productName','supplierName'])->orderBy('id', 'Desc')  
+   //  return   Purchase::with(['productName','supplierName'])->orderBy('id', 'Desc')  
+   return   Purchase::with(['productName'])->orderBy('id', 'Desc') 
         ->where('supplierinvoiceno', $invoicetoview)
       
         ->paginate(35);
