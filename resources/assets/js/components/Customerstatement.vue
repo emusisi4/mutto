@@ -4308,13 +4308,14 @@ savecustomerstatementFilter(){
 
   viewcustomerstatement(id){
                 this.editmode = true;
-                 this.form.clear();
+               //  this.form.clear();
         // this.form.reset();
         // this.form.fill(customerdetailsrecords);
           this.form.put('api/statementrecordtoviewtwo/'+id);
-axios.get("api/customerstatementrecords").then(({ data }) => (this.customerstatementrecords = data));
- 
+
+
 $('#customerstatementModal').modal('show');
+axios.get("api/customerstatementrecords").then(({ data }) => (this.customerstatementrecords = data));
             },   
 
 
