@@ -6068,6 +6068,11 @@ if (result.isConfirmed) {
               axios.get("api/getGrantcomponentaccess").then(({ data }) => (this.allowedtogivecomponentaccess = data));
            },
 
+loadvatvaluesstatements(){
+axios.get("api/customerstatementrecords").then(({ data }) => (this.customerstatementrecords = data));
+
+},
+
 loadvatvalues(){
 //   axios.get('/api/shopcashbalance').then(function (response) { this.shopcashbalance = response.data;}.bind(this));
 
@@ -6159,7 +6164,7 @@ axios.get('/api/customerslist').then(function (response) { this.customerslist = 
             Fire.$on('AfterAction', () =>{
 this.loadDailysalesreportdetails();
       });
-  // setInterval(() =>this.loadvatvalues(),3000);
+  setInterval(() =>this.loadvatvaluesstatements(),3000);
         }
     }
 </script>
