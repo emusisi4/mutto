@@ -802,7 +802,7 @@ text-align: center;
                           <td><div class="musisialignright"> {{formatPrice(prodcates.linetotal)}} </div></td>
                               
                       <td><div class="musisialignright"> 
-                           <button  type="button" class="btn bg-deep-orange btn-xs waves-effect" @click="deletesalemade(prodcates.id)">Delete Sale</button>
+                           <button v-if="loggedinuserrole == '900' || loggedinuserrole == '100'" type="button" class="btn bg-deep-orange btn-xs waves-effect" @click="deletesalemade(prodcates.id)">Delete Sale</button>
                                 </div></td>           
                               
                               
@@ -1507,6 +1507,21 @@ netvatvatcomponentcomponentaccess:'',
                 outputvatamount:{},
                 administratoraccountbalance:{},
                 shopcashbalance:{},
+
+
+
+
+
+
+loggedinuserid:{},
+loggedinuserrole:{},
+loggedinuserbranch:{},
+momowallet:{},
+
+
+
+
+
     getreceiptdate:{},
     getreceiptno:{},
           carttotal:{},
@@ -2636,6 +2651,39 @@ if (result.isConfirmed) {
 
 ///////////////////////////////////////////////////
         created() {
+
+
+
+
+
+    axios.get("api/loggedinuserid").then(({ data }) => (this.loggedinuserid = data));
+              axios.get("api/loggedinuserrole").then(({ data }) => (this.loggedinuserrole = data));
+                   axios.get("api/loggedinuserbranch").then(({ data }) => (this.loggedinuserbranch = data));
+                 axios.get("api/momowallet").then(({ data }) => (this.momowallet = data));
+            axios.get("api/shopopenningpalance").then(({ data }) => (this.shopopenningpalance = data));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
           Fire.$on('searching', ()=>{
             // let query = this.$parent.search;
