@@ -769,7 +769,11 @@ text-align: center;
                         
                         </div>
                         <div class="body">
-                       
+  <div class="mysalessect">
+             
+  <input type="text" placeholder="Receipt Numnber " v-model="searchreceipt" v-on:keyup="searchforreceiptno" @keydown="searchforreceiptno" @keypress="searchforreceiptno" class="formcont2">
+
+  </div>                      
                 <table  class="table" width="100%" border="1">
               
 <tr>
@@ -1450,6 +1454,7 @@ import _ from "lodash";
            
         return {
            search: '',
+           searchreceipt:'',
           results: [],
     
           
@@ -1708,6 +1713,14 @@ WinPrint.print();
 WinPrint.close();
     },
   
+
+searchforreceiptno: _.debounce(() => {
+        Fire.$emit('searchingforreceipt');
+      },1000),
+
+
+
+
    searchit: _.debounce(() => {
         Fire.$emit('searching');
       },1000),
@@ -2678,7 +2691,18 @@ if (result.isConfirmed) {
 
 
 
+  Fire.$on('searchingforreceipt', ()=>{
+            // let query = this.$parent.search;
+           let query = this.searchreceipt
+          //   axios.get("api/productpriceslist").then(({ data }) => (this.productpriceslist = data));
+ axios.get('api/findReceipt?q='+ query)
+ .then((data)=> {
+this.todayssalesdetailttyu = data.data;
+ })
+ .catch(()=>{
 
+ })
+          })
 
 
 

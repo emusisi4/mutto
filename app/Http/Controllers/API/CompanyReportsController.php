@@ -640,12 +640,43 @@ if($supplier == '900')
 
 
 
+    public function findReceipt(){
+      if($search = \Request::get('q')){
+        $users = Productsale::where(function($query) use ($search){
+          $query->where('invoiceno', 'LIKE', "%$search%");
+        })
+          -> paginate(300);
+         return $users;
+      }else{
+        $userid =  auth('api')->user()->id;
+        $userbranch =  auth('api')->user()->branch;
+        $userrole =  auth('api')->user()->mmaderole;
+        $currentdate = date('Y-m-d');
+        $productcategory = \DB::table('productdetailsfilters')->where('ucret', $userid )->value('productcategory');
+        $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+        $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+     if($userrole == '101')
+        {
+          
+          return   Productsale::with(['branchName','productSaleuser','productName'])->orderBy('datesold', 'Desc')
+        //return   Salessummary::orderBy('invoicedate', 'Desc')
+        ->where('datesold', $currentdate)
+        
+        ->where('branch', $userbranch)
+   //   ->where('del', 0)
+          ->paginate(90);
+        }
+        if($userrole != '101')
+        {
+          
+          return   Productsale::with(['branchName','productSaleuser','productName'])->orderBy('datesold', 'Desc')
+          ->where('datesold', $currentdate)
+          ->paginate(90);
+        }
+      }
+      
+    }
 
-
-
-
-
-    
 
     public function todayssalesdetailttyu()
     {

@@ -243,6 +243,8 @@ Route::apiResources(['productpriceslist' => 'API\ProductpricesController']);
 Route::get('getstatementtransactions', 'API\StatementrecordtoviewController@getstatementtransactions');
 
 Route::get('findUser', 'API\CompanyproductsController@search');
+
+Route::get('findReceipt', 'API\CompanyReportsController@findReceipt');
 Route::get('findtheProdctinlist', 'API\CompanyproductsController@searchproductinproductlist');
 Route::get('findcustomerlegeraccount', 'API\CustomersController@findcustomerlegeraccount');
 Route::get('returnreceiptdetails', 'API\ReturnsalesitemsController@returnreceiptdetails');
