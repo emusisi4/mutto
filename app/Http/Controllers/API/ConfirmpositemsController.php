@@ -287,7 +287,7 @@ $dto88 = date('Y-m-d');
   ///  
   $ddddtt = $user->datesold;
   $ubranch = $user->branch;
-
+/// gggg
   
   $totalnetunitsalewithoutvat = \DB::table('salessummaries')->where('invoicedate', '=', $ddddtt)->where('branch', '=', $ubranch)->sum('netunitsalewithoutvat');  
   $totalnetsalewithoutvat = \DB::table('salessummaries')->where('invoicedate', '=', $ddddtt)->where('branch', '=', $ubranch)->sum('netsalewithoutvat');  
