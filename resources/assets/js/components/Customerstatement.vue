@@ -610,53 +610,65 @@ text-align: center;
 
 
 
-            <div class="row clearfix">
-<!-- <div  class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+         <div class="row clearfix">
+  <div v-if="branchwalletcomponentaccess > 0 " class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box bg-indigo">
                         <div class="icon">
                             <i class="material-icons"></i>
                         </div>
                         <div class="content">
-                            <div class="text"><b>GROSS SALES  </b></div>
-                            <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20">
-                              <b>{{currencydetails}}  {{formatPrice(salesdetailsgrossprofittotalrange)}}</b></div>
+                            <div class="text"><b>JOGO SHOP BALANCE </b></div>
+                            <div class="number count-to">
+                              <b>{{currencydetails}}  {{formatPrice(shopcashbalance)}}</b></div>
                         </div>
                     </div>
-                </div> -->
-             
- <!-- <div  class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                </div>
+ <div v-if="administratorcomponentaccess > 0 " class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box bg-indigo">
                         <div class="icon">
                             <i class="material-icons"></i>
                         </div>
                         <div class="content">
-                            <div class="text"><b>TAX COLLECTED (VAT INPUT)  </b></div>
+                            <div class="text"><b>ADMINISTRATOR ACCOUNT  </b></div>
                             <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20">
-                              <b>{{currencydetails}}  {{formatPrice(dailyvatcollectedforselection)}}</b></div>
+                              <b>{{currencydetails}}  {{formatPrice(administratoraccountbalance)}}</b></div>
                         </div>
                     </div>
-                </div> -->
+                </div>
 
-               <!-- <div  class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div v-if="bankwalletcomponentaccess > 0 " class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box bg-indigo">
                         <div class="icon">
                             <i class="material-icons"></i>
                         </div>
                         <div class="content">
-                            <div class="text"><b>NET SALES (AFTER VAT)  </b></div>
+                            <div class="text"><b>BANK ACCOUNT  </b></div>
                             <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20">
-                              <b>{{currencydetails}}  {{formatPrice(dailytotalsalesforselection - dailyvatcollectedforselection)}}</b></div>
+                              <b>{{currencydetails}}  {{formatPrice(bankaccountbalance)}}</b></div>
+                        </div>
+                       
+                    </div>
+                </div>
+               
+<!-- <div v-if="inputvatcomponentaccess > 0 "  class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-indigo">
+                        <div class="icon">
+                            <i class="material-icons"></i>
+                        </div>
+                        <div class="content">
+                            <div class="text"><b>INPUT VAT</b></div>
+                            <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20">
+                              <b>{{currencydetails}}  {{formatPrice(inputvatamount) }}</b></div>
                         </div>
                     </div>
                 </div> -->
-
        <!-- <div v-if="outputcomponentaccess > 0 " class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box bg-indigo">
                         <div class="icon">
                             <i class="material-icons"></i>
                         </div>
                         <div class="content">
-                            <div class="text"><b>OUTPUT VAT (On Sales) </b></div>
+                            <div class="text"><b>OUTPUT VAT </b></div>
                             <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20"
                             >   <b>{{currencydetails}}  {{formatPrice(outputvatamount) }}</b></div>
                         </div>
@@ -672,6 +684,44 @@ text-align: center;
                             <div class="text"><b>NET VAT </b></div>
                             <div class="number count-to" data-from="0" data-to="257" data-speed="1000"
                              data-fresh-interval="20"><b>{{currencydetails}}</b></div>
+                        </div>
+                    </div>
+                </div> -->
+<!-- v-if="netvatvatcomponentcomponentaccess > 0" -->
+                   <!-- <div  class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-indigo">
+                        <div class="icon">
+                            <i class="material-icons"></i>
+                        </div>
+                        <div class="content">
+                            <div class="text"><b>Today's total Sales </b></div>
+                            <div class="number count-to" data-from="0" data-to="257" data-speed="1000"
+                             data-fresh-interval="20"><b>{{currencydetails}} {{formatPrice(todaystotalsales) }}</b></div>
+                        </div>
+                    </div>
+                </div> -->
+                        <!-- <div  class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-indigo">
+                        <div class="icon">
+                            <i class="material-icons"></i>
+                        </div>
+                        <div class="content">
+                            <div class="text"><b>Today's Credit Sales </b></div>
+                            <div class="number count-to" data-from="0" data-to="257" data-speed="1000"
+                             data-fresh-interval="20"><b>{{currencydetails}} {{formatPrice(todaystotalcreditsales) }}</b></div>
+                        </div>
+                    </div>
+                </div> -->
+                
+                        <!-- <div  class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box bg-indigo">
+                        <div class="icon">
+                            <i class="material-icons"></i>
+                        </div>
+                        <div class="content">
+                            <div class="text"><b>Today's Cash </b></div>
+                            <div class="number count-to" data-from="0" data-to="257" data-speed="1000"
+                             data-fresh-interval="20"><b>{{currencydetails}} {{formatPrice(todaystotalcashsales) }}</b></div>
                         </div>
                     </div>
                 </div> -->
@@ -4061,6 +4111,17 @@ productsandpriceslist:[],
           productbrandslist:[],
         unitmeasurelist:[],
          ///// Access authorities
+
+  branchwalletcomponentaccess:'',
+         administratorcomponentaccess:'',
+         bankwalletcomponentaccess:'',
+inputvatcomponentaccess:'',
+outputcomponentaccess:'',
+netvatvatcomponentcomponentaccess:'',
+
+
+
+
          generalProductscomponentAccess:'',
          categoriesComponentaccess:'',
 brandsComponentaccess:'',
@@ -6074,19 +6135,27 @@ axios.get("api/customerstatementrecords").then(({ data }) => (this.customerstate
 },
 
 loadvatvalues(){
-//   axios.get('/api/shopcashbalance').then(function (response) { this.shopcashbalance = response.data;}.bind(this));
-
-//    axios.get('/api/inputvatamount').then(function (response) { this.inputvatamount = response.data;}.bind(this));
-
-//  axios.get('/api/outputvatamount').then(function (response) { this.outputvatamount = response.data;}.bind(this));
+axios.get('/api/bankaccountbalance').then(function (response) { this.bankaccountbalance = response.data;}.bind(this));
+  axios.get('/api/administratoraccountbalance').then(function (response) { this.administratoraccountbalance = response.data;}.bind(this));
 
 
-axios.get('/api/dailyvatcollectedforselection').then(function (response) { this.dailyvatcollectedforselection = response.data;}.bind(this));
+  axios.get('/api/shopcashbalance').then(function (response) { this.shopcashbalance = response.data;}.bind(this));
+  axios.get('/api/inputvatamount').then(function (response) { this.inputvatamount = response.data;}.bind(this));
 
- axios.get('/api/dailytotalsalesforselection').then(function (response) { this.dailytotalsalesforselection = response.data;}.bind(this));
+ axios.get('/api/outputvatamount').then(function (response) { this.outputvatamount = response.data;}.bind(this));
+ axios.get('/api/todaystotalsales').then(function (response) { this.todaystotalsales = response.data;}.bind(this));
+  
+   axios.get('/api/todaystotalcreditsales').then(function (response) { this.todaystotalcreditsales = response.data;}.bind(this));
+axios.get('/api/inputvatcomponentaccess').then(function (response) { this.inputvatcomponentaccess = response.data;}.bind(this));
+axios.get('/api/outputcomponentaccess').then(function (response) { this.outputcomponentaccess = response.data;}.bind(this));
+
+axios.get('/api/netvatvatcomponentcomponentaccess').then(function (response) { this.netvatvatcomponentcomponentaccess = response.data;}.bind(this));
+axios.get('/api/administratorcomponentaccess').then(function (response) { this.administratorcomponentaccess = response.data;}.bind(this));
+axios.get('/api/branchwalletcomponentaccess').then(function (response) { this.branchwalletcomponentaccess = response.data;}.bind(this));
+ axios.get('/api/bankwalletcomponentaccess').then(function (response) { this.bankwalletcomponentaccess = response.data;}.bind(this));
+axios.get('/api/todaystotalcashsales').then(function (response) { this.todaystotalcashsales = response.data;}.bind(this));
 
 },
-
     customerlistsearch: _.debounce(() => {
         Fire.$emit('searchforcustomerlist');
       },1000),          
@@ -6165,6 +6234,7 @@ axios.get('/api/customerslist').then(function (response) { this.customerslist = 
 this.loadDailysalesreportdetails();
       });
   setInterval(() =>this.loadvatvaluesstatements(),3000);
+  setInterval(() =>this.loadvatvalues(),3000);
         }
     }
 </script>

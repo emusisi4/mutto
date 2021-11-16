@@ -86,6 +86,7 @@ Customerpayment::Create([
       'datepaid' => $request['dop'],
       'description' => $request['narration'],
       'reccievedby' => $userid,
+      'accountcredited' => $walletrecieving,
       'mop' => $request['mop'],
       'receiptno'=> $receiptno,
       'ucret' => $userid, 
@@ -153,7 +154,7 @@ Customerstatement::Create([
     'debitamount'=> $request['amountpaid'],
   'transactionmode'=> 1,
     'resultatantbalance' => $resultantbalance,
-   
+    'invoiceinaction'=> $receiptno,
               'ucret' => $userid,
             
           ]);

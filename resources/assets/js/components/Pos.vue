@@ -1782,11 +1782,11 @@ axios.get('/api/bankaccountbalance').then(function (response) { this.bankaccount
    axios.get('/api/todaystotalcreditsales').then(function (response) { this.todaystotalcreditsales = response.data;}.bind(this));
 axios.get('/api/inputvatcomponentaccess').then(function (response) { this.inputvatcomponentaccess = response.data;}.bind(this));
 axios.get('/api/outputcomponentaccess').then(function (response) { this.outputcomponentaccess = response.data;}.bind(this));
-axios.get('/api/bankwalletcomponentaccess').then(function (response) { this.bankwalletcomponentaccess = response.data;}.bind(this));
+
 axios.get('/api/netvatvatcomponentcomponentaccess').then(function (response) { this.netvatvatcomponentcomponentaccess = response.data;}.bind(this));
 axios.get('/api/administratorcomponentaccess').then(function (response) { this.administratorcomponentaccess = response.data;}.bind(this));
 axios.get('/api/branchwalletcomponentaccess').then(function (response) { this.branchwalletcomponentaccess = response.data;}.bind(this));
- 
+ axios.get('/api/bankwalletcomponentaccess').then(function (response) { this.bankwalletcomponentaccess = response.data;}.bind(this));
 axios.get('/api/todaystotalcashsales').then(function (response) { this.todaystotalcashsales = response.data;}.bind(this));
 
 },
