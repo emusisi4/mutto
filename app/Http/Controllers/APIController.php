@@ -1232,12 +1232,21 @@ public function walletstorecievemoney()
 {
     $userid =  auth('api')->user()->id;
     $userbranch =  auth('api')->user()->branch;
-    $userrole =  auth('api')->user()->type;
+    $userrole =  auth('api')->user()->mmaderole;
+    $userwallet =  auth('api')->user()->mywallet;
   
-  
+  if($userrole == '101')
+ {  
    $data = Expensewalet::latest('id')
-   ->where('recievableincome', '=', 1)
+   ->where('id', '=', $userwallet)
    ->get();
+  }
+  if($userrole != '101')
+  {  
+    $data = Expensewalet::latest('id')
+    ->where('recievableincome', '=', 1)
+    ->get();
+   }
            return response()->json($data);
 }
 public function walletsofeapenselist()
