@@ -781,7 +781,7 @@ text-align: center;
 <th>Receipt</th>
 <th> Date</th>
 
-<th>Branch</th>
+<!-- <th>Branch</th> -->
 <th>Cashier</th>
 <th>Product</th>
 <th>Unit Cost </th>
@@ -797,7 +797,7 @@ text-align: center;
                                  <td>{{prodcates.datesold}}</td>
  
                              
-                          <td> <template v-if="prodcates.branch_name">	{{prodcates.branch_name.branchname}}</template></td>  
+                          <!-- <td> <template v-if="prodcates.branch_name">	{{prodcates.branch_name.branchname}}</template></td>   -->
                           <td> <template v-if="prodcates.product_saleuser">	{{prodcates.product_saleuser.name}}</template></td>  
                           <td> <template v-if="prodcates.product_name">	{{prodcates.product_name.productname}}</template></td>  
 
