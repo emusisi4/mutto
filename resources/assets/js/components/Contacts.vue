@@ -317,7 +317,7 @@ pre {
 
                                <td>
                             <div  class="musisialignright">
-       <button v-if="prodcates.customertype == '1'" type="button"   class="btn btn-success btn-xs waves-effect"  @click="recievecustomerpayment(prodcates)">Recieve Payment</button>
+       <button type="button"   class="btn btn-success btn-xs waves-effect"  @click="recievecustomerpayment(prodcates)">Recieve Payment</button>
        
        
        <button type="button"   class="btn bg-black btn-xs waves-effect"  @click="editProductdetails(prodcates)">Print Latest Receipt</button>       <!-- <button type="button"    class="btn  bg-gradient-danger btn-xs fas fa-trash-alt" @click="deleteexpensecategory(prodcates.id)"> DEl </button> -->
