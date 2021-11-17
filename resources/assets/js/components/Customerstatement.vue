@@ -1961,7 +1961,7 @@ Ledger Statement Report  : From  {{salesreportsatartingdate}} to {{salesreporten
                           </td> -->
 
                              <td><div> {{(prodcates.created_at)}} </div></td>
-                          <td><div class="musisialignright"> {{formatPrice(prodcates.amountpaid)}} </div></td>
+                          <td><div class="musisialignright"> <b>{{formatPrice(prodcates.amountpaid)}} </b> </div></td>
                                     
                                  <td>{{prodcates.description }}</td>
                              
