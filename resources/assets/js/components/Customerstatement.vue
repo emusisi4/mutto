@@ -1896,7 +1896,7 @@ Ledger Statement Report  : From  {{salesreportsatartingdate}} to {{salesreporten
                   background-color: rgb(29 31 34 / 37%); color: #131378;"> TRANSACTION</th> -->
         
               <th colspan="1"  style="font-size: 18px; text-align:left;    
-               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> AMOUNT </th>
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> TRANSACTION AMOUNT</th>
 
                  <th colspan="1"  style="font-size: 18px; text-align:left;    
                border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> NARRATION </th>
@@ -1961,7 +1961,7 @@ Ledger Statement Report  : From  {{salesreportsatartingdate}} to {{salesreporten
                           </td> -->
 
                              <td><div> {{(prodcates.created_at)}} </div></td>
-                          <td><div class="musisialignright"> <b>{{formatPrice(prodcates.amountpaid)}} </b> </div></td>
+                          <td><div class="musisialignright">{{formatPrice(prodcates.amountpaid)}} </div></td>
                                     
                                  <td>{{prodcates.description }}</td>
                              
