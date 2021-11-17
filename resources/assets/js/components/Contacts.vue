@@ -318,8 +318,10 @@ pre {
                                <td>
                             <div  class="musisialignright">
        <button v-if="prodcates.customertype == '1'" type="button"   class="btn btn-success btn-xs waves-effect"  @click="recievecustomerpayment(prodcates)">Recieve Payment</button>
-       <button type="button"   class="btn bg-brown btn-xs waves-effect"  @click="editProductdetails(prodcates)">Edit Record</button>
+       
+       
        <button type="button"   class="btn bg-black btn-xs waves-effect"  @click="editProductdetails(prodcates)">Print Latest Receipt</button>       <!-- <button type="button"    class="btn  bg-gradient-danger btn-xs fas fa-trash-alt" @click="deleteexpensecategory(prodcates.id)"> DEl </button> -->
+  <button type="button"    class="btn bg-brown btn-xs waves-effect"  @click="makepaymentpayment(prodcates)">Make Payment</button>
  </div>
 </td>
   
@@ -604,6 +606,164 @@ pre {
 
 
 
+
+<div class="modal fade" id="companymakepaymentModal">
+   
+         <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">New Product Registration</h3> 
+                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" 
+                style="height: 80px; width: 80px;"> Make Payment to Ledger Account </h4> 
+                        </div>
+                  <form class="form-horizontal" @submit.prevent="editmode ? makepaymentPaymenttocustomer():makepaymentPaymenttocustomer()"> 
+
+ 
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Customer Name :</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                  <input v-model="form.customername" type="text" name="customername" readonly
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('customername') }">
+
+
+                      
+                    <has-error :form="form" field="customername"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                    <input v-model="form.id" style="display:none" type="text" name="id" readonly>
+
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Current Balance : </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                 <input v-model="form.bal" readonly type="text" name="bal"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('bal') }">
+                    <has-error :form="form" field="bal"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+
+
+  <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Date of Payment :</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                         <has-error :form="form" field="dop"></has-error>
+                                                  <input v-model="form.dop" type="date" name="dop"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('dop') }">
+                   
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+ <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Amount Paid : </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                     <has-error :form="form" field="amountpaid"></has-error>
+                                                  <input v-model="form.amountpaid" type="number" name="amountpaid"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('amountpaid') }">
+                   
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+ <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2"><b>Debit Account: </b> </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                              <has-error :form="form" field="recievingwallet"></has-error>
+                                                <select name ="recievingwallet" v-model="form.recievingwallet" id ="recievingwallet" v-on:click="loadDatarecords()" class="form-control" :class="{'is-invalid': form.errors.has('expensecategory')}">
+<option value="">  </option>
+<option v-for='data in walletstorecievemoney' v-bind:value='data.id'>{{ data.walletname }}</option>
+
+</select>
+                    
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                 <div v-show="editmode" class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Mode of Payment : </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                               <has-error :form="form" field="mop"></has-error>
+              <select name ="mop" v-model="form.mop" id ="mop" class="form-control"  :class="{'is-invalid': form.errors.has('mop')}">
+                    
+                    <option></option>
+                      <option value="1"> Cash</option>
+                        <option value="2"> Mobile Money</option>
+                         <option value="3"> Bank</option>
+
+
+                    </select>
+                   
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                 <div v-show="editmode" class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Narration :</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+             <textarea v-model="form.narration" type="text" name="narration"
+                      class="form-control no-resize" :class="{ 'is-invalid': form.errors.has('narration') }"></textarea>
+                    <has-error :form="form" field="narration"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+
+                             
+   
+                              
+<br>
+
+                  <div  class="modal-footer">
+                    <button  v-show="!editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
+                      <button v-show="editmode" type="submit" class="btn btn-success btn-sm" >Update</button>
+                        <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Close</button >
+                        </div>
+                 </form>
+                       </div>
+                          </div>
+                </div>
 
 
 <div class="modal fade" id="customerpaymentModal">
@@ -2435,11 +2595,42 @@ makethetransfer(){
 
 
 
+makepaymentPaymenttocustomer(){
+      this.$Progress.start();
+        this.form.post('api/makethecustomerPayment')
+        .then(()=>{
+
+         
+    $('#companymakepaymentModal').modal('hide');
+    this.form.reset();
+       axios.get("api/customerdetailsrecords").then(({ data }) => (this.customerdetailsrecords = data));
+   
+
+  Toast.fire({
+  icon: 'success',
+  title: 'Customer Payment Recieved'
+});
+        this.$Progress.finish();
+//axios.get("api/authorisedcomponents").then(({ data }) => (this.allowedrolecomponentsObject = data));
+        })
+        .catch(()=>{
+          
+        })
+         
+    },
 
 
 
 
 
+  makepaymentpayment(customerdetailsrecords){
+                this.editmode = true;
+                 this.form.clear();
+        this.form.reset();
+        this.form.fill(customerdetailsrecords);
+
+$('#companymakepaymentModal').modal('show');
+            },   
 
 
 
