@@ -62,6 +62,11 @@ class User extends Authenticatable
         // creating a relationship between the students model 
         return $this->hasMany(Salesreturn::class, 'cashiername', 'id'); 
     }
+    public function transUser(){
+        // creating a relationship between the students model 
+        return $this->hasMany(Customerpayment::class, 'ucret', 'id'); 
+    }
+    
     public function usernameBalance(){
         // creating a relationship between the students model 
         return $this->hasMany(Userbalance::class, 'username', 'id'); 

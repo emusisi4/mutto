@@ -21,6 +21,10 @@ class Customer extends Authenticatable
       // creating a relationship between the students model 
       return $this->hasMany(Branchanduser::class, 'customername', 'id'); 
   }
+  public function cusName(){
+    // creating a relationship between the students model 
+    return $this->hasMany(Customerpayment::class, 'customername', 'id'); 
+}
   public function suppName(){
     // creating a relationship between the students model 
     return $this->hasMany(Purchase::class, 'suppliername', 'id'); 

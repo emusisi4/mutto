@@ -44,6 +44,31 @@ class CustomerpaymentsController extends Controller
       
     }
 
+    
+    public function customerpaymentsrecords()
+    {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+      $productcategory = \DB::table('productdetailsfilters')->where('ucret', $userid )->value('productcategory');
+      $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+      $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+    
+     return   Customerpayment::with(['cusName', 'branfName','transUser','debitAccoubt','creditAccoubt'])->orderBy('id', 'Desc')
+    //  return   Customerpayment::orderBy('id', 'Desc')
+    //  ->whereBetween('datesold', [$startdate, $enddate])
+      
+    //  ->where('brand', $productbrand)
+    //   ->where('del', 0)
+        ->paginate(90);
+    
+    
+    
+    
+    
+      
+    }
+    
  
     public function store(Request $request)
     {
@@ -69,6 +94,8 @@ $walletrecieving =  $request['recievingwallet'];
 
 
      $userid =  auth('api')->user()->id;
+     $userbranch =  auth('api')->user()->branch;
+   
 $currentcustomerbalance = $request['bal'];
   $datepaid = date('Y-m-d');
   $receiptno = Str::random(6);
@@ -89,6 +116,7 @@ Customerpayment::Create([
       'accountcredited' => $walletrecieving,
       'mop' => $request['mop'],
       'receiptno'=> $receiptno,
+      'branchname' => $userbranch,
       'ucret' => $userid, 
   ]);
   $cust = $request['id'];

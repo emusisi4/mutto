@@ -69,6 +69,7 @@ $walletrecieving =  $request['recievingwallet'];
 
 
      $userid =  auth('api')->user()->id;
+     $userbranch =  auth('api')->user()->branch;
 $currentcustomerbalance = $request['bal'];
   $datepaid = date('Y-m-d');
   $receiptno = Str::random(6);
@@ -87,7 +88,9 @@ Customerpayment::Create([
       'description' => $request['narration'],
       'reccievedby' => $userid,
       'paymentside' => 2,
+      'branchname' => $userbranch,
       'mop' => $request['mop'],
+      'accountdebited' => $walletrecieving,
       'receiptno'=> $receiptno,
       'ucret' => $userid, 
   ]);
@@ -151,6 +154,7 @@ Customerstatement::Create([
     'transactiondate' =>$request['dop'],  
     'description'=> 'Paid Supplier',
     'amount'=> $request['amountpaid'],
+    'invoiceinaction'=> $receiptno,
   'transactionmode'=> 1,
     'resultatantbalance' => $resultantbalance,
    

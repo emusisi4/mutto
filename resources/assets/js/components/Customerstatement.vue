@@ -758,11 +758,11 @@ text-align: center;
                                     </a>
                                 </li>
                                 <!-- v-if="unitsofmeasureComponentaccess > 0" -->
-                                <!-- <li role="presentation">
+                                <li role="presentation">
                                     <a href="#messages_with_icon_title"  @click="loadSalesdetailsreportdetailed()" data-toggle="tab">
-                                        <i class="material-icons"></i> Sales Report Details
+                                        <i class="material-icons"></i> Payment Receipts
                                     </a>
-                                </li> -->
+                                </li>
                                 <!-- <li role="presentation">
                                     <a href="#settings_with_icon_title" v-if="companyproductsComponentaccess > 0" @click="laodProductdetails()" data-toggle="tab">
                                         <i class="material-icons"></i> ITEMS / PRODUCTS
@@ -1069,7 +1069,7 @@ List of Ledger Accounts
 
  <div class="row clearfix">
                                     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                        <label for="email_address_2">Recieving Account: </label>
+                                        <label for="email_address_2"><b>Debit Account: </b> </label>
                                     </div>
                                     <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                         <div class="form-group">
@@ -1826,7 +1826,7 @@ Ledger Statement Report  : From  {{salesreportsatartingdate}} to {{salesreporten
 
 
   <div class="bethapa-reports-header">
-            Product Sales details  : Rangingin from  {{salesreportsatartingdate}} to {{salesreportendingdate}}
+            LEDGERS PAYMENT TRANSACTION  : Rangingin from  {{salesreportsatartingdate}} to {{salesreportendingdate}}
                    
                      </div>
      <div class="mysalessect2"> 
@@ -1864,29 +1864,50 @@ Ledger Statement Report  : From  {{salesreportsatartingdate}} to {{salesreporten
 
                        <table  class="table" width="100%" border="1">
                    <tr>
-             <th colspan="1"  style="font-size: 18px;     border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> RECEIPT NUMBER</th>
-             <th colspan="1"  style="font-size: 18px;     border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> DATE</th>
+                       <th colspan="1"  style="font-size: 18px;     
+             border-bottom: 4px solid rgb(124 102 102);     
+             background-color: rgb(29 31 34 / 37%); color: #131378;"> #</th>
+                          <th colspan="1"  style="font-size: 18px;     
+             border-bottom: 4px solid rgb(124 102 102);     
+             background-color: rgb(29 31 34 / 37%); color: #131378;"> PAYMENT DATE</th>
            
-          
+             <th colspan="1"  style="font-size: 18px;    
+              border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> 
+              RECEIPT NUMBER</th>
+        
+          <th colspan="1"  style="font-size: 18px; text-align:left;    
+               border-bottom: 4px solid rgb(124 102 102);    
+                background-color: rgb(29 31 34 / 37%); color: #131378;"> LEDGER NAME  </th>
+
               <th colspan="1"  style="font-size: 18px; text-align:center;   
                 border-bottom: 4px solid rgb(124 102 102); 
-                  background-color: rgb(29 31 34 / 37%); color: #131378;"> BRANCH</th>
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> TRANSACTING BRANCH</th>
 
 
-<th colspan="1"  style="font-size: 18px; text-align:center;   
+<th colspan="1"  style="font-size: 18px; text-align:left;   
                 border-bottom: 4px solid rgb(124 102 102); 
-                  background-color: rgb(29 31 34 / 37%); color: #131378;"> CASHIER</th>
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> TRANSACTING CASHIER</th>
 
-
-                     <th colspan="1"  style="font-size: 18px; text-align:center;   
+<th colspan="1"  style="font-size: 18px; text-align:left;   
                 border-bottom: 4px solid rgb(124 102 102); 
-                  background-color: rgb(29 31 34 / 37%); color: #131378;"> ITEM</th>
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> TRANSACTION RECORD DATE</th>
+                     <!-- <th colspan="1"  style="font-size: 18px; text-align:center;   
+                border-bottom: 4px solid rgb(124 102 102); 
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> TRANSACTION</th> -->
         
-              <th colspan="3"  style="font-size: 18px; text-align:center;    
-               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> COST SETTINGS </th>
+              <th colspan="1"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> AMOUNT </th>
+
+                 <th colspan="1"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> NARRATION </th>
               
-  <th colspan="6"  style="font-size: 18px; text-align:center;    
-               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> SALES DETAILS  </th>
+     <th colspan="1"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> ACCOUNT DEBITED </th>
+              
+     <th colspan="1"  style="font-size: 18px; text-align:center;    
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> ACCOUNT CREDITED </th>
+              
+  
               
           
               
@@ -1895,7 +1916,7 @@ Ledger Statement Report  : From  {{salesreportsatartingdate}} to {{salesreporten
               
              
               
-        </tr>
+        <!-- </tr>
 <tr>
 <th></th>
 <th></th>
@@ -1913,50 +1934,43 @@ Ledger Statement Report  : From  {{salesreportsatartingdate}} to {{salesreporten
 <th>Unit VAT ( {{currencydetails}} ) </th>
 <th>Total VAT  ( {{currencydetails}} )</th>
 <th>Gross Profit ( {{currencydetails}} )</th>
-<!-- <th>Line Profit ( {{currencydetails}} ) </th> -->
+ <th>Line Profit ( {{currencydetails}} ) </th> -->
 
 
-
-</tr>
+<!-- 
+</tr> -->
 
 <tr>
-          <tr v-for="prodcates in salesdetailsreportdetailedrecords.data" :key="prodcates.id">
-               <td>{{prodcates.invoiceno}}</td>
-                                 <td>{{prodcates.datesold | myDate2 }}</td>
- 
+          <tr v-for="prodcates in customerpaymentsrecords.data" :key="prodcates.id">
+               <td>{{prodcates.id}}</td>
+                                <td>{{prodcates.datepaid }}</td>
+                                <td>{{prodcates.receiptno }}</td>
+                             <!-- customername -->
+
+                          
+                          <td> <template v-if="prodcates.cus_name">	{{prodcates.cus_name.customername}}</template></td>  
+
+                          <td> <template v-if="prodcates.branf_name">	{{prodcates.branf_name.branchname}}</template></td> 
+
+                          <td> <template v-if="prodcates.trans_user">	{{prodcates.trans_user.name}}</template></td>  
+
+                          <!-- <td>
+                            <div v-if="prodcates.accountdebited == 0  && prodcates.accountcredited > 0"> Supplier recieved payment from the Company</div>
+                              <div v-if="prodcates.accountcredited > 0  && prodcates.accountdebited == 0"> Customer paid the company</div>
+                          
+                          </td> -->
+
+                             <td><div> {{(prodcates.created_at)}} </div></td>
+                          <td><div class="musisialignright"> {{formatPrice(prodcates.amountpaid)}} </div></td>
+                                    
+                                 <td>{{prodcates.description }}</td>
                              
-                          <td> <template v-if="prodcates.branch_name">	{{prodcates.branch_name.branchname}}</template></td>  
-                          <td> <template v-if="prodcates.product_saleuser">	{{prodcates.product_saleuser.name}}</template></td>  
-                          <td> <template v-if="prodcates.product_name">	{{prodcates.product_name.productname}}</template></td>  
+                               <td> <template v-if="prodcates.debit_accoubt">	{{prodcates.debit_accoubt.walletname}}</template></td> 
 
-                          <td><div class="musisialignright"> {{formatPrice(prodcates.unitcost)}} </div></td>
-                          <td><div class="musisialign"> {{formatPrice(prodcates.quantity)}} </div></td>
-                          <td><div class="musisialignright"> {{formatPrice(prodcates.totalcost)}} </div></td>
-                              
-                              
-                              
-                              
-                              
-                              
-                              
-                               <td><div class="musisialignright"> {{formatPrice(prodcates.unitprice)}} </div></td>
-                               <!-- style="background-color:#eeeeee " -->
-                                 <td >
-                                   <div class="musisialignright"> {{formatPrice(prodcates.quantity)}} </div></td>
-                                 <td >
-                                   <div class="musisialignright"> {{formatPrice(prodcates.linetotal)}} </div></td>
-
-                                   <td >
-                                   <div class="musisialignright"> {{formatPrice(prodcates.linevat)}} </div></td>
-
-                                      <td >
-                                   <div class="musisialignright"> {{formatPrice(prodcates.vatamount)}} </div></td>
-                                      <td >
-                                   <div class="musisialignright"> {{formatPrice(prodcates.lineprofit)}} </div></td>
-                                    <!-- <td >
-                                   
-                                   <div class="musisialignright"> {{formatPrice(prodcates.netsalewithoutvat)}} </div></td>
-                                    -->
+                           <td> <template v-if="prodcates.credit_accoubt">	{{prodcates.credit_accoubt.walletname}}</template></td> 
+                            
+                       
+                              <!-- style="background-color:#eeeeee " -->
                                 
                                 
                                   
@@ -1964,7 +1978,11 @@ Ledger Statement Report  : From  {{salesreportsatartingdate}} to {{salesreporten
 
  <tr>
 
-
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
@@ -2012,11 +2030,6 @@ Ledger Statement Report  : From  {{salesreportsatartingdate}} to {{salesreporten
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesdetailscostofthesalesmadetotalrange)}} </div>
-</th>
-<th style="font-size: 18px; text-align:center;    
-               border-top: 4px solid rgb(124 102 102);    
-                background-color: rgb(211 211 211); color: #131378;" >
 <div class="musisialignright">  </div>
 </th>
 
@@ -2025,29 +2038,15 @@ Ledger Statement Report  : From  {{salesreportsatartingdate}} to {{salesreporten
                 background-color: rgb(211 211 211); color: #131378;" >
 <div class="musisialignright">  </div>
 </th>
-
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesdetailsalesmadetotalrange)}} </div>
-</th>
-    
-<th style="font-size: 18px; text-align:center;    
-               border-top: 4px solid rgb(124 102 102);    
-                background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"></div>
+<div class="musisialignright">  </div>
 </th>
 
-<th style="font-size: 18px; text-align:center;    
-               border-top: 4px solid rgb(124 102 102);    
-                background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesdetailvatcollectedtotalrange)}} </div>
-</th>
-    <th style="font-size: 18px; text-align:center;    
-               border-top: 4px solid rgb(124 102 102);    
-                background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesdetailsgrossprofittotalrange)}} </div>
-</th>
+
+
+
   
     
 </tr>
@@ -4149,7 +4148,7 @@ salessummaryComponentaccess:'',
             customerdetailsrecords : {},
           salesreportsummaryrecords : {},
           getstatementtransactions:{},
-          salesdetailsreportdetailedrecords:{},
+          customerpaymentsrecords:{},
           customerstatementrecords:{},
           totalsalesdailysalesreports:{},
 
@@ -4622,7 +4621,7 @@ axios.get("api/salesreportsatartingdate").then(({ data }) => (this.salesreportsa
         axios.get("api/salesreportdetailslineprofit").then(({ data }) => (this.salesreportdetailslineprofit = data));
        axios.get("api/productbrandsrecords").then(({ data }) => (this.productbrandsrecords = data));
     /////
-// axios.get("api/salesdetailsreportdetailedrecords").then(({ data }) => (this.salesdetailsreportdetailedrecords = data));
+// axios.get("api/customerpaymentsrecords").then(({ data }) => (this.customerpaymentsrecords = data));
 // axios.get("api/customerstatementrecords").then(({ data }) => (this.customerstatementrecords = data));
 // axios.get('/api/dailyvatcollectedforselection').then(function (response) { this.dailyvatcollectedforselection = response.data;}.bind(this));
 // axios.get('/api/dailytotalsalesforselection').then(function (response) { this.dailytotalsalesforselection = response.data;}.bind(this));
@@ -4868,7 +4867,7 @@ axios.get("api/purchaserecordsComponentaccess").then(({ data }) => (this.purchas
 
 
 
-        axios.get("api/salesdetailsreportdetailedrecords").then(({ data }) => (this.salesdetailsreportdetailedrecords = data));
+        axios.get("api/customerpaymentsrecords").then(({ data }) => (this.customerpaymentsrecords = data));
         axios.get("api/generalProductscomponentAccess").then(({ data }) => (this.generalProductscomponentAccess = data));
         axios.get("api/branchesccessSettings").then(({ data }) => (this.branchesccessSettings = data));
         axios.get("api/rolesaccessSettings").then(({ data }) => (this.rolesaccessSettings = data));
@@ -5004,7 +5003,7 @@ axios.get("api/totalcreditorsbalance").then(({ data }) => (this.totalcreditorsba
        
        axios.get("api/salesreportsummaryrecords").then(({ data }) => (this.salesreportsummaryrecords = data));
         axios.get("api/customerstatementrecords").then(({ data }) => (this.customerstatementrecords = data));
-         axios.get("api/salesdetailsreportdetailedrecords").then(({ data }) => (this.salesdetailsreportdetailedrecords = data));
+         axios.get("api/customerpaymentsrecords").then(({ data }) => (this.customerpaymentsrecords = data));
 
        axios.get('/api/productcategorieslist').then(function (response) { this.productcategorieslist = response.data;}.bind(this));
      //  this.getRoles();

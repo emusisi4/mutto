@@ -82,8 +82,7 @@ Route::get('salesreportsummaryrecords', 'API\CompanyReportsController@dailysales
  Route::get('salesdetailsreportdetailedrecords', 'API\CompanyReportsController@salesdetailsreportdetailedrecords');
  Route::get('todayssalesdetailttyu', 'API\CompanyReportsController@todayssalesdetailttyu');
 
- 
-//Route::apiResources(['salesdetailsreportdetailedrecords' => 'API\CompanyproductsController']);
+ Route::get('customerpaymentsrecords', 'API\CustomerpaymentsController@customerpaymentsrecords');
 Route::get('salesdetailscostofthesalesmadetotalrange', 'API\CompanyReportsController@salesdetailscostofthesalesmadetotalrange');
 Route::get('salesdetailsalesmadetotalrange', 'API\CompanyReportsController@salesdetailsalesmadetotalrange');
 Route::get('salesdetailvatcollectedtotalrange', 'API\CompanyReportsController@salesdetailvatcollectedtotalrange');

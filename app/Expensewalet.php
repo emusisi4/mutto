@@ -27,7 +27,16 @@ public function accountTransferfrom(){
   return $this->hasMany(Cashtransfer::class, 'accountinact', 'id'); 
 }
 
+public function debitAccoubt(){
+  // creating a relationship between the students model 
+  return $this->hasMany(Customerpayment::class, 'accountdebited', 'id'); 
+}
+
   
+public function creditAccoubt(){
+  // creating a relationship between the students model 
+  return $this->hasMany(Customerpayment::class, 'accountcredited', 'id'); 
+}
 public function accountTransferto(){
   return $this->hasMany(Cashtransfer::class, 'destination', 'id'); 
 }

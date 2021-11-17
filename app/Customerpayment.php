@@ -21,11 +21,33 @@ class Customerpayment extends Authenticatable
       // creating a relationship between the students model 
       return $this->hasMany(Branchanduser::class, 'customername', 'id'); 
   }
-    public function supplierCompany(){
+
+    public function cusName(){
         // creating a relationship between the students model 
-        return $this->belongsTo(Company::class, 'company'); 
+        return $this->belongsTo(Customer::class, 'customername'); 
     }
-    
+    public function branfName(){
+      // creating a relationship between the students model 
+      return $this->belongsTo(Branch::class, 'branchname'); 
+  }
+  public function transUser(){
+    // creating a relationship between the students model 
+    return $this->belongsTo(User::class, 'ucret'); 
+}
+
+public function debitAccoubt(){
+  // creating a relationship between the students model 
+  return $this->belongsTo(Expensewalet::class, 'accountdebited'); 
+}
+public function creditAccoubt(){
+  // creating a relationship between the students model 
+  return $this->belongsTo(Expensewalet::class, 'accountcredited'); 
+}
+  
+    public function supplierCompany(){
+      // creating a relationship between the students model 
+      return $this->belongsTo(Company::class, 'company'); 
+  }
 
 
     /**
