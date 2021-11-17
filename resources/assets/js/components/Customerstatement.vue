@@ -1869,28 +1869,28 @@ Ledger Statement Report  : From  {{salesreportsatartingdate}} to {{salesreporten
              background-color: rgb(29 31 34 / 37%); color: #131378;"> #</th>
                           <th colspan="1"  style="font-size: 18px;     
              border-bottom: 4px solid rgb(124 102 102);     
-             background-color: rgb(29 31 34 / 37%); color: #131378;"> PAYMENT DATE</th>
+             background-color: rgb(29 31 34 / 37%); color: #131378;"> DATE</th>
            
              <th colspan="1"  style="font-size: 18px;    
               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> 
-              RECEIPT NUMBER</th>
+              RECEIPT</th>
         
           <th colspan="1"  style="font-size: 18px; text-align:left;    
                border-bottom: 4px solid rgb(124 102 102);    
                 background-color: rgb(29 31 34 / 37%); color: #131378;"> LEDGER NAME  </th>
 
-              <th colspan="1"  style="font-size: 18px; text-align:center;   
+              <!-- <th colspan="1"  style="font-size: 18px; text-align:center;   
                 border-bottom: 4px solid rgb(124 102 102); 
-                  background-color: rgb(29 31 34 / 37%); color: #131378;"> TRANSACTING BRANCH</th>
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> TRANSACTING BRANCH</th> -->
 
 
 <th colspan="1"  style="font-size: 18px; text-align:left;   
                 border-bottom: 4px solid rgb(124 102 102); 
-                  background-color: rgb(29 31 34 / 37%); color: #131378;"> TRANSACTING CASHIER</th>
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> CASHIER</th>
 
 <th colspan="1"  style="font-size: 18px; text-align:left;   
                 border-bottom: 4px solid rgb(124 102 102); 
-                  background-color: rgb(29 31 34 / 37%); color: #131378;"> TRANSACTION RECORD DATE</th>
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> RECORDED DATE</th>
                      <!-- <th colspan="1"  style="font-size: 18px; text-align:center;   
                 border-bottom: 4px solid rgb(124 102 102); 
                   background-color: rgb(29 31 34 / 37%); color: #131378;"> TRANSACTION</th> -->
@@ -1950,7 +1950,7 @@ Ledger Statement Report  : From  {{salesreportsatartingdate}} to {{salesreporten
                           
                           <td> <template v-if="prodcates.cus_name">	{{prodcates.cus_name.customername}}</template></td>  
 
-                          <td> <template v-if="prodcates.branf_name">	{{prodcates.branf_name.branchname}}</template></td> 
+                          <!-- <td> <template v-if="prodcates.branf_name">	{{prodcates.branf_name.branchname}}</template></td>  -->
 
                           <td> <template v-if="prodcates.trans_user">	{{prodcates.trans_user.name}}</template></td>  
 
@@ -1978,11 +1978,11 @@ Ledger Statement Report  : From  {{salesreportsatartingdate}} to {{salesreporten
 
  <tr>
 
-<th style="font-size: 18px; text-align:center;    
+<!-- <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
 <div class="musisialignright">  </div>
-</th>
+</th> -->
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
