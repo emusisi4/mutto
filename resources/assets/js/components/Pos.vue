@@ -794,7 +794,7 @@ text-align: center;
 <tr>
           <tr v-for="prodcates in todayssalesdetailttyu.data" :key="prodcates.id">
                <td>{{prodcates.invoiceno}}</td>
-                                 <td>{{prodcates.datesold | myDate2 }}</td>
+                                 <td>{{prodcates.datesold }}</td>
  
                              
                           <td> <template v-if="prodcates.branch_name">	{{prodcates.branch_name.branchname}}</template></td>  
