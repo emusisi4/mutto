@@ -343,6 +343,13 @@ DB::table('purchases')->where('id', $id)->update(array('status' => 1,'qtydeliver
      $walletinactionone =\DB::table('expensewalets')->where('branchname', '=', $branchsold)->value('id');
      $walletbalance =\DB::table('expensewalets')->where('id', '=', $walletinactionone)->value('bal');
      $newwalletbalance = $walletbalance-$totalamountsold;
+
+
+
+
+     ///////////////getting the total sale on the invoice
+     $totallllllsaleontheinvoice =\DB::table('salessummaries')->where('invoiceno', '=', $receiptno)->value('invoiceamount');
+     ////////////////////
      if($newwalletbalance >= 0)
      {
          // updating the wallet balance
@@ -525,7 +532,51 @@ Dailysummaryreport::Create([
  //// if credit sale  proceed to customer statement 
  if($typeofsale == '2')   
  {
+/// getting the sales summary on cerdit
+// $credidsaleinvoice = \DB::table('creditsalessummarries')->where('invoiceno', '=', $receiptno)->value('netinvoiceincome');
 
+//// selecting the invoicetotal 
+$totallineforinvoice = \DB::table('productsales')->where('invoiceno', '=', $receiptno)->sum('linetotal');
+
+
+
+DB::table('creditsalessummarries')->where('invoiceno', $receiptno)->update(array('invoiceamount' => $totallineforinvoice));
+
+//// working on cusomer statement
+/// Getting the Customer statement
+$customerinquesnd = \DB::table('creditsalessummarries')->where('invoiceno', '=', $receiptno)->value('customername');
+//getting the customerstatement
+$customerstatementamount = \DB::table('customerstatements')->where('invoiceinaction', '=', $receiptno)->value('amount');
+
+
+//getting the latest running balance
+$latestrunningbalance  = \DB::table('customerstatements')->where('customername', '=', $customerinquesnd)->orderBy('id', 'Desc')->value('resultatantbalance');
+$datenow = date('Y-m-d');
+//// de\\
+if($latestrunningbalance  < 1)
+{
+$resultbalance = $latestrunningbalance+$totalamountsold;
+}
+if($latestrunningbalance  >0)
+{
+$resultbalance = $latestrunningbalance+$totalamountsold;
+}
+Customerstatement::Create([
+   
+  'customername' => $customerinquesnd,
+  'openningbal' => $latestrunningbalance,
+ 'transactiontype' => 2,
+  'transactiondate' =>$datenow,  
+  'description'=> 'Adjusting : Goods sold on '.$datesold.' for a total of '.$totallllllsaleontheinvoice ,
+  'debitamount'=> $totalamountsold,
+ //// 'invoiceinaction' => $receiptno,
+  'resultatantbalance' => $resultbalance,
+ 
+            'ucret' => $userid,
+          
+        ]);
+
+        DB::table('customers')->where('id', $customerinquesnd)->update(['bal' => $resultbalance]);
  } 
      
  
