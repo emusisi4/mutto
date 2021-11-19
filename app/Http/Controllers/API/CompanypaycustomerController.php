@@ -133,7 +133,7 @@ DB::table('expensewalets')->where('id', $walletrecieving)->update(['bal' =>  $ne
 /// getting the brach 
 $bname = \DB::table('expensewalets')->where('id', $walletrecieving )->value('branchname');
 ///
-DB::table('branchcashstandings')->where('id', $bname)->update(['outstanding' =>  $newwalbal]);
+DB::table('branchcashstandings')->where('branch', $bname)->update(['outstanding' =>  $newwalbal]);
 }/// closing if
 
 if($customertyppe == '2')
@@ -181,7 +181,7 @@ $newwalbal = $currentwalletinactionbalance-$bec;
   DB::table('expensewalets')->where('id', $walletrecieving)->update(['bal' =>  $newwalbal]);
   $bname = \DB::table('expensewalets')->where('id', $walletrecieving )->value('branchname');
 ///
-DB::table('branchcashstandings')->where('id', $bname)->update(['outstanding' =>  $newwalbal]);
+DB::table('branchcashstandings')->where('branch', $bname)->update(['outstanding' =>  $newwalbal]);
 }/// closing if
     }
 
