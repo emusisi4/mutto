@@ -763,7 +763,7 @@ text-align: center;
                     <div class="card">
                         <div class="header">
                             <h3>
-                         TODAYS SALES DETILS
+                         TODAYS CASH && CREDIT SALES DETAILS 
   
                             </h3>
                         
@@ -782,6 +782,7 @@ text-align: center;
 <th> Date</th>
 
 <!-- <th>Branch</th> -->
+<th>Sale type</th>
 <th>Cashier</th>
 <th>Product</th>
 <th>Unit Cost </th>
@@ -798,8 +799,12 @@ text-align: center;
  
                              
                           <!-- <td> <template v-if="prodcates.branch_name">	{{prodcates.branch_name.branchname}}</template></td>   -->
+                          <td><div v-if="prodcates.saletype == 1" style="color:green" class="musisialign"> Cash sale </div>
+                          <div v-if="prodcates.saletype == 2" style="color:maroon" class="musisialign"> Credit sale </div>
+                          </td>
+
                           <td> <template v-if="prodcates.product_saleuser">	{{prodcates.product_saleuser.name}}</template></td>  
-                          <td> <template v-if="prodcates.product_name">	{{prodcates.product_name.productname}}</template></td>  
+                          <td>{{prodcates.itemreceiptno}}.<template v-if="prodcates.product_name">	{{prodcates.product_name.productname}}</template></td>  
 
                           <td><div class="musisialignright"> {{formatPrice(prodcates.unitcost)}} </div></td>
                           <td><div class="musisialign"> {{formatPrice(prodcates.quantity)}} </div></td>

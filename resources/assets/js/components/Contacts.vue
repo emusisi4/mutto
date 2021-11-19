@@ -6,6 +6,102 @@
 
 }
 
+.customerpaymentreceipt {
+ width: 985px;
+    height: 410px;
+    padding-left: 40px;
+    padding-right: 40px;
+    /* text-align: center; */
+    padding-top: 2.5cm;
+    padding-bottom: 2.5cm;
+    height: auto;
+    border-left: solid;
+    border-right: solid;
+    border-top: solid;
+    border-bottom: solid;
+    background: #ffff;
+       
+
+}
+.logopositiononreceiopt{
+  padding-left:20px;
+}
+.topheaderrecipt{
+/* width: 910px;; 
+    float: left; 
+    margin-right: 10px;    */
+      display: flex;
+
+
+}
+.cashreceiptword{
+     text-align: center;
+         display: inline-block;
+    max-width: 100%;
+    margin-bottom: 1px;
+    font-weight: bold;
+    padding-left: 3rem;
+    font-size: 45px;
+    font-family: monospace;
+}
+.recievedbyttg{
+     text-align: right;
+         /* display: inline-block; */
+    max-width: 100%;
+    /* margin-bottom: 1px; */
+    /* font-weight: bold; */
+    padding-right: 3rem;
+    font-size: 25px;
+    font-family: monospace;
+}
+.receiptttinvofooter{
+     text-align: center;
+         /* display: inline-block; */
+    max-width: 100%;
+    /* margin-bottom: 1px; */
+    /* font-weight: bold; */
+    padding-right: 3rem;
+    font-size: 25px;
+    font-family: monospace;
+}
+.datesandreceiptno{
+     text-align: left;
+         /* display: inline-block;
+    max-width: 100%;
+    margin-bottom: 1px;
+    font-weight: bold;
+    padding-left: 3rem;
+    font-size: 45px; */
+        font-size: 20px;
+   
+    font-family: monospace;
+}
+.recievedfrom{
+     text-align: left;
+       display: inline-block;
+    /*   max-width: 100%;
+    margin-bottom: 1px;
+    font-weight: bold;
+    padding-left: 3rem;
+    font-size: 45px; */
+        font-size: 20px;
+   
+    font-family: monospace;
+}
+.suppdesname{
+     text-align: left;
+         display: inline-block;
+         font-weight: bold;
+         /*
+    max-width: 100%;
+    margin-bottom: 1px;
+    
+    padding-left: 3rem;
+    font-size: 45px; */
+        font-size: 17px;
+   
+    font-family: monospace;
+}
 .musisireporttable-table td, th {
     border: 0.5px solid #c5c5c5;
     padding-left: 18px;
@@ -247,9 +343,59 @@ pre {
                             <h2>
                                LEDGER ACCOUNTS                            
                             </h2>
-                       
+                      
                         </div>
                         <div class="body">
+                       
+<div class="customerpaymentreceipt" id="print">
+   <div class="logopositiononreceiopt"  > 
+   
+   
+  
+
+<div class="topheaderrecipt"
+>
+   <img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;  margin: 6px;">
+ 
+   <div> <b>SSENNA GEN. HARDWARE - JJOGO  </b> </div><br>   <b>SSENNA GEN. HARDWARE - JJOGO  </b> 
+
+</div>
+
+    
+      <div class="datesandreceiptno"  > Ssennah General Hardware </div>
+       <div class="datesandreceiptno"  > Misindye Jjogo </div>
+           <div class="datesandreceiptno"  > Bukeerere Road </div>
+            <div class="datesandreceiptno"  > 0702941704 / 0392941704 </div>
+       <div class="datesandreceiptno"  > Tin Number : 1019044346 </div>
+     <div class="datesandreceiptno"> <b>Receipt No: 1234567890</b></div>
+       <div class="datesandreceiptno"> Date: 2021-03-01</div>
+   </div>
+   <hr>
+ 
+        <div class="recievedfrom"  > Recieved from  </div>
+        <div class="suppdesname"> <u>GEETA CONSTRUCTION AND HARDWARE SUPPLIR</u>	 </div>
+            <div class="recievedfrom"  > an Amount of </div>
+            <div class="suppdesname"> <u>One Million seven Hundred and fifty five thousand four hundred </u> 	 </div>
+
+           <div class="recievedfrom"  > Shillings ({{currencydetails}}) Only.  </div>
+           <p>
+             <div class="recievedfrom"  > Being payment for  </div>
+            <div class="suppdesname"> <u>goods taken on credit </u> 	</div>
+             <div class="recievedfrom"  > paid by   </div> 
+            <div class="suppdesname"> Cash 	</div>
+           
+           
+           <p>
+            <div class="recievedbyttg"  > Recieved by : Emmanuel </div>
+          
+
+
+         
+  
+ <div class="receiptttinvofooter"  > Build the Best with Materials and tools from Us. </div>
+        </div>
+        <br>
+
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs tab-nav-right" role="tablist">
                                 <li role="presentation" class="active"><a href="#home" data-toggle="tab" aria-expanded="false">Ledger Account Details</a></li>

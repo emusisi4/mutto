@@ -164,26 +164,26 @@ $invoiceno = $inv.$dto;
 
 
           
-          foreach ($users as $user) {
+          foreach ($users as $pgfcredit) {
      
             Creditsalesdetail::Create([
-            'productcode' => $user->productcode,
-             'unitprice' => $user->unitprice,
+            'productcode' => $pgfcredit->productcode,
+             'unitprice' => $pgfcredit->unitprice,
              'invoiceno' => $invoiceno,
-             'unitmeasure'  => $user->unitmeasure,
-             'quantity' => $user->quantity,
-             'datesold' => $user->datesold,
-             'vatamount'=> $user->vatamount, 
+             'unitmeasure'  => $pgfcredit->unitmeasure,
+             'quantity' => $pgfcredit->quantity,
+             'datesold' => $pgfcredit->datesold,
+             'vatamount'=> $pgfcredit->vatamount, 
              'itemreceiptno'=> $user->itemreceiptno, 
-             'linevat'=> $user->linevat, 
-             'branch' => $user->branch, 
-             'linetotal' => $user->linetotal,
-             'unitcost' => $user->unitcost,
-            'totalcostprice' => $user->totalcostprice,
-             'lineprofit' => $user->lineprofit,
-             'netsalewithoutvat' => $user->netsalewithoutvat,
-             'netunitsalewithoutvat'=> $user->netunitsalewithoutvat,
-             'customername' => $user->customername,
+             'linevat'=> $pgfcredit->linevat, 
+             'branch' => $pgfcredit->branch, 
+             'linetotal' => $pgfcredit->linetotal,
+             'unitcost' => $pgfcredit->unitcost,
+            'totalcostprice' => $pgfcredit->totalcostprice,
+             'lineprofit' => $pgfcredit->lineprofit,
+             'netsalewithoutvat' => $pgfcredit->netsalewithoutvat,
+             'netunitsalewithoutvat'=> $pgfcredit->netunitsalewithoutvat,
+             'customername' => $pgfcredit->customername,
              'status' => 10,
                       'ucret' => $userid,
                     
@@ -202,8 +202,8 @@ $invoiceno = $inv.$dto;
 
 
 
-$ppcode = $user->productcode;
-$soldqty = $user->quantity;
+$ppcode = $pgfcredit->productcode;
+$soldqty = $pgfcredit->quantity;
 $qtynow   = \DB::table('products')->where('id', $ppcode)->limit(1)->value('qty');
           //// Updatind the quantity
           $upd = $qtynow-$soldqty;
@@ -425,6 +425,7 @@ if($customertype == '1')
     'openningbal' => $customerbalance,
    'transactiontype' => 1,
     'transactiondate' =>$invoicedatetaken,  
+    'invoiceinaction' => $invoiceno,
     'description'=> 'Sale of Goods to customer',
     'amount'=> $totallineforinvoice,
   
@@ -447,7 +448,7 @@ if($customertype == '2')
     'transactiondate' =>$invoicedatetaken,  
     'description'=> 'Sale of Goods to supplier',
     'amount'=> $totallineforinvoice,
-  
+    'invoiceinaction' => $invoiceno,
     'resultatantbalance' => $newcustomerbalance,
    
               'ucret' => $userid,
@@ -494,7 +495,7 @@ DB::table('products')
 DB::table('customerstatements')->where('customername', NULL)->delete();
 DB::table('creditsalessummarries')->where('customername', NULL)->delete();
 DB::table('custinactionsprofs')->where('ucret', $userid)->delete();
- DB::delete('delete from creditsalescarts where ucret = ?',[$userid]);
+DB::delete('delete from creditsalescarts where ucret = ?',[$userid]);
    
    
   

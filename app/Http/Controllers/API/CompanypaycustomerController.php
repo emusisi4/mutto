@@ -128,9 +128,12 @@ Customerstatement::Create([
 $newwalbal = $currentwalletinactionbalance-$bec;
 
 DB::table('customers')->where('id', $request['id'])->update(['bal' =>  $resultantbalance]);
- // DB::table('customers')->where('id', $request['id'])->update(['bal' =>  $currentcustomerbalance - $request['amountpaid']]);
-  /// Updating the collection wallet
-  // DB::table('expensewalets')->where('id', $walletrecieving)->update(['bal' =>  $newwalbal]);
+DB::table('expensewalets')->where('id', $walletrecieving)->update(['bal' =>  $newwalbal]);
+
+/// getting the brach 
+$bname = \DB::table('expensewalets')->where('id', $walletrecieving )->value('branchname');
+///
+DB::table('branchcashstandings')->where('id', $bname)->update(['outstanding' =>  $newwalbal]);
 }/// closing if
 
 if($customertyppe == '2')
@@ -176,6 +179,9 @@ $newwalbal = $currentwalletinactionbalance-$bec;
       //s    DB::table('customers')->where('id', $request['id'])->update(['bal' =>  $currentcustomerbalance + $request['amountpaid']]);
   /// Updating the collection wallet
   DB::table('expensewalets')->where('id', $walletrecieving)->update(['bal' =>  $newwalbal]);
+  $bname = \DB::table('expensewalets')->where('id', $walletrecieving )->value('branchname');
+///
+DB::table('branchcashstandings')->where('id', $bname)->update(['outstanding' =>  $newwalbal]);
 }/// closing if
     }
 

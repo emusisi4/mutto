@@ -338,7 +338,7 @@ DB::table('purchases')->where('id', $id)->update(array('status' => 1,'qtydeliver
      $netsalewithoutvat  =\DB::table('productsales')->where('id', '=', $id)->value('netsalewithoutvat');
      $transuser  =\DB::table('productsales')->where('id', '=', $id)->value('ucret');
      $systemreference =\DB::table('productsales')->where('id', '=', $id)->value('invoiceno');
-    
+     $typeofsale =\DB::table('productsales')->where('id', '=', $id)->value('saletype');
      /// getting the current balance for the wallet
      $walletinactionone =\DB::table('expensewalets')->where('branchname', '=', $branchsold)->value('id');
      $walletbalance =\DB::table('expensewalets')->where('id', '=', $walletinactionone)->value('bal');
@@ -433,7 +433,7 @@ Dailysummaryreport::Create([
   'netunitsalewithoutvat' => $totalnetunitsalewithoutvat,
   'netsalewithoutvat' => $totalnetsalewithoutvat,
 
-  'saletype' => 1,
+  'saletype' => $typeofsale,
   'invoiceamount' => $totalsalesamount,
   'totalcost' => $totalcostoftheday,
   'netinvoiceincome' => $netinvoiceincome,
@@ -522,16 +522,12 @@ Dailysummaryreport::Create([
                'ucret' => $userid,
              
            ]);
+ //// if credit sale  proceed to customer statement 
+ if($typeofsale == '2')   
+ {
+
+ } 
      
-     
-    
-////
-
-
-     /// updating the 
-  //   DB::table('purchasessummaries')->where('supplierinvoiceno', $supplierinvoiceno)->update(array('expectedvat' => $newexpectedvat,'tendercost' => $newtendercost));
-       
-       // return['message' => 'user deleted'];
-
+ 
     }
 }
