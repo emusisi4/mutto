@@ -158,6 +158,10 @@ $newwalbal = $currentwalletinactionbalance+$bec;
   DB::table('customers')->where('id', $request['id'])->update(['bal' =>  $resultantbalance]);
   /// Updating the collection wallet
   DB::table('expensewalets')->where('id', $walletrecieving)->update(['bal' =>  $newwalbal]);
+// getting the branch with wallet
+
+$branchstanding = \DB::table('expensewalets')->where('id', $walletrecieving )->value('branchname');
+  DB::table('branchcashstandings')->where('branch', $branchstanding)->update(['outstanding' =>  $newwalbal]);
 }/// closing if
 
 if($customertyppe == '2')
@@ -193,6 +197,11 @@ $newwalbal = $currentwalletinactionbalance+$bec;
   DB::table('customers')->where('id', $request['id'])->update(['bal' =>  $currentcustomerbalance + $request['amountpaid']]);
   /// Updating the collection wallet
   DB::table('expensewalets')->where('id', $walletrecieving)->update(['bal' =>  $newwalbal]);
+
+// getting the branch with wallet
+
+$branchstanding = \DB::table('expensewalets')->where('id', $walletrecieving )->value('branchname');
+DB::table('branchcashstandings')->where('branch', $branchstanding)->update(['outstanding' =>  $newwalbal]);
 }/// closing if
     }
 

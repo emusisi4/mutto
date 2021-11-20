@@ -131,7 +131,7 @@ let routes = [
  { path: '/exprepssena', component: require('./components/Senaexpensesreport.vue')},
  { path: '/customerstamento', component: require('./components/Customerstatement.vue')},
  { path: '/supstatment', component: require('./components/Supplierstatement.vue')},
- 
+ { path: '/salesdest', component: require('./components/Financesalesdetails.vue')}, 
   ]
   const router = new VueRouter({
     mode: 'history',
