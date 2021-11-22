@@ -493,7 +493,7 @@ Sales Details {{salesreportsatartingdate}} to {{salesreportendingdate}}
 </tr>
 
 <tr>
-          <tr v-for="prodcates in salesdetailsreportdetailedrecords.data" :key="prodcates.id">
+          <tr v-for="prodcates in salesdetailsreportdetailedrecords2.data" :key="prodcates.id">
                <td>{{prodcates.invoiceno}}</td>
                                  <td>{{prodcates.datesold }}</td>
  
@@ -644,7 +644,7 @@ Sales Details {{salesreportsatartingdate}} to {{salesreportendingdate}}
                  
                      <div class="card-footer">
                 <ul class="pagination pagination-sm m-0 float-right">
-                   <pagination :data="salesdetailsreportdetailedrecords" @pagination-change-page="paginationResultsProductsalesdetails"></pagination>
+                   <pagination :data="salesdetailsreportdetailedrecords2" @pagination-change-page="paginationResultsProductsalesdetails"></pagination>
                 </ul>
     </div>
           
@@ -1086,7 +1086,7 @@ Sales Details {{salesreportsatartingdate}} to {{salesreportendingdate}}
 </tr>
 
 <tr>
-          <tr v-for="prodcates in salesdetailsreportdetailedrecords.data" :key="prodcates.id">
+          <tr v-for="prodcates in salesdetailsreportdetailedrecords2.data" :key="prodcates.id">
                <td>{{prodcates.invoiceno}}</td>
                                  <td>{{prodcates.datesold | myDate2 }}</td>
  
@@ -2897,9 +2897,9 @@ Sales Details {{salesreportsatartingdate}} to {{salesreportendingdate}}
 
 
                   <div  class="modal-footer">
-                    <button  v-show="!editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
-                      <button v-show="editmode" type="submit" class="btn btn-success btn-sm" >Update</button>
-                        <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Close</button >
+                    
+                      <button v-show="editmode" type="submit" class="btn btn-danger btn-sm" >Delete</button>
+                        <button  type="button" data-dismiss="modal" class="btn btn-info btn-sm">Close</button >
                         </div>
                  </form>
                        </div>
@@ -3149,7 +3149,7 @@ salessummaryComponentaccess:'',
           editmode: false,
            shopingcartdetails:{},
           salesreportsummaryrecords : {},
-          salesdetailsreportdetailedrecords:{},
+          salesdetailsreportdetailedrecords2:{},
           dailysalessummaryrecords:{},
           totalsalesdailysalesreports:{},
 
@@ -3410,12 +3410,14 @@ axios.get("api/gettheinvoicetotalwithoutvat").then(({ data }) => (this.gettheinv
 
 
 //////////////////
+
  axios.get("api/salesdetailscostofthesalesmadetotalrange").then(({ data }) => (this.salesdetailscostofthesalesmadetotalrange = data));
-  
+ 
                                                               this.loading = false;
 
                                   this.form.clear();
         this.form.reset();
+         $('#deleterecordsaleModal').modal('hide');
                                 })
                                 .catch(()=>{
 
@@ -3452,7 +3454,7 @@ axios.get("api/salesreportsatartingdate").then(({ data }) => (this.salesreportsa
         axios.get("api/salesreportdetailslineprofit").then(({ data }) => (this.salesreportdetailslineprofit = data));
        axios.get("api/productbrandsrecords").then(({ data }) => (this.productbrandsrecords = data));
     /////
-axios.get("api/salesdetailsreportdetailedrecords").then(({ data }) => (this.salesdetailsreportdetailedrecords = data));
+axios.get("api/salesdetailsreportdetailedrecords2").then(({ data }) => (this.salesdetailsreportdetailedrecords2 = data));
 axios.get("api/dailysalessummaryrecords").then(({ data }) => (this.dailysalessummaryrecords = data));
 axios.get('/api/dailyvatcollectedforselection').then(function (response) { this.dailyvatcollectedforselection = response.data;}.bind(this));
 axios.get('/api/dailytotalsalesforselection').then(function (response) { this.dailytotalsalesforselection = response.data;}.bind(this));
@@ -3635,9 +3637,9 @@ paginationResultsProductdetailsrecords(page = 1) {
                       },
 
 paginationResultsProductsalesdetails(page = 1) {
-                        axios.get('api/salesdetailsreportdetailedrecords?page=' + page)
+                        axios.get('api/salesdetailsreportdetailedrecords2?page=' + page)
                           .then(response => {
-                            this.salesdetailsreportdetailedrecords = response.data;
+                            this.salesdetailsreportdetailedrecords2 = response.data;
                           });
                       },
    paginationResultsProductcategories(page = 1) {
@@ -3701,7 +3703,7 @@ axios.get("api/salessummaryComponentaccess").then(({ data }) => (this.salessumma
 
 
 
-        axios.get("api/salesdetailsreportdetailedrecords").then(({ data }) => (this.salesdetailsreportdetailedrecords = data));
+        axios.get("api/salesdetailsreportdetailedrecords2").then(({ data }) => (this.salesdetailsreportdetailedrecords2 = data));
         axios.get("api/generalProductscomponentAccess").then(({ data }) => (this.generalProductscomponentAccess = data));
         axios.get("api/branchesccessSettings").then(({ data }) => (this.branchesccessSettings = data));
         axios.get("api/rolesaccessSettings").then(({ data }) => (this.rolesaccessSettings = data));
@@ -3830,7 +3832,7 @@ axios.get("api/salessummaryComponentaccess").then(({ data }) => (this.salessumma
        
        axios.get("api/salesreportsummaryrecords").then(({ data }) => (this.salesreportsummaryrecords = data));
         axios.get("api/dailysalessummaryrecords").then(({ data }) => (this.dailysalessummaryrecords = data));
-         axios.get("api/salesdetailsreportdetailedrecords").then(({ data }) => (this.salesdetailsreportdetailedrecords = data));
+         axios.get("api/salesdetailsreportdetailedrecords2").then(({ data }) => (this.salesdetailsreportdetailedrecords2 = data));
 
        axios.get('/api/productcategorieslist').then(function (response) { this.productcategorieslist = response.data;}.bind(this));
      //  this.getRoles();
@@ -3992,11 +3994,11 @@ newcomponentfeatureadd(){
 
             
 
-deletemodalforasale(salesdetailsreportdetailedrecords){
+deletemodalforasale(salesdetailsreportdetailedrecords2){
                 this.editmode = true;
                  this.form.clear();
         this.form.reset();
-        this.form.fill(salesdetailsreportdetailedrecords);
+        this.form.fill(salesdetailsreportdetailedrecords2);
 $('#deleterecordsaleModal').modal('show');
             },
 

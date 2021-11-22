@@ -80,6 +80,7 @@ Route::get('gettransferexistanceforuser', 'API\ProducttransferController@gettran
 //Route::apiResources(['productstoaddtoinvoicerecords' => 'API\CompanyproductsController@purchaseproducts']);
 Route::get('salesreportsummaryrecords', 'API\CompanyReportsController@dailysalesreports');
  Route::get('salesdetailsreportdetailedrecords', 'API\CompanyReportsController@salesdetailsreportdetailedrecords');
+ Route::get('salesdetailsreportdetailedrecords2', 'API\CompanyReportsController@salesdetailsreportdetailedrecords2');
  Route::get('todayssalesdetailttyu', 'API\CompanyReportsController@todayssalesdetailttyu');
 
  Route::get('customerpaymentsrecords', 'API\CustomerpaymentsController@customerpaymentsrecords');
