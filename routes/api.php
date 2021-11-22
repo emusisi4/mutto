@@ -23,7 +23,7 @@ Route::apiResources(['newfishcurrentcodes' => 'API\CurrentmacinecodesController'
 // Sena Hardware Start
 Route::apiResources(['customerdetailsrecords' => 'API\CustomersController']);
 Route::apiResources(['recievethecustomerPayment' => 'API\CustomerpaymentsController']);
-
+Route::apiResources(['deletesaleconfirmationrrt' => 'API\NewdeletesaleconfController']);
 Route::apiResources(['makethecustomerPayment' => 'API\CompanypaycustomerController']);
 Route::get('customerstatementrecords', 'API\CustomersController@customerstatementrecords');
 Route::get('supplierstatementrecords', 'API\CustomersController@supplierstatementrecords');

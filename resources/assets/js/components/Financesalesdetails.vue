@@ -433,13 +433,16 @@ Sales Details {{salesreportsatartingdate}} to {{salesreportendingdate}}
 
                        <table  class="table" width="100%" border="1">
                    <tr>
-             <th colspan="1"  style="font-size: 18px;     border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> RECEIPT NUMBER</th>
+             <th colspan="1"  style="font-size: 18px;     border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> RECEIPT ID</th>
              <th colspan="1"  style="font-size: 18px;     border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> DATE</th>
            
           
               <th colspan="1"  style="font-size: 18px; text-align:center;   
                 border-bottom: 4px solid rgb(124 102 102); 
                   background-color: rgb(29 31 34 / 37%); color: #131378;"> BRANCH</th>
+                    <th colspan="1"  style="font-size: 18px; text-align:center;   
+                border-bottom: 4px solid rgb(124 102 102); 
+                  background-color: rgb(29 31 34 / 37%); color: #131378;"> SALE</th>
 
 
 <th colspan="1"  style="font-size: 18px; text-align:center;   
@@ -471,6 +474,7 @@ Sales Details {{salesreportsatartingdate}} to {{salesreportendingdate}}
 <th></th>
 <th></th>
 <th></th>
+<th></th>
 <th>Unit Cost ( {{currencydetails}} )</th>
 <th>Qty</th>
 <th>Total Cost ( {{currencydetails}} )</th>
@@ -495,6 +499,10 @@ Sales Details {{salesreportsatartingdate}} to {{salesreportendingdate}}
  
                              
                           <td> <template v-if="prodcates.branch_name">	{{prodcates.branch_name.branchname}}</template></td>  
+                            <td><div style="color:green" v-if="prodcates.saletype == '1'"> Cash Sale </div>
+                            <div style="color:maroon" v-if="prodcates.saletype == '2'"> Credit Sale </div>
+                            
+                            </td>
                           <td> <template v-if="prodcates.product_saleuser">	{{prodcates.product_saleuser.name}}</template></td>  
                           <td> <template v-if="prodcates.product_name">	{{prodcates.product_name.productname}}</template></td>  
 
@@ -527,6 +535,7 @@ Sales Details {{salesreportsatartingdate}} to {{salesreportendingdate}}
                                    
                                 <div class="musisialignright"> 
                                     <!-- v-if="loggedinuserrole == '900' || loggedinuserrole == '100'" -->
+                                      <button type="button"   class="btn bg-brown btn-xs waves-effect"  @click="deletemodalforasale(prodcates)">Edit</button>
                            <button  type="button" class="btn bg-deep-orange btn-xs waves-effect" @click="deletesalemade(prodcates.id)">Delete Sale</button>
                                 </div>
                                    
@@ -2778,22 +2787,124 @@ Sales Details {{salesreportsatartingdate}} to {{salesreportendingdate}}
 
                                 
                                 </div>
+
+
 <!-- ---------------------------------------------------------------------------------------------------------------- -->
- <div role="tabpanel" class="tab-pane fade" id="three_with_icon_title" v-if="salessummaryComponentaccess > 0"> 
-                                
-                                
+ 
+<div  class="modal fade" id="deleterecordsaleModal">
+         <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div style="background-color:#5d2626" class="modal-header">
+                            <h3  v-show="!editmode"    class="modal-title"><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">ADD NEW RECORD</h3> 
+                <h4  v-show="editmode" class="modal-title" ><img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;">Delete Sale Confirmation</h4> 
+                        </div>
+                  <form class="form-horizontal" @submit.prevent="editmode ? deletetheSale():deletethesale()"> 
 
-   
+                
 
-
-
-
-
-
-
-
-                                
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Receipt Number</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                  <input v-model="form.invoiceno" type="text" readonly name="invoiceno"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('invoiceno') }">
+<!-- 
+                          <input v-model="form.id" type="text" readonly name="id"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('id') }"> -->
+                    <has-error :form="form" field="id"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+
+
+
+   <!-- <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Item</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                  <input v-model="form.prodctname" type="text" readonly name="productname"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('prodctname') }">
+                    <has-error :form="form" field="prodctname"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+   <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Qty Sold</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                  <input v-model="form.qty" type="text" readonly name="qty"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('qty') }">
+                    <has-error :form="form" field="qty"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+ <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="email_address_2">Total Amount</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                  <input v-model="form.linetotal" type="text" readonly name="linetotal"
+                      class="form-control" :class="{ 'is-invalid': form.errors.has('linetotal') }">
+                    <has-error :form="form" field="linetotal"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+
+
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                        <label for="password_2">Reason for Cancelling </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                        <div class="form-group">
+                                            <div class="form-line">
+
+
+
+
+
+
+                                                <textarea v-model="form.description" type="text" name="description"
+                      class="form-control no-resize" :class="{ 'is-invalid': form.errors.has('description') }"></textarea>
+                    <has-error :form="form" field="description"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                              
+                               
+
+                                       
+                                
+
+
+                  <div  class="modal-footer">
+                    <button  v-show="!editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
+                      <button v-show="editmode" type="submit" class="btn btn-success btn-sm" >Update</button>
+                        <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Close</button >
+                        </div>
+                 </form>
+                       </div>
+                          </div>
+                </div>
 <!-- -------------------------------------------------------------------------------------------------- -->
 
                                 <!-- end of products -->
@@ -2947,14 +3058,7 @@ Sales Details {{salesreportsatartingdate}} to {{salesreportendingdate}}
                           </div>
                 </div>
 
-<div id="emm" style="width:70%;">
-    <h1 style="padding-left:80px;">Visual Display</h1>
-    <GChart
-      type="BarChart"
-      :data="chartData"
-     
-    />    
-  </div>
+
 
 
 
@@ -3132,6 +3236,8 @@ netprofit:1,
 unitsellingprice:1,
 
                 id: '',
+                invoiceno:'',
+                productname:'',
                 name:'',
                 email:'',
                 supplierinvoiceno:'',
@@ -3199,6 +3305,7 @@ updateunitsellingprice(event) {
         this.form.unitoutputvat = this.form.unitsellingprice * 0.18
         this.form.netprofit = (this.form.unitsellingprice)- (this.form.unitprice) - (this.form.unitsellingprice * 0.18)
       },
+
 
 
 
@@ -3291,6 +3398,30 @@ axios.get("api/gettheinvoicetotalwithoutvat").then(({ data }) => (this.gettheinv
 
 
 
+
+
+
+
+  deletetheSale(){
+
+                                this.loading = true;
+                                this.form.post('api/deletesaleconfirmationrrt')
+                                .then(()=>{
+
+
+//////////////////
+ axios.get("api/salesdetailscostofthesalesmadetotalrange").then(({ data }) => (this.salesdetailscostofthesalesmadetotalrange = data));
+  
+                                                              this.loading = false;
+
+                                  this.form.clear();
+        this.form.reset();
+                                })
+                                .catch(()=>{
+
+                                })
+
+}, 
 
 
 
@@ -3856,6 +3987,20 @@ newcomponentfeatureadd(){
      $('#addnewcomponentfeature').modal('show');
             },
         
+      
+
+
+            
+
+deletemodalforasale(salesdetailsreportdetailedrecords){
+                this.editmode = true;
+                 this.form.clear();
+        this.form.reset();
+        this.form.fill(salesdetailsreportdetailedrecords);
+$('#deleterecordsaleModal').modal('show');
+            },
+
+
      newproductModal(){
         this.editmode = false;
         this.form.clear();

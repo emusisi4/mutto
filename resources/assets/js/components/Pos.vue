@@ -785,7 +785,7 @@ text-align: center;
 <th>Sale type</th>
 <th>Cashier</th>
 <th>Product</th>
-<th>Unit Cost </th>
+<th>Unit Price </th>
 <th>Qty </th>
 <th>Total </th>
 <th> </th>
@@ -806,12 +806,12 @@ text-align: center;
                           <td> <template v-if="prodcates.product_saleuser">	{{prodcates.product_saleuser.name}}</template></td>  
                           <td>{{prodcates.itemreceiptno}}.<template v-if="prodcates.product_name">	{{prodcates.product_name.productname}}</template></td>  
 
-                          <td><div class="musisialignright"> {{formatPrice(prodcates.unitcost)}} </div></td>
+                          <td><div class="musisialignright"> {{formatPrice(prodcates.unitprice)}} </div></td>
                           <td><div class="musisialign"> {{formatPrice(prodcates.quantity)}} </div></td>
                           <td><div class="musisialignright"> {{formatPrice(prodcates.linetotal)}} </div></td>
                               
                       <td><div class="musisialignright"> 
-                           <button v-if="loggedinuserrole == '900' || loggedinuserrole == '100'" type="button" class="btn bg-deep-orange btn-xs waves-effect" @click="deletesalemade(prodcates.id)">Delete Sale</button>
+                           <!-- <button v-if="loggedinuserrole == '900' || loggedinuserrole == '100'" type="button" class="btn bg-deep-orange btn-xs waves-effect" @click="deletesalemade(prodcates.id)">Delete Sale</button> -->
                                 </div></td>           
                               
                               
