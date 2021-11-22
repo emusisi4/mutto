@@ -475,17 +475,17 @@ Sales Details {{salesreportsatartingdate}} to {{salesreportendingdate}}
 <th></th>
 <th></th>
 <th></th>
-<th>Unit Cost ( {{currencydetails}} )</th>
+<th>Unit Cost </th>
 <th>Qty</th>
-<th>Total Cost ( {{currencydetails}} )</th>
+<th>Total Cost </th>
 
 
-<th>Unit Price ( {{currencydetails}} )</th>
+<th>Unit Price </th>
 <th>Qty</th>
-<th>Total ( {{currencydetails}} ) </th>
-<th>Unit VAT ( {{currencydetails}} ) </th>
-<th>Total VAT  ( {{currencydetails}} )</th>
-<th>Gross Profit ( {{currencydetails}} )</th>
+<th>Total  </th>
+<th>Unit VAT  </th>
+<th>Total VAT  </th>
+<th>Gross Profit </th>
 <th> </th>
 
 
@@ -535,8 +535,8 @@ Sales Details {{salesreportsatartingdate}} to {{salesreportendingdate}}
                                    
                                 <div class="musisialignright"> 
                                     <!-- v-if="loggedinuserrole == '900' || loggedinuserrole == '100'" -->
-                                      <button type="button"   class="btn bg-brown btn-xs waves-effect"  @click="deletemodalforasale(prodcates)">Edit</button>
-                           <button  type="button" class="btn bg-deep-orange btn-xs waves-effect" @click="deletesalemade(prodcates.id)">Delete Sale</button>
+                                      <button type="button"   class="btn bg-brown btn-xs waves-effect"  @click="deletemodalforasale(prodcates)">Delete Sale</button>
+                      
                                 </div>
                                    
                                    </td>
@@ -1068,18 +1068,18 @@ Sales Details {{salesreportsatartingdate}} to {{salesreportendingdate}}
 <th></th>
 <th></th>
 <th></th>
-<th>Unit Cost ( {{currencydetails}} )</th>
+<th>Unit Cost </th>
 <th>Qty</th>
-<th>Total Cost ( {{currencydetails}} )</th>
+<th>Total Cost </th>
 
 
-<th>Unit Price ( {{currencydetails}} )</th>
+<th>Unit Price </th>
 <th>Qty</th>
-<th>Total ( {{currencydetails}} ) </th>
-<th>Unit VAT ( {{currencydetails}} ) </th>
-<th>Total VAT  ( {{currencydetails}} )</th>
-<th>Gross Profit ( {{currencydetails}} )</th>
-<!-- <th>Line Profit ( {{currencydetails}} ) </th> -->
+<th>Total  </th>
+<th>Unit VAT  </th>
+<th>Total VAT  </th>
+<th>Gross Profit </th>
+<!-- <th>Line Profit  </th> -->
 
 
 
