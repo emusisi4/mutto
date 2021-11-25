@@ -561,7 +561,26 @@ if($supplier == '900')
       
     }
     
+    public function salesdetailsgrossprofittotalrange2()
+    {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+    
+      $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+      $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+      $cashier = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('cashiersold');
+    
+      $totalcashin = \DB::table('productsales')
+       
+      ->whereBetween('datesold', [$startdate, $enddate])
+      ->where('ucret', $cashier)
 
+      ->sum('lineprofit');
+        return $totalcashin;
+    
+    
+    }
     public function salesdetailsgrossprofittotalrange()
     {
       $userid =  auth('api')->user()->id;
@@ -579,7 +598,26 @@ if($supplier == '900')
     
     
     }
-
+    public function salesdetailvatcollectedtotalrange2()
+    {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+    
+      $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+      $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+    
+      $cashier = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('cashiersold');
+    
+      $totalcashin = \DB::table('productsales')
+       
+      ->whereBetween('datesold', [$startdate, $enddate])
+      ->where('ucret', $cashier)
+      ->sum('vatamount');
+        return $totalcashin;
+    
+    
+    }
     public function salesdetailvatcollectedtotalrange()
     {
       $userid =  auth('api')->user()->id;
@@ -597,8 +635,26 @@ if($supplier == '900')
     
     
     }
-
-
+    
+    public function salesdetailsalesmadetotalrange2()
+    {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+    
+      $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+      $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+      $cashier = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('cashiersold');
+    
+      $totalcashin = \DB::table('productsales')
+       
+      ->whereBetween('datesold', [$startdate, $enddate])
+      ->where('ucret', $cashier)
+      ->sum('linetotal');
+        return $totalcashin;
+    
+    
+    }
     public function salesdetailsalesmadetotalrange()
     {
       $userid =  auth('api')->user()->id;
@@ -612,6 +668,25 @@ if($supplier == '900')
        
       ->whereBetween('datesold', [$startdate, $enddate])
       ->sum('linetotal');
+        return $totalcashin;
+    
+    
+    }
+    public function salesdetailscostofthesalesmadetotalrange2()
+    {
+      $userid =  auth('api')->user()->id;
+      $userbranch =  auth('api')->user()->branch;
+      $userrole =  auth('api')->user()->type;
+    
+      $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+      $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+      $cashier = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('cashiersold');
+    
+      $totalcashin = \DB::table('productsales')
+       
+      ->whereBetween('datesold', [$startdate, $enddate])
+      ->where('ucret', $cashier)
+      ->sum('totalcost');
         return $totalcashin;
     
     
@@ -724,15 +799,29 @@ if($supplier == '900')
       $productcategory = \DB::table('productdetailsfilters')->where('ucret', $userid )->value('productcategory');
       $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
       $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
-   
-      return   Productsale::with(['branchName','productSaleuser','productName'])->orderBy('datesold', 'Desc')
+      $cashier = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('cashiersold');
+     
+     if($cashier == '900')
+     
+    {  return   Productsale::with(['branchName','productSaleuser','productName'])->orderBy('datesold', 'Desc')
       //return   Salessummary::orderBy('invoicedate', 'Desc')
       ->whereBetween('datesold', [$startdate, $enddate])
       
   //  ->where('brand', $productbrand)
  //   ->where('del', 0)
         ->paginate(90);
- 
+      }
+      if($cashier != '900')
+     
+      {  return   Productsale::with(['branchName','productSaleuser','productName'])->orderBy('datesold', 'Desc')
+        //return   Salessummary::orderBy('invoicedate', 'Desc')
+        ->whereBetween('datesold', [$startdate, $enddate])
+        
+       ->where('ucret', $cashier)
+   //   ->where('del', 0)
+          ->paginate(90);
+        }
+   
  
 
 

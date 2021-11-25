@@ -88,6 +88,39 @@ Route::get('salesdetailscostofthesalesmadetotalrange', 'API\CompanyReportsContro
 Route::get('salesdetailsalesmadetotalrange', 'API\CompanyReportsController@salesdetailsalesmadetotalrange');
 Route::get('salesdetailvatcollectedtotalrange', 'API\CompanyReportsController@salesdetailvatcollectedtotalrange');
 Route::get('salesdetailsgrossprofittotalrange', 'API\CompanyReportsController@salesdetailsgrossprofittotalrange');
+// /////////////////////////////////////////////////////////////
+Route::get('salesdetailscostofthesalesmadetotalrange2', 'API\CompanyReportsController@salesdetailscostofthesalesmadetotalrange2');
+Route::get('salesdetailsalesmadetotalrange2', 'API\CompanyReportsController@salesdetailsalesmadetotalrange2');
+Route::get('salesdetailvatcollectedtotalrange2', 'API\CompanyReportsController@salesdetailvatcollectedtotalrange2');
+Route::get('salesdetailsgrossprofittotalrange2', 'API\CompanyReportsController@salesdetailsgrossprofittotalrange2');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 Route::get('unitfromname', 'API\ProducttransferController@unitfromname');
@@ -420,6 +453,7 @@ Route::get('generalreportselectedenddate', 'APIController@generalreportselectede
 
 
 
+Route::get('cashierslist', 'APIController@cashierslist');
 Route::get('branchDetails', 'APIController@branchDetails');
 Route::get('loggedinuserid', 'APIController@loggedinuserid');
 Route::get('loggedinuserrole', 'APIController@loggedinuserrole');

@@ -1314,6 +1314,18 @@ public function expensecategorieslist()
 }
 
 
+public function cashierslist()
+{
+    $userid =  auth('api')->user()->id;
+    $userbranch =  auth('api')->user()->branch;
+    $userrole =  auth('api')->user()->type;
+   /// $roleto  = Bran::latest('id')->where('ucret', $userid)->orderBy('id', 'Desc')->limit(1)->value('rolename');  
+  
+   $data = User::latest('id')
+   ->where('visibletoall', '=', 0)
+   ->get();
+           return response()->json($data);
+}
      public function branchDetails()
      {
          $userid =  auth('api')->user()->id;

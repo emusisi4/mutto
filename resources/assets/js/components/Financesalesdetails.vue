@@ -414,17 +414,29 @@ Sales Details {{salesreportsatartingdate}} to {{salesreportendingdate}}
 
       <label>End Date</label>
   <input v-model="form.enddate" type="date" name="enddate" id="enddate" v-on:change="tosubmitProductcategoryfilter" > 
+
+     <label>Cashier</label>
+                    <select name ="cashiersold" v-model="form.cashiersold" id ="cashiersold"  v-on:change="tosubmitProductcategoryfilter"  >
+                    <option value="900"> All  </option>
+                    <option v-for='data in cashierslist' v-bind:value='data.id'>{{ data.name }}</option>
+
+                    </select>  
+       
                               
              <button type="submit" style="display:none" id="submit" hidden="hidden" name= "submit" ref="buttontosubmitProductcategoryFilter" class="btn btn-primary btn-sm">Saveit</button>         
 
                                 
-            
-       
+          
                    
           </div>
       
 
                 </form>
+                  <div class="mysalessect"> 
+  <input type="text" placeholder="Search receipt " v-model="customersearch" v-on:keyup="productlistsearch" @keyup="productlistsearch" class="formcont">
+
+  </div>
+
                   </div> 
                
 </div>
@@ -455,7 +467,7 @@ Sales Details {{salesreportsatartingdate}} to {{salesreportendingdate}}
                   background-color: rgb(29 31 34 / 37%); color: #131378;"> ITEM</th>
         
               <th colspan="3"  style="font-size: 18px; text-align:center;    
-               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> COST SETTINGS </th>
+               border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> COSTS </th>
               
   <th colspan="6"  style="font-size: 18px; text-align:center;    
                border-bottom: 4px solid rgb(124 102 102);     background-color: rgb(29 31 34 / 37%); color: #131378;"> SALES DETAILS  </th>
@@ -485,7 +497,7 @@ Sales Details {{salesreportsatartingdate}} to {{salesreportendingdate}}
 <th>Total  </th>
 <th>Unit VAT  </th>
 <th>Total VAT  </th>
-<th>Gross Profit </th>
+<th>Gross Profitn </th>
 <th> </th>
 
 
@@ -596,12 +608,12 @@ Sales Details {{salesreportsatartingdate}} to {{salesreportendingdate}}
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesdetailscostofthesalesmadetotalrange)}} </div>
+<div class="musisialignright">  </div>
 </th>
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright">  </div>
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesdetailscostofthesalesmadetotalrange2)}} </div>
 </th>
 
 <th style="font-size: 18px; text-align:center;    
@@ -613,27 +625,39 @@ Sales Details {{salesreportsatartingdate}} to {{salesreportendingdate}}
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesdetailsalesmadetotalrange)}} </div>
+<div class="musisialignright">  </div>
 </th>
     
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"></div>
+<div class="musisialignright">{{currencydetails}} {{formatPrice(salesdetailsalesmadetotalrange2)}}</div>
 </th>
 
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesdetailvatcollectedtotalrange)}} </div>
+<div class="musisialignright">  </div>
 </th>
     <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesdetailsgrossprofittotalrange)}} </div>
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesdetailvatcollectedtotalrange2)}} </div>
 </th>
   
-    
+ 
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesdetailsgrossprofittotalrange2)}} </div>
+</th>
+
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
 </tr>
 
 
@@ -860,39 +884,39 @@ Sales Details {{salesreportsatartingdate}} to {{salesreportendingdate}}
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesreportdetailstotalsales)}} </div>
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesreportdetailstotalsales2)}} </div>
 </th>
 
 
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesreportdetailstotalcost)}} </div>
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesreportdetailstotalcost2)}} </div>
 </th>
 
 
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesreportdetailstotalprofit)}} </div>
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesreportdetailstotalprofit2)}} </div>
 </th>
 
 
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesreportdetailstotalvat)}} </div>
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesreportdetailstotalvat2)}} </div>
 </th>
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesreportdetailsgrosssales)}} </div>
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesreportdetailsgrosssales2)}} </div>
 </th>
 
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesreportdetailstotalcost)}} </div>
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesreportdetailstotalcost2)}} </div>
 </th>
 
 <th style="font-size: 18px; text-align:center;    
@@ -998,7 +1022,7 @@ Sales Details {{salesreportsatartingdate}} to {{salesreportendingdate}}
      <div class="mysalessect2"> 
  <form @submit.prevent="savedatestoVieedailyreport()">
                  
-                      <div class="form-group">w
+                      <div class="form-group">
 
                                         <label>Start Date</label>
   <input v-model="form.startdate" type="date" name="startdate" id="startdate" v-on:change="tosubmitProductcategoryfilter" >
@@ -1014,7 +1038,6 @@ Sales Details {{salesreportsatartingdate}} to {{salesreportendingdate}}
                    
           </div>
       
-
                 </form>
                   </div> 
 
@@ -1178,7 +1201,7 @@ Sales Details {{salesreportsatartingdate}} to {{salesreportendingdate}}
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesdetailscostofthesalesmadetotalrange)}} </div>
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesdetailscostofthesalesmadetotalrange2)}} </div>
 </th>
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
@@ -1195,7 +1218,7 @@ Sales Details {{salesreportsatartingdate}} to {{salesreportendingdate}}
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesdetailsalesmadetotalrange)}} </div>
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesdetailsalesmadetotalrange2)}} </div>
 </th>
     
 <th style="font-size: 18px; text-align:center;    
@@ -1207,12 +1230,12 @@ Sales Details {{salesreportsatartingdate}} to {{salesreportendingdate}}
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesdetailvatcollectedtotalrange)}} </div>
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesdetailvatcollectedtotalrange2)}} </div>
 </th>
     <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(salesdetailsgrossprofittotalrange)}} </div>
+<div class="musisialignright">  {{formatPrice(salesdetailsgrossprofittotalrange2)}} </div>
 </th>
   
     
@@ -3122,6 +3145,7 @@ walletsofeapenselist:[],
 productsandpriceslist:[],
             ///////////////////////////////////
           brancheslist: [],
+          cashierslist:[],
           productcategorieslist:[],
           productbrandslist:[],
         unitmeasurelist:[],
@@ -3157,7 +3181,17 @@ salessummaryComponentaccess:'',
 salesdetailsalesmadetotalrange:{},
 salesdetailvatcollectedtotalrange:{},
 salesdetailsgrossprofittotalrange:{},
+// //////////////////////////////
+  salesdetailscostofthesalesmadetotalrange2:{},
+salesdetailsalesmadetotalrange2:{},
+salesdetailvatcollectedtotalrange2:{},
+salesdetailsgrossprofittotalrange2:{},
 
+
+
+
+
+// ///////////
 totaldailysalesvatinclusiverangereports:{},
 totaldailytotalcostrangereports:{},
 totaldailygrossprofitrangereports:{},
@@ -3176,7 +3210,16 @@ salesreportdetailstotalvat:{},
 
 salesreportdetailsgrosssales:{},
 salesreportdetailslineprofit:{},
+// //////////////////////////////////////////////////////////
+salesreportdetailstotalsales2:{},
+salesreportdetailstotalcost2:{},
+salesreportdetailstotalprofit2:{},
+salesreportdetailstotalvat2:{},
 
+salesreportdetailsgrosssales2:{},
+salesreportdetailslineprofit2:{},
+
+/////////////////
 
           totalvatdailysalesreports:{},
 totalnetinvoicedailysalesreports:{},
@@ -3439,19 +3482,24 @@ axios.get("api/gettheinvoicetotalwithoutvat").then(({ data }) => (this.gettheinv
 
 
 //////////////////
- axios.get("api/salesdetailscostofthesalesmadetotalrange").then(({ data }) => (this.salesdetailscostofthesalesmadetotalrange = data));
-          axios.get("api/salesdetailsalesmadetotalrange").then(({ data }) => (this.salesdetailsalesmadetotalrange = data));
-           axios.get("api/salesdetailvatcollectedtotalrange").then(({ data }) => (this.salesdetailvatcollectedtotalrange = data));
-            axios.get("api/salesdetailsgrossprofittotalrange").then(({ data }) => (this.salesdetailsgrossprofittotalrange = data));
+ axios.get("api/salesdetailscostofthesalesmadetotalrange2").then(({ data }) => (this.salesdetailscostofthesalesmadetotalrange2 = data));
+          axios.get("api/salesdetailsalesmadetotalrange2").then(({ data }) => (this.salesdetailsalesmadetotalrange2 = data));
+           axios.get("api/salesdetailvatcollectedtotalrange2").then(({ data }) => (this.salesdetailvatcollectedtotalrange2 = data));
+            axios.get("api/salesdetailsgrossprofittotalrange2").then(({ data }) => (this.salesdetailsgrossprofittotalrange2 = data));
 /////
 axios.get("api/salesreportsatartingdate").then(({ data }) => (this.salesreportsatartingdate = data));
         axios.get("api/salesreportendingdate").then(({ data }) => (this.salesreportendingdate = data));
-        axios.get("api/salesreportdetailstotalsales").then(({ data }) => (this.salesreportdetailstotalsales = data));
-          axios.get("api/salesreportdetailstotalcost").then(({ data }) => (this.salesreportdetailstotalcost = data));
-        axios.get("api/salesreportdetailstotalprofit").then(({ data }) => (this.salesreportdetailstotalprofit = data));
-        axios.get("api/salesreportdetailstotalvat").then(({ data }) => (this.salesreportdetailstotalvat = data));
-          axios.get("api/salesreportdetailsgrosssales").then(({ data }) => (this.salesreportdetailsgrosssales = data));
-        axios.get("api/salesreportdetailslineprofit").then(({ data }) => (this.salesreportdetailslineprofit = data));
+        axios.get("api/salesreportdetailstotalsales2").then(({ data }) => (this.salesreportdetailstotalsales2= data));
+          axios.get("api/salesreportdetailstotalcost2").then(({ data }) => (this.salesreportdetailstotalcost2 = data));
+        axios.get("api/salesreportdetailstotalprofit2").then(({ data }) => (this.salesreportdetailstotalprofit2 = data));
+        axios.get("api/salesreportdetailstotalvat2").then(({ data }) => (this.salesreportdetailstotalvat2 = data));
+          axios.get("api/salesreportdetailsgrosssales2").then(({ data }) => (this.salesreportdetailsgrosssales2 = data));
+        axios.get("api/salesreportdetailslineprofit2").then(({ data }) => (this.salesreportdetailslineprofit2 = data));
+
+
+
+
+
        axios.get("api/productbrandsrecords").then(({ data }) => (this.productbrandsrecords = data));
     /////
 axios.get("api/salesdetailsreportdetailedrecords2").then(({ data }) => (this.salesdetailsreportdetailedrecords2 = data));
@@ -3715,10 +3763,10 @@ axios.get("api/salessummaryComponentaccess").then(({ data }) => (this.salessumma
         axios.get('/api/productbrandslist').then(function (response) { this.productbrandslist = response.data;}.bind(this));
         //  axios.get('/api/branchDetails').then(function (response) { this.brancheslist = response.data;}.bind(this));
 
-         axios.get("api/salesdetailscostofthesalesmadetotalrange").then(({ data }) => (this.salesdetailscostofthesalesmadetotalrange = data));
-          axios.get("api/salesdetailsalesmadetotalrange").then(({ data }) => (this.salesdetailsalesmadetotalrange = data));
-           axios.get("api/salesdetailvatcollectedtotalrange").then(({ data }) => (this.salesdetailvatcollectedtotalrange = data));
-            axios.get("api/salesdetailsgrossprofittotalrange").then(({ data }) => (this.salesdetailsgrossprofittotalrange = data));
+ axios.get("api/salesdetailscostofthesalesmadetotalrange2").then(({ data }) => (this.salesdetailscostofthesalesmadetotalrange2 = data));
+          axios.get("api/salesdetailsalesmadetotalrange2").then(({ data }) => (this.salesdetailsalesmadetotalrange2 = data));
+           axios.get("api/salesdetailvatcollectedtotalrange2").then(({ data }) => (this.salesdetailvatcollectedtotalrange2 = data));
+            axios.get("api/salesdetailsgrossprofittotalrange2").then(({ data }) => (this.salesdetailsgrossprofittotalrange2 = data));
 
 
 
@@ -3867,6 +3915,8 @@ axios.get("api/salessummaryComponentaccess").then(({ data }) => (this.salessumma
         axios.get("api/featuresaccessSettings").then(({ data }) => (this.featuresaccessSettings = data));
 
          axios.get('/api/branchDetails').then(function (response) { this.brancheslist = response.data;}.bind(this));
+          axios.get('/api/cashierslist').then(function (response) { this.cashierslist = response.data;}.bind(this));
+         
 
   },
 
@@ -4993,7 +5043,10 @@ axios.get('/api/dailyvatcollectedforselection').then(function (response) { this.
 ///////////////////////////////////////////////////
         created() {
 
-
+ axios.get("api/salesdetailscostofthesalesmadetotalrange2").then(({ data }) => (this.salesdetailscostofthesalesmadetotalrange2 = data));
+          axios.get("api/salesdetailsalesmadetotalrange2").then(({ data }) => (this.salesdetailsalesmadetotalrange2 = data));
+           axios.get("api/salesdetailvatcollectedtotalrange2").then(({ data }) => (this.salesdetailvatcollectedtotalrange2 = data));
+            axios.get("api/salesdetailsgrossprofittotalrange2").then(({ data }) => (this.salesdetailsgrossprofittotalrange2 = data));
 
 
 
