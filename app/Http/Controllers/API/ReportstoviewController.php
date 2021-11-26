@@ -115,6 +115,7 @@ if($existanceinthetable > 0 )
                 'enddate' => $request['enddate'],
                 'supplier' => $request['suppliername'],
                 'cashiersold' => $request['cashiersold'],
+                'saletype' => $request['saletype'],
                 'ucret' => $userid,
               
             ]);
@@ -130,6 +131,19 @@ if($existanceinthetable > 0 )
 
     $cashier = $request['cashiersold'];
     $cashname = strlen($cashier);
+
+    $saletype = $request['saletype'];
+    $stypename = strlen($saletype);
+
+    if($stypename > 0)
+
+    {
+         DB::table('salesreporttoviews')
+ ->where('ucret', $userid)
+ ->update(['saletype' => $request['saletype']
+     
+     ]);
+    }
     if($cashname > 0)
 
     {

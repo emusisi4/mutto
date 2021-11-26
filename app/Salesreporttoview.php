@@ -13,7 +13,7 @@ class Salesreporttoview extends Authenticatable
 //id, startdate, enddate, branch, ucret
    
     protected $fillable = [
-        'branch', 'ucret','startdate','enddate','supplier','cashiersold'
+        'branch', 'ucret','startdate','enddate','supplier','cashiersold','saletype'
     ];
     
 

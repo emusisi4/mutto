@@ -681,7 +681,8 @@ if($supplier == '900')
       $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
       $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
       $cashier = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('cashiersold');
-    
+      $saletype = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('saletype');
+      
       $totalcashin = \DB::table('productsales')
        
       ->whereBetween('datesold', [$startdate, $enddate])
@@ -842,8 +843,39 @@ if($supplier == '900')
       $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
       $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
       $cashier = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('cashiersold');
+      $saletype = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('saletype');
+
+
+
+
+      if($cashier != '900' && $saletype == '900')
      
-     if($cashier == '900')
+      {  return   Productsale::with(['branchName','productSaleuser','productName'])->orderBy('datesold', 'Desc')
+        //return   Salessummary::orderBy('invoicedate', 'Desc')
+        ->whereBetween('datesold', [$startdate, $enddate])
+        ->where('ucret', $cashier)
+    //  ->where('brand', $productbrand)
+   //   ->where('del', 0)
+          ->paginate(90);
+        }
+
+        if($cashier == '900' && $saletype != '900')
+     
+        {  return   Productsale::with(['branchName','productSaleuser','productName'])->orderBy('datesold', 'Desc')
+          //return   Salessummary::orderBy('invoicedate', 'Desc')
+          ->whereBetween('datesold', [$startdate, $enddate])
+        //  ->where('ucret', $cashier)
+          ->where('saletype', $saletype)
+     //   ->where('del', 0)
+            ->paginate(90);
+          }
+
+
+
+
+
+
+     if($cashier == '900' && $saletype == '900')
      
     {  return   Productsale::with(['branchName','productSaleuser','productName'])->orderBy('datesold', 'Desc')
       //return   Salessummary::orderBy('invoicedate', 'Desc')
@@ -853,12 +885,12 @@ if($supplier == '900')
  //   ->where('del', 0)
         ->paginate(90);
       }
-      if($cashier != '900')
+      if($cashier != '900'  && $saletype != '900' )
      
       {  return   Productsale::with(['branchName','productSaleuser','productName'])->orderBy('datesold', 'Desc')
         //return   Salessummary::orderBy('invoicedate', 'Desc')
         ->whereBetween('datesold', [$startdate, $enddate])
-        
+        ->where('saletype', $saletype)
        ->where('ucret', $cashier)
    //   ->where('del', 0)
           ->paginate(90);

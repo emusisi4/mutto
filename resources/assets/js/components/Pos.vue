@@ -807,7 +807,7 @@ text-align: center;
                           <td>{{prodcates.itemreceiptno}}.<template v-if="prodcates.product_name">	{{prodcates.product_name.productname}}</template></td>  
 
                           <td><div class="musisialignright"> {{formatPrice(prodcates.unitprice)}} </div></td>
-                          <td><div class="musisialign"> {{formatPrice(prodcates.quantity)}} </div></td>
+                          <td><div class="musisialign"> {{prodcates.quantity}} </div></td>
                           <td><div class="musisialignright"> {{formatPrice(prodcates.linetotal)}} </div></td>
                               
                       <td><div class="musisialignright"> 

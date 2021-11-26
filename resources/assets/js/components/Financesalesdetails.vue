@@ -415,13 +415,30 @@ Sales Details {{salesreportsatartingdate}} to {{salesreportendingdate}}
       <label>End Date</label>
   <input v-model="form.enddate" type="date" name="enddate" id="enddate" v-on:change="tosubmitProductcategoryfilter" > 
 
-     <label>Cashier</label>
+     <label>Select Cashier to view</label>
                     <select name ="cashiersold" v-model="form.cashiersold" id ="cashiersold"  v-on:change="tosubmitProductcategoryfilter"  >
                     <option value="900"> All  </option>
                     <option v-for='data in cashierslist' v-bind:value='data.id'>{{ data.name }}</option>
 
                     </select>  
        
+
+
+  <label>Type of Sale</label>
+                    <select name ="saletype" v-model="form.saletype" id ="saletype"  v-on:change="tosubmitProductcategoryfilter"  >
+                    <option value="">   </option>
+                    <option value="900"> All  </option>
+                    <option value="1"> Cash Sales  </option>
+                    <option value="2"> Credit Sales  </option>
+                    
+
+                    </select>  
+
+
+
+
+
+
                               
              <button type="submit" style="display:none" id="submit" hidden="hidden" name= "submit" ref="buttontosubmitProductcategoryFilter" class="btn btn-primary btn-sm">Saveit</button>         
 
@@ -516,7 +533,7 @@ Sales Details {{salesreportsatartingdate}} to {{salesreportendingdate}}
                           <td> <template v-if="prodcates.product_name">	{{prodcates.product_name.productname}}</template></td>  
 
                           <td><div class="musisialignright"> {{formatPrice(prodcates.unitcost)}} </div></td>
-                          <td><div class="musisialign"> {{formatPrice(prodcates.quantity)}} </div></td>
+                          <td><div class="musisialign"> {{(prodcates.quantity)}} </div></td>
                           <td><div class="musisialignright"> {{formatPrice(prodcates.totalcost)}} </div></td>
                               
                               
@@ -528,7 +545,7 @@ Sales Details {{salesreportsatartingdate}} to {{salesreportendingdate}}
                                <td><div class="musisialignright"> {{formatPrice(prodcates.unitprice)}} </div></td>
                                <!-- style="background-color:#eeeeee " -->
                                  <td >
-                                   <div class="musisialignright"> {{formatPrice(prodcates.quantity)}} </div></td>
+                                   <div class="musisialignright"> {{(prodcates.quantity)}} </div></td>
                                  <td >
                                    <div class="musisialignright"> {{formatPrice(prodcates.linetotal)}} </div></td>
 
