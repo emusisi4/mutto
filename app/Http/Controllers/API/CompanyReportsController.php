@@ -571,13 +571,70 @@ if($supplier == '900')
       $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
       $cashier = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('cashiersold');
     
+      $saletype = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('saletype');
+
+      if($cashier == '900' && $saletype == '900')
+      {
       $totalcashin = \DB::table('productsales')
        
       ->whereBetween('datesold', [$startdate, $enddate])
-      ->where('ucret', $cashier)
-
-      ->sum('lineprofit');
+     // ->where('ucret', $cashier)
+     ->sum('lineprofit');
         return $totalcashin;
+    }
+
+    if($cashier == '900' && $saletype != '900')
+    {
+    $totalcashin = \DB::table('productsales')
+     
+    ->whereBetween('datesold', [$startdate, $enddate])
+   // ->where('ucret', $cashier)
+   ->where('saletype', $saletype)
+   ->sum('lineprofit');
+      return $totalcashin;
+  }
+  if($cashier != '900' && $saletype == '900')
+  {
+  $totalcashin = \DB::table('productsales')
+   
+  ->whereBetween('datesold', [$startdate, $enddate])
+  ->where('ucret', $cashier)
+ //->where('saletype', $saletype)
+ ->sum('lineprofit');
+    return $totalcashin;
+}
+  if($cashier != '900' && $saletype != '900')
+  {
+  $totalcashin = \DB::table('productsales')
+   
+  ->whereBetween('datesold', [$startdate, $enddate])
+  ->where('ucret', $cashier)
+ ->where('saletype', $saletype)
+ ->sum('lineprofit');
+    return $totalcashin;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ////////////////////////////////////////////////////////////////////////////////////
+   
     
     
     }
@@ -608,13 +665,55 @@ if($supplier == '900')
       $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
     
       $cashier = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('cashiersold');
-    
+      $saletype = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('saletype');
+
+      if($cashier == '900' && $saletype == '900')
+      {
       $totalcashin = \DB::table('productsales')
        
       ->whereBetween('datesold', [$startdate, $enddate])
-      ->where('ucret', $cashier)
-      ->sum('vatamount');
+     // ->where('ucret', $cashier)
+     ->sum('vatamount');
         return $totalcashin;
+    }
+
+    if($cashier == '900' && $saletype != '900')
+    {
+    $totalcashin = \DB::table('productsales')
+     
+    ->whereBetween('datesold', [$startdate, $enddate])
+   // ->where('ucret', $cashier)
+   ->where('saletype', $saletype)
+   ->sum('vatamount');
+      return $totalcashin;
+  }
+  if($cashier != '900' && $saletype == '900')
+  {
+  $totalcashin = \DB::table('productsales')
+   
+  ->whereBetween('datesold', [$startdate, $enddate])
+  ->where('ucret', $cashier)
+ //->where('saletype', $saletype)
+ ->sum('vatamount');
+    return $totalcashin;
+}
+  if($cashier != '900' && $saletype != '900')
+  {
+  $totalcashin = \DB::table('productsales')
+   
+  ->whereBetween('datesold', [$startdate, $enddate])
+  ->where('ucret', $cashier)
+ ->where('saletype', $saletype)
+ ->sum('vatamount');
+    return $totalcashin;
+}
+
+
+
+/////////////
+
+
+  
     
     
     }
@@ -645,13 +744,50 @@ if($supplier == '900')
       $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
       $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
       $cashier = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('cashiersold');
-    
+      $saletype = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('saletype');
+
+      if($cashier == '900' && $saletype == '900')
+      {
       $totalcashin = \DB::table('productsales')
        
       ->whereBetween('datesold', [$startdate, $enddate])
-      ->where('ucret', $cashier)
-      ->sum('linetotal');
+     // ->where('ucret', $cashier)
+     ->sum('linetotal');
         return $totalcashin;
+    }
+
+    if($cashier == '900' && $saletype != '900')
+    {
+    $totalcashin = \DB::table('productsales')
+     
+    ->whereBetween('datesold', [$startdate, $enddate])
+   // ->where('ucret', $cashier)
+   ->where('saletype', $saletype)
+   ->sum('linetotal');
+      return $totalcashin;
+  }
+  if($cashier != '900' && $saletype == '900')
+  {
+  $totalcashin = \DB::table('productsales')
+   
+  ->whereBetween('datesold', [$startdate, $enddate])
+  ->where('ucret', $cashier)
+ //->where('saletype', $saletype)
+ ->sum('linetotal');
+    return $totalcashin;
+}
+  if($cashier != '900' && $saletype != '900')
+  {
+  $totalcashin = \DB::table('productsales')
+   
+  ->whereBetween('datesold', [$startdate, $enddate])
+  ->where('ucret', $cashier)
+ ->where('saletype', $saletype)
+ ->sum('linetotal');
+    return $totalcashin;
+}
+    ///
+    
     
     
     }
@@ -683,13 +819,46 @@ if($supplier == '900')
       $cashier = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('cashiersold');
       $saletype = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('saletype');
       
+      if($cashier == '900' && $saletype == '900')
+      {
       $totalcashin = \DB::table('productsales')
        
       ->whereBetween('datesold', [$startdate, $enddate])
-      ->where('ucret', $cashier)
+     // ->where('ucret', $cashier)
       ->sum('totalcost');
         return $totalcashin;
-    
+    }
+
+    if($cashier == '900' && $saletype != '900')
+    {
+    $totalcashin = \DB::table('productsales')
+     
+    ->whereBetween('datesold', [$startdate, $enddate])
+   // ->where('ucret', $cashier)
+   ->where('saletype', $saletype)
+    ->sum('totalcost');
+      return $totalcashin;
+  }
+  if($cashier != '900' && $saletype == '900')
+  {
+  $totalcashin = \DB::table('productsales')
+   
+  ->whereBetween('datesold', [$startdate, $enddate])
+  ->where('ucret', $cashier)
+ //->where('saletype', $saletype)
+  ->sum('totalcost');
+    return $totalcashin;
+}
+  if($cashier != '900' && $saletype != '900')
+  {
+  $totalcashin = \DB::table('productsales')
+   
+  ->whereBetween('datesold', [$startdate, $enddate])
+  ->where('ucret', $cashier)
+ ->where('saletype', $saletype)
+  ->sum('totalcost');
+    return $totalcashin;
+}
     
     }
     
