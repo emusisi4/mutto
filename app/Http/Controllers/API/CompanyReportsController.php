@@ -712,7 +712,49 @@ if($supplier == '900')
     
 
 
+    public function findReceipt2(){
+      if($search = \Request::get('q')){
+        $users = Productsale::where(function($query) use ($search){
+          $query->where('invoiceno', 'LIKE', "%$search%");
+        })
+          -> paginate(300);
+         return $users;
+      }else{
+        $userid =  auth('api')->user()->id;
+        $userbranch =  auth('api')->user()->branch;
+        $userrole =  auth('api')->user()->mmaderole;
+        $currentdate = date('Y-m-d');
 
+    
+        $productcategory = \DB::table('productdetailsfilters')->where('ucret', $userid )->value('productcategory');
+        $startdate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('startdate');
+        $enddate = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('enddate');
+        $cashier = \DB::table('salesreporttoviews')->where('ucret', $userid )->value('cashiersold');
+       
+        if($cashier != '900')
+        {
+    return   Productsale::with(['branchName','productSaleuser','productName'])->orderBy('datesold', 'Desc')
+        //return   Salessummary::orderBy('invoicedate', 'Desc')
+        ->whereBetween('datesold', [$startdate, $enddate])->orderBy('id', 'Desc')->orderBy('invoiceno')
+        
+        ->where('ucret', $cashier)
+        
+   //   ->where('del', 0)
+          ->paginate(90);
+    }
+    if($cashier == '900')
+    {
+      return   Productsale::with(['branchName','productSaleuser','productName'])->orderBy('datesold', 'Desc')
+      //return   Salessummary::orderBy('invoicedate', 'Desc')
+      ->whereBetween('datesold', [$startdate, $enddate])->orderBy('id', 'Desc')->orderBy('invoiceno')
+      
+     // ->where('ucret', $cashier)
+ //   ->where('del', 0)
+        ->paginate(90);
+    }
+      }/// closing the Else
+      
+    }
 
 
     public function findReceipt(){

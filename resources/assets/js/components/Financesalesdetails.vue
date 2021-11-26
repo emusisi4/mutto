@@ -404,7 +404,7 @@ Sales Details {{salesreportsatartingdate}} to {{salesreportendingdate}}
 
       
           <!-- <div class="mysalessect">  -->
-           <div class="mysalessect2"> 
+           <div class="mysalessect"> 
  <form @submit.prevent="savedatestoVieedailyreport()">
                  
                       <div class="form-group">
@@ -426,17 +426,14 @@ Sales Details {{salesreportsatartingdate}} to {{salesreportendingdate}}
              <button type="submit" style="display:none" id="submit" hidden="hidden" name= "submit" ref="buttontosubmitProductcategoryFilter" class="btn btn-primary btn-sm">Saveit</button>         
 
                                 
-          
+    <b>Search Receipt Number </b><input type="text" placeholder="" v-model="searchreceipt" v-on:keyup="searchforreceiptno" @keydown="searchforreceiptno" @keypress="searchforreceiptno" class="formcont2">
+
                    
           </div>
       
 
                 </form>
-                  <div class="mysalessect"> 
-  <input type="text" placeholder="Search receipt " v-model="customersearch" v-on:keyup="productlistsearch" @keyup="productlistsearch" class="formcont">
-
-  </div>
-
+           
                   </div> 
                
 </div>
@@ -3133,7 +3130,7 @@ import { GChart } from "vue-google-charts";
         }
       },
              country: 0,
-        
+         searchreceipt:'',
 
                 countries: [],
                 roleslist: [],
@@ -3332,7 +3329,9 @@ methods:{
       printme(){
         window.print();
       },
-
+searchforreceiptno: _.debounce(() => {
+        Fire.$emit('searchingforreceipt');
+      },1000),
   printuuy() {
       var prtContent = document.getElementById("print");
       var WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
@@ -5049,7 +5048,30 @@ axios.get('/api/dailyvatcollectedforselection').then(function (response) { this.
             axios.get("api/salesdetailsgrossprofittotalrange2").then(({ data }) => (this.salesdetailsgrossprofittotalrange2 = data));
 
 
+ Fire.$on('searchingforreceipt', ()=>{
+            // let query = this.$parent.search;
+           let query = this.searchreceipt
+          //   axios.get("api/productpriceslist").then(({ data }) => (this.productpriceslist = data));
+ axios.get('api/findReceipt2?q='+ query)
+ .then((data)=> {
+this.salesdetailsreportdetailedrecords2 = data.data;
+ })
+ .catch(()=>{
 
+ })
+          })
+
+
+
+
+
+
+
+
+
+
+
+          
    Fire.$on('searching', ()=>{
             // let query = this.$parent.search;
             let query = this.search;
