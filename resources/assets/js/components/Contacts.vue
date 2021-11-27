@@ -5,7 +5,45 @@
     width: 1000px;
 
 }
+.recievedfromdiv{
+ 
+    height: 35%;
+    padding-left: 12px;
+    padding-right: 40px;
+    /* text-align: center; */
+    padding-top: 0.5cm;
+    /* padding-bottom: 2.5cm; */
+    /* height: auto; */
+    border-left: solid;
+    border-right: solid;
+    border-top: solid;
+    border-bottom: solid;
+    background: #ffff;
+        display: block;
 
+      max-width: 460px;
+  min-width:460px;
+  
+  display:inline-block;
+ 
+}
+.receipttittles{
+   max-width: 400px;
+  min-width:400px;
+    height: 35%;
+    padding-left: 12px;
+    padding-right: 40px;
+    /* text-align: center; */
+    padding-top: 0.5cm;
+    /* padding-bottom: 2.5cm; */
+    /* height: auto; */
+    /* border-left: solid;
+    border-right: solid;
+    border-top: solid;
+    border-bottom: solid; */
+    background: #ffff;
+         display:inline-block;
+}
 .customerpaymentreceipt {
  width: 985px;
     height: 410px;
@@ -51,7 +89,8 @@
     /* margin-bottom: 1px; */
     /* font-weight: bold; */
     padding-right: 3rem;
-    font-size: 25px;
+    font-size: 11px;
+    font-weight: bold;
     font-family: monospace;
 }
 .receiptttinvofooter{
@@ -64,9 +103,21 @@
     font-size: 25px;
     font-family: monospace;
 }
+.datesandreceiptnorev{
+      text-align: right;
+      display: inline-block;   /* 
+    max-width: 100%;
+    margin-bottom: 1px;
+    font-weight: bold;
+    padding-left: 3rem;
+    font-size: 45px; */
+        font-size: 20px;
+     float: right;
+    font-family: monospace;
+}
 .datesandreceiptno{
      text-align: left;
-         /* display: inline-block;
+    display: inline-block;     /* 
     max-width: 100%;
     margin-bottom: 1px;
     font-weight: bold;
@@ -222,6 +273,12 @@
     padding-top: 10px;
     font-size: 10px
 }
+.currenb{
+      border-radius: 30px;
+    font-size: 29px;
+    text-align: center;
+    width: 198px;
+}
 
 .invoice-note {
     color: #999;
@@ -355,44 +412,105 @@ pre {
 
 <div class="topheaderrecipt"
 >
-   <img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 80px; width: 80px;  margin: 6px;">
+   <img src="images/logo.png" class="profile-user-img img-fluid img-circle" 
+   style="height: 140px; width: 181px;  margin: 6px;">
  
-   <div> <b>SSENNA GEN. HARDWARE - JJOGO  </b> </div><br>   <b>SSENNA GEN. HARDWARE - JJOGO  </b> 
+   <div style="width:100%" ><h2  style="font-size: 30px;">SSENNA GENENERAL HARDWARE - JJOGO </h2>
+   <h4 style="font-size: 20px;" >  <i>Dealers In: Cement, Ironsheets, paint, Iron Bars, Tiles, Plywood,
+      Wiremesh and Other Building Materials.</i></h4> </div>
+  
+</div>
+<div class="datesandreceiptno"  > <b>Location : Misindye - Jjogo </b> </div>
+   <div class="datesandreceiptnorev"  > <b>Tel: 0702 941 704 /
+     0702 941 704 
+     </b> </div>
+   
+     <div class="recievedfromdiv"  > 
+       
+       <b style=" font-size: 20px;"> Recieved From : </b>..........................................................................................................................
+       ..........................................................................................................................
+       ..........................................................................................................................
+         ..........................................................................................................................
+    
+        </div>
+
+          <div class="receipttittles"  > 
+        
+          <table  width="100%" border="1">
+
+<tr>
+     
+                      <th colspan="2" >  <span style="font-size:2.0em;" center >  RECEIPT</span></th>
+                 
+                       
+</tr>
+<tr>
+  
+
+
+
+
+                      
+  
+          <tr>
+          
+       <td>Date</td>
+      <td>2021-11-23 </td>
+      
+
+ 
+    
+</tr>
+  <tr>
+          
+       <td>No.</td>
+      <td>123456789</td>
+      
+
+ 
+    
+</tr>
+<tr>
+
+
+
+    </tr>
+</table>
+       
+        </div>
+    
+   
+   </div>
+<div class="receiptbody"> 
+  <br>
+<b style=" font-size: 15px;">Amount in Words : </b> .........................................................................................
+.........................................................................................................................
+ ........................................................................................................................
+.........................................................................................................................
+<br>
+<b style=" font-size: 15px;">Being Payment for:  </b>
+.........................................................................................
+.........................................................................................................................
+ ........................................................................................................................
+.........................................................................................................................
+
+<br>
+<b style=" font-size: 15px;">CASH / CHEQUE No: </b>
+ .........................................................................................   <b>BALANCE:</b> ...............................................................................................
 
 </div>
-
-    
-      <div class="datesandreceiptno"  > Ssennah General Hardware </div>
-       <div class="datesandreceiptno"  > Misindye Jjogo </div>
-           <div class="datesandreceiptno"  > Bukeerere Road </div>
-            <div class="datesandreceiptno"  > 0702941704 / 0392941704 </div>
-       <div class="datesandreceiptno"  > Tin Number : 1019044346 </div>
-     <div class="datesandreceiptno"> <b>Receipt No: 1234567890</b></div>
-       <div class="datesandreceiptno"> Date: 2021-03-01</div>
-   </div>
-   <hr>
- 
-        <div class="recievedfrom"  > Recieved from  </div>
-        <div class="suppdesname"> <u>GEETA CONSTRUCTION AND HARDWARE SUPPLIR</u>	 </div>
-            <div class="recievedfrom"  > an Amount of </div>
-            <div class="suppdesname"> <u>One Million seven Hundred and fifty five thousand four hundred </u> 	 </div>
-
-           <div class="recievedfrom"  > Shillings ({{currencydetails}}) Only.  </div>
-           <p>
-             <div class="recievedfrom"  > Being payment for  </div>
-            <div class="suppdesname"> <u>goods taken on credit </u> 	</div>
-             <div class="recievedfrom"  > paid by   </div> 
-            <div class="suppdesname"> Cash 	</div>
-           
+ <br>
+   <b style=" font-size: 25px;">  UGX   <input type="text" class="currenb" value= '1,000,000'> </b>
+     <b style=" font-size: 25px;">       USD <input type="text" class="currenb" > </b> <b style=" font-size: 15px;">Invoice No.: ............................................................................ </b> 
            
            <p>
-            <div class="recievedbyttg"  > Recieved by : Emmanuel </div>
-          
-
-
-         
-  
- <div class="receiptttinvofooter"  > Build the Best with Materials and tools from Us. </div>
+            <div class="recievedbyttg"  > Cashier :Emmanuel  </div>
+            <br>
+            <div class="recievedbyttg"  > Signature : .................... </div>
+            <br>
+            <div class="recievedbyttg"  > For : SSENNA GEN. HARDWARE - JJOGO </div>
+            <br>
+ <!-- <div class="receiptttinvofooter"  > Build the Best with Materials and tools from Us. </div> -->
         </div>
         <br>
 
