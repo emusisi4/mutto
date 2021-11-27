@@ -71,16 +71,24 @@
     <div class="page-loader-wrapper">
         <div class="loader">
             <div class="preloader">
-                <div class="spinner-layer pl-red">
+                <div class="spinner-layer pl-orange">
+                <!-- <img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 200px; width: 200px;">  -->
                     <div class="circle-clipper left">
-                        <div class="circle"></div>
+                        <div class="circle">
+                            
+                        </div>
                     </div>
                     <div class="circle-clipper right">
                         <div class="circle"></div>
+                        
                     </div>
                 </div>
             </div>
-            <p>Please wait...</p>
+            <p><h3>Loadig Data please wait...</h3>
+            <img src="images/logo.png" class="profile-user-img img-fluid img-circle" style="height: 200px; width: 200px;"> 
+        </p>
+           
+            
         </div>
     </div>
     <!-- #END# Page Loader -->
