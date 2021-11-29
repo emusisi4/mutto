@@ -240,7 +240,7 @@ DB::table('incomestatementsummaries')->where('statementdate', $datesold)->delete
 
 }
 
-
+$ddddtt = $datesold;
 
 ////////
 $incomestatementtotalsales = \DB::table('dailysummaryreports')->where('datedone', '=', $ddddtt)->sum('netinvoiceincome');
