@@ -69,7 +69,7 @@ class ReportstoviewController extends Controller
                 'startdate' => $request['startdate'],
                 'enddate' => $request['enddate'],
                 'supplier' => $request['suppliername'],
-             
+              
                 'ucret' => $userid,
               
             ]);
@@ -116,6 +116,7 @@ if($existanceinthetable > 0 )
                 'supplier' => $request['suppliername'],
                 'cashiersold' => $request['cashiersold'],
                 'saletype' => $request['saletype'],
+                'productsalesdetails'=> $request['productsalesdetails'],
                 'ucret' => $userid,
               
             ]);
@@ -134,6 +135,21 @@ if($existanceinthetable > 0 )
 
     $saletype = $request['saletype'];
     $stypename = strlen($saletype);
+
+    $prodto = $request['productsalesdetails'];
+    $productinq = strlen($prodto);
+
+
+    if($productinq > 0)
+
+    {
+         DB::table('salesreporttoviews')
+ ->where('ucret', $userid)
+ ->update(['productsalesdetails' => $request['productsalesdetails']
+     
+     ]);
+    }
+
 
     if($stypename > 0)
 

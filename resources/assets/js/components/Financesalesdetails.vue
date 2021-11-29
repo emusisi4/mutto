@@ -380,7 +380,8 @@ pre {
                                  
                                  <!-- <li role="presentation">
                                     <a href="#three_with_icon_title" v-if="salesdetailsComponentaccess > 0" @click="loadactiveProductsonSale()" data-toggle="tab">
-                                        <i class="material-icons"></i> PRODUCT SALES DETAILS
+                                        <i class="material-icons"></i> 
+                                         DETAILS
                                     </a>
                                 </li> -->
 
@@ -434,6 +435,14 @@ Sales Details {{salesreportsatartingdate}} to {{salesreportendingdate}}
 
                     </select>  
 
+
+ <label>Product Sale details</label>
+    <select name ="productsalesdetails" v-model="form.productsalesdetails" id ="productsalesdetails" data-live-search="true"  v-on:change="tosubmitProductcategoryfilter"  >
+                    <option value="900"> All  </option>
+                    <option v-for='data in productslist' v-bind:value='data.id'>{{ data.productname }}</option>
+
+                    </select>  
+                    
 
 
 
@@ -639,7 +648,7 @@ Sales Details {{salesreportsatartingdate}} to {{salesreportendingdate}}
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright">  </div>
+<div class="musisialignright">  {{totalquantitysoldforrange2}}  </div>
 </th>
     
 <th style="font-size: 18px; text-align:center;    
@@ -3200,7 +3209,7 @@ salesdetailsgrossprofittotalrange:{},
 salesdetailsalesmadetotalrange2:{},
 salesdetailvatcollectedtotalrange2:{},
 salesdetailsgrossprofittotalrange2:{},
-
+totalquantitysoldforrange2:{},
 
 
 
@@ -3498,6 +3507,8 @@ axios.get("api/gettheinvoicetotalwithoutvat").then(({ data }) => (this.gettheinv
 
 
 //////////////////
+
+ axios.get("api/totalquantitysoldforrange2").then(({ data }) => (this.totalquantitysoldforrange2 = data));
  axios.get("api/salesdetailscostofthesalesmadetotalrange2").then(({ data }) => (this.salesdetailscostofthesalesmadetotalrange2 = data));
           axios.get("api/salesdetailsalesmadetotalrange2").then(({ data }) => (this.salesdetailsalesmadetotalrange2 = data));
            axios.get("api/salesdetailvatcollectedtotalrange2").then(({ data }) => (this.salesdetailvatcollectedtotalrange2 = data));
@@ -3784,6 +3795,7 @@ axios.get("api/salessummaryComponentaccess").then(({ data }) => (this.salessumma
            axios.get("api/salesdetailvatcollectedtotalrange2").then(({ data }) => (this.salesdetailvatcollectedtotalrange2 = data));
             axios.get("api/salesdetailsgrossprofittotalrange2").then(({ data }) => (this.salesdetailsgrossprofittotalrange2 = data));
 
+ axios.get("api/totalquantitysoldforrange2").then(({ data }) => (this.totalquantitysoldforrange2 = data));
 
 
   },
@@ -5059,11 +5071,13 @@ axios.get('/api/dailyvatcollectedforselection').then(function (response) { this.
 ///////////////////////////////////////////////////
         created() {
 
+ axios.get("api/totalquantitysoldforrange2").then(({ data }) => (this.totalquantitysoldforrange2 = data));
+
  axios.get("api/salesdetailscostofthesalesmadetotalrange2").then(({ data }) => (this.salesdetailscostofthesalesmadetotalrange2 = data));
           axios.get("api/salesdetailsalesmadetotalrange2").then(({ data }) => (this.salesdetailsalesmadetotalrange2 = data));
            axios.get("api/salesdetailvatcollectedtotalrange2").then(({ data }) => (this.salesdetailvatcollectedtotalrange2 = data));
             axios.get("api/salesdetailsgrossprofittotalrange2").then(({ data }) => (this.salesdetailsgrossprofittotalrange2 = data));
-
+  axios.get('/api/productslist').then(function (response) { this.productslist = response.data;}.bind(this));
 
  Fire.$on('searchingforreceipt', ()=>{
             // let query = this.$parent.search;

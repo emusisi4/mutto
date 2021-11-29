@@ -90,6 +90,8 @@ Route::get('salesdetailvatcollectedtotalrange', 'API\CompanyReportsController@sa
 Route::get('salesdetailsgrossprofittotalrange', 'API\CompanyReportsController@salesdetailsgrossprofittotalrange');
 // /////////////////////////////////////////////////////////////
 Route::get('salesdetailscostofthesalesmadetotalrange2', 'API\CompanyReportsController@salesdetailscostofthesalesmadetotalrange2');
+Route::get('totalquantitysoldforrange2', 'API\CompanyReportsController@totalquantitysoldforrange2');
+
 Route::get('salesdetailsalesmadetotalrange2', 'API\CompanyReportsController@salesdetailsalesmadetotalrange2');
 Route::get('salesdetailvatcollectedtotalrange2', 'API\CompanyReportsController@salesdetailvatcollectedtotalrange2');
 Route::get('salesdetailsgrossprofittotalrange2', 'API\CompanyReportsController@salesdetailsgrossprofittotalrange2');
