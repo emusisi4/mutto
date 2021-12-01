@@ -47,8 +47,9 @@ use App\Unitmeasure;
 use App\Supplier;
 use App\Purchasessummary;
 use App\Product;
-
+use NumberToWords\NumberToWords;
 use App\Customer;
+use Terbilang;
 class APIController extends Controller
 
 {
@@ -1273,6 +1274,178 @@ public function productslist()
    ->get();
            return response()->json($data);
 }
+
+
+
+public function currencyinwords()
+{
+    $userid =  auth('api')->user()->id;
+    $userbranch =  auth('api')->user()->branch;
+    $userrole =  auth('api')->user()->type;
+//////getting the receipt number 
+///$customertype = DB::table('customers')->where('id', $id)->value('customertype');
+/// getting the receipt no 
+$receiptno = \DB::table('customersreporttoviews')->where('ucret', '=', $userid)->value('receiptno');
+$receiptamount = \DB::table('customerpayments')->where('receiptno', '=', $receiptno)->value('amountpaid');  
+
+
+   return Terbilang::make($receiptamount);
+   
+
+}
+
+
+public function receiptamountinfigures()
+{
+    $userid =  auth('api')->user()->id;
+    $userbranch =  auth('api')->user()->branch;
+    $userrole =  auth('api')->user()->type;
+//////getting the receipt number 
+///$customertype = DB::table('customers')->where('id', $id)->value('customertype');
+/// getting the receipt no 
+$receiptno = \DB::table('customersreporttoviews')->where('ucret', '=', $userid)->value('receiptno');
+$receiptamount = \DB::table('customerpayments')->where('receiptno', '=', $receiptno)->value('amountpaid');  
+
+
+return response()->json($receiptamount);
+   
+
+}
+
+
+public function customertoprintreceiptname()
+{
+    $userid =  auth('api')->user()->id;
+    $userbranch =  auth('api')->user()->branch;
+    $userrole =  auth('api')->user()->type;
+
+    
+$receiptno = \DB::table('customersreporttoviews')->where('ucret', '=', $userid)->value('customername');
+$customername  = \DB::table('customers')->where('id', '=', $receiptno)->value('customername');  
+
+
+return response()->json($customername);
+   
+
+}
+
+
+public function customertype()
+{
+    $userid =  auth('api')->user()->id;
+    $userbranch =  auth('api')->user()->branch;
+    $userrole =  auth('api')->user()->type;
+
+    
+$receiptno = \DB::table('customersreporttoviews')->where('ucret', '=', $userid)->value('customertype');
+//$customername  = \DB::table('customers')->where('id', '=', $receiptno)->value('customername');  
+
+
+return response()->json($receiptno);
+   
+
+}
+
+
+
+public function receiptnoinprint()
+{
+    $userid =  auth('api')->user()->id;
+    $userbranch =  auth('api')->user()->branch;
+    $userrole =  auth('api')->user()->type;
+
+    
+$receiptno = \DB::table('customersreporttoviews')->where('ucret', '=', $userid)->value('receiptno');
+//$customername  = \DB::table('customers')->where('id', '=', $receiptno)->value('customername');  
+
+
+return response()->json($receiptno);
+   
+
+}
+
+
+
+public function receiptdatetoprint()
+{
+    $userid =  auth('api')->user()->id;
+    $userbranch =  auth('api')->user()->branch;
+    $userrole =  auth('api')->user()->type;
+
+    
+///$receiptno = \DB::table('customersreporttoviews')->where('ucret', '=', $userid)->value('receiptno');
+//$customername  = \DB::table('customers')->where('id', '=', $receiptno)->value('customername');  
+$receiptno = \DB::table('customerpayments')->where('receiptno', '=', $receiptno)->value('datepaid');  
+
+return response()->json($receiptno);
+   
+
+}
+
+
+public function cashierrecievingpayment()
+{
+    $userid =  auth('api')->user()->id;
+    $userbranch =  auth('api')->user()->branch;
+    $userrole =  auth('api')->user()->type;
+
+    
+///$receiptno = \DB::table('customersreporttoviews')->where('ucret', '=', $userid)->value('receiptno');
+//$customername  = \DB::table('customers')->where('id', '=', $receiptno)->value('customername');  
+$receiptno = \DB::table('customerpayments')->where('receiptno', '=', $receiptno)->value('datepaid');  
+$cashierpaying = \DB::table('customerpayments')->where('receiptno', '=', $receiptno)->value('ucret');  
+$cashiername = \DB::table('users')->where('id', '=', $cashierpaying)->value('name'); 
+return response()->json($cashiername);
+   
+
+}
+
+
+
+public function paymentnaration()
+{
+    $userid =  auth('api')->user()->id;
+    $userbranch =  auth('api')->user()->branch;
+    $userrole =  auth('api')->user()->type;
+
+    
+$receiptno = \DB::table('customersreporttoviews')->where('ucret', '=', $userid)->value('receiptno');
+//$customername  = \DB::table('customers')->where('id', '=', $receiptno)->value('customername');  
+///$receiptno = \DB::table('customerpayments')->where('receiptno', '=', $receiptno)->value('datepaid');  
+$narration = \DB::table('customerpayments')->where('receiptno', '=', $receiptno)->value('description');  
+//$cashiername = \DB::table('users')->where('id', '=', $cashierpaying)->value('name'); 
+return response()->json($narration);
+   
+
+}
+
+
+public function customerbalance()
+{
+    $userid =  auth('api')->user()->id;
+    $userbranch =  auth('api')->user()->branch;
+    $userrole =  auth('api')->user()->type;
+
+    
+$receiptno = \DB::table('customersreporttoviews')->where('ucret', '=', $userid)->value('receiptno');
+$customerbalance  = \DB::table('customers')->where('id', '=', $receiptno)->value('bal');  
+///$receiptno = \DB::table('customerpayments')->where('receiptno', '=', $receiptno)->value('datepaid');  
+///$narration = \DB::table('customers')->where('id', '=', $receiptno)->value('description');  
+//$cashiername = \DB::table('users')->where('id', '=', $cashierpaying)->value('name'); 
+return response()->json($customerbalance);
+   
+
+}
+
+
+
+
+
+
+
+
+
+
  public function productbrandslist()
  {
      $userid =  auth('api')->user()->id;

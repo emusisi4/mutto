@@ -105,6 +105,9 @@
     <nav class="navbar">
     
         <div class="emmietopheader">
+        <?php
+
+        ?>
            
     SSENNAH - GENERAL HARDWARE - JJOGGO
 </div>
@@ -116,7 +119,15 @@
     <!-- #Top Bar -->
     <section>
         <!-- Left Sidebar -->
+        <!-- gettint the current date and existance of a shift -->
+
+        <?php  
+        // $currentdate = date('Y-m-d');
         
+        // $isthereastartedshif = \DB::table('companyshifts')->where('shiftdate', '=', $currentdate)->count(); 
+
+
+?>
         <aside id="leftsidebar" class="sidebar">
             
             <!-- Menu -->

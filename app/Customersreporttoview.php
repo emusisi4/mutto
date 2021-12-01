@@ -14,7 +14,7 @@ class Customersreporttoview extends Authenticatable
     
    
     protected $fillable = [
-      'customername', 'ucret', 'startdate', 'enddate'
+      'customername', 'ucret', 'startdate', 'enddate','receiptno','customertype'
     ];
     
     public function customerName(){

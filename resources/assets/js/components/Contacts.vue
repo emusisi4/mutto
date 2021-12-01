@@ -455,7 +455,7 @@ pre {
           <tr>
           
        <td>Date</td>
-      <td>2021-11-23 </td>
+      <td>2021-11-23   </td>
       
 
  
@@ -484,19 +484,20 @@ pre {
 <div class="receiptbody"> 
   <br>
 <b style=" font-size: 15px;">Amount in Words : </b> .........................................................................................
-.........................................................................................................................
- ........................................................................................................................
-.........................................................................................................................
+........................................................................................................................
+<b style="font-size: 17px;  text-transform: uppercase;"> <i>{{currencyinwords}} </i> Shllings Only </b> .........................................................................................
+........................................................................................................................<br>
+......................................................................................................................
 <br>
-<b style=" font-size: 15px;">Being Payment for:  </b>
-.........................................................................................
-.........................................................................................................................
- ........................................................................................................................
-.........................................................................................................................
+<b style=" font-size: 15px;">Being Payment for:  </b><br>
+
+
+
+<b style="font-size: 17px;  border-top: dotted;  "> <i>{{paymentnaration}} </i>  </b> 
 
 <br>
 <b style=" font-size: 15px;">CASH / CHEQUE No: </b>
- .........................................................................................   <b>BALANCE:</b> ...............................................................................................
+ .........................................................................................   <b>BALANCE:</b> .................................<b style="font-size: 17px;  text-transform: uppercase;"> <i>{{currencyinwords}} </i>  </b> ..............................................................
 
 </div>
  <br>
@@ -584,7 +585,7 @@ pre {
        <button type="button"   class="btn btn-success btn-xs waves-effect"  @click="recievecustomerpayment(prodcates)">Recieve Payment</button>
        
        
-       <button type="button"   class="btn bg-black btn-xs waves-effect"  @click="editProductdetails(prodcates)">Print Latest Receipt</button>       <!-- <button type="button"    class="btn  bg-gradient-danger btn-xs fas fa-trash-alt" @click="deleteexpensecategory(prodcates.id)"> DEl </button> -->
+       <button type="button"   class="btn bg-black btn-xs waves-effect"  @click="addcustomertoprintslip(prodcates.id)">Print Latest Receipt</button>       <!-- <button type="button"    class="btn  bg-gradient-danger btn-xs fas fa-trash-alt" @click="deleteexpensecategory(prodcates.id)"> DEl </button> -->
   <button type="button"    class="btn bg-brown btn-xs waves-effect"  @click="makepaymentpayment(prodcates)">Make Payment</button>
  </div>
 </td>
@@ -2205,6 +2206,16 @@ pre {
                 countries: [],
                 roleslist: [],
                 typeslist:[],
+                currencyinwords:[],
+
+                customertoprintreceiptname:[],
+customertype:[],
+receiptnoinprint:[],
+receiptdatetoprint:[],
+receiptamountinfigures:[],
+cashierrecievingpayment:[],
+paymentnaration:{},
+customerbalance:[],
 
                 capitalaccountcurrentbalance:null,
                 pettycashaccountcurrentbalance:null,
@@ -2237,6 +2248,7 @@ pre {
           // walletlist:[],
          transactiontypeslist:{},
         expenseslist:{},
+        currencyinwords:{},
             walletlist:{},
          gencomponentaccessCompanyincomes:'',
          branchcashOutSettings:'',
@@ -2792,6 +2804,18 @@ newsubmenuaccess(){
             },
                     
 
+
+  addcustomertoprintslip(id){
+             //   this.editmode = true;
+               //  this.form.clear();
+        // this.form.reset();
+        // this.form.fill(customerdetailsrecords);
+          this.form.put('api/addcustomertoprint/'+id);
+
+
+$('#customerstatementModal').modal('show');
+axios.get("api/customerstatementrecords").then(({ data }) => (this.customerstatementrecords = data));
+            },   
 
  newshopbal(){
         this.editmode = false;
@@ -4210,6 +4234,36 @@ this.customerdetailsrecords = data.data;
           })
 
           
+axios.get("api/currencyinwords").then(({ data }) => (this.currencyinwords = data));
+axios.get("api/customerbalance").then(({ data }) => (this.customerbalance = data));
+axios.get("api/customertoprintreceiptname").then(({ data }) => (this.customertoprintreceiptname = data));
+axios.get("api/customertype").then(({ data }) => (this.customertype = data));
+axios.get("api/receiptnoinprint").then(({ data }) => (this.receiptnoinprint = data));
+axios.get("api/receiptdatetoprint").then(({ data }) => (this.receiptdatetoprint = data));
+axios.get("api/receiptamountinfigures").then(({ data }) => (this.receiptamountinfigures = data));
+axios.get("api/cashierrecievingpayment").then(({ data }) => (this.cashierrecievingpayment = data));
+axios.get("api/paymentnaration").then(({ data }) => (this.paymentnaration = data));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
            axios.get("api/walletstorecievemoney").then(({ data }) => (this.walletstorecievemoney = data));
 
             axios.get("api/shopopenningpalance").then(({ data }) => (this.shopopenningpalance = data));

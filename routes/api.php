@@ -266,6 +266,11 @@ Route::apiResources(['invoicenumbertocheck' => 'API\InvoicenumberinactionControl
 Route::apiResources(['statementrecordtoview' => 'API\StatementrecordtoviewController']);
 
 Route::apiResources(['statementrecordtoviewtwo' => 'API\MystatementtoviewController']);
+
+
+Route::apiResources(['addcustomertoprint' => 'API\CustomerprintreceiptController']);
+
+
 Route::get('transtoviewtype', 'API\StatementrecordtoviewController@transtoviewtype');
 
 Route::apiResources(['closeofftheinvoiceinaction' => 'API\InvoicenumberinactionController']);
@@ -309,6 +314,54 @@ Route::apiResources(['setthereceiptintoreturnitems' => 'API\ReturnsalesitemsCont
 /// end of filters
 
 Route::get('productsavailableforsalelist', 'APIController@productsavailableforsalelist');
+
+Route::get('currencyinwords', 'APIController@currencyinwords');
+
+
+
+
+
+
+
+
+
+
+
+
+Route::get('customertoprintreceiptname', 'APIController@customertoprintreceiptname');
+Route::get('customertype', 'APIController@customertype');
+
+Route::get('receiptnoinprint', 'APIController@receiptnoinprint');
+Route::get('receiptdatetoprint', 'APIController@receiptdatetoprint');
+Route::get('receiptamountinfigures', 'APIController@receiptamountinfigures');
+Route::get('cashierrecievingpayment', 'APIController@cashierrecievingpayment');
+
+
+
+Route::get('paymentnaration', 'APIController@paymentnaration');
+Route::get('customerbalance', 'APIController@customerbalance');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Route::get('inputvatcomponentaccess', 'APIController@inputvatcomponentaccess');
 Route::get('outputcomponentaccess', 'APIController@outputcomponentaccess');
