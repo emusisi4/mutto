@@ -24,16 +24,35 @@ class CustomersController extends Controller
     {
       $userid =  auth('api')->user()->id;
       $userbranch =  auth('api')->user()->branch;
-      $userrole =  auth('api')->user()->type;
+      $userrole =  auth('api')->user()->mmaderole;
 
     //  if($userrole == '101')
       {
     //  return   Product::with(['userbalancingBranch','branchinBalance'])->latest('id')
    // return   Productcategory::with(['brandName','productCategory','productSupplier','unitMeasure'])->latest('id')
+   
+   if($userrole == '101')
+   {
+       
+      return   Customer::latest('id')
+       //  return   Branchpayout::latest('id')
+        ->where('visibletoall', 0)
+        ->paginate(50);
+      
+      
+      }///
+   if($userrole != '101')
+   {
+       
       return   Customer::latest('id')
        //  return   Branchpayout::latest('id')
         // ->where('branch', $userbranch)
         ->paginate(50);
+      
+      
+      }///
+
+
       }
 
 
