@@ -628,7 +628,7 @@ text-align: center;
 <div role="tabpanel"  class="tab-pane fade in active" id="home_with_icon_title"  v-if="categoriesComponentaccess > 0">
             
               
-<div class="ticket" id="print" style="background-color:white;"> 
+<div class="ticket" id="print" style="background-color:white; display:none;" > 
  <div class="ticketreceipttitle"  > CUSTOMER STATEMENT </div>
 
  <hr>
