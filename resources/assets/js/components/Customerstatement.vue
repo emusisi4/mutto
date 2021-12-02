@@ -1,250 +1,32 @@
 <style scoped>
-.hhn {
-  position: absolute;
-  right: 0px;
-  width: 300px;
-  border: 3px solid #73AD21;
-  padding: 10px;
-}
-.invoice {
-    background: #fff;
-    padding: 20px;
-    width: 1000px;
-
-}
-.musisireporttable-table td, th {
-    border: 0.5px solid #c5c5c5;
-    padding-left: 18px;
-    text-align: left;
-    font-size: 20px;
-    /* background: #a99696; */
-    color: black;
-        vertical-align: bottom;
-    border-bottom: 2px solid #dee2e6;
-        padding: -0.25rem;
- 
-    /* border-top: 1px solid #822119 */
-}
-.musisialign{
-     text-align: center;
-
-}
-.musisialignright{
-     text-align: right;
-         padding-right: 10px;
-
-}
-.musisialignleft{
-     text-align: left;
-
-}
-
-
-    .table thead tr th {
-    padding: 10px;
-    border-bottom: 1px solid #eee;
-    text-align: left;
-    background-color: #ea5b319e;
-    font-size: 20px;
-    color: #030328;
-}
-.invoice-company {
-    font-size: 20px
-}
-
-.invoice-header {
-    margin: 0 -20px;
-    background: #f0f3f4;
-    padding: 20px
-}
-
-.invoice-date,
-.invoice-from,
-.invoice-to {
-    display: table-cell;
-    width: 1%
-}
-
-.invoice-from,
-.invoice-to {
-    padding-right: 20px
-}
-
-.invoice-date .date,
-.invoice-from strong,
-.invoice-to strong {
-    font-size: 16px;
-    font-weight: 600
-}
-
-.invoice-date {
-    text-align: right;
-    padding-left: 20px
-}
-
-.invoice-price {
-    background: #f0f3f4;
-    display: table;
-    width: 100%
-}
-
-.invoice-price .invoice-price-left,
-.invoice-price .invoice-price-right {
-    display: table-cell;
-    padding: 20px;
-    font-size: 20px;
-    font-weight: 600;
-    width: 75%;
-    position: relative;
-    vertical-align: middle
-}
-
-.invoice-price .invoice-price-left .sub-price {
-    display: table-cell;
-    vertical-align: middle;
-    padding: 0 20px
-}
-
-.invoice-price small {
-    font-size: 12px;
-    font-weight: 400;
-    display: block
-}
-
-.invoice-price .invoice-price-row {
-    display: table;
-    float: left
-}
-
-.invoice-price .invoice-price-right {
-    width: 25%;
-    background: #2d353c;
-    color: #fff;
-    font-size: 28px;
-    text-align: right;
-    vertical-align: bottom;
-    font-weight: 300
-}
-
-.invoice-price .invoice-price-right small {
-    display: block;
-    opacity: .6;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    font-size: 12px
-}
-
-.invoice-footer {
-    border-top: 1px solid #ddd;
-    padding-top: 10px;
-    font-size: 10px
-}
-
-.invoice-note {
-    color: #999;
-    margin-top: 80px;
-    font-size: 85%
-}
-
-.invoice>div:not(.invoice-footer) {
-    margin-bottom: 20px;
-        width: 844px;
-}
-
-.btn.btn-white, .btn.btn-white.disabled, .btn.btn-white.disabled:focus, .btn.btn-white.disabled:hover, .btn.btn-white[disabled], .btn.btn-white[disabled]:focus, .btn.btn-white[disabled]:hover {
-    color: #2d353c;
-    background: #fff;
-    border-color: #d9dfe3;
-}
-
-
-.tresed {
-   border:none;
-border-top:2px dotted black;
-
-border-top:2px dotted black;
-
-
-
-}
-
-.tabletextalign{
-    text-align: center;
-}
-.book-title {
+footer {
+  font-size: 30px;
   color: black;
-  display: block;
   text-align: center;
-background-color: white;
-border-top:2px dotted black;
-
-}
-.text-offset {
-  color: black;
-  font-size: 16px;
-  background-color: white;
-      font-weight: bold;
-      border-top:1px dotted black;
-}
-.item-stock,
-.item-qty {
-  text-align: center;
-     border-top:2px dotted black;
-background-color: white;
-
-}
-.item-price {
-
-color: black;
-display: block;
-text-align: right;
-background-color: white;
-/* font-weight: bold; */
-   border-top:2px dotted black;
-}
-.item-multiple {
-  display: block;
-}
-tfoot {
-  text-align: right;
-  color: black;
-  background-color: white;
-  border-top:2px dotted black;
-
-border-top:2px dotted black;
-
-}
-tfoot tr:last-child {
-  background: #f0f0f2;
-  color: black;
-  font-weight: bold;
-  border-top:2px dotted black;
-
-border-top:2px dotted black;
-}
-tfoot tr:last-child td:first-child {
-  border-top-left-radius: 5px;
-  border-top:2px dotted black;
-
-border-top:2px dotted black;
-}
-tfoot tr:last-child td:last-child {
-  border-top-right-radius: 5px;
-  border-top:2px dotted black;
-
-border-top:2px dotted black;
-}
-#musisi {
-  margin-top: 50px;
 }
 
-pre {
-  margin-top: 20px;
+@page {
+  size: A4;
+  margin: 11mm 17mm 17mm 17mm;
 }
-</style>
-<style scoped>
 
+@media print {
+  footer {
+    position: fixed;
+    bottom: 0;
+  }
+
+  .content-block, p {
+    page-break-inside: avoid;
+  }
+
+  html, body {
+    width: 210mm;
+    height: 297mm;
+    
+  }
+  
+}
 .tresed {
    border:none;
 border-top:2px dotted black;
@@ -438,7 +220,42 @@ th.price {
     text-transform: uppercase;
 
 }
+.proformarinvoicedatedetails {
+   width: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
+    font-size: 1.5em;
+    text-align: right;
+    font-weight: bold;
+    /* text-transform: uppercase; */
 
+}
+.customerstabdivename
+{
+   width: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
+    font-size: 1.5em;
+    text-align: left;
+    font-weight: bold;
+    /* text-transform: uppercase; */
+
+}
+.hedermen{
+      text-align: left;
+    font-size: 39px;
+    font-weight: bold;
+}
+.proformarinvoicecompanydetails {
+   width: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
+    font-size: 1.5em;
+    text-align: left;
+    /* font-weight: bold; */
+    /* text-transform: uppercase; */
+
+}
 .ticketlocation{
   width: 100%;
     padding-left: 0px;
@@ -468,11 +285,11 @@ th.price {
     /* text-transform: uppercase; */
 }
 .ticketreceipttitle{
-  width: 100%;
+     width: 100%;
     padding-left: 0px;
     padding-right: 0px;
-    font-size: 1.0em;
-    text-align: center;
+    font-size: 2.5em;
+    text-align: right;
     font-weight: bold;
     text-transform: uppercase;
 }
@@ -586,15 +403,18 @@ text-align: center;
 }
 
 @media print {
+  
     .hidden-print,
     .hidden-print * {
         display: none !important;
     }
+    
+
 }
 
 
-
 </style>
+  
 <template>
 
     <div>
@@ -726,6 +546,9 @@ text-align: center;
                     </div>
                 </div> -->
 </div>
+</div>
+
+
   
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
@@ -796,11 +619,161 @@ text-align: center;
 
                             <!-- Tab panes -->
                             <div class="tab-content">
-<div role="tabpanel" class="tab-pane fade in active" id="home_with_icon_title"  v-if="categoriesComponentaccess > 0">
-                                         
-                    
-              
 
+
+
+
+
+                              
+<div role="tabpanel"  class="tab-pane fade in active" id="home_with_icon_title"  v-if="categoriesComponentaccess > 0">
+            
+              
+<div class="ticket" id="print" style="background-color:white;"> 
+ <div class="ticketreceipttitle"  > CUSTOMER STATEMENT </div>
+
+ <hr>
+      <div class="proformarinvoicedatedetails"  > Statement Date : </div>
+         
+         
+           <div class="proformarinvoicedatedetails"  > Statement Number : </div>
+                <div class="proformarinvoicedatedetails"  > Customer ID : </div>
+           
+
+
+        <div class="proformarinvoicecompanydetails"  ><b> SSENNAH HARDWARE</b> </div>
+          <div class="proformarinvoicecompanydetails"  > Misindye Jjoggo - Bukeerere Road  </div>
+       
+            <div class="proformarinvoicecompanydetails"  > Tin Number : 1019044346 </div>
+            <div class="proformarinvoicecompanydetails"  > Contact : 0702941704 / 0392941704 </div>
+<hr>
+
+<div class="customerstabdivename" >Customer Details </div>
+
+<!-- axios.get("api/creditinvoicecustomername").then(({ data }) => (this.creditinvoicecustomername = data)); -->
+ <div class="proformarinvoicecompanydetails"  > Name  </div>
+          <div class="proformarinvoicecompanydetails"  > Address : </div>
+           <div class="proformarinvoicecompanydetails"  >Contact :  </div>
+            <div class="proformarinvoicecompanydetails"  > Sales Mode : <b>CREDIT</b> </div>
+            
+<div class="hedermen" style="text-align:left"> Account Activity </div>
+
+<table  class="musisireporttable" width="100%" border="1">
+
+<tr>
+       <th>#</th>
+                      <th>DATE</th>
+                      
+                     
+                             <!-- <th>INVOICE </th> -->
+                               <th>DESCRIPTION</th>
+                      <th>DEBIT</th>
+                              <th>CREDIT </th>
+                     
+                        
+                        <th >BALANCE</th>
+</tr>
+<tr>
+  
+
+
+
+
+                      
+  
+          <tr v-for="prodcates in customerstatementrecords.data" :key="prodcates.id">
+          
+       <td class="musisialignleft">{{prodcates.id }}</td>
+      <td class="musisialignleft">{{prodcates.transactiondate  }}</td>
+
+      <td class="musisialignleft">{{prodcates.customerdescription  }}</td>
+       <!-- <td class="musisialignright">{{formatPrice(prodcates.bal)}}</td> -->
+       <td class="musisialignright"> {{formatPrice((prodcates.amount))}}    </td>
+          <td class="musisialignright"> {{formatPrice((prodcates.debitamount))}}    </td>
+       
+   <td class="musisialignright"> {{formatPrice((prodcates.resultatantbalance))}}    </td>
+ 
+      
+
+                          
+  
+                  
+                    
+                                     
+
+                           
+                                
+                                
+                                
+                               
+                            
+                                 <!-- <td style="background-color:#eeeeee "><div class="musisialign"> {{formatPrice(prodcates.netinvoiceincome)}} </div></td>
+                                 -->
+     
+</tr>
+<tr>
+
+
+
+    </tr>
+
+
+     <tr>
+
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldebtorsbalance)}} </div>
+</th>
+
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright"> {{currencydetails}} {{formatPrice(totalcreditorsbalance)}} </div>
+</th>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+<div class="musisialignright">  </div>
+</th>
+ </tr>
+</table>
+             
+  
+         
+ <div class="proformarinvoicedatedetails"  > Authorised Company Signtory </div>
+<!-- <div class="ticketdisclaimer"  > Goods once Sold are not returnable </div> -->
+<footer>  Build the Best with Materials and tools from Us. </footer>
+       
+
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+        </div>
 
  <div class="bethapa-reports-header"  >
    
@@ -845,11 +818,42 @@ List of Ledger Accounts
                
 </div>
       -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
      <div class="mysalessect"> 
   <input type="text" placeholder="Enter customer Name " v-model="custsear" v-on:keyup="customerlistsearch" @keyup="customerlistsearch" class="formcont2">
 
   </div>                   
-                   <table  class="musisireporttable" width="100%" border="1">
+<table  class="musisireporttable" width="100%" border="1">
 
 <tr>
        <th>#</th>
@@ -1511,6 +1515,7 @@ Ledger  Statement Report  : From  {{salesreportsatartingdate}} to {{salesreporte
 <br>
 
                   <div  class="modal-footer">
+                      <button     @click.prevent="printreceipt"  target="_blank" class="btn bg-brown  waves-effect"> Print Statement </button> 
                     <!-- <button  v-show="!editmode" type="submit" class="btn btn-primary btn-sm">Create</button> 
                       <button v-show="editmode" type="submit" class="btn btn-success btn-sm" >Update</button> -->
                         <button  type="button" data-dismiss="modal" class="btn btn-danger btn-sm">Close</button >
@@ -4146,6 +4151,7 @@ salessummaryComponentaccess:'',
            walletstorecievemoney:{},
            statementrecordtoview:{},
             customerdetailsrecords : {},
+            currentcustomerstatementtrans:{},
           salesreportsummaryrecords : {},
           getstatementtransactions:{},
           customerpaymentsrecords:{},
@@ -4376,6 +4382,7 @@ savecustomerstatementFilter(){
 
 $('#customerstatementModal').modal('show');
 axios.get("api/customerstatementrecords").then(({ data }) => (this.customerstatementrecords = data));
+//axios.get("api/currentcustomerstatementtrans").then(({ data }) => (this.currentcustomerstatementtrans = data));
             },   
 
 
@@ -5613,6 +5620,44 @@ axios.get("api/invoicelockstatus").then(({ data }) => (this.invoicelockstatus = 
 })
 
             },// End of delrte function
+
+
+
+  printreceipt() {
+     const prtHtml = document.getElementById('print').innerHTML;
+     
+
+// Get all stylesheets HTML
+let stylesHtml = '';
+for (const node of [...document.querySelectorAll('link[rel="stylesheet"], style')]) {
+  stylesHtml += node.outerHTML;
+  
+}
+
+// Open the print window
+const WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+
+WinPrint.document.write(`<!DOCTYPE html>
+<html>
+  <head>
+  
+    ${stylesHtml}
+  </head>
+  <body>
+    ${prtHtml}
+    
+  
+  </body>
+</html>`);
+
+WinPrint.document.close();
+WinPrint.focus();
+WinPrint.print();
+WinPrint.close();
+    },
+  
+
+            // ///////////////
 deleteproductfromPurcases(id){
    Swal.fire({
   title: 'Are you sure?',

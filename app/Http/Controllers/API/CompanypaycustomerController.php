@@ -116,6 +116,8 @@ Customerstatement::Create([
    'transactiontype' => 1,
     'transactiondate' =>$request['dop'],  
     'description'=> 'Paid Customer ',
+    'customerdescription'=> 'Recieved Payyment from Ssennah General Hardware ',
+    
     'amount'=> $request['amountpaid'],
   'invoiceinaction'=> $receiptno,
   'transactionmode'=> 1,
@@ -156,6 +158,7 @@ Customerstatement::Create([
    'transactiontype' => 1,
     'transactiondate' =>$request['dop'],  
     'description'=> 'Paid Supplier',
+    'customerdescription'=> 'Recieved Payyment from Ssennah General Hardware',
     'amount'=> $request['amountpaid'],
     'invoiceinaction'=> $receiptno,
   'transactionmode'=> 1,

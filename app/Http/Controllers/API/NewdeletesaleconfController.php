@@ -92,9 +92,11 @@ $totallllllsaleontheinvoice =\DB::table('salessummaries')->where('invoiceno', '=
 if($newwalletbalance >= 0)
 {
     // updating the wallet balance
+    if($typeofsale == '1')
+    {
     DB::table('expensewalets')->where('id', $walletinactionone)->update(array('bal' => $newwalletbalance));
     DB::table('branchcashstandings')->where('branch', $branchsold)->update(array('outstanding' => $newwalletbalance));
-
+}
     // working on vat 
     $currentvatamount =\DB::table('expensewalets')->where('id', '=', 6)->value('bal');
     $newvatinamount = $currentvatamount- $totlvatin;
@@ -268,6 +270,26 @@ Incomestatementsummary::Create([
           'ucret' => $userid,
         
       ]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //// if credit sale  proceed to customer statement 
 if($typeofsale == '2')   
 {
@@ -307,6 +329,7 @@ Customerstatement::Create([
 'transactiontype' => 2,
 'transactiondate' =>$datenow,  
 'description'=> 'Adjusting : Goods sold on '.$datesold.' for a total of '.$totallllllsaleontheinvoice ,
+'customerdescription'=> 'Error correction '.'Adjusting : Goods sold on '.$datesold.' for a total of '.$totallllllsaleontheinvoice ,
 'debitamount'=> $totalamountsold,
 'deletecomment' => $reasonforcouncelling,
 'resultatantbalance' => $resultbalance,

@@ -427,6 +427,7 @@ if($customertype == '1')
     'transactiondate' =>$invoicedatetaken,  
     'invoiceinaction' => $invoiceno,
     'description'=> 'Sale of Goods to customer',
+    'customerdescription'=> 'Recieved Items from Ssennah General Hardware',
     'amount'=> $totallineforinvoice,
   
     'resultatantbalance' => $newcustomerbalance,
@@ -447,6 +448,7 @@ if($customertype == '2')
    'transactiontype' => 1,
     'transactiondate' =>$invoicedatetaken,  
     'description'=> 'Sale of Goods to supplier',
+    'customerdescription'=> 'Recieved Items from Ssennah General Hardware',
     'amount'=> $totallineforinvoice,
     'invoiceinaction' => $invoiceno,
     'resultatantbalance' => $newcustomerbalance,

@@ -13,7 +13,7 @@ class Customerstatement extends Authenticatable
    
     protected $fillable = [
          'customername', 'transactiontype', 'transactiondate', 'description', 'openningbal', 'amount', 
-         'debitamount', 'ucret', 'resultatantbalance','transactionmode', 'invoiceinaction','deletecomment'
+         'debitamount', 'ucret', 'resultatantbalance','transactionmode', 'invoiceinaction','deletecomment','customerdescription'
     ];
     public function customerName(){
         // creating a relationship between the students model 
