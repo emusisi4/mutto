@@ -8,11 +8,11 @@
 }
 .emmietopheader{
     text-align: center;
-    font-size: 2.5em;
+    font-size: 3.5em;
     font-weight: bold;
     font-family: monospace;
-    color: white;
-    background-color: #0064c8;
+    color: rgb(17, 16, 16);
+    background-color: #FF6600;
 
 }
 .emmietopheaderleft{

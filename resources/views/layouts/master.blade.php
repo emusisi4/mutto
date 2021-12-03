@@ -109,7 +109,7 @@
 
         ?>
            
-    SSENNAH - GENERAL HARDWARE - JJOGGO
+    MUTTO HARDWARE POINT - Namulanda
 </div>
 
     </nav>
