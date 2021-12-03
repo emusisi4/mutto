@@ -323,7 +323,7 @@ pre {
                     <div class="card">
                         <div class="header">
                             <h2>
-                         SENNAH HARDWARE   SALES REPORTS
+                            SALES REPORTS
                             </h2>
                             
                         </div>
@@ -3478,6 +3478,8 @@ axios.get("api/gettheinvoicetotalwithoutvat").then(({ data }) => (this.gettheinv
 
 
 //////////////////
+
+axios.get("api/salesdetailsreportdetailedrecords2").then(({ data }) => (this.salesdetailsreportdetailedrecords2 = data));
 
  axios.get("api/salesdetailscostofthesalesmadetotalrange").then(({ data }) => (this.salesdetailscostofthesalesmadetotalrange = data));
  

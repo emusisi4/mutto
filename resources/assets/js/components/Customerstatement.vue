@@ -220,6 +220,17 @@ th.price {
     text-transform: uppercase;
 
 }
+
+.proformarinvoicedatedetails88 {
+   width: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
+    font-size: 1.5em;
+    text-align: right;
+    font-weight: bold;
+    /* text-transform: uppercase; */
+
+}
 .proformarinvoicedatedetails {
    width: 100%;
     padding-left: 0px;
@@ -241,13 +252,34 @@ th.price {
     /* text-transform: uppercase; */
 
 }
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 10px;
+ 
+}
+
+.rowtty:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
 .hedermen{
       text-align: left;
-    font-size: 39px;
+    font-size: 27px;
     font-weight: bold;
 }
+.proformarinvoicecompanydetails2 {
+ 
+  
+    font-size: 1.5em;
+    text-align: right;
+   
+
+}
 .proformarinvoicecompanydetails {
-   width: 100%;
+   /* width: 100%; */
     padding-left: 0px;
     padding-right: 0px;
     font-size: 1.5em;
@@ -586,58 +618,22 @@ text-align: center;
                                         <i class="material-icons"></i> Payment Receipts
                                     </a>
                                 </li>
-                                <!-- <li role="presentation">
-                                    <a href="#settings_with_icon_title" v-if="companyproductsComponentaccess > 0" @click="laodProductdetails()" data-toggle="tab">
-                                        <i class="material-icons"></i> ITEMS / PRODUCTS
-                                    </a>
-                                </li> -->
-
-                                    <!-- <li role="presentation">
-                                    <a href="#one_with_icon_title" v-if="purchasesComponentaccess > 0" @click="loadPurchaseInvoicessummary()" data-toggle="tab">
-                                        <i class="material-icons"></i> PURCHASES
-                                    </a>
-                                </li> -->
-                                    
-                                    <!-- <li role="presentation">
-                                    <a href="#two_with_icon_title" v-if="purchaserecordsComponentaccess > 0" @click="loadPurchaserecords()" data-toggle="tab">
-                                        <i class="material-icons"></i> PURCHASES RECORDS
-                                    </a>
-                                </li>
-                                 <li role="presentation">
-                                    <a href="#two_with_icon_title" v-if="salessummaryComponentaccess > 0" @click="loadsalesSummary()" data-toggle="tab">
-                                        <i class="material-icons"></i> SALES RECEIPTS
-                                    </a>
-                                </li> -->
-                                 
-                                 <!-- <li role="presentation">
-                                    <a href="#three_with_icon_title" v-if="salesdetailsComponentaccess > 0" @click="loadactiveProductsonSale()" data-toggle="tab">
-                                        <i class="material-icons"></i> PRODUCT SALES DETAILS
-                                    </a>
-                                </li> -->
+                              
 
                             </ul>
 
-                            <!-- Tab panes -->
-                            <div class="tab-content">
 
 
 
-
-
-                              
-<div role="tabpanel"  class="tab-pane fade in active" id="home_with_icon_title"  v-if="categoriesComponentaccess > 0">
-            
-              
-<div class="ticket" id="print" style="background-color:white; display:none;" > 
+<div class="ticket" id="print">
  <div class="ticketreceipttitle"  > CUSTOMER STATEMENT </div>
-
  <hr>
-      <div class="proformarinvoicedatedetails"  > Statement Date : </div>
-         
-         
-           <div class="proformarinvoicedatedetails"  > Statement Number : </div>
-                <div class="proformarinvoicedatedetails"  > Customer ID : </div>
-           
+      <div class="proformarinvoicedatedetails"  > Invoice Number : {{creditinvoicenumbertoprint}}</div>
+          <!-- <div class="proformarinvoicedatedetails"  > Customer Order No. : </div> -->
+           <div class="proformarinvoicedatedetails"  > Order Date : {{getreceiptdate}}</div>
+                 <div class="proformarinvoicedatedetails88"  > Invoice Number : {{creditinvoicenumbertoprint}}</div>
+          <!-- <div class="proformarinvoicedatedetails"  > Customer Order No. : </div> -->
+           <div class="proformarinvoicedatedetails88"  > Order Date : {{getreceiptdate}}</div>
 
 
         <div class="proformarinvoicecompanydetails"  ><b> SSENNAH HARDWARE</b> </div>
@@ -647,17 +643,21 @@ text-align: center;
             <div class="proformarinvoicecompanydetails"  > Contact : 0702941704 / 0392941704 </div>
 <hr>
 
-<div class="customerstabdivename" >Customer Details </div>
+ <div class="proformarinvoicecompanydetails"  ><b>CUSTOMER DETAILS </b></div>
 
 <!-- axios.get("api/creditinvoicecustomername").then(({ data }) => (this.creditinvoicecustomername = data)); -->
- <div class="proformarinvoicecompanydetails"  > Name  </div>
-          <div class="proformarinvoicecompanydetails"  > Address : </div>
-           <div class="proformarinvoicecompanydetails"  >Contact :  </div>
+ <div class="proformarinvoicecompanydetails"  > Name {{creditinvoicecustomername}} </div>
+          <div class="proformarinvoicecompanydetails"  > Address : {{customeraddress}}</div>
+           <div class="proformarinvoicecompanydetails"  >Contact : {{customerinvoicecontact}} </div>
             <div class="proformarinvoicecompanydetails"  > Sales Mode : <b>CREDIT</b> </div>
             
-<div class="hedermen" style="text-align:left"> Account Activity </div>
 
-<table  class="musisireporttable" width="100%" border="1">
+
+
+             
+  
+           
+        <table  class="musisireporttable" width="100%" border="1">
 
 <tr>
        <th>#</th>
@@ -735,34 +735,31 @@ text-align: center;
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(totaldebtorsbalance)}} </div>
+<div class="musisialignright">  </div>
 </th>
 
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
-<div class="musisialignright"> {{currencydetails}} {{formatPrice(totalcreditorsbalance)}} </div>
-</th>
-<th style="font-size: 18px; text-align:center;    
-               border-top: 4px solid rgb(124 102 102);    
-                background-color: rgb(211 211 211); color: #131378;" >
 <div class="musisialignright">  </div>
 </th>
 <th style="font-size: 18px; text-align:center;    
                border-top: 4px solid rgb(124 102 102);    
                 background-color: rgb(211 211 211); color: #131378;" >
 <div class="musisialignright">  </div>
+</th>
+<th style="font-size: 18px; text-align:center;    
+               border-top: 4px solid rgb(124 102 102);    
+                background-color: rgb(211 211 211); color: #131378;" >
+                <!--  {{formatPrice(totalcreditorsbalance)}} -->
+<div class="musisialignright"> {{currencydetails}} </div>
 </th>
  </tr>
 </table>
-             
-  
-         
  <div class="proformarinvoicedatedetails"  > Authorised Company Signtory </div>
 <!-- <div class="ticketdisclaimer"  > Goods once Sold are not returnable </div> -->
 <footer>  Build the Best with Materials and tools from Us. </footer>
        
-
        
        
        
@@ -774,6 +771,42 @@ text-align: center;
        
        
         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+
+
+
+
+
+                              
+<div role="tabpanel"  class="tab-pane fade in active" id="home_with_icon_title"  v-if="categoriesComponentaccess > 0">
+            
+              
+
 
  <div class="bethapa-reports-header"  >
    
