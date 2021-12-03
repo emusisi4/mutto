@@ -415,14 +415,14 @@ pre {
    <img src="images/logo.png" class="profile-user-img img-fluid img-circle" 
    style="height: 140px; width: 181px;  margin: 6px;">
  
-   <div style="width:100%" ><h2  style="font-size: 30px;">SSENNA GENENERAL HARDWARE - JJOGO </h2>
+   <div style="width:100%" ><h2  style="font-size: 30px;">MUTTO HARDWARE POINT - NAMULANDA </h2>
    <h4 style="font-size: 20px;" >  <i>Dealers In: Cement, Ironsheets, paint, Iron Bars, Tiles, Plywood,
       Wiremesh and Other Building Materials.</i></h4> </div>
   
 </div>
-<div class="datesandreceiptno"  > <b>Location : Misindye - Jjogo </b> </div>
-   <div class="datesandreceiptnorev"  > <b>Tel: 0702 941 704 /
-     0702 941 704 
+<div class="datesandreceiptno"  > <b>Location : Namulanda - Entebbe Road </b> </div>
+   <div class="datesandreceiptnorev"  > <b>Tel: 0750 518 158 /
+     0775 096 473 
      </b> </div>
    
      <div class="recievedfromdiv"  > 
@@ -505,11 +505,11 @@ pre {
      <b style=" font-size: 25px;">       USD <input type="text" class="currenb" > </b> <b style=" font-size: 15px;">Invoice No.: ............................................................................ </b> 
            
            <p>
-            <div class="recievedbyttg"  > Cashier :Emmanuel  </div>
+            <div class="recievedbyttg"  > Cashier :  </div>
             <br>
             <div class="recievedbyttg"  > Signature : .................... </div>
             <br>
-            <div class="recievedbyttg"  > For : SSENNA GEN. HARDWARE - JJOGO </div>
+            <div class="recievedbyttg"  > For : Mutto Hardware Point</div>
             <br>
  <!-- <div class="receiptttinvofooter"  > Build the Best with Materials and tools from Us. </div> -->
         </div>

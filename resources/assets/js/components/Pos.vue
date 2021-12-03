@@ -370,7 +370,7 @@ text-align: center;
                             <i class="material-icons"></i>
                         </div>
                         <div class="content">
-                            <div class="text"><b>JOGO SHOP BALANCE </b></div>
+                            <div class="text"><b>SHOP BALANCE </b></div>
                             <div class="number count-to">
                               <b>{{currencydetails}}  {{formatPrice(shopcashbalance)}}</b></div>
                         </div>
@@ -382,7 +382,7 @@ text-align: center;
                             <i class="material-icons"></i>
                         </div>
                         <div class="content">
-                            <div class="text"><b>ADMINISTRATOR ACCOUNT  </b></div>
+                            <div class="text"><b>ADMINISTRATOR  </b></div>
                             <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20">
                               <b>{{currencydetails}}  {{formatPrice(administratoraccountbalance)}}</b></div>
                         </div>
@@ -395,7 +395,7 @@ text-align: center;
                             <i class="material-icons"></i>
                         </div>
                         <div class="content">
-                            <div class="text"><b>BANK ACCOUNT  </b></div>
+                            <div class="text"><b>BANK  </b></div>
                             <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20">
                               <b>{{currencydetails}}  {{formatPrice(bankaccountbalance)}}</b></div>
                         </div>
@@ -1285,11 +1285,11 @@ text-align: center;
 
 
 <div class="ticket" id="print">
-        <div class="ticketcompanyname"  > Ssennah Hardware </div>
-          <div class="ticketlocation"  > Misindye Jjogo </div>
-           <div class="ticketlocation"  > Bukeerere Road </div>
-            <div class="ticketcontact"  > 0702941704 / 0392941704 </div>
-            <div class="ticketcontact"  > Tin Number : 1019044346 </div>
+        <div class="ticketcompanyname"  > MUTTO HARDWARE POINT </div>
+          <div class="ticketlocation"  > Namulanda </div>
+           <div class="ticketlocation"  > Entebbe Road </div>
+            <div class="ticketcontact"  > 0750518158/0775096473  </div>
+            <!-- <div class="ticketcontact"  > Tin Number : 1019044346 </div> -->
 
 
             <div  class="ticketreceiptno"  > Receipt : {{getreceiptno}} </div>   
@@ -1343,7 +1343,9 @@ text-align: center;
   </tfoot>
 </table>
 <div class="ticketdisclaimer"  > Goods once Sold are not returnable </div>
- <div class="ticketreceipttitle"  > Build the Best with Materials and tools from Us. </div>
+ <!-- <div class="ticketreceipttitle"  > Build the Best with Materials and tools from Us. </div> -->
+  <div class="ticketreceipttitle"  > Thank you for your Business </div>
+ 
         </div>
 
 

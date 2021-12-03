@@ -742,7 +742,7 @@ Contact : 0702941704 / 0392941704
   </tfoot>
 </table>
 
-<div class="receipt-footer"> Ssennah Hardware Authorised signtory</div>
+<div class="receipt-footer"> Mutto Hardware Point Authorised signtory</div>
                     
 
 <div class="receipt-footer"> This is a computer Generated invoice</div>
@@ -806,11 +806,11 @@ Contact : 0702941704 / 0392941704
            
 
 
-        <div class="proformarinvoicecompanydetails"  ><b> SSENNAH HARDWARE</b> </div>
-          <div class="proformarinvoicecompanydetails"  > Misindye Jjoggo - Bukeerere Road  </div>
+        <div class="proformarinvoicecompanydetails"  ><b> MUTTO HARDWARE POINT</b> </div>
+          <div class="proformarinvoicecompanydetails"  > Namulanda Entebbe - Road  </div>
        
-            <div class="proformarinvoicecompanydetails"  > Tin Number : 1019044346 </div>
-            <div class="proformarinvoicecompanydetails"  > Contact : 0702941704 / 0392941704 </div>
+            <div class="proformarinvoicecompanydetails"  > Tin Number : </div>
+            <div class="proformarinvoicecompanydetails"  > Contact : 0750518158/0775096473  </div>
 <hr>
 
 <b>CUSTOMER DETAILS </b>
