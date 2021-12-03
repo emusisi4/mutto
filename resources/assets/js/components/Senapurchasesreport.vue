@@ -327,7 +327,7 @@ pre {
                     <div class="card">
                         <div class="header">
                             <h2>
-                         SENNAH HARDWARE   PURCHASES REPORTS
+                            PURCHASES REPORTS
                             </h2>
                             
                         </div>

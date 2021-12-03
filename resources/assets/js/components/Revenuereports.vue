@@ -1960,7 +1960,7 @@ Purchases report Summary by Invoice : From - To -
                             
                             <ul class="list-unstyled text-right">
                                <!-- <div class="invoice-logo"><img width="100" src="images/invoice.png" alt="Invoice logo"></div> -->
-                                <li><b>SENA Hardware Ltd </b></li>
+                                <li><b>Mutto Hardware Point</b></li>
                                 <li>Jogo</li>
                                 <li>0775294763</li>
                                 <li>VAT Number : EU826113958</li>
